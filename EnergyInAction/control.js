@@ -87,15 +87,6 @@ SiteManager.prototype.find = function (id) {
 } 
 
 
-// TODO: add API handlers 
-
-exports.labs = new SiteManager([
-    new LabEnergyManager("ux", "UX Lab.", "User Experience Lab."),
-    new LabEnergyManager("marg", "MARG Lab.", "Music and Audio Research Group"),
-    new LabEnergyManager("hcc", "HCC Lab.", "Human Centered Computing Laboratory")
-]);
-
-
 var LabEnergyManager = function (id, name, description) {
     this.id = id;
     this.name = name;
@@ -106,7 +97,7 @@ var LabEnergyManager = function (id, name, description) {
 }
 
 LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
-    // TODO:query db with a specific type
+    
     // type can be one of follows: secs, quarters, hours, total
     var collection = null;
     switch (type) {
@@ -139,10 +130,27 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
             "marg" : false,
             "hcc" : false
         }
-        filters[this.id] = true; // enable a specific lab information only
-
-        dbmgr.find(collection, queries, filters, cb);
+        delete filters[this.id]; // enable a specific lab information only
+        
+        if (dbmgr.dbOpened == false) {
+            dbmgr.open(function (result) {
+                if (result) {
+                    dbmgr.find(collection, queries, filters, cb);
+                }
+            })
+        } else {
+            dbmgr.find(collection, queries, filters, cb);
+        }
+        
             
-)
+
     }
 }
+
+// TODO: add API handlers 
+
+exports.labs = new SiteManager([
+    new LabEnergyManager("ux", "UX Lab.", "User Experience Lab."),
+    new LabEnergyManager("marg", "MARG Lab.", "Music and Audio Research Group"),
+    new LabEnergyManager("hcc", "HCC Lab.", "Human Centered Computing Laboratory")
+]);
