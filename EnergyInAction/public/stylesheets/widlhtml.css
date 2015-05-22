@@ -1,0 +1,109 @@
+body {
+  padding: 2em;
+  margin: 0;
+  font-family: 'Nanum Gothic';
+  color: black;
+  background: white;
+  background-position: top left;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+:link { color: #00C; background: transparent;  }
+:visited { color: #609; background: transparent;  }
+a:active { color: #C00; background: transparent;  }
+a:link img, a:visited img { border-style: none } /* no border on img links */
+
+h1, h2, h3, h4, h5, h6 { text-align: left }
+/* background should be transparent, but WebTV has a bug */
+h1, h2, h3 { color: #cf6129; background: white }
+h1 { font: bold 170% }
+h2 { font: bold 140% }
+h3 { font: bold 120% }
+h4 { font: bold 110% }
+h5 { font: italic 110% }
+h6 { font: bold small-caps 110% serif; margin-bottom: 0 }
+
+.hide { display: none }
+
+code { font-size: 100%;
+       font-family: Consolas;
+}
+
+ul.toc, ol.toc, ul.authors {
+  list-style: circle;
+}
+
+.hide { display: none }
+
+div.head { margin-bottom: 1em }
+div.head h1 { margin-top: 2em; clear: both }
+div.head table { margin-left: 2em; margin-top: 2em }
+div.constraint, div.issue, div.note, div.notice     { margin-left: 2em; }
+div.exampleInner pre { margin-left: 1em; margin-top: 0em; margin-bottom: 0em}
+div.exampleOuter {border: 4px double gray; margin: 0em; padding: 0em}
+div.exampleInner { background-color: #d5dee3;
+     	           border-top-width: 4px;
+       	           border-top-style: double;
+       	           border-top-color: #d3d3d3;
+       	           border-bottom-width: 4px;
+       	           border-bottom-style: double;
+       	           border-bottom-color: #d3d3d3;
+       	           padding: 4px; margin: 0em }
+div.exampleWrapper { margin: 4px }
+div.exampleHeader { font-weight: bold; margin: 4px}
+div.term { font: 100% serif; color:#000000; font-weight: bold; line-height: 60%}   
+div.list { font: 100% serif; color:#000000; font-weight: normal; line-height: 60%} 
+
+.optional {text-decoration: line-through; display: none;}
+
+.copyright,.legalnotice { font-size: small }
+.copyright small { font-size: small }
+
+@media screen {  /* hide from IE3 */
+a[href]:hover { background: #ffa }
+}
+
+ol.enumar      { list-style-type: decimal; }
+ol.enumla      { list-style-type: lower-alpha; }
+ol.enumlr      { list-style-type: lower-roman; }
+ol.enumua      { list-style-type: upper-alpha; }
+ol.enumur      { list-style-type: upper-roman; }
+
+.toc {
+    list-style-type: none;
+}
+
+pre {
+  background-color:#fdf2d1;
+  overflow: auto;
+  padding: 1em;
+  font-family: Consolas;
+}
+
+.examplecode {
+    background-color: #fdf2d1;
+    font-family: Consolas;
+}
+
+.def-api-feature-set dt, .def-api-feature dt, dt .def-device-cap, dt.const code { font: bold 100% serif; }
+dt.attribute code, dt.method code { 
+    font: italic 110% serif bold; 
+    font-family:'Lucida Console';
+    color:coral;
+}
+
+.def-device-caps dd { margin-bottom: 2em }
+
+dt.method { margin-top: 2em; font:bold; }
+.summary thead {
+    background-color: coral;
+}
+
+.summary td {
+    text-align: left;
+    background-color: #f3c098;
+    color: inherit;
+    font-family: 'Lucida Console';
+    white-space:pre;
+    padding: .3em 1em .3em 1em;
+}

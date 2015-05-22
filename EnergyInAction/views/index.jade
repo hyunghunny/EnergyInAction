@@ -1,0 +1,32 @@
+﻿extends layout
+
+block content
+    div.jumbotron
+        div.container  
+            h1 #{title}
+            p
+                br
+            p TODO
+            p For more details, please visit to:
+            p
+                a.btn.btn-primary.btn-lg(href='http://adsl.snu.ac.kr/') ADSL@SNU
+    div.container
+        p
+            | TODO        
+        p This version currently supports the following features:
+        div.row
+            div.col-lg-4
+                h2 1st DEMO
+                p TODO
+                p
+                    a.btn.btn-default(href='/thermometer') Go >>
+            div.col-lg-4
+                h2 REST API documentation
+                p It shows how to use the open API. 
+                p
+                    a.btn.btn-default(href='/apidoc/index.html') See details >>
+        hr
+        footer Copyright (C)Applied Data Science Lab.@SNU. This work is licensed under version 3.0 of the Creative Commons CC-BY license.
+    script(src='javascripts/jquery.js')
+    script(src='javascripts/bootstrap.min.js')
+    script(src='javascripts/holder.js')

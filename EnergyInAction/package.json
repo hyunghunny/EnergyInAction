@@ -1,0 +1,26 @@
+{
+    "name": "EnergyInAction",
+    "version": "0.0.0",
+    "description": "EnergyInAction",
+    "main": "app.js",
+    "author": {
+        "name": "Hyunghun Cho",
+        "email": "webofthink@snu.ac.kr"
+    },
+
+    "apidoc": {
+        "title": "API for Energy Usage Behavior Monitoring",
+        "url": "http://datascience.snu.ac.kr:3000/"
+    },
+
+    "dependencies": {
+        "express": "4.9.4",
+        "serve-favicon": "2.1.4",
+        "jade": "1.9.2",
+        "stylus": "*",
+        "body-parser": "1.12.3",
+        "cookie-parser": "1.3.4",
+        "mongodb": "2.0.28",
+        "morgan": "1.5.2"
+    }
+}
