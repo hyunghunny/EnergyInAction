@@ -62,6 +62,57 @@ MongoDBManager.prototype.insert = function (collectionName, obj) {
 
 }
 
+MongoDBManager.prototype.aggregateFeeders = function (collectionName, labId, queries, callback) {
+    
+     
+    if (this.dbOpened == false) {
+        console.log('database is not opened: invoke open() before find()');
+        callback(new Error("database is not opened."));
+        return;
+    }
+  
+    if (queries.startDate != null && queries.endDate != null) {
+  
+        console.log("Aggregate " + labId + "feeders" + " at " + queries.startDate + " ~ " + queries.endDate);
+    } else {
+        callback([]); // empty result
+        return;
+    }
+
+    this.db.collection(collectionName, function (err, collection) {
+        if (err) {
+            console.log(err);
+        } else {
+            var feeders = labId + ".feeders";
+            var feedersKey = "$" + feeders;
+            var feederIDKey = "$" + feeders + ".feederID";
+            var feederValueKey = "$" + feeders + ".value";
+            var projectObj = {}  
+            projectObj[feeders] = 1; // XXX: javaScript confused that feeders is the key name or the variable.
+
+            collection.aggregate([
+                { "$match": { "dateFrom" : {
+                            "$gt": queries.startDate, 
+                            "$lt": queries.endDate 
+                        }
+                    }
+                },
+                { "$project": projectObj },
+                { "$unwind": feedersKey },
+                { "$group": { _id : feederIDKey, "value" : { "$sum" : feederValueKey } } },
+                { "$sort" : { _id : 1 }}],
+                function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                callback(result);
+            });
+        }
+    });
+
+}
+
+
 MongoDBManager.prototype.find = function (collectionName, queries, filters, callback) {
     
     if (this.dbOpened == false) {
@@ -98,7 +149,6 @@ MongoDBManager.prototype.find = function (collectionName, queries, filters, call
     // filter out _id attribute in default;
     filters._id = false;
     
-    var self = this;    
     this.db.collection(collectionName, function (err, collection) {
         if (err) {
             console.log(err);

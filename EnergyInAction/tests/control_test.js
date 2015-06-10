@@ -7,6 +7,14 @@ var queries = {
     base_time: (new Date('2015-04-02')).getTime(),
     to_time: (new Date('2015-04-03')).getTime()
 }
-uxlab.retrieveUsages('secs', queries, function (result) {
-    console.log(result);
+
+/*
+var type = 'quarters' //'hours' // 'quarters' // 'secs'
+uxlab.retrieveUsages(type, queries, function (results) {
+    console.log(results);
 });
+ */
+
+uxlab.accumulateUsages(queries, function (results) {
+    console.log(results);
+})

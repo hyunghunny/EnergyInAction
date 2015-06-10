@@ -234,6 +234,12 @@ router.get('/labs/:labId/energy/secs.json', function (req, res) {
         }
         labObj.retrieveUsages('secs', queries, function (result) {
             if (result != null) {
+                for (var i = 0; i < result.length; i++) {
+                    var obs = result[i];
+                    var sum = visitFeeders(obs[id].feeders);
+                    obs.sum = sum;
+                    obs.unit = 'mW/s';
+                }
                 res.writeHead(200, controller.api.getContentHeader());
                 res.end(JSON.stringify(result));
             } else {
@@ -247,6 +253,34 @@ router.get('/labs/:labId/energy/secs.json', function (req, res) {
         res.sendStatus(err.message);
     }
 });
+
+/**
+ * visit all feeders for accumulate the power usages and unit transformation
+ * 
+ * @return the accumulated power usage
+ */
+function visitFeeders(feeders, unitType) {
+    var sum = 0.0;
+    var unit = 1;
+    switch (unitType) {
+        case 'mWh':
+            unit = 3600;
+            break;
+        case 'kWh':
+            unit = (3600 * 1000000);
+            break;
+        default:
+            unit = 1; // ERROR case!
+            break;
+    }
+    for (var i = 0; i < feeders.length; i++) {
+        var feeder = feeders[i];
+        sum = sum + feeder.value; // cummulate value
+        // unit transformation
+        feeder.value = feeder.value / unit;
+    }
+    return ( sum/unit );
+}
 
 function validateQueryParam(queries) {
     var base_time = queries.base_time;
@@ -262,7 +296,7 @@ function validateQueryParam(queries) {
     
     if (to_time == null) {
         var tommorow = new Date(today);
-        tommorow.setHours(today.getHours + 24);
+        tommorow.setHours(today.getHours() + 24);
 
         queries.to_time = tommorow.getTime();
     }
@@ -329,8 +363,16 @@ router.get('/labs/:labId/energy/quarters.json', function (req, res) {
             throw new Error('404');
         }
         labObj.retrieveUsages('quarters', queries, function (result) {
-            // TODO result SHOULD be translated to mWh
+            
             if (result != null) {
+                // result will be translated to mWh (/ 3600)
+                for (var i = 0; i < result.length; i++) {
+                    var obs = result[i];
+                    var sum = visitFeeders(obs[id].feeders, 'mWh');
+                    obs.sum = sum;
+                    obs.unit = 'mW/h';
+                }
+
                 res.writeHead(200, controller.api.getContentHeader());
                 res.end(JSON.stringify(result));
             } else {
@@ -377,9 +419,7 @@ router.get('/labs/:labId/energy/quarters.json', function (req, res) {
 router.get('/labs/:labId/energy/hours.json', function (req, res) {
     try {
         var id = req.params.labId;
-        
-        // TODO get query parameter
-        
+       
         var labObj = controller.labs.find(id);
         
         if (labObj == null) {
@@ -393,7 +433,13 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
 
         labObj.retrieveUsages('hours', queries, function (result) {
             if (result != null) {
-                // TODO result SHOULD be translated to kWh
+                // result will be translated to kWh
+                for (var i = 0; i < result.length; i++) {
+                    var obs = result[i];
+                    var sum = visitFeeders(obs[id].feeders, 'kWh');
+                    obs.sum = sum;
+                    obs.unit = 'kW/h';
+                }
                 res.writeHead(200, controller.api.getContentHeader());
                 res.end(JSON.stringify(result));
             } else {
@@ -446,8 +492,9 @@ router.get('/labs/:labId/energy/total.json', function (req, res) {
         }
 
         labObj.retrieveUsages('total', queries, function (result) {
-            // TODO result SHOULD be translated to kWh
+            
             if (result != null) {
+                // TODO result SHOULD be translated to kWh ( / (3600 * 1000000) ) 
                 res.writeHead(200, controller.api.getContentHeader());
                 res.end(JSON.stringify(result));
             } else {

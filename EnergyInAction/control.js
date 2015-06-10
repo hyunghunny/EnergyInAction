@@ -96,6 +96,39 @@ var LabEnergyManager = function (id, name, description) {
     // TODO: get feeder list at db
 }
 
+LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
+
+    var collection = 'site73_1sec'; // use 1 sec data
+
+    queries.startDate = new Date(queries.base_time);
+    queries.endDate = new Date(queries.to_time);
+
+    var self = this;
+
+    if (dbmgr.dbOpened == false) {
+        dbmgr.open(function (result) {
+            // TODO: how to add deviceID and location?
+            if (result) {
+                dbmgr.aggregateFeeders(collection, self.id, queries, function (results) {
+                    var returnObj = {};
+                    returnObj[self.id] = {}
+                    // results returns { _id: , value: } form
+                    for (var i = 0; i < results.length; i++) {
+                        var result = results[i];
+                        result.feederID = result._id; 
+                    }
+                    
+                    cb(results); 
+                });
+            }
+        })
+    } else {
+        dbmgr.aggregateFeeders(self.id, queries, cb);
+    }
+
+}
+
+
 LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
     
     // type can be one of follows: secs, quarters, hours, total
