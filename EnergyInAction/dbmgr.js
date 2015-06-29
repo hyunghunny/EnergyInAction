@@ -167,4 +167,34 @@ MongoDBManager.prototype.find = function (collectionName, queries, filters, call
  
 }
 
+MongoDBManager.prototype.findLatest = function (collectionName, callback) {
+    if (this.dbOpened == false) {
+        console.log('database is not opened: invoke open() before find()');
+        callback(new Error("database is not opened."));
+        return;
+    }
+    this.db.collection(collectionName, function (err, collection) {
+        if (err) {
+            console.log(err);
+        } else {
+            collection.find({}, { _id: false })
+                .sort({ dateFrom : -1 })
+                .limit(1)
+                .toArray(function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                if (result != null && result.length == 1) {
+                    callback(result[0]);
+                } else {
+                    callback(0); // XXX:unexpected return from mongodb
+                }        
+            });
+        }
+    });
+
+
+}
+
+
 module.exports = MongoDBManager;

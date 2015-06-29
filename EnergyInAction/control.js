@@ -91,14 +91,38 @@ var LabEnergyManager = function (id, name, description) {
     this.id = id;
     this.name = name;
     this.description = description;
-
+    var collection = 'site73_hour'; //'site73_1sec'; // use 1 sec data
+    this.deviceID = '';
+    this.location = '';
     this.feeders = []; // initialize feeder list
+    
+    var self = this;
     // TODO: get feeder list at db
+    if (dbmgr.dbOpened == false) {
+        dbmgr.open(function (result) {
+           
+            if (result) {
+                dbmgr.findLatest(collection, function (result) {
+                    
+                    var labObj = result[self.id];
+                    self.deviceID = labObj.deviceID;
+                    self.location = labObj.location;
+                    
+                    for (var i = 0; i < labObj.feeders.length; i++) {
+                        var feederObj = labObj.feeders[i];
+                        delete feederObj.value;
+                        self.feeders.push(feederObj);
+                    }
+                })
+            }
+        })
+    }
+
 }
 
 LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
 
-    var collection = 'site73_1sec'; // use 1 sec data
+    var collection = 'site73_hour'; //'site73_1sec'; // use 1 sec data
 
     queries.startDate = new Date(queries.base_time);
     queries.endDate = new Date(queries.to_time);
@@ -107,7 +131,7 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
 
     if (dbmgr.dbOpened == false) {
         dbmgr.open(function (result) {
-            // TODO: how to add deviceID and location?
+            // TODO: how to add deviceID and location information?
             if (result) {
                 dbmgr.aggregateFeeders(collection, self.id, queries, function (results) {
                     var returnObj = {};
@@ -115,9 +139,10 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
                     // results returns { _id: , value: } form
                     for (var i = 0; i < results.length; i++) {
                         var result = results[i];
-                        result.feederID = result._id; 
+                        result.feederID = result._id;
+                        delete result._id;
                     }
-                    
+                   
                     cb(results); 
                 });
             }
@@ -142,10 +167,6 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
             break;
         case 'hours':
             collection = 'site73_hour';
-            break;
-        case 'total':
-            // TODO: aggregate following collections:
-            collections = ['site73_1sec', 'site73_15min', 'site73_hour'];
             break;
         default:
             // ERROR: unknown type

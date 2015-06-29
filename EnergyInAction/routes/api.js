@@ -191,6 +191,45 @@ router.get('/labs/:labId', function (req, res) {
 });
 
 
+/**
+ * @api {get} api/labs:labId Show the Lab Energy Information
+ * @apiParam {String} labId Lab's unique ID.
+ * @apiName Show_the_Lab_Information
+ * @apiGroup Lab Information
+ * @apiHeader {String} Content-Type application/json
+ * @apiSuccessExample Success-Response:
+ *  HTTP/1.1 200 OK
+ *  {"id":"ux",
+ *  "name":"UX Lab.",
+ *  "description":"User Experience Lab.",
+ *  "api":[{"href":"/api/labs/ux/secs.json","type":"ItemList"},
+ *      {"href":"/api/labs/ux/quarters.json","type":"ItemList"},
+ *      {"href":"/api/labs/ux/hours.json","type":"ItemList"},
+ *      {"href":"/api/labs/ux/total.json","type":"ItemList"},
+ *      {"href":"/api/labs/ux/feeders","type":"ItemList"}]
+ *  }
+ *  
+ * 
+ * @apiDescription This API show the information of a specific Lab which are being monitored for energy usage behavior research. 
+ * 
+ */
+router.get('/labs/:labId/energy', function (req, res) {
+    try {
+        var id = req.params.labId;
+        
+        var labObj = controller.labs.find(id);
+        
+        if (labObj == null) {
+            throw new Error('404');
+        }
+        res.writeHead(200, controller.api.getContentHeader());
+        res.end(JSON.stringify(labObj));
+    } catch (err) {
+        // return error code here
+        res.sendStatus(err.message);
+    }
+});
+
 
 
 /**
@@ -211,7 +250,101 @@ router.get('/labs/:labId', function (req, res) {
  * @apiHeader {String} Content-Type application/json
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
- *  TODO
+ *  [  
+  {  
+    "dateFrom":"2015-04-01T00:00:00.000Z",
+    "dateTo":"2015-04-01T00:00:01.000Z",
+    "deviceID":1168,
+    "location":"D410",
+    "feeders":[  
+      {  
+        "feederID":3,
+        "value":0
+      },
+      {  
+        "feederID":4,
+        "value":0
+      },
+      {  
+        "feederID":5,
+        "value":0
+      },
+      {  
+        "feederID":6,
+        "value":0
+      },
+      {  
+        "feederID":7,
+        "value":0
+      },
+      {  
+        "feederID":8,
+        "value":0
+      },
+      {  
+        "feederID":9,
+        "value":0
+      },
+      {  
+        "feederID":10,
+        "value":0
+      },
+      {  
+        "feederID":11,
+        "value":0
+      },
+      {  
+        "feederID":12,
+        "value":0
+      },
+      {  
+        "feederID":13,
+        "value":0
+      },
+      {  
+        "feederID":14,
+        "value":0
+      },
+      {  
+        "feederID":15,
+        "value":0
+      },
+      {  
+        "feederID":16,
+        "value":0
+      },
+      {  
+        "feederID":17,
+        "value":0
+      },
+      {  
+        "feederID":18,
+        "value":0
+      },
+      {  
+        "feederID":19,
+        "value":0
+      },
+      {  
+        "feederID":20,
+        "value":0
+      },
+      {  
+        "feederID":21,
+        "value":0
+      },
+      {  
+        "feederID":22,
+        "value":0
+      },
+      {  
+        "feederID":23,
+        "value":0
+      }
+    ],
+    "sum":0,
+    "unit":"mW/s"
+  }]
  *  
  * 
  * @apiDescription This API retrieves the energy usage information of a specific Lab 
@@ -232,11 +365,16 @@ router.get('/labs/:labId/energy/secs.json', function (req, res) {
         if (queries == null) {
             throw new Error('404');
         }
+        
         labObj.retrieveUsages('secs', queries, function (result) {
             if (result != null) {
                 for (var i = 0; i < result.length; i++) {
                     var obs = result[i];
                     var sum = visitFeeders(obs[id].feeders);
+                    obs.deviceID = obs[id].deviceID;
+                    obs.location = obs[id].location;
+                    obs.feeders = obs[id].feeders;
+                    delete obs[id];
                     obs.sum = sum;
                     obs.unit = 'mW/s';
                 }
@@ -338,7 +476,101 @@ function validateQueryParam(queries) {
  * @apiHeader {String} Content-Type application/json
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
- *  TODO
+ *  [  
+  {  
+    "dateFrom":"2015-04-01T00:00:00.000Z",
+    "dateTo":"2015-04-01T00:15:00.000Z",
+    "deviceID":1168,
+    "location":"D410",
+    "feeders":[  
+      {  
+        "feederID":3,
+        "value":7.555555555555555
+      },
+      {  
+        "feederID":4,
+        "value":39.05555555555556
+      },
+      {  
+        "feederID":5,
+        "value":138323.75
+      },
+      {  
+        "feederID":6,
+        "value":33499.88888888889
+      },
+      {  
+        "feederID":7,
+        "value":4.277777777777778
+      },
+      {  
+        "feederID":8,
+        "value":84.38888888888889
+      },
+      {  
+        "feederID":9,
+        "value":63.166666666666664
+      },
+      {  
+        "feederID":10,
+        "value":28591.472222222223
+      },
+      {  
+        "feederID":11,
+        "value":45400.666666666664
+      },
+      {  
+        "feederID":12,
+        "value":45606.166666666664
+      },
+      {  
+        "feederID":13,
+        "value":160957.05555555556
+      },
+      {  
+        "feederID":14,
+        "value":2153.472222222222
+      },
+      {  
+        "feederID":15,
+        "value":12.333333333333334
+      },
+      {  
+        "feederID":16,
+        "value":0
+      },
+      {  
+        "feederID":17,
+        "value":0
+      },
+      {  
+        "feederID":18,
+        "value":0
+      },
+      {  
+        "feederID":19,
+        "value":0
+      },
+      {  
+        "feederID":20,
+        "value":0
+      },
+      {  
+        "feederID":21,
+        "value":0
+      },
+      {  
+        "feederID":22,
+        "value":0
+      },
+      {  
+        "feederID":23,
+        "value":0
+      }
+    ],
+    "sum":454743.25,
+    "unit":"mW/h"
+  },]
  *  
  * 
  * @apiDescription This API retrieves the energy usage information of a specific Lab 
@@ -369,6 +601,10 @@ router.get('/labs/:labId/energy/quarters.json', function (req, res) {
                 for (var i = 0; i < result.length; i++) {
                     var obs = result[i];
                     var sum = visitFeeders(obs[id].feeders, 'mWh');
+                    obs.deviceID = obs[id].deviceID;
+                    obs.location = obs[id].location;
+                    obs.feeders = obs[id].feeders;
+                    delete obs[id];
                     obs.sum = sum;
                     obs.unit = 'mW/h';
                 }
@@ -407,7 +643,101 @@ router.get('/labs/:labId/energy/quarters.json', function (req, res) {
  * @apiHeader {String} Content-Type application/json
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
- *  TODO
+ *  [  
+  {  
+    "dateFrom":"2015-04-01T00:00:00.000Z",
+    "dateTo":"2015-04-01T01:00:00.000Z",
+    "deviceID":1168,
+    "location":"D410",
+    "feeders":[  
+      {  
+        "feederID":3,
+        "value":0.00005997222222222222
+      },
+      {  
+        "feederID":4,
+        "value":0.0000695
+      },
+      {  
+        "feederID":5,
+        "value":0.6066586944444444
+      },
+      {  
+        "feederID":6,
+        "value":0.1342481388888889
+      },
+      {  
+        "feederID":7,
+        "value":0.000011361111111111111
+      },
+      {  
+        "feederID":8,
+        "value":0.0001768888888888889
+      },
+      {  
+        "feederID":9,
+        "value":0.00012825
+      },
+      {  
+        "feederID":10,
+        "value":0.143789
+      },
+      {  
+        "feederID":11,
+        "value":0.18312230555555556
+      },
+      {  
+        "feederID":12,
+        "value":0.1638166388888889
+      },
+      {  
+        "feederID":13,
+        "value":0.6445815555555555
+      },
+      {  
+        "feederID":14,
+        "value":0.008646055555555556
+      },
+      {  
+        "feederID":15,
+        "value":0.00016791666666666666
+      },
+      {  
+        "feederID":16,
+        "value":0
+      },
+      {  
+        "feederID":17,
+        "value":0
+      },
+      {  
+        "feederID":18,
+        "value":0
+      },
+      {  
+        "feederID":19,
+        "value":0
+      },
+      {  
+        "feederID":20,
+        "value":0
+      },
+      {  
+        "feederID":21,
+        "value":0
+      },
+      {  
+        "feederID":22,
+        "value":0
+      },
+      {  
+        "feederID":23,
+        "value":0
+      }
+    ],
+    "sum":1.8854762777777778,
+    "unit":"kW/h"
+  }]
  *  
  * 
  * @apiDescription This API retrieves the energy usage information of a specific Lab 
@@ -437,6 +767,10 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
                 for (var i = 0; i < result.length; i++) {
                     var obs = result[i];
                     var sum = visitFeeders(obs[id].feeders, 'kWh');
+                    obs.deviceID = obs[id].deviceID;
+                    obs.location = obs[id].location;
+                    obs.feeders = obs[id].feeders;
+                    delete obs[id];
                     obs.sum = sum;
                     obs.unit = 'kW/h';
                 }

@@ -15,7 +15,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>f6528f68-c78a-40f4-97b2-341dbe713b47</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>tests\control_test.js</StartupFile>
+    <StartupFile>app.js</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
