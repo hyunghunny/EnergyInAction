@@ -421,22 +421,28 @@ function visitFeeders(feeders, unitType) {
 }
 
 function validateQueryParam(queries) {
-    var base_time = queries.base_time;
-    var to_time = queries.to_time;
+    var base_time = Number(queries.base_time);
+    var to_time = Number(queries.to_time);
     var count = queries.limit;
     var index = queries.skip;
-    var today = new Date();
+    
 
-    if (base_time == null) {        
+    if (isNaN(base_time)) {
+        var today = new Date();        
         today.setHours(0, 0, 0, 0);
         queries.base_time = today.getTime();
+    } else {
+        var today = new Date(base_time);
+        queries.base_time = base_time;
     }
     
-    if (to_time == null) {
+    if (isNaN(to_time)) {
         var tommorow = new Date(today);
         tommorow.setHours(today.getHours() + 24);
 
         queries.to_time = tommorow.getTime();
+    } else {
+        queries.to_time = to_time;
     }
     
     if (base_time > to_time) {
@@ -824,11 +830,23 @@ router.get('/labs/:labId/energy/total.json', function (req, res) {
         if (labObj == null) {
             throw new Error('404');
         }
+        // validate query parameter
+        var queries = validateQueryParam(req.query);
+        if (queries == null) {
+            throw new Error('404');
+        }
 
-        labObj.retrieveUsages('total', queries, function (result) {
+        labObj.accumulateUsages(queries, function (result) {
             
             if (result != null) {
-                // TODO result SHOULD be translated to kWh ( / (3600 * 1000000) ) 
+                // result will be translated to kWh
+                for (var i = 0; i < result.length; i++) {
+                    var obs = result[i];
+                    var sum = visitFeeders(obs.feeders, 'kWh');
+                  
+                    obs.sum = sum;
+                    obs.unit = 'kW/h';
+                }
                 res.writeHead(200, controller.api.getContentHeader());
                 res.end(JSON.stringify(result));
             } else {

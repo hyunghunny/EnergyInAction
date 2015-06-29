@@ -122,33 +122,60 @@ var LabEnergyManager = function (id, name, description) {
 
 LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
 
-    var collection = 'site73_hour'; //'site73_1sec'; // use 1 sec data
-
+    var collection = 'site73_hour'; //'site73_1sec'
+    
+    // TODO: invoke aggregateFeeders twice, first with hour collection and the other with 1 sec collection 
     queries.startDate = new Date(queries.base_time);
     queries.endDate = new Date(queries.to_time);
-
+    
+    var dateFrom = (queries.startDate);
+    var dateTo = (queries.endDate); 
     var self = this;
-
+    // XXX: remove code duplicate
     if (dbmgr.dbOpened == false) {
         dbmgr.open(function (result) {
-            // TODO: how to add deviceID and location information?
+            
             if (result) {
                 dbmgr.aggregateFeeders(collection, self.id, queries, function (results) {
                     var returnObj = {};
-                    returnObj[self.id] = {}
+                    returnObj["dateFrom"] = dateFrom;
+                    returnObj["dateTo"] = dateTo;
+                    
                     // results returns { _id: , value: } form
                     for (var i = 0; i < results.length; i++) {
                         var result = results[i];
                         result.feederID = result._id;
                         delete result._id;
                     }
-                   
-                    cb(results); 
+                    returnObj["deviceID"] = self.deviceID;
+                    returnObj["location"] = self.location;
+                    returnObj["feeders"] = results;
+                    var returnArray = [];
+                    returnArray.push(returnObj);                   
+                    cb(returnArray); 
                 });
             }
         })
     } else {
-        dbmgr.aggregateFeeders(self.id, queries, cb);
+        dbmgr.aggregateFeeders(collection, self.id, queries, function (results) {
+            var returnObj = {};
+            returnObj["dateFrom"] = dateFrom;
+            returnObj["dateTo"] = dateTo;
+            
+            // results returns { _id: , value: } form
+            for (var i = 0; i < results.length; i++) {
+                var result = results[i];
+                result.feederID = result._id;
+                delete result._id;
+            }
+            returnObj["deviceID"] = self.deviceID;
+            returnObj["location"] = self.location;
+            returnObj["feeders"] = results;
+            var returnArray = [];
+            returnArray.push(returnObj);
+            cb(returnArray);
+        });
+
     }
 
 }
