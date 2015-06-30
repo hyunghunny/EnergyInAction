@@ -97,7 +97,7 @@ var LabEnergyManager = function (id, name, description) {
     this.feeders = []; // initialize feeder list
     
     var self = this;
-    // TODO: get feeder list at db
+    // get feeder list at db
     if (dbmgr.dbOpened == false) {
         dbmgr.open(function (result) {
            
@@ -123,57 +123,53 @@ var LabEnergyManager = function (id, name, description) {
 LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
 
     var collection = 'site73_hour'; //'site73_1sec'
-    
-    // TODO: invoke aggregateFeeders twice, first with hour collection and the other with 1 sec collection 
-    queries.startDate = new Date(queries.base_time);
-    queries.endDate = new Date(queries.to_time);
-    
-    var dateFrom = (queries.startDate);
-    var dateTo = (queries.endDate); 
+
     var self = this;
-    // XXX: remove code duplicate
+    
     if (dbmgr.dbOpened == false) {
-        dbmgr.open(function (result) {
-            
-            if (result) {
-                dbmgr.aggregateFeeders(collection, self.id, queries, function (results) {
-                    var returnObj = {};
-                    returnObj["dateFrom"] = dateFrom;
-                    returnObj["dateTo"] = dateTo;
-                    
-                    // results returns { _id: , value: } form
-                    for (var i = 0; i < results.length; i++) {
-                        var result = results[i];
-                        result.feederID = result._id;
-                        delete result._id;
-                    }
-                    returnObj["deviceID"] = self.deviceID;
-                    returnObj["location"] = self.location;
-                    returnObj["feeders"] = results;
-                    var returnArray = [];
-                    returnArray.push(returnObj);                   
-                    cb(returnArray); 
-                });
-            }
-        })
+        console.log('database is not opened.');
+        cb(null);
     } else {
-        dbmgr.aggregateFeeders(collection, self.id, queries, function (results) {
-            var returnObj = {};
-            returnObj["dateFrom"] = dateFrom;
-            returnObj["dateTo"] = dateTo;
-            
-            // results returns { _id: , value: } form
-            for (var i = 0; i < results.length; i++) {
-                var result = results[i];
-                result.feederID = result._id;
-                delete result._id;
-            }
-            returnObj["deviceID"] = self.deviceID;
-            returnObj["location"] = self.location;
-            returnObj["feeders"] = results;
-            var returnArray = [];
-            returnArray.push(returnObj);
-            cb(returnArray);
+        queries.startDate = new Date(queries.base_time);
+        queries.endDate = new Date(queries.to_time - (queries.to_time % 3600000)); // truncate hours only
+
+        
+        dbmgr.aggregateFeeders('site73_hour', self.id, queries, function (results) {
+            var hoursResults = results;
+            queries.startDate = new Date(queries.endDate);
+            queries.endDate = new Date(queries.to_time);
+
+            dbmgr.aggregateFeeders('site73_1sec', self.id, queries, function (results) {
+                
+                var secsResults = results;
+                var returnObj = {};
+                returnObj["dateFrom"] = queries.startDate;
+                returnObj["dateTo"] = queries.endDate;
+                
+                var mergedResults = [];
+                // results returns { _id: , value: } form
+                for (var i = 0; i < hoursResults.length; i++) {
+                    var hourResult = hoursResults[i];
+                    var mergedResult = hourResult;
+                    for (var j = 0; j < secsResults.length; j++) {
+                        var secResult = secsResults[j];
+                        if (secResult._id === mergedResult._id) {
+                            mergedResult.value = hoursResults[i].value + secResult.value; // XXX: add hours value and secs value
+                    
+                        }
+                    }
+                    
+                    mergedResult.feederID = mergedResult._id;
+                    delete mergedResult._id;
+                    mergedResults.push(mergedResult);
+                }
+                returnObj["deviceID"] = self.deviceID;
+                returnObj["location"] = self.location;
+                returnObj["feeders"] = mergedResults;
+                var returnArray = [];
+                returnArray.push(returnObj);
+                    cb(returnArray);
+            });
         });
 
     }

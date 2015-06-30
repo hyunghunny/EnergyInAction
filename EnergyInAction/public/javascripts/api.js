@@ -67,6 +67,16 @@ var DiscoveryManager = (function () {
     return DiscoveryManager;
 })();
 
+var LabsManager = (function (_super) {
+    __extends(LabsManager, _super);
+    function LabsManager(url) {
+        url = url + '/api/labs';
+        _super.call(this, url);
+        logger.i('The Manager of sensors at ' + url + ' initialized.');
+    }
+    return LabsManager;
+})(DiscoveryManager);
+
 var SensorsManager = (function (_super) {
     __extends(SensorsManager, _super);
     function SensorsManager(url) {
@@ -280,6 +290,8 @@ var Led = (function (_super) {
 
 // Factory class for creating APIs object
 var OpenAPIManager = (function () {
+    //    public sensors: SensorsManager;
+    //    public actuators: ActuatorsManager;
     function OpenAPIManager(options) {
         // default options
         this.options = {
@@ -288,8 +300,8 @@ var OpenAPIManager = (function () {
         if (options && options.host) {
             this.options.host = options.host;
         }
-        this.sensors = new SensorsManager(this.options.host);
-        this.actuators = new ActuatorsManager(this.options.host);
+        //        this.sensors = new SensorsManager(this.options.host);
+        //        this.actuators = new ActuatorsManager(this.options.host);
     }
     return OpenAPIManager;
 })();

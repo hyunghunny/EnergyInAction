@@ -42,11 +42,13 @@
     <Compile Include="public\javascripts\api.js" />
     <Compile Include="public\javascripts\api.ts.js" />
     <Compile Include="public\javascripts\bootstrap.min.js" />
+    <Compile Include="public\javascripts\daily.js" />
     <Compile Include="public\javascripts\gchart.js" />
     <Compile Include="public\javascripts\holder.js" />
     <Compile Include="public\javascripts\jquery.js" />
     <Compile Include="public\javascripts\thermometer.js" />
     <Compile Include="routes\api.js" />
+    <Compile Include="routes\daily.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="tests\control_test.js" />
     <Content Include="package.json" />
@@ -61,6 +63,7 @@
     <Content Include="public\stylesheets\style.styl" />
     <Content Include="public\stylesheets\widlhtml.css" />
     <Content Include="README.md" />
+    <Content Include="views\daily.jade" />
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
   </ItemGroup>

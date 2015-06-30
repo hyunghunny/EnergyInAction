@@ -812,7 +812,102 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
  * @apiHeader {String} Content-Type application/json
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
- *  TODO
+ *  [  
+  {  
+    "dateFrom":"2015-04-02T07:00:00.000Z",
+    "dateTo":"2015-04-02T07:33:20.000Z",
+    "deviceID":1168,
+    "location":"D410",
+    "feeders":[  
+      {  
+        "value":0.0005318055555555555,
+        "feederID":3
+      },
+      {  
+        "value":0.0005967777777777778,
+        "feederID":4
+      },
+      {  
+        "value":5.167977,
+        "feederID":5
+      },
+      {  
+        "value":1.6122869722222222,
+        "feederID":6
+      },
+      {  
+        "value":0.00017716666666666667,
+        "feederID":7
+      },
+      {  
+        "value":0.0006883611111111112,
+        "feederID":8
+      },
+      {  
+        "value":0.0007983888888888888,
+        "feederID":9
+      },
+      {  
+        "value":1.07408875,
+        "feederID":10
+      },
+      {  
+        "value":1.3434753888888888,
+        "feederID":11
+      },
+      {  
+        "value":2.584917,
+        "feederID":12
+      },
+      {  
+        "value":9.474049138888889,
+        "feederID":13
+      },
+      {  
+        "value":0.057007555555555554,
+        "feederID":14
+      },
+      {  
+        "value":0.0007699166666666667,
+        "feederID":15
+      },
+      {  
+        "value":0,
+        "feederID":16
+      },
+      {  
+        "value":0,
+        "feederID":17
+      },
+      {  
+        "value":0,
+        "feederID":18
+      },
+      {  
+        "value":0,
+        "feederID":19
+      },
+      {  
+        "value":0,
+        "feederID":20
+      },
+      {  
+        "value":0,
+        "feederID":21
+      },
+      {  
+        "value":0,
+        "feederID":22
+      },
+      {  
+        "value":0,
+        "feederID":23
+      }
+    ],
+    "sum":21.31736422222222,
+    "unit":"kW/h"
+  }
+]
  *  
  * 
  * @apiDescription This API retrieves the energy usage information of a specific Lab 

@@ -10,6 +10,9 @@ var routes = require('./routes/index');
 // add to response open API
 var apis = require('./routes/api');
 
+// add demo pages
+var daily = require('./routes/daily');
+
 var app = express();
 
 // to support CORS
@@ -42,6 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/api', apis);
+app.use('/daily', daily);
 
 
 // catch 404 and forward to error handler

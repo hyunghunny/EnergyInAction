@@ -52,6 +52,16 @@ class DiscoveryManager {
 
 }
 
+class LabsManager extends DiscoveryManager {
+    constructor(url: string) {
+        url = url + '/api/labs';
+        super(url);
+        logger.i('The Manager of sensors at ' + url + ' initialized.');
+    }
+
+    // TODO:add method here
+}
+
 class SensorsManager extends DiscoveryManager {
 
     constructor(url: string) {
@@ -306,8 +316,8 @@ interface OpenAPIOptions {
 class OpenAPIManager {
 
     public options: OpenAPIOptions;
-    public sensors: SensorsManager;
-    public actuators: ActuatorsManager;
+//    public sensors: SensorsManager;
+//    public actuators: ActuatorsManager;
 
     constructor(options?:OpenAPIOptions) {
         // default options
@@ -317,8 +327,8 @@ class OpenAPIManager {
         if (options && options.host) {
             this.options.host = options.host;
         } 
-        this.sensors = new SensorsManager(this.options.host);
-        this.actuators = new ActuatorsManager(this.options.host);        
+//        this.sensors = new SensorsManager(this.options.host);
+//        this.actuators = new ActuatorsManager(this.options.host);        
   
     }
 }
