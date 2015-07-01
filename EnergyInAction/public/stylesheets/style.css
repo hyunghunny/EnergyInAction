@@ -12,10 +12,11 @@ a {
 
 .jumbotron {
     background-image: url(../images/cover.jpg);
-    background-position: 0% 25%;
+    background-position: right center;
     background-size: auto; 
     background-repeat: no-repeat;
     color: #808080;
+    text-shadow: black 0.1em 0.1em 0.1em;
 }
 
 .jumbotron h1 {

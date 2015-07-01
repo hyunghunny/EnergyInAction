@@ -143,8 +143,8 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
                 
                 var secsResults = results;
                 var returnObj = {};
-                returnObj["dateFrom"] = queries.startDate;
-                returnObj["dateTo"] = queries.endDate;
+                returnObj["dateFrom"] = new Date(queries.base_time);
+                returnObj["dateTo"] = new Date(queries.to_time);
                 
                 var mergedResults = [];
                 // results returns { _id: , value: } form
