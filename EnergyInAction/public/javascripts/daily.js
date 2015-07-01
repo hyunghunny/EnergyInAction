@@ -1,4 +1,4 @@
-﻿var day = new Date('2015-4-10');
+﻿var day = new Date('2015-4-1');
 var dayTime = day.getTime();
 var hccTotal = 0;
 var margTotal = 0;
@@ -6,7 +6,7 @@ var uxTotal = 0;
 $(function () {
     document.getElementById("date").innerHTML = (day.getMonth() + 1) + '월 ' + day.getDate() + '일 사용량';
     invokeOpenAPI('/api/labs/hcc/energy/total.json?base_time=' + dayTime, function (data) {
-        //alert(data[0].sum + ' ' + data[0].unit);
+        alert(data[0].sum + ' ' + data[0].unit);
         hccTotal = data[0].sum;
         // TODO:get computer usage
         // TODO:get light usage
@@ -35,7 +35,6 @@ $(function () {
         });
 
     });
-
 
 });
 
