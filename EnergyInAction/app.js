@@ -12,6 +12,8 @@ var apis = require('./routes/api');
 
 // add demo pages
 var daily = require('./routes/daily');
+var daily_flow = require('./routes/daily_flow');
+
 
 var app = express();
 
@@ -46,6 +48,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/api', apis);
 app.use('/daily', daily);
+app.use('/daily_flow', daily_flow);
 
 
 // catch 404 and forward to error handler
