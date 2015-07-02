@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1 일일 전력 사용량
+    p 다음 line chart는 각 랩 별 일일 전력 사용량 변화를 보여줍니다. 날짜를 선택하세요.
+    div#dropdown
+        button.btn.btn-default.dropdown-toggle(type="button" id="menu1" data-toggle="dropdown") 2015-??-??
+            span.caret
+        ul.dropdown-menu(role="menu" aria-labelledby="menu1")
+    h2#date #{date}
+    div#container(style='min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto')
+    script(src='http://code.highcharts.com/highcharts.js')
+    script(src='http://code.highcharts.com/modules/data.js')
+    script(src='http://code.highcharts.com/modules/exporting.js')
+
+    script(src='http://www.highcharts.com/media/com_demo/highslide-full.min.js')
+    script(src='http://www.highcharts.com/media/com_demo/highslide.config.js')
+
+    script(src='javascripts/api.js')
+    script(src='javascripts/daily_flow.js')
+
+

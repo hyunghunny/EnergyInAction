@@ -1,4 +1,4 @@
-﻿var day = new Date('2015-04-03');
+var day = new Date('2015-04-03');
 var dayTime = day.getTime();
 
 var margTotal = 0;
