@@ -137,7 +137,7 @@ MongoDBManager.prototype.find = function (collectionName, queries, filters, call
         //TODO:validate dateString later
         
         dbquery.dateFrom = {
-            $gt: queries.startDate, 
+            $gte: queries.startDate, 
             $lt: queries.endDate  
         }
         console.log("Find " + queries.startDate + " ~ " + queries.endDate);
