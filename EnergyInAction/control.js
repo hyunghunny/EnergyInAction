@@ -122,8 +122,6 @@ var LabEnergyManager = function (id, name, description) {
 
 LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
 
-    var collection = 'site73_hour'; //'site73_1sec'
-
     var self = this;
     
     if (dbmgr.dbOpened == false) {

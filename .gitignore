@@ -187,3 +187,8 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
+.ntvs_analysis.dat
+
+# exclude node modules 
+EnergyInAction/node_modules
