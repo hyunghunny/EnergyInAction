@@ -130,15 +130,17 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
     } else {
         queries.startDate = new Date(queries.base_time);
         queries.endDate = new Date(queries.to_time - (queries.to_time % 3600000)); // truncate hours only
-
+        console.log('hour data from ' + queries.startDate + ' to ' + queries.endDate);
         
         dbmgr.aggregateFeeders('site73_hour', self.id, queries, function (results) {
+            console.log('returns of hourly data: ' + results.length);
             var hoursResults = results;
-            queries.startDate = new Date(queries.endDate);
+            queries.startDate = new Date(queries.endDate);            
             queries.endDate = new Date(queries.to_time);
+            console.log('secs data from ' + queries.startDate + ' to ' + queries.endDate);
 
             dbmgr.aggregateFeeders('site73_1sec', self.id, queries, function (results) {
-                
+                console.log('returns of sec data: ' + results.length);
                 var secsResults = results;
                 var returnObj = {};
                 returnObj["dateFrom"] = new Date(queries.base_time);
