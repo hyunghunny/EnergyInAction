@@ -1,15 +1,10 @@
 var dayLabel = new Array('일', '월', '화', '수', '목', '금', '토');
 var baseDay = new Date('2015-04-03');
-var toDay   = new Date('2015-04-06');
-
 var baseTime = baseDay.getTime();
-var   toTime = toDay.getTime();
 
 $(function () {
-    document.getElementById("date").innerHTML = 'MARG ' +
-                                                (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ') ~ ' +
-                                                (  toDay.getMonth() + 1) + '월 ' +    toDay.getDate() + '일(' + dayLabel[  toDay.getDay()] + ') 사용량';
-    query = '/api/labs/marg/energy/hours.json?base_time=' + baseTime + '&to_time=' + toTime;
+    document.getElementById("date").innerHTML = 'MARG ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ')' + '사용량';
+    query = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
     invokeOpenAPI(query, function (data) {
 
     //console.log(baseTime, toTime);
