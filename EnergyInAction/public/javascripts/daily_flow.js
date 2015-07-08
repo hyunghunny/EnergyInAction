@@ -1,22 +1,26 @@
 //var dayLabel = new Array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
 var dayLabel = new Array('일', '월', '화', '수', '목', '금', '토');
-var baseDay = new Date('2015-04-07');
+var baseDay = new Date('2015-04-03');
+var toDay   = new Date('2015-04-06');
 
-
-var dayTime = baseDay.getTime();
+var baseTime = baseDay.getTime();
+var   toTime = toDay.getTime();
 
 $(function () {
-    document.getElementById("date").innerHTML = 'MARG ' + (baseDay.getMonth() + 1) + '월 ' + baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ') 사용량';
-    invokeOpenAPI('/api/labs/marg/energy/hours.json?base_time=' + dayTime, function (data) {
-    //alert(data[0].sum + ' ' + data[0].unit);
-    //console.log(data[0].feeders[4].value + ' ' + data[0].feeders[4].feederID);
-    //console.log(data[0].feeders[5].value + ' ' + data[0].feeders[5].feederID);
-    //console.log(data[0].feeders[11].value + ' ' + data[0].feeders[11].feederID);
+    document.getElementById("date").innerHTML = 'MARG ' +
+                                                (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ') ~ ' +
+                                                (  toDay.getMonth() + 1) + '월 ' +    toDay.getDate() + '일(' + dayLabel[  toDay.getDay()] + ') 사용량';
+    query = '/api/labs/marg/energy/hours.json?base_time=' + baseTime + '&to_time=' + toTime;
+    invokeOpenAPI(query, function (data) {
+
+    //console.log(baseTime, toTime);
+    //console.log(query);
+    //console.log(data);
 
     plotData = "Day,Computer,Light,Others\n"
 
     for(var index = 0; index < data.length; index++){
-      label = data[index].dateFrom.substring(11,13);
+      label = data[index].dateFrom.substring(5,7) + '/' + data[index].dateFrom.substring(8,10) + ' ' + data[index].dateFrom.substring(11,13) + '시,';
       margTotal = data[index].sum;
       margCom   = data[index].feeders[4].value +
                   data[index].feeders[5].value +
@@ -24,13 +28,15 @@ $(function () {
       margLight = data[index].feeders[14].value;
       margOther = margTotal - margCom - margLight;
 
-      console.log(label, margCom.toFixed(2), margLight.toFixed(2), margOther.toFixed(2));
+      //console.log(label, margCom.toFixed(2), margLight.toFixed(2), margOther.toFixed(2));
 
       plotData = plotData +
-                 label + "시," + margCom.toFixed(2) + "," + margLight.toFixed(2) + "," + margOther.toFixed(2) + "\n";
+                 label + margCom.toFixed(2) + "," + margLight.toFixed(2) + "," + margOther.toFixed(2) + "\n";
 
-      console.log(plotData)
     };
+
+    console.log(plotData);
+    console.log(query);
 
     showChart(plotData);
 
@@ -58,9 +64,12 @@ function showChart(data) {
                   tickWidth: 0,
                   gridLineWidth: 1,
                   labels: {
+                      formatter: function() {
+                        return this.value.substring(6,10);
+                      },
                       align: 'left',
                       x: 3,
-                      y: -3
+                      y: -5
                   }
               },
 
