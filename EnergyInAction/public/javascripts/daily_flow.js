@@ -1,9 +1,12 @@
-var base_day = new Date('2015-04-07');
+//var dayLabel = new Array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
+var dayLabel = new Array('일', '월', '화', '수', '목', '금', '토');
+var baseDay = new Date('2015-04-07');
 
-var dayTime = base_day.getTime();
+
+var dayTime = baseDay.getTime();
 
 $(function () {
-    document.getElementById("date").innerHTML = (base_day.getMonth() + 1) + '월 ' + base_day.getDate() + '일(' + base_day.getDay() + ') 사용량';
+    document.getElementById("date").innerHTML = 'MARG ' + (baseDay.getMonth() + 1) + '월 ' + baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ') 사용량';
     invokeOpenAPI('/api/labs/marg/energy/hours.json?base_time=' + dayTime, function (data) {
     //alert(data[0].sum + ' ' + data[0].unit);
     //console.log(data[0].feeders[4].value + ' ' + data[0].feeders[4].feederID);
@@ -37,13 +40,6 @@ $(function () {
 
 function showChart(data) {
 
-      // Get the CSV and create the chart
-//      $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?', function (csv) {
-
-//          console.log(csv);
-
-//          csv = "Day,MARG,HCC,UX\n3/9/13,5691,4346,4546\n3/10/13,5403,4112,6112\n3/11/13,15574,11356,9356";
-
           $('#container').highcharts({
 
               data: {
@@ -51,10 +47,10 @@ function showChart(data) {
                   csv: data
               },
               title: {
-                  text: 'Daily Electricity Usage'
+                  text: 'Daily Electricity Usage (kW/h)'
               },
               subtitle: {
-                  text: 'Source: SNU Encored data'
+                  text: 'Source: Encored SNU data'
               },
 
               xAxis: {
@@ -108,6 +104,7 @@ function showChart(data) {
                   crosshairs: true
               },
 
+              /*
               plotOptions: {
                   series: {
                       cursor: 'pointer',
@@ -121,7 +118,7 @@ function showChart(data) {
                                       },
                                       headingText: this.series.name,
                                       maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':<br/> ' +
-                                          this.y + ' visits',
+                                          this.y + ' kW/h',
                                       width: 200
                                   });
                               }
@@ -142,6 +139,7 @@ function showChart(data) {
               }, {
                   name: 'New visitors'
               }]
+              */
           });
 //      });
 }
