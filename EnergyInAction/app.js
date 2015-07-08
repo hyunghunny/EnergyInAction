@@ -13,7 +13,8 @@ var apis = require('./routes/api');
 // add demo pages
 var daily = require('./routes/daily');
 var daily_flow = require('./routes/daily_flow');
-
+var beyond_extremes = require('./routes/beyond_extremes');
+var live = require('./routes/live');
 
 var app = express();
 
@@ -22,7 +23,7 @@ var allowCrossDomain = function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-    
+
     // intercept OPTIONS method
     if ('OPTIONS' == req.method) {
         res.send(200);
@@ -49,7 +50,8 @@ app.use('/', routes);
 app.use('/api', apis);
 app.use('/daily', daily);
 app.use('/daily_flow', daily_flow);
-
+app.use('/beyond_extremes', beyond_extremes);
+app.use('/live', live);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
