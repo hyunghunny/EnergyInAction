@@ -1,6 +1,7 @@
 ﻿var day = new Date('2015-04-03');
 var dayTime = day.getTime();
 
+/*
 var margTotal = 0;
 var margCom = 0;
 var margLight = 0;
@@ -15,6 +16,7 @@ var uxTotal = 0;
 var uxCom = 0;
 var uxLight = 0;
 var uxOther = 0;
+*/
 
 // margComFeederID = [4,5,11]
 // margLightFeederID = [14]
@@ -34,25 +36,25 @@ $(function () {
         //console.log(data[0].feeders[11].value + ' ' + data[0].feeders[11].feederID);
 
         margTotal = data[0].sum;
-        margCom   = data[0].feeders[4].value + 
-                    data[0].feeders[5].value + 
+        margCom   = data[0].feeders[4].value +
+                    data[0].feeders[5].value +
                     data[0].feeders[11].value;
         margLight = data[0].feeders[14].value;
         margOther = margTotal - margCom - margLight;
-        
+
         console.log(margTotal, margCom, margLight, margOther);
 
         invokeOpenAPI('/api/labs/hcc/energy/total.json?base_time=' + dayTime, function (data) {
             //alert(data[0].sum + ' ' + data[0].unit);
-            
+
             hccTotal = data[0].sum;
-            hccCom   = data[0].feeders[2].value + 
+            hccCom   = data[0].feeders[2].value +
                        data[0].feeders[9].value;
             hccLight = data[0].feeders[10].value;
             hccOther = hccTotal - hccCom - hccLight;
 
             console.log(hccTotal, hccCom, hccLight, hccOther);
-        
+
             invokeOpenAPI('/api/labs/ux/energy/total.json?base_time=' + dayTime, function (data) {
                 //alert(data[0].sum + ' ' + data[0].unit);
                 uxTotal = data[0].sum;
@@ -63,9 +65,20 @@ $(function () {
                 console.log(uxTotal, uxCom, uxLight, uxOther);
 
                 data = {
-                    'hccTotal' : hccTotal,
                     'margTotal' : margTotal,
-                    'uxTotal' : uxTotal
+                    'margCom'   : margCom,
+                    'margLight' : margLight,
+                    'margOther' : margOther,
+
+                    'hccTotal'  : hccTotal,
+                    'hccCom' : hccCom,
+                    'hccLight' : hccLight,
+                    'hccOther' : hccOther,
+
+                    'uxTotal'   : uxTotal,
+                    'uxCom' : uxCom,
+                    'uxLight' : uxLight,
+                    'uxOther' : uxOther
                 }
                 showChart(data);
 
@@ -110,13 +123,13 @@ function showChart(data) {
         */
         series: [{
                 name: 'Others',
-                data: [margOther, hccOther, uxOther]
+                data: [data.margOther, data.hccOther, data.uxOther]
             }, {
                 name: 'Light',
-                data: [margLight, hccLight, uxLight]
+                data: [data.margLight, data.hccLight, data.uxLight]
             }, {
                 name: 'Computer',
-                data: [margCom, hccCom, uxCom]
+                data: [data.margCom, data.hccCom, data.uxCom]
             }]
     });
 }
@@ -127,16 +140,16 @@ function invokeOpenAPI(url, scb) {
         type : "get",
         dataType : "json",
         success : function (data) {
-            
+
             console.log('retrieve success:' + data);
             scb(data)
-					
+
         },
-        
-        error : function (request) {            
+
+        error : function (request) {
             alert("failed to retrieve:" + request);
-			
-				
+
+
         }
     });
 }
