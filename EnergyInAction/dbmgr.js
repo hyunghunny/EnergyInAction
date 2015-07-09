@@ -92,7 +92,7 @@ MongoDBManager.prototype.aggregateFeeders = function (collectionName, labId, que
 
             collection.aggregate([
                 { "$match": { "dateFrom" : {
-                            "$gt": queries.startDate, 
+                            "$gte": queries.startDate, 
                             "$lt": queries.endDate 
                         }
                     }

@@ -421,8 +421,8 @@ function visitFeeders(feeders, unitType) {
 }
 
 function validateQueryParam(queries) {
-    var base_time = Number(queries.base_time);
-    var to_time = Number(queries.to_time);
+    var base_time = Number(queries.base_time - (queries.base_time % 1000));
+    var to_time = Number(queries.to_time - (queries.to_time % 1000));
     var count = queries.limit;
     var index = queries.skip;
     
@@ -600,6 +600,14 @@ router.get('/labs/:labId/energy/quarters.json', function (req, res) {
         if (queries == null) {
             throw new Error('404');
         }
+
+        // if time span between base time to to time is not enough, return empty result
+        if (queries.to_time - queries.base_time < 900000) {
+            var result = [];
+            res.writeHead(200, controller.api.getContentHeader());
+            res.end(JSON.stringify(result));
+        }
+
         labObj.retrieveUsages('quarters', queries, function (result) {
             
             if (result != null) {
@@ -766,7 +774,12 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
         if (queries == null) {
             throw new Error('404');
         }
-
+        // if time span between base time to to time is not enough, return empty result
+        if (queries.to_time - queries.base_time < 3600000) {
+            var result = [];
+            res.writeHead(200, controller.api.getContentHeader());
+            res.end(JSON.stringify(result)); 
+        }
         labObj.retrieveUsages('hours', queries, function (result) {
             if (result != null) {
                 // result will be translated to kWh
