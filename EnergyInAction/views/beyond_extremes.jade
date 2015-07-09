@@ -1,0 +1,18 @@
+extends layout
+
+block content
+    
+    h1 전력 사용량 조회
+    
+    h2#date #{date}
+    div#container(style='min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto')
+    div#report(style='font: 0.8em sans-serif')
+    
+    script(src='http://code.highcharts.com/stock/highstock.js')
+    script(src='http://code.highcharts.com/stock/modules/exporting.js')
+    script(src='https://rawgithub.com/d-nation/highstock-beyond-extremes/master/beyond-extremes.js')
+    script(src='http://www.highcharts.com/samples/data/usdeur.js')
+
+    script(src='javascripts/api.js')
+    script(src='javascripts/beyond_extremes.js')
+    

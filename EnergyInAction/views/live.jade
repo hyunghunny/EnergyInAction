@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    
+    h1 실시간 전력 사용량 조회
+    
+    h2#date #{date}
+    div#container(style='min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto')
+    
+    script(src='http://code.highcharts.com/stock/highstock.js')
+    script(src='http://code.highcharts.com/stock/modules/exporting.js')
+
+    script(src='javascripts/api.js')
+    script(src='javascripts/live.js')
