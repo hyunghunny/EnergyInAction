@@ -91,7 +91,7 @@ var LabEnergyManager = function (id, name, description) {
     this.id = id;
     this.name = name;
     this.description = description;
-    var collection = 'site73_hour'; //'site73_1sec'; // use 1 sec data
+    var collection = config.collection.quarters;  // use 15 min data
     this.deviceID = '';
     this.location = '';
     this.feeders = []; // initialize feeder list
@@ -132,14 +132,14 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
         queries.endDate = new Date(queries.to_time - (queries.to_time % 3600000)); // truncate hours only
         console.log('hour data from ' + queries.startDate + ' to ' + queries.endDate);
         
-        dbmgr.aggregateFeeders('site73_hour', self.id, queries, function (results) {
+        dbmgr.aggregateFeeders(config.collection.quarters, self.id, queries, function (results) {
             console.log('returns of hourly data: ' + results.length);
             var hoursResults = results;
             queries.startDate = new Date(queries.endDate);            
             queries.endDate = new Date(queries.to_time);
             console.log('secs data from ' + queries.startDate + ' to ' + queries.endDate);
 
-            dbmgr.aggregateFeeders('site73_1sec', self.id, queries, function (results) {
+            dbmgr.aggregateFeeders(config.collection.secs, self.id, queries, function (results) {
                 console.log('returns of sec data: ' + results.length);
                 var secsResults = results;
                 var returnObj = {};
@@ -183,13 +183,13 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
     var collection = null;
     switch (type) {
         case 'secs':
-            collection = 'site73_1sec';
+            collection = config.collection.secs;
             break;
         case 'quarters':
-            collection = 'site73_15min';
+            collection = config.collection.quarters;
             break;
         case 'hours':
-            collection = 'site73_hour';
+            collection = config.collection.hours;
             break;
         default:
             // ERROR: unknown type
