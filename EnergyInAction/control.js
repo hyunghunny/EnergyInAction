@@ -119,7 +119,7 @@ var LabEnergyManager = function (id, name, description) {
     }
 
 }
-
+// FIXME: below API SHOULD be properly modified.
 LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
 
     var self = this;
@@ -129,11 +129,11 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
         cb(null);
     } else {
         queries.startDate = new Date(queries.base_time);
-        queries.endDate = new Date(queries.to_time - (queries.to_time % 3600000)); // truncate hours only
+        queries.endDate = new Date(queries.to_time - (queries.to_time % 900000)); // truncate quarters only
         console.log('hour data from ' + queries.startDate + ' to ' + queries.endDate);
         
         dbmgr.aggregateFeeders(config.collection.quarters, self.id, queries, function (results) {
-            console.log('returns of hourly data: ' + results.length);
+            console.log('returns of quarters data: ' + results.length);
             var hoursResults = results;
             queries.startDate = new Date(queries.endDate);            
             queries.endDate = new Date(queries.to_time);
@@ -182,7 +182,7 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
     // type can be one of follows: secs, quarters, hours, total
     var collection = null;
     switch (type) {
-        case 'secs':
+        case 'secs': // XXX: This API will be deprecated!
             collection = config.collection.secs;
             break;
         case 'quarters':
@@ -218,9 +218,6 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
         } else {
             dbmgr.find(collection, queries, filters, cb);
         }
-        
-            
-
     }
 }
 

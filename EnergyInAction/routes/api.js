@@ -232,7 +232,7 @@ router.get('/labs/:labId/energy', function (req, res) {
 
 
 
-/* // REMARKS: 1 secs dataset will be deprecated.
+/* 
  * @api {get} api/labs/:labId/energy/secs.json Retrieve the_energy usage information which measured per one second
  * 
  * @apiName Retrieve the energy usage information which measured per one second 
@@ -351,6 +351,7 @@ router.get('/labs/:labId/energy', function (req, res) {
  * which are being monitored for energy usage behavior research. 
  * It is referred into milliwatt per sec
  * 
+ * REMARKS: THIS API IS DEPRECATED.
  */
 router.get('/labs/:labId/energy/secs.json', function (req, res) {
     try {
