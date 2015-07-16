@@ -37,6 +37,8 @@
     <Compile Include="config.js" />
     <Compile Include="control.js" />
     <Compile Include="dbmgr.js" />
+    <Compile Include="encored_data_loader.js" />
+    <Compile Include="lab_info.js" />
     <Compile Include="public\javascripts\api-finder.js" />
     <Compile Include="public\javascripts\api-sample.js" />
     <Compile Include="public\javascripts\api.js" />

@@ -45,7 +45,7 @@ var SiteManager = function (array) {
         var lab = array[i];
         var labApiObj = [            
             {
-                "href": "/api/labs/" + array[i].id + "/energy/secs.json",
+                "href": "/api/labs/" + array[i].id + "/energy/latest.json",
                 "type": "ItemList"
             },
             {
@@ -91,7 +91,7 @@ var LabEnergyManager = function (id, name, description) {
     this.id = id;
     this.name = name;
     this.description = description;
-    var collection = 'site73_hour'; //'site73_1sec'; // use 1 sec data
+    var collection = config.collection.quarters;  // use 15 min data
     this.deviceID = '';
     this.location = '';
     this.feeders = []; // initialize feeder list
@@ -119,7 +119,7 @@ var LabEnergyManager = function (id, name, description) {
     }
 
 }
-
+// FIXME: below API SHOULD be properly modified.
 LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
 
     var self = this;
@@ -129,17 +129,17 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
         cb(null);
     } else {
         queries.startDate = new Date(queries.base_time);
-        queries.endDate = new Date(queries.to_time - (queries.to_time % 3600000)); // truncate hours only
+        queries.endDate = new Date(queries.to_time - (queries.to_time % 900000)); // truncate quarters only
         console.log('hour data from ' + queries.startDate + ' to ' + queries.endDate);
         
-        dbmgr.aggregateFeeders('site73_hour', self.id, queries, function (results) {
-            console.log('returns of hourly data: ' + results.length);
+        dbmgr.aggregateFeeders(config.collection.quarters, self.id, queries, function (results) {
+            console.log('returns of quarters data: ' + results.length);
             var hoursResults = results;
             queries.startDate = new Date(queries.endDate);            
             queries.endDate = new Date(queries.to_time);
             console.log('secs data from ' + queries.startDate + ' to ' + queries.endDate);
 
-            dbmgr.aggregateFeeders('site73_1sec', self.id, queries, function (results) {
+            dbmgr.aggregateFeeders(config.collection.secs, self.id, queries, function (results) {
                 console.log('returns of sec data: ' + results.length);
                 var secsResults = results;
                 var returnObj = {};
@@ -182,14 +182,14 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
     // type can be one of follows: secs, quarters, hours, total
     var collection = null;
     switch (type) {
-        case 'secs':
-            collection = 'site73_1sec';
+        case 'secs': // XXX: This API will be deprecated!
+            collection = config.collection.secs;
             break;
         case 'quarters':
-            collection = 'site73_15min';
+            collection = config.collection.quarters;
             break;
         case 'hours':
-            collection = 'site73_hour';
+            collection = config.collection.hours;
             break;
         default:
             // ERROR: unknown type
@@ -218,10 +218,14 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
         } else {
             dbmgr.find(collection, queries, filters, cb);
         }
-        
-            
-
     }
+}
+
+LabEnergyManager.prototype.realtimeUsages = function (queries, cb) {
+    var encored_loader = require('./encored_data_loader.js');
+    encored_loader.getLatest(queries.labId, function (data) {
+        cb(data);
+    })
 }
 
 // TODO: add API handlers 

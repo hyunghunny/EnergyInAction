@@ -48,7 +48,7 @@ router.get('/', function (req, res) {
  *     "description":"User Experience Lab.",
  *     "api":[  
  *       {  
- *         "href":"/api/labs/ux/energy/secs.json",
+ *         "href":"/api/labs/ux/energy/latest.json",
  *         "type":"ItemList"
  *       },
  *       {  
@@ -75,7 +75,7 @@ router.get('/', function (req, res) {
  *     "description":"Music and Audio Research Group",
  *     "api":[  
  *       {  
- *         "href":"/api/labs/marg/energy/secs.json",
+ *         "href":"/api/labs/marg/energy/latest.json",
  *         "type":"ItemList"
  *       },
  *       {  
@@ -102,7 +102,7 @@ router.get('/', function (req, res) {
  *     "description":"Human Centered Computing Laboratory",
  *     "api":[  
  *       {  
- *         "href":"/api/labs/hcc/energy/secs.json",
+ *         "href":"/api/labs/hcc/energy/latest.json",
  *         "type":"ItemList"
  *       },
  *       {  
@@ -232,7 +232,7 @@ router.get('/labs/:labId/energy', function (req, res) {
 
 
 
-/**
+/* 
  * @api {get} api/labs/:labId/energy/secs.json Retrieve the_energy usage information which measured per one second
  * 
  * @apiName Retrieve the energy usage information which measured per one second 
@@ -351,6 +351,7 @@ router.get('/labs/:labId/energy', function (req, res) {
  * which are being monitored for energy usage behavior research. 
  * It is referred into milliwatt per sec
  * 
+ * REMARKS: THIS API IS DEPRECATED.
  */
 router.get('/labs/:labId/energy/secs.json', function (req, res) {
     try {
@@ -391,6 +392,156 @@ router.get('/labs/:labId/energy/secs.json', function (req, res) {
         res.sendStatus(err.message);
     }
 });
+
+/** 
+ * @api {get} api/labs/:labId/energy/latest.json Retrieve latest energy usage information which measured per one second
+ * 
+ * @apiName Retrieve the latest energy usage information which measured per one second 
+ * 
+ * @apiParam {String} labId Lab's unique ID.
+ * 
+ * @apiExample {js} Example usage:
+ *     api/labs/marg/energy/latest.json 
+ * @apiGroup Lab Energy Usage
+ * @apiHeader {String} Content-Type application/json
+ * @apiSuccessExample Success-Response:
+ *  HTTP/1.1 200 OK
+ *  [  
+  {  
+    "dateFrom":"2015-04-01T00:00:00.000Z",
+    "dateTo":"2015-04-01T00:00:01.000Z",
+    "deviceID":1168,
+    "location":"D410",
+    "feeders":[  
+      {  
+        "feederID":3,
+        "value":0
+      },
+      {  
+        "feederID":4,
+        "value":0
+      },
+      {  
+        "feederID":5,
+        "value":0
+      },
+      {  
+        "feederID":6,
+        "value":0
+      },
+      {  
+        "feederID":7,
+        "value":0
+      },
+      {  
+        "feederID":8,
+        "value":0
+      },
+      {  
+        "feederID":9,
+        "value":0
+      },
+      {  
+        "feederID":10,
+        "value":0
+      },
+      {  
+        "feederID":11,
+        "value":0
+      },
+      {  
+        "feederID":12,
+        "value":0
+      },
+      {  
+        "feederID":13,
+        "value":0
+      },
+      {  
+        "feederID":14,
+        "value":0
+      },
+      {  
+        "feederID":15,
+        "value":0
+      },
+      {  
+        "feederID":16,
+        "value":0
+      },
+      {  
+        "feederID":17,
+        "value":0
+      },
+      {  
+        "feederID":18,
+        "value":0
+      },
+      {  
+        "feederID":19,
+        "value":0
+      },
+      {  
+        "feederID":20,
+        "value":0
+      },
+      {  
+        "feederID":21,
+        "value":0
+      },
+      {  
+        "feederID":22,
+        "value":0
+      },
+      {  
+        "feederID":23,
+        "value":0
+      }
+    ],
+    "sum":0,
+    "unit":"mW/s"
+  }]
+ *  
+ * 
+ * @apiDescription This API retrieves the energy usage information of a specific Lab 
+ * which are being monitored for energy usage behavior research. 
+ * It is referred into milliwatt per sec
+ */
+router.get('/labs/:labId/energy/latest.json', function (req, res) {
+    try {
+        var id = req.params.labId;
+        var labObj = controller.labs.find(id);
+        if (labObj == null) {
+            throw new Error('404');
+        }
+        
+        // validate query parameter
+        var queries = validateQueryParam(req.query);
+        if (queries == null) {
+            throw new Error('404');
+        }
+        queries.labId = id;
+
+        labObj.realtimeUsages(queries, function (result) {
+            if (result != null) {
+
+                var sum = visitFeeders(result.feeders);
+                result.sum = sum;
+                result.unit = 'mW/s';
+                res.writeHead(200, controller.api.getContentHeader());
+                res.end(JSON.stringify(result));
+            } else {
+                var err = new Error('500')
+                res.sendStatus(err.message);
+            }
+        });
+
+    } catch (err) {
+        // return error code here
+        res.sendStatus(err.message);
+    }
+});
+
 
 /**
  * visit all feeders for accumulate the power usages and unit transformation
