@@ -45,7 +45,7 @@ var SiteManager = function (array) {
         var lab = array[i];
         var labApiObj = [            
             {
-                "href": "/api/labs/" + array[i].id + "/energy/secs.json",
+                "href": "/api/labs/" + array[i].id + "/energy/latest.json",
                 "type": "ItemList"
             },
             {
@@ -219,6 +219,13 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
             dbmgr.find(collection, queries, filters, cb);
         }
     }
+}
+
+LabEnergyManager.prototype.realtimeUsages = function (queries, cb) {
+    var encored_loader = require('./encored_data_loader.js');
+    encored_loader.getLatest(queries.labId, function (data) {
+        cb(data);
+    })
 }
 
 // TODO: add API handlers 

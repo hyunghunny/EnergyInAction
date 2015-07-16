@@ -204,9 +204,9 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "api/labs/:labId/energy/secs.json",
-    "title": "Retrieve the_energy usage information which measured per one second",
-    "name": "Retrieve_the_energy_usage_information_which_measured_per_one_second",
+    "url": "api/labs/:labId/energy/latest.json",
+    "title": "Retrieve latest energy usage information which measured per one second",
+    "name": "Retrieve_the_latest_energy_usage_information_which_measured_per_one_second",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -216,30 +216,6 @@ define({ "api": [
             "optional": false,
             "field": "labId",
             "description": "<p>Lab&#39;s unique ID.</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": true,
-            "field": "base_time",
-            "defaultValue": "timestamp_of_today's_midnight",
-            "description": "<p>Query parameter to set the base time.   It can be returned by invoking Date().getTime() in JavaScript.    If skipped it will be set as today&#39;s midnight</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": true,
-            "field": "limit",
-            "defaultValue": "100",
-            "description": "<p>Query parameter to set the number of items which will be retrieved.</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": true,
-            "field": "skip",
-            "defaultValue": "0",
-            "description": "<p>Query parameter to set the skipped numbers of items.</p> "
           }
         ]
       }
@@ -247,7 +223,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Example usage:",
-        "content": "api/labs/marg/energy/secs.json?base_time=1430477977029&skip=100",
+        "content": "api/labs/marg/energy/latest.json",
         "type": "js"
       }
     ],
@@ -379,7 +355,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": " HTTP/1.1 200 OK\n {  \n\"labs\":[  \n  {  \n    \"id\":\"ux\",\n   \"name\":\"UX Lab.\",\n    \"description\":\"User Experience Lab.\",\n    \"api\":[  \n      {  \n        \"href\":\"/api/labs/ux/energy/secs.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/ux/energy/quarters.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/ux/energy/hours.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/ux/energy/total.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/ux/energy/feeders\",\n        \"type\":\"ItemList\"\n      }\n    ]\n  },\n  {  \n    \"id\":\"marg\",\n    \"name\":\"MARG Lab.\",\n    \"description\":\"Music and Audio Research Group\",\n    \"api\":[  \n      {  \n        \"href\":\"/api/labs/marg/energy/secs.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/marg/energy/quarters.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/marg/energy/hours.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/marg/energy/total.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/marg/energy/feeders\",\n        \"type\":\"ItemList\"\n      }\n    ]\n  },\n  {  \n    \"id\":\"hcc\",\n    \"name\":\"HCC Lab.\",\n    \"description\":\"Human Centered Computing Laboratory\",\n    \"api\":[  \n      {  \n        \"href\":\"/api/labs/hcc/energy/secs.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/hcc/energy/quarters.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/hcc/energy/hours.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/hcc/energy/total.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/hcc/energy/feeders\",\n        \"type\":\"ItemList\"\n      }\n    ]\n  }\n],\n\"api\":[  \n  {  \n    \"href\":\"/api/labs/ux\",\n    \"type\":\"ItemList\"\n  },\n  {  \n    \"href\":\"/api/labs/marg\",\n    \"type\":\"ItemList\"\n  },\n  {  \n    \"href\":\"/api/labs/hcc\",\n    \"type\":\"ItemList\"\n  }\n]\n}",
+          "content": " HTTP/1.1 200 OK\n {  \n\"labs\":[  \n  {  \n    \"id\":\"ux\",\n   \"name\":\"UX Lab.\",\n    \"description\":\"User Experience Lab.\",\n    \"api\":[  \n      {  \n        \"href\":\"/api/labs/ux/energy/latest.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/ux/energy/quarters.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/ux/energy/hours.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/ux/energy/total.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/ux/energy/feeders\",\n        \"type\":\"ItemList\"\n      }\n    ]\n  },\n  {  \n    \"id\":\"marg\",\n    \"name\":\"MARG Lab.\",\n    \"description\":\"Music and Audio Research Group\",\n    \"api\":[  \n      {  \n        \"href\":\"/api/labs/marg/energy/latest.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/marg/energy/quarters.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/marg/energy/hours.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/marg/energy/total.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/marg/energy/feeders\",\n        \"type\":\"ItemList\"\n      }\n    ]\n  },\n  {  \n    \"id\":\"hcc\",\n    \"name\":\"HCC Lab.\",\n    \"description\":\"Human Centered Computing Laboratory\",\n    \"api\":[  \n      {  \n        \"href\":\"/api/labs/hcc/energy/latest.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/hcc/energy/quarters.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/hcc/energy/hours.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/hcc/energy/total.json\",\n        \"type\":\"ItemList\"\n      },\n      {  \n        \"href\":\"/api/labs/hcc/energy/feeders\",\n        \"type\":\"ItemList\"\n      }\n    ]\n  }\n],\n\"api\":[  \n  {  \n    \"href\":\"/api/labs/ux\",\n    \"type\":\"ItemList\"\n  },\n  {  \n    \"href\":\"/api/labs/marg\",\n    \"type\":\"ItemList\"\n  },\n  {  \n    \"href\":\"/api/labs/hcc\",\n    \"type\":\"ItemList\"\n  }\n]\n}",
           "type": "json"
         }
       ]
