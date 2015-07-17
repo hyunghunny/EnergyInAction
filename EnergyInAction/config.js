@@ -9,7 +9,7 @@
     collection: {
         secs: "site73_1sec",
         quarters: "site73_15min_new",
-        hours: "site73_hour"
+        hours: "site73_hour_new"
     },
 
     server: {

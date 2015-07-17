@@ -552,11 +552,11 @@ function visitFeeders(feeders, unitType) {
     var sum = 0.0;
     var unit = 1;
     switch (unitType) {
-        case 'mWh':
-            unit = 3600;
+        case 'kW/15min':
+            unit = 1000000;
             break;
         case 'kWh':
-            unit = (3600 * 1000000);
+            unit = 1000000;
             break;
         default:
             unit = 1; // ERROR case!
@@ -762,16 +762,16 @@ router.get('/labs/:labId/energy/quarters.json', function (req, res) {
         labObj.retrieveUsages('quarters', queries, function (result) {
             
             if (result != null) {
-                // result will be translated to mWh (/ 3600)
+
                 for (var i = 0; i < result.length; i++) {
                     var obs = result[i];
-                    var sum = visitFeeders(obs[id].feeders, 'mWh');
+                    var sum = visitFeeders(obs[id].feeders, 'kW/15min');
                     obs.deviceID = obs[id].deviceID;
                     obs.location = obs[id].location;
                     obs.feeders = obs[id].feeders;
                     delete obs[id];
                     obs.sum = sum;
-                    obs.unit = 'mW/h';
+                    obs.unit = 'kW/15min';
                 }
 
                 res.writeHead(200, controller.api.getContentHeader());
