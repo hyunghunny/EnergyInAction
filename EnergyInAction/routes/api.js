@@ -627,7 +627,7 @@ function validateQueryParam(queries) {
  * @apiParam {Number} [skip=0] Query parameter to set the skipped numbers of items.
  *
  * @apiExample {js} Example usage:
- *     api/labs/marg/energy/quarters.json?base_time=1430477977029&skip=100 
+ *     api/labs/marg/energy/quarters.json?base_time=1430477977029&skip=100
  *
  * @apiGroup Lab Energy Usage
  * @apiHeader {String} Content-Type application/json
