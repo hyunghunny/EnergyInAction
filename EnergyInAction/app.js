@@ -15,6 +15,7 @@ var daily = require('./routes/daily');
 var daily_flow = require('./routes/daily_flow');
 var beyond_extremes = require('./routes/beyond_extremes');
 var live = require('./routes/live');
+var live_com = require('./routes/live_com');
 
 var app = express();
 
@@ -52,6 +53,8 @@ app.use('/daily', daily);
 app.use('/daily_flow', daily_flow);
 app.use('/beyond_extremes', beyond_extremes);
 app.use('/live', live);
+app.use('/live_com', live_com);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
