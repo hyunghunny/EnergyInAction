@@ -5,10 +5,18 @@ block content
     h1 실시간 전력 사용량 조회
     
     h2#date #{date}
-    div#container(style='min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto')
-    
-    script(src='http://code.highcharts.com/stock/highstock.js')
-    script(src='http://code.highcharts.com/stock/modules/exporting.js')
+    div#total(style='min-width: 310px; height: 200px; margin: 0 auto')
+    div#hvac(style='min-width: 310px; height: 200px; margin: 0 auto')
+    div#computer(style='min-width: 310px; height: 200px; margin: 0 auto')
+    div#light(style='min-width: 310px; height: 200px; margin: 0 auto')
+
+    script(src='http://code.highcharts.com/highcharts.js')
+    script(src='http://code.highcharts.com/modules/exporting.js')
 
     script(src='javascripts/api.js')
     script(src='javascripts/live.js')
+    script(src='javascripts/live_hvac.js')
+    script(src='javascripts/live_com.js')
+    script(src='javascripts/live_light.js')
+    
+    

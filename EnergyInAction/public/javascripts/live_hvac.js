@@ -2,10 +2,8 @@ var day = new Date();
 var dayTime = day.getTime();
 
 $(function () {
-    document.getElementById("date").innerHTML = (day.getMonth() + 1) + '월 ' + day.getDate() + '일 실시간 사용량';
-
     //showChart();
-    $('#total').highcharts({
+    $('#hvac').highcharts({
         chart: {
             type: 'spline',
             animation: Highcharts.svg, // don't animate in old IE
@@ -14,20 +12,22 @@ $(function () {
                 load: function () {
                     // set up the updating of the chart each second
                     var series = this.series[0];
-                    var margTotal = 0;
+                    // this is the target !!
+                    var margLight = 0;
                     setInterval(function () {
-                        //var x = (new Date()).getTime(); // current time
+                        //var margLight = 0;
                         var x = ((new Date()).getTime() - (new Date()).getTimezoneOffset()*60000); // current local time
-                        console.log(x);
                         //console.log(new Date());
                         invokeOpenAPI('/api/labs/marg/energy/latest.json', function (data) {
                           //console.log(data);
-                          margTotal = data.sum/1000000;
+                          //console.log(data.feeders.length);
+
+                          // accumulate the target feeders values
+                          margLight = accumulater(data, 'hvac')
+                          //console.log(margLight, data.feeders[5].description);
+
                         });
-                        var y = margTotal;
-                        //var y = margTotal.toFixed(2);
-                        //var y = Highcharts.numberFormat(margTotal,2);
-                        console.log(y);
+                        var y = margLight;
 
                         try {
                           series.addPoint([x, y], true, true);
@@ -40,7 +40,7 @@ $(function () {
             }
         },
         title: {
-            text: 'MARG 실시간 전력 사용량 (전체)'
+            text: 'MARG 실시간 전력 사용량 (냉난방)'
         },
         xAxis: {
             type: 'datetime',
@@ -65,7 +65,7 @@ $(function () {
                 }
               },
               enableMouseTracking: true,
-              color :'#1e90ff'
+              color :'#8a2be2'
             }
           },
         tooltip: {
@@ -82,7 +82,7 @@ $(function () {
             enabled: false
         },
         series: [{
-            name: '전체 사용량',
+            name: '냉난방 사용량',
             data: (function () {
                 // generate an array of random data
                 var data = [],
@@ -121,4 +121,15 @@ function invokeOpenAPI(url, scb) {
 
         }
     });
+}
+
+function accumulater(data, targetDescription) {
+  result = 0;
+  for(i=0; i<data.feeders.length;i++){
+      if(data.feeders[i].description == targetDescription) {
+        result = result + (data.feeders[i].value/1000000);
+        console.log(data.feeders[i].value/1000000, data.feeders[i].description, result)
+      }
+  }
+  return result;
 }
