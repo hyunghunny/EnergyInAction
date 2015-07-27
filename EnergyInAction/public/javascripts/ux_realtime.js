@@ -5,7 +5,7 @@ $(function () {
     document.getElementById("date").innerHTML = (day.getMonth() + 1) + '월 ' + day.getDate() + '일 실시간 사용량';
 
     //showChart();
-    $('#total').highcharts({
+    $('#container').highcharts({
         chart: {
             type: 'spline',
             animation: Highcharts.svg, // don't animate in old IE
@@ -14,17 +14,18 @@ $(function () {
                 load: function () {
                     // set up the updating of the chart each second
                     var series = this.series[0];
-                    var margTotal = 0;
+                    var uxTotal = 0;
                     setInterval(function () {
                         //var x = (new Date()).getTime(); // current time
                         var x = ((new Date()).getTime() - (new Date()).getTimezoneOffset()*60000); // current local time
                         console.log(x);
                         //console.log(new Date());
-                        invokeOpenAPI('/api/labs/marg/energy/latest.json', function (data) {
+                        invokeOpenAPI('/api/labs/ux/energy/latest.json', function (data) {
                           //console.log(data);
-                          margTotal = data.sum/1000000;
+                          uxTotal = data.sum/1000000;
+                          console.log(data.location);
                         });
-                        var y = margTotal;
+                        var y = uxTotal;
                         //var y = margTotal.toFixed(2);
                         //var y = Highcharts.numberFormat(margTotal,2);
                         console.log(y);
@@ -40,7 +41,7 @@ $(function () {
             }
         },
         title: {
-            text: 'MARG 실시간 전력 사용량 (전체)'
+            text: 'UX 실시간 전력 사용량 (전체)'
         },
         xAxis: {
             type: 'datetime',

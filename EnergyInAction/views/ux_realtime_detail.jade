@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    
+    h1 실시간 전력 사용량 조회
+    
+    h2#date #{date}
+    div#total(style='min-width: 310px; height: 400px; margin: 0 auto')
+    div#hvac(style='min-width: 310px; height: 200px; margin: 0 auto')
+    div#computer(style='min-width: 310px; height: 200px; margin: 0 auto')
+    div#light(style='min-width: 310px; height: 200px; margin: 0 auto')
+
+    script(src='http://code.highcharts.com/highcharts.js')
+    script(src='http://code.highcharts.com/modules/exporting.js')
+
+    script(src='javascripts/api.js')
+    script(src='javascripts/ux_realtime_detail.js')
+    script(src='javascripts/ux_realtime_hvac.js')
+    script(src='javascripts/ux_realtime_com.js')
+    script(src='javascripts/ux_realtime_light.js')
