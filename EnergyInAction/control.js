@@ -130,52 +130,36 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
     } else {
         queries.startDate = new Date(queries.base_time);
         queries.endDate = new Date(queries.to_time - (queries.to_time % 900000)); // truncate quarters only
-        console.log('hour data from ' + queries.startDate + ' to ' + queries.endDate);
+        console.log('15min data from ' + queries.startDate + ' to ' + queries.endDate);
         
         dbmgr.aggregateFeeders(config.collection.quarters, self.id, queries, function (results) {
             console.log('returns of quarters data: ' + results.length);
-            var hoursResults = results;
-            queries.startDate = new Date(queries.endDate);            
-            queries.endDate = new Date(queries.to_time);
-            console.log('secs data from ' + queries.startDate + ' to ' + queries.endDate);
 
-            dbmgr.aggregateFeeders(config.collection.secs, self.id, queries, function (results) {
-                console.log('returns of sec data: ' + results.length);
-                var secsResults = results;
-                var returnObj = {};
-                returnObj["dateFrom"] = new Date(queries.base_time);
-                returnObj["dateTo"] = new Date(queries.to_time);
-                
-                var mergedResults = [];
-                // results returns { _id: , value: } form
-                for (var i = 0; i < hoursResults.length; i++) {
-                    var hourResult = hoursResults[i];
-                    var mergedResult = hourResult;
-                    for (var j = 0; j < secsResults.length; j++) {
-                        var secResult = secsResults[j];
-                        if (secResult._id === mergedResult._id) {
-                            mergedResult.value = hoursResults[i].value + secResult.value; // XXX: add hours value and secs value
-                    
-                        }
-                    }
-                    
-                    mergedResult.feederID = mergedResult._id;
-                    delete mergedResult._id;
-                    mergedResults.push(mergedResult);
-                }
-                returnObj["deviceID"] = self.deviceID;
-                returnObj["location"] = self.location;
-                returnObj["feeders"] = mergedResults;
-                var returnArray = [];
-                returnArray.push(returnObj);
-                    cb(returnArray);
-            });
+            var returnObj = {};
+            returnObj["dateFrom"] = new Date(queries.base_time);
+            returnObj["dateTo"] = new Date(queries.to_time);
+            
+
+            returnObj["deviceID"] = self.deviceID;
+            returnObj["location"] = self.location;
+            returnObj["feeders"] = results;
+            var returnArray = [];
+            returnArray.push(returnObj);
+            cb(returnArray);
+            
         });
 
     }
 
 }
 
+function retrieveDailyUsages(queries, cb) {
+    // TODO: code required!
+}
+
+function retrieveMonthlyUsages(queries, cb) {
+    // TODO: code required!
+}
 
 LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
     
@@ -191,6 +175,13 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
         case 'hours':
             collection = config.collection.hours;
             break;
+        case 'daily':
+            retrieveDailyUsages(queries, cb);
+            break;
+        case 'monthly':
+            retrieveMonthlyUsages(queries, cb);
+            break;
+
         default:
             // ERROR: unknown type
             cb(null);

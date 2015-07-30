@@ -518,7 +518,7 @@ router.get('/labs/:labId/energy/latest.json', function (req, res) {
         // validate query parameter
         var queries = validateQueryParam(req.query);
         if (queries == null) {
-            throw new Error('404');
+            throw new Error('400');
         }
         queries.labId = id;
 
@@ -749,7 +749,7 @@ router.get('/labs/:labId/energy/quarters.json', function (req, res) {
         // validate query parameter
         var queries = validateQueryParam(req.query);
         if (queries == null) {
-            throw new Error('404');
+            throw new Error('400');
         }
 
         // if time span between base time to to time is not enough, return empty result
@@ -923,7 +923,7 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
         // validate query parameter
         var queries = validateQueryParam(req.query);
         if (queries == null) {
-            throw new Error('404');
+            throw new Error('400');
         }
         // if time span between base time to to time is not enough, return empty result
         if (queries.to_time - queries.base_time < 3600000) {
@@ -957,6 +957,116 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
     }
 });
 
+/**
+ * @api {get} api/labs/:labId/energy/daily.json Retrieve the energy usage information which measured per day
+ * @apiName Retrieve the energy usage information which measured per day
+ *
+ * @apiParam {String} labId Lab's unique ID.
+ * @apiParam {String} [day_from=yesterday]  Query parameter to set the base day.
+ *   It should be formated as YYYY-MM-DD. e.g. 2015-4-10.
+ *   The result(s) contains the observations which measured from the value of from to the value of to. 
+ * @apiParam {String} [day_to=same day of from value]  Query parameter to set the time to be collected.
+ *   It should be formated as YYYY-MM-DD. e.g. 2015-4-10.
+ * @apiParam {Number} [offset=0] Query parameter to set the offset hour. e.g. offset=9 means each measurements associated from 9 A.M. to next 9 A.M.  
+ * @apiParam {Number} [limit=100] Query parameter to set the number of items which will be retrieved.
+ * @apiParam {Number} [skip=0] Query parameter to set the skipped numbers of items.
+ *
+ * @apiExample {js} Example usage:
+ *     api/labs/marg/energy/daily.json?base_time=1430477977029&skip=100
+ *
+ * @apiGroup Lab Energy Usage
+ * @apiHeader {String} Content-Type application/json
+ * @apiSuccessExample Success-Response:
+ *  HTTP/1.1 200 OK
+ *  TODO:
+ *
+ *
+ * @apiDescription This API retrieves the energy usage information of a specific Lab
+ * which are being monitored for energy usage behavior research.
+ *
+ * It is referred into kilowatt per hr. (kWh)
+ *
+ */
+router.get('/labs/:labId/energy/daily.json', function (req, res) {
+    try {
+        var id = req.params.labId;
+        
+        var labObj = controller.labs.find(id);
+        
+        if (labObj == null) {
+            throw new Error('404');
+        }
+        // validate day_from, day_to format
+        if (validateDayFormat(req.query.day_from)) {
+            throw new Error('400');
+        }
+        if (validateDayFormat(req.query.day_to)) {
+            throw new Error('400');
+        }
+        var queries = {};
+        var offset = 0;
+        if (req.query.offset) {
+            offset = req.query.offset;
+        }  
+        if (req.query.day_from) {
+            var dayFrom = new Date(req.query.day_from);
+            dayFrom.setHours(dayFrom.getHours() + offset);
+            queries.from = dayFrom.getTime();
+        } else {
+            // get yester day string
+            var today = new Date();
+            var yesterday = new Date(today);
+            yesterday.setDate(today.getDate() - 1);
+            var yesterdayString = yesterday.getFullYear() + '-' + (yesterday.getMonth() + 1) +
+            '-' + date.getDate();
+            
+            var dayFrom = new Date(yesterdayString);
+            dayFrom.setHours(dayFrom.getHours() + offset);
+            queries.from = new Date();
+        }
+        if (req.query.day_to) {
+            queries.to = (new Date(req.query.day_to)).getTime();
+        } else {
+            queries.to = queries.from;  // set same value as day_from 
+        }
+        
+        labObj.retrieveUsages('daily', queries, function (result) {
+            if (result != null) {
+                // result will be translated to kWh
+                for (var i = 0; i < result.length; i++) {
+                    var obs = result[i];
+                    var sum = visitFeeders(obs[id].feeders, 'kWh');
+                    obs.deviceID = obs[id].deviceID;
+                    obs.location = obs[id].location;
+                    obs.feeders = obs[id].feeders;
+                    delete obs[id];
+                    obs.sum = sum;
+                    obs.unit = 'kW/h';
+                }
+                res.writeHead(200, controller.api.getContentHeader());
+                res.end(JSON.stringify(result));
+            } else {
+                var err = new Error('500')
+                res.sendStatus(err.message);
+            }
+        });
+    } catch (err) {
+        // return error code here
+        res.sendStatus(err.message);
+    }
+});
+
+function validateDayFormat(dateString) {
+    if (!dateString) {
+        //XXX: return true when it is omitted
+        return true;
+    }
+    if (/^[0-9][0-9][0-9][0-9]-[0-9][0-9]?-[0-9][0-9]?/.test(dateString)) {
+        return true;
+    } else {
+        false;
+    }
+}
 
 /**
  * @api {get} api/labs/:labId/energy/total.json Retrieve the total energy usage information which measured from base_time to to_time.
@@ -1092,7 +1202,7 @@ router.get('/labs/:labId/energy/total.json', function (req, res) {
         // validate query parameter
         var queries = validateQueryParam(req.query);
         if (queries == null) {
-            throw new Error('404');
+            throw new Error('400');
         }
 
         labObj.accumulateUsages(queries, function (result) {
