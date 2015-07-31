@@ -765,13 +765,18 @@ router.get('/labs/:labId/energy/quarters.json', function (req, res) {
 
                 for (var i = 0; i < result.length; i++) {
                     var obs = result[i];
-                    var sum = visitFeeders(obs[id].feeders, 'kW/15min');
-                    obs.deviceID = obs[id].deviceID;
-                    obs.location = obs[id].location;
-                    obs.feeders = obs[id].feeders;
-                    delete obs[id];
-                    obs.sum = sum;
-                    obs.unit = 'kW/15min';
+                    if (obs[id]) {
+                        var sum = visitFeeders(obs[id].feeders, 'kW/15min');
+                        obs.deviceID = obs[id].deviceID;
+                        obs.location = obs[id].location;
+                        obs.feeders = obs[id].feeders;
+                        delete obs[id];
+                        obs.sum = sum;
+                        obs.unit = 'kW/15min';
+                    } else {
+                        console.log('invalid result: ' + JSON.stringify(obs))
+                    }
+
                 }
 
                 res.writeHead(200, controller.api.getContentHeader());
