@@ -147,20 +147,24 @@ MongoDBManager.prototype.find = function (collectionName, queries, filters, call
     }
     
     // filter out _id attribute in default;
-    filters._id = false;
+    options._id = false;
+    options.sort = { "dateFrom" : 1 };
     
     this.db.collection(collectionName, function (err, collection) {
         if (err) {
             console.log(err);
         } else {
             
-            collection.find(dbquery, filters, options)
+            collection.find(dbquery, options)
                 .sort({ dateFrom : 1 })
                 .toArray(function (err, result) {
                     if (err) {
-                        console.log(err);
-                    }
+                    console.log(err);
+                    callback([]);
+                } else {
                     callback(result);
+                }
+                    
             });
         }
     });
