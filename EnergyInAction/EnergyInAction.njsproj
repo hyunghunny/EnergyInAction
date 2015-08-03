@@ -48,7 +48,6 @@
     <Compile Include="public\javascripts\gchart.js" />
     <Compile Include="public\javascripts\holder.js" />
     <Compile Include="public\javascripts\jquery.js" />
-    <Compile Include="public\javascripts\thermometer.js" />
     <Compile Include="routes\api.js" />
     <Compile Include="routes\daily.js" />
     <Compile Include="routes\index.js" />

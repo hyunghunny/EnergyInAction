@@ -2,6 +2,7 @@
 
 var DBManager = require('./dbmgr');
 var dbmgr = new DBManager(config.mongodb);
+var labInfo = require('./lab_info.js');
 
 /*************************************************************************/
 // APIs
@@ -119,7 +120,7 @@ var LabEnergyManager = function (id, name, description) {
     }
 
 }
-// FIXME: below API SHOULD be properly modified.
+
 LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
 
     var self = this;
@@ -130,19 +131,26 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
     } else {
         queries.startDate = new Date(queries.base_time);
         queries.endDate = new Date(queries.to_time - (queries.to_time % 900000)); // truncate quarters only
-        console.log('15min data from ' + queries.startDate + ' to ' + queries.endDate);
+        console.log('data from ' + queries.startDate + ' to ' + queries.endDate);
         
-        dbmgr.aggregateFeeders(config.collection.quarters, self.id, queries, function (results) {
-            console.log('returns of quarters data: ' + results.length);
-
+        dbmgr.aggregateFeeders(config.collection.hours, self.id, queries, function (results) {
+            
             var returnObj = {};
             returnObj["dateFrom"] = new Date(queries.base_time);
             returnObj["dateTo"] = new Date(queries.to_time);
-            
-
             returnObj["deviceID"] = self.deviceID;
             returnObj["location"] = self.location;
-            returnObj["feeders"] = results;
+            
+            var feeders = [];            
+            for (var i = 0; i < results.length; i++) {
+                var result = results[i];
+                var feeder = {};
+                feeder.feederID = result._id;
+                feeder.value = result.value;
+                feeder.description = labInfo.labs.getDescription(self.id, result._id);
+                feeders.push(feeder);
+            }
+            returnObj["feeders"] = feeders;
             var returnArray = [];
             returnArray.push(returnObj);
             cb(returnArray);
@@ -152,6 +160,8 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
     }
 
 }
+
+
 
 function retrieveDailyUsages(queries, cb) {
     // TODO: code required!

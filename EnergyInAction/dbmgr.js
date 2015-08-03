@@ -87,6 +87,7 @@ MongoDBManager.prototype.aggregateFeeders = function (collectionName, labId, que
             var feedersKey = "$" + feeders;
             var feederIDKey = "$" + feeders + ".feederID";
             var feederValueKey = "$" + feeders + ".value";
+            var feederDescriptionKey = "$" + feeders + ".description";
             var projectObj = {}  
             projectObj[feeders] = 1; // XXX: javaScript confused that feeders is the key name or the variable.
 
@@ -99,13 +100,16 @@ MongoDBManager.prototype.aggregateFeeders = function (collectionName, labId, que
                 },
                 { "$project": projectObj },
                 { "$unwind": feedersKey },
-                { "$group": { _id : feederIDKey, "value" : { "$sum" : feederValueKey } } },
+                { "$group": { _id : feederIDKey, "value" : { "$sum" : feederValueKey }} },
                 { "$sort" : { _id : 1 }}],
                 function (err, result) {
                 if (err) {
                     console.log(err);
+                    callback([]);
+                } else {
+                    callback(result);
                 }
-                callback(result);
+                
             });
         }
     });
