@@ -1,13 +1,19 @@
 var dayLabel = new Array('일', '월', '화', '수', '목', '금', '토');
 
-var baseDay     = new Date('2015-07-01');
-//var baseDay     = new Date(); // today 날짜 잡도록 시간 초기화가 필요함
-var lastWeekDay = new Date(baseDay-(3600000*24*7))
-//var toDay   = new Date('2015-04-04');
+//var baseDay     = new Date('2015-07-01');
+var baseDay     = new Date();
+baseDay.setHours(0,0,0,0); // today 날짜만 깔끔히 잡도록 시간 초기화
 
-var baseTime     = baseDay.getTime() //  + 3600000*9; // for time shift
-var lastWeekTime = lastWeekDay.getTime();
-// var   toTime = toDay.getTime() / 1000;
+var lastWeekDay = new Date(baseDay-(3600000*24*7)) // 7일 전 날짜
+
+// console.log(baseDay);
+// console.log(lastWeekDay);
+
+var baseTime     = baseDay.getTime() + 3600000*9; // for time shift
+var lastWeekTime = lastWeekDay.getTime() + 3600000*9; // for time shift;
+
+// console.log(baseTime);
+// console.log(lastWeekTime);
 
 $(function () {
     document.getElementById("date").innerHTML = 'MARG ' +
@@ -21,12 +27,13 @@ $(function () {
 
     var xAxis_categories = new Array();
     var lastWeek_data = new Array();
-    var thisWeek_data = new Array();
+    var today_data = new Array();
 
     invokeOpenAPI(lastWeek_query, function (lastWeek) {
       console.log(lastWeek);
       for(var index = 0; index < lastWeek.length; index++){
         lastWeek_data.push(Number(lastWeek[index].sum.toFixed(1)));
+        xAxis_categories.push(lastWeek[index].dateFrom.substring(11, 13) + '시');
       }
       // console.log(lastWeek[0].sum);
       // xAxis_categories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -37,16 +44,15 @@ $(function () {
         invokeOpenAPI(baseDay_query, function (thisWeek) {
           console.log(thisWeek);
           for(var index = 0; index < thisWeek.length; index++){
-            thisWeek_data.push(Number(thisWeek[index].sum.toFixed(1)));
-            xAxis_categories.push(thisWeek[index].dateFrom.substring(11, 13) + '시');
+            today_data.push(Number(thisWeek[index].sum.toFixed(1)));
           }
           // xAxis_categories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
           // lastWeek_data = [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6];
           // Today_data     = [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8];
           // console.log(lastWeek_data);
 
-          console.log(lastWeek_data);
-          console.log(thisWeek_data);
+          console.log('lastWeek', lastWeek_data);
+          console.log('thisWeek', today_data);
           //showChart();
 
           $('#container').highcharts({
@@ -54,7 +60,7 @@ $(function () {
                     type: 'line'
                 },
                 title: {
-                    text: '하루 중 전력 사용량 변화 (' + thisWeek[0].location + '호)'
+                    text: '하루 중 전력 사용량 변화 (' + lastWeek[0].location + '호)'
                 },
                 subtitle: {
                     text: 'SNU'
@@ -81,7 +87,7 @@ $(function () {
                     color: '#d3d3d3'
                 }, {
                     name: '오늘: ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ')',
-                    data: thisWeek_data,
+                    data: today_data,
                     color: '#4169e1'
                 }]
             });
