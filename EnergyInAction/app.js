@@ -12,17 +12,18 @@ var apis = require('./routes/api');
 
 // add demo pages
 //var daily = require('./routes/daily');
-//var daily_flow = require('./routes/daily_flow');
+var daily_flow = require('./routes/daily_flow');
 //var beyond_extremes = require('./routes/beyond_extremes');
+var marg_daytrend = require('./routes/marg_daytrend');
 var marg_weektrend_breakdown = require('./routes/marg_weektrend_breakdown');
 var marg_realtime = require('./routes/marg_realtime');
-var marg_realtime_detail = require('./routes/marg_realtime_detail');
+var marg_realtime_breakdown = require('./routes/marg_realtime_breakdown');
 
 var hcc_realtime = require('./routes/hcc_realtime');
-var hcc_realtime_detail = require('./routes/hcc_realtime_detail');
+var hcc_realtime_breakdown = require('./routes/hcc_realtime_breakdown');
 
 var ux_realtime = require('./routes/ux_realtime');
-var ux_realtime_detail = require('./routes/ux_realtime_detail');
+var ux_realtime_breakdown = require('./routes/ux_realtime_breakdown');
 
 var app = express();
 
@@ -57,17 +58,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/api', apis);
 //app.use('/daily', daily);
-//app.use('/daily_flow', daily_flow);
+app.use('/daily_flow', daily_flow);
 //app.use('/beyond_extremes', beyond_extremes);
+app.use('/marg_daytrend', marg_daytrend);
 app.use('/marg_weektrend_breakdown', marg_weektrend_breakdown);
 app.use('/marg_realtime', marg_realtime);
-app.use('/marg_realtime_detail', marg_realtime_detail);
+app.use('/marg_realtime_breakdown', marg_realtime_breakdown);
 
 app.use('/hcc_realtime', hcc_realtime);
-app.use('/hcc_realtime_detail', hcc_realtime_detail);
+app.use('/hcc_realtime_breakdown', hcc_realtime_breakdown);
 
 app.use('/ux_realtime', ux_realtime);
-app.use('/ux_realtime_detail', ux_realtime_detail);
+app.use('/ux_realtime_breakdown', ux_realtime_breakdown);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

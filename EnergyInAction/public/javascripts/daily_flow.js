@@ -1,7 +1,7 @@
 //var dayLabel = new Array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
 var dayLabel = new Array('일', '월', '화', '수', '목', '금', '토');
-var baseDay = new Date('2015-04-03');
-var toDay   = new Date('2015-04-04');
+var baseDay = new Date('2015-07-13');
+var toDay   = new Date('2015-07-14');
 
 var baseTime = baseDay.getTime();
 var   toTime = toDay.getTime();

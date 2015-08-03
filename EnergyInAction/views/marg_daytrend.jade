@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    
+    h1 지난 1주일 전력 사용량 변화
+    
+    h2#date #{date}
+    div#container(style='min-width: 310px; height: 500px; margin: 0 auto')
+
+    script(src='http://code.highcharts.com/highcharts.js')
+    script(src='http://code.highcharts.com/modules/exporting.js')
+
+    script(src='javascripts/api.js')
+    script(src='javascripts/marg_daytrend.js')
