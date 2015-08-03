@@ -131,13 +131,13 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
     } else {
         queries.startDate = new Date(queries.base_time);
         queries.endDate = new Date(queries.to_time - (queries.to_time % 900000)); // truncate quarters only
-        console.log('data from ' + queries.startDate + ' to ' + queries.endDate);
+        // console.log('accumulate data from ' + queries.startDate.toLocaleString() + ' to ' + queries.endDate.toLocaleString());
         
         dbmgr.aggregateFeeders(config.collection.hours, self.id, queries, function (results) {
             
             var returnObj = {};
-            returnObj["dateFrom"] = new Date(queries.base_time);
-            returnObj["dateTo"] = new Date(queries.to_time);
+            returnObj["dateFrom"] = queries.startDate;
+            returnObj["dateTo"] = queries.endDate;
             returnObj["deviceID"] = self.deviceID;
             returnObj["location"] = self.location;
             
@@ -151,9 +151,8 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
                 feeders.push(feeder);
             }
             returnObj["feeders"] = feeders;
-            var returnArray = [];
-            returnArray.push(returnObj);
-            cb(returnArray);
+
+            cb(returnObj);
             
         });
 
@@ -161,36 +160,122 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
 
 }
 
+/*
+ * return date as YYYY-MM-dd [Sun-Sat]
+ */ 
+function dateToSimpleString(date) {
+    var dateString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    switch (date.getDay()) {
+        case 0:
+            dateString = dateString + ' [Sun]';
+            break;
+        case 1:
+            dateString = dateString + ' [Mon]';
+            break;
+        case 2:
+            dateString = dateString + ' [Tue]';
+            break;
+        case 3:
+            dateString = dateString + ' [Wed]';
+            break;
+        case 4:
+            dateString = dateString + ' [Thu]';
+            break;
+        case 5:
+            dateString = dateString + ' [Fri]';
+            break;
+        case 6:
+            dateString = dateString + ' [Sat]';
+            break;
+    }
+    return dateString;
+}
 
 
-function retrieveDailyUsages(queries, cb) {
+LabEnergyManager.prototype.retrieveDailyUsages = function(queries, cb) {
+    var offset = queries.offset;
+    var skip = queries.skip; // set start day by adding skip numbers
+
+    var dayFrom = new Date(queries.day_from);
+    dayFrom.setDate(dayFrom.getDate() + skip);
+    dayFrom.setHours(dayFrom.getHours() + offset);
+    //console.log(dayFrom);
+
+    var dayTo = new Date(queries.day_to);
+    dayTo.setHours(dayTo.getHours() + offset);
+
+    var limit = queries.limit; // limit iteration
+    var self = this;
+    var results = [];
+    var count = 0;
+
+    for (var i = 0; i < limit; i++) {
+        var queries = {}
+        var startDate = new Date(dayFrom);
+        startDate.setDate(startDate.getDate() + i);
+        var endDate = new Date(startDate);
+        endDate.setDate(endDate.getDate() + 1); // increase 1 day  after startDate 
+        
+        queries.base_time = startDate.getTime();
+
+        if (queries.base_time <= dayTo.getTime()) {           
+            
+            queries.to_time = endDate.getTime();
+
+            //console.log("From " + startDate.toLocaleDateString() + " to " + endDate.toLocaleDateString());
+           
+            var accumluateAsync = function (queries) {
+                // repeat accumulateUsages() day by day
+                self.accumulateUsages(queries, function(result) {
+                    //console.log(JSON.stringify(result));
+                    results.push(result);
+                    if (results.length == count) {
+                        // sort array before passing it
+                        results.sort(function (a, b) {
+                            return a.dateFrom.getTime() - b.dateFrom.getTime();
+                        });
+                        cb(results);
+                        
+                    }
+                });
+            }(queries);
+
+            queries.base_time = queries.to_time; // set next day 
+            count = count + 1;
+        } else {
+            break;
+        }       
+
+    }
+    
+
+}
+
+LabEnergyManager.prototype.retrieveMonthlyUsages = function(queries, cb) {
     // TODO: code required!
 }
 
-function retrieveMonthlyUsages(queries, cb) {
-    // TODO: code required!
-}
 
 LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
     
     // type can be one of follows: secs, quarters, hours, total
     var collection = null;
     switch (type) {
-        case 'secs': // XXX: This API will be deprecated!
-            collection = config.collection.secs;
-            break;
+   //     case 'secs': // XXX: This API will be deprecated!
+   //         collection = config.collection.secs;
+   //         break;
         case 'quarters':
             collection = config.collection.quarters;
             break;
         case 'hours':
             collection = config.collection.hours;
             break;
-        case 'daily':
-            retrieveDailyUsages(queries, cb);
-            break;
-        case 'monthly':
-            retrieveMonthlyUsages(queries, cb);
-            break;
+        //case 'daily':
+        //    this.retrieveDailyUsages(queries, cb);
+        //    break;
+        //case 'monthly':
+        //    this.retrieveMonthlyUsages(queries, cb);
+        //    break;
 
         default:
             // ERROR: unknown type
@@ -201,7 +286,7 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
         // translate timestamp into ISODate add startDate and endDate into queries 
         queries.startDate = new Date(queries.base_time);
         queries.endDate = new Date(queries.to_time);
-        
+        console.log('data from ' + queries.startDate.toLocaleString() + ' to ' + queries.endDate.toLocaleString());
         // set default filters to disable all
         var filters = {
             "ux" : false,

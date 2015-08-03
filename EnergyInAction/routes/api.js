@@ -993,14 +993,819 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
  * @apiParam {Number} [skip=0] Query parameter to set the skipped numbers of items.
  *
  * @apiExample {js} Example usage:
- *     api/labs/marg/energy/daily.json?base_time=1430477977029&skip=100
+ *     api/labs/ux/energy/daily.json?day_from=2015-7-19&day_to=2015-7-25&offset=8
  *
  * @apiGroup Lab Energy Usage
  * @apiHeader {String} Content-Type application/json
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
- *  TODO:
- *
+ *  [  
+  {  
+    "dateFrom":"2015-07-18T23:00:00.000Z",
+    "dateTo":"2015-07-19T23:00:00.000Z",
+    "deviceID":1169,
+    "location":"D409",
+    "feeders":[  
+      {  
+        "feederID":3,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":4,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":5,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":6,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":7,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":8,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":9,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":10,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":11,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":12,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":13,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":14,
+        "value":11.422,
+        "description":"computer"
+      },
+      {  
+        "feederID":15,
+        "value":0.258,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":16,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":17,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":18,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":19,
+        "value":0.509,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":20,
+        "value":0.449,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":21,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":22,
+        "value":0.719,
+        "description":"hvac"
+      },
+      {  
+        "feederID":23,
+        "value":7.386,
+        "description":"light"
+      }
+    ],
+    "sum":20.772,
+    "unit":"kW/h"
+  },
+  {  
+    "dateFrom":"2015-07-19T23:00:00.000Z",
+    "dateTo":"2015-07-20T23:00:00.000Z",
+    "deviceID":1169,
+    "location":"D409",
+    "feeders":[  
+      {  
+        "feederID":3,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":4,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":5,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":6,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":7,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":8,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":9,
+        "value":0,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":10,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":11,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":12,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":13,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":14,
+        "value":12.996,
+        "description":"computer"
+      },
+      {  
+        "feederID":15,
+        "value":0.261,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":16,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":17,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":18,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":19,
+        "value":0.64,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":20,
+        "value":0.887,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":21,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":22,
+        "value":0.587,
+        "description":"hvac"
+      },
+      {  
+        "feederID":23,
+        "value":9.393,
+        "description":"light"
+      }
+    ],
+    "sum":24.789,
+    "unit":"kW/h"
+  },
+  {  
+    "dateFrom":"2015-07-20T23:00:00.000Z",
+    "dateTo":"2015-07-21T23:00:00.000Z",
+    "deviceID":1169,
+    "location":"D409",
+    "feeders":[  
+      {  
+        "feederID":3,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":4,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":5,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":6,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":7,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":8,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":9,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":10,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":11,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":12,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":13,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":14,
+        "value":10.563,
+        "description":"computer"
+      },
+      {  
+        "feederID":15,
+        "value":0.261,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":16,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":17,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":18,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":19,
+        "value":0.607,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":20,
+        "value":0.659,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":21,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":22,
+        "value":0.513,
+        "description":"hvac"
+      },
+      {  
+        "feederID":23,
+        "value":12.03,
+        "description":"light"
+      }
+    ],
+    "sum":24.661,
+    "unit":"kW/h"
+  },
+  {  
+    "dateFrom":"2015-07-21T23:00:00.000Z",
+    "dateTo":"2015-07-22T23:00:00.000Z",
+    "deviceID":1169,
+    "location":"D409",
+    "feeders":[  
+      {  
+        "feederID":3,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":4,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":5,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":6,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":7,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":8,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":9,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":10,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":11,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":12,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":13,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":14,
+        "value":13.39,
+        "description":"computer"
+      },
+      {  
+        "feederID":15,
+        "value":0.261,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":16,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":17,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":18,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":19,
+        "value":0.917,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":20,
+        "value":0.515,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":21,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":22,
+        "value":0.67,
+        "description":"hvac"
+      },
+      {  
+        "feederID":23,
+        "value":21.751,
+        "description":"light"
+      }
+    ],
+    "sum":37.531,
+    "unit":"kW/h"
+  },
+  {  
+    "dateFrom":"2015-07-22T23:00:00.000Z",
+    "dateTo":"2015-07-23T23:00:00.000Z",
+    "deviceID":1169,
+    "location":"D409",
+    "feeders":[  
+      {  
+        "feederID":3,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":4,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":5,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":6,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":7,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":8,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":9,
+        "value":0,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":10,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":11,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":12,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":13,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":14,
+        "value":13.612,
+        "description":"computer"
+      },
+      {  
+        "feederID":15,
+        "value":0.339,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":16,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":17,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":18,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":19,
+        "value":1.024,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":20,
+        "value":0.853,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":21,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":22,
+        "value":0.7,
+        "description":"hvac"
+      },
+      {  
+        "feederID":23,
+        "value":15.881,
+        "description":"light"
+      }
+    ],
+    "sum":32.434,
+    "unit":"kW/h"
+  },
+  {  
+    "dateFrom":"2015-07-23T23:00:00.000Z",
+    "dateTo":"2015-07-24T23:00:00.000Z",
+    "deviceID":1169,
+    "location":"D409",
+    "feeders":[  
+      {  
+        "feederID":3,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":4,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":5,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":6,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":7,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":8,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":9,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":10,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":11,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":12,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":13,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":14,
+        "value":11.357,
+        "description":"computer"
+      },
+      {  
+        "feederID":15,
+        "value":0.257,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":16,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":17,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":18,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":19,
+        "value":0.986,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":20,
+        "value":0.484,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":21,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":22,
+        "value":0.426,
+        "description":"hvac"
+      },
+      {  
+        "feederID":23,
+        "value":14.862,
+        "description":"light"
+      }
+    ],
+    "sum":28.4,
+    "unit":"kW/h"
+  },
+  {  
+    "dateFrom":"2015-07-24T23:00:00.000Z",
+    "dateTo":"2015-07-25T23:00:00.000Z",
+    "deviceID":1169,
+    "location":"D409",
+    "feeders":[  
+      {  
+        "feederID":3,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":4,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":5,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":6,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":7,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":8,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":9,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":10,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":11,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":12,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":13,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":14,
+        "value":9.423,
+        "description":"computer"
+      },
+      {  
+        "feederID":15,
+        "value":0.255,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":16,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":17,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":18,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":19,
+        "value":0.972,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":20,
+        "value":0.418,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":21,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":22,
+        "value":0.307,
+        "description":"hvac"
+      },
+      {  
+        "feederID":23,
+        "value":1.415,
+        "description":"light"
+      }
+    ],
+    "sum":12.818,
+    "unit":"kW/h"
+  }
+]
  *
  * @apiDescription This API retrieves the energy usage information of a specific Lab
  * which are being monitored for energy usage behavior research.
@@ -1018,55 +1823,55 @@ router.get('/labs/:labId/energy/daily.json', function (req, res) {
             throw new Error('404');
         }
         // validate day_from, day_to format
-        if (validateDayFormat(req.query.day_from)) {
+        if (!validateDayFormat(req.query.day_from)) {
             throw new Error('400');
         }
-        if (validateDayFormat(req.query.day_to)) {
+        if (!validateDayFormat(req.query.day_to)) {
             throw new Error('400');
         }
-        var queries = {};
-        var offset = 0;
-        if (req.query.offset) {
-            offset = req.query.offset;
-        }  
-        if (req.query.day_from) {
-            var dayFrom = new Date(req.query.day_from);
-            dayFrom.setHours(dayFrom.getHours() + offset);
-            queries.from = dayFrom.getTime();
-        } else {
-            // get yesterday string
+        var queries = req.query;
+
+        if (!queries.offset) {
+            // set 0 if offset is not exited
+            queries.offset = 0;
+        }
+        
+        if (!queries.limit) {
+            // set 0 if offset is not exited
+            queries.limit = 100;
+        }
+        
+        if (!queries.skip) {
+            // set 0 if skip is not exited
+            queries.skip = 0;
+        }
+
+        if (!queries.day_from) {
+            // set yesterday string if day_from is empty
             var today = new Date();
             var yesterday = new Date(today);
             yesterday.setDate(today.getDate() - 1);
             var yesterdayString = yesterday.getFullYear() + '-' + (yesterday.getMonth() + 1) +
             '-' + date.getDate();
             
-            var dayFrom = new Date(yesterdayString);
-            dayFrom.setHours(dayFrom.getHours() + offset);
-            queries.from = new Date();
+            queries.day_from = yesterdayString;
         }
-        if (req.query.day_to) {
-            queries.to = (new Date(req.query.day_to)).getTime();
-        } else {
+        if (!queries.day_to) {            
             queries.to = queries.from;  // set same value as day_from 
         }
         
-        labObj.retrieveUsages('daily', queries, function (result) {
+        labObj.retrieveDailyUsages(queries, function (result) {
             if (result != null) {
                 // result will be translated to kWh
                 for (var i = 0; i < result.length; i++) {
                     var obs = result[i];
-                    var sum = accumulateFeederUsage(obs[id].feeders, 'kWh');
-                    obs.deviceID = obs[id].deviceID;
-                    obs.location = obs[id].location;
-                    obs.feeders = obs[id].feeders;
+                    var feeders = obs.feeders;
+                    //console.log(JSON.stringify(feeders));
+                    var sum = accumulateFeederUsage(feeders, 'kWh');
+
                     obs.sum = sum;
                     obs.unit = 'kW/h';
 
-                    // remove all labs
-                    delete obs['marg'];
-                    delete obs['hcc'];
-                    delete obs['ux'];
                 }
                 res.writeHead(200, controller.api.getContentHeader());
                 res.end(JSON.stringify(result));

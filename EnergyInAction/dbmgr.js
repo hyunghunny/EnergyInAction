@@ -73,7 +73,7 @@ MongoDBManager.prototype.aggregateFeeders = function (collectionName, labId, que
   
     if (queries.startDate != null && queries.endDate != null) {
   
-        console.log("Aggregate " + labId + "feeders" + " at " + queries.startDate + " ~ " + queries.endDate);
+        console.log("Aggregate " + labId + " feeders" + " at " + queries.startDate.toLocaleString() + " ~ " + queries.endDate.toLocaleString());
     } else {
         callback([]); // empty result
         return;
@@ -144,7 +144,7 @@ MongoDBManager.prototype.find = function (collectionName, queries, filters, call
             $gte: queries.startDate, 
             $lt: queries.endDate  
         }
-        console.log("Find " + queries.startDate + " ~ " + queries.endDate);
+        //console.log("Find " + queries.startDate + " ~ " + queries.endDate);
     } else {
         callback([]); // empty result
         return;
