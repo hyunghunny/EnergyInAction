@@ -2,9 +2,16 @@
   {
     "type": "get",
     "url": "api",
-    "title": "Listing API",
+    "title": "Show available APIs",
     "name": "Listing_API",
     "group": "Billboard",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "api/",
+        "type": "js"
+      }
+    ],
     "header": {
       "fields": {
         "Header": [
@@ -34,8 +41,154 @@
   },
   {
     "type": "get",
+    "url": "api/labs",
+    "title": "Show all laboratories.",
+    "name": "Listing_All_Labs",
+    "group": "Lab_Details",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "api/labs",
+        "type": "js"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>application/json</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": " HTTP/1.1 200 OK\n {\n\"labs\":[\n  {\n    \"id\":\"ux\",\n   \"name\":\"UX Lab.\",\n    \"description\":\"User Experience Lab.\",\n    \"api\":[\n      {\n        \"href\":\"/api/labs/ux/energy/latest.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/ux/energy/quarters.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/ux/energy/hours.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/ux/energy/total.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/ux/energy/feeders\",\n        \"type\":\"ItemList\"\n      }\n    ]\n  },\n  {\n    \"id\":\"marg\",\n    \"name\":\"MARG Lab.\",\n    \"description\":\"Music and Audio Research Group\",\n    \"api\":[\n      {\n        \"href\":\"/api/labs/marg/energy/latest.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/marg/energy/quarters.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/marg/energy/hours.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/marg/energy/total.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/marg/energy/feeders\",\n        \"type\":\"ItemList\"\n      }\n    ]\n  },\n  {\n    \"id\":\"hcc\",\n    \"name\":\"HCC Lab.\",\n    \"description\":\"Human Centered Computing Laboratory\",\n    \"api\":[\n      {\n        \"href\":\"/api/labs/hcc/energy/latest.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/hcc/energy/quarters.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/hcc/energy/hours.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/hcc/energy/total.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/hcc/energy/feeders\",\n        \"type\":\"ItemList\"\n      }\n    ]\n  }\n],\n\"api\":[\n  {\n    \"href\":\"/api/labs/ux\",\n    \"type\":\"ItemList\"\n  },\n  {\n    \"href\":\"/api/labs/marg\",\n    \"type\":\"ItemList\"\n  },\n  {\n    \"href\":\"/api/labs/hcc\",\n    \"type\":\"ItemList\"\n  }\n]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "description": "<p>This API lists the available Labs which are being monitored for energy usage behavior research.</p> ",
+    "version": "0.0.0",
+    "filename": "routes/api.js",
+    "groupTitle": "Lab_Details"
+  },
+  {
+    "type": "get",
+    "url": "api/labs/:labId/energy",
+    "title": "Show the supported usage measurements.",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "labId",
+            "description": "<p>Lab&#39;s unique ID.</p> "
+          }
+        ]
+      }
+    },
+    "name": "Show_the_Lab_Energy",
+    "group": "Lab_Details",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "api/labs/ux/energy",
+        "type": "js"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>application/json</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\"id\":\"ux\",\n\"name\":\"UX Lab.\",\n\"description\":\"User Experience Lab.\",\n\"api\":[{\"href\":\"/api/labs/ux/latest.json\",\"type\":\"ItemList\"},\n    {\"href\":\"/api/labs/ux/quarters.json\",\"type\":\"ItemList\"},\n    {\"href\":\"/api/labs/ux/hours.json\",\"type\":\"ItemList\"},\n    {\"href\":\"/api/labs/ux/total.json\",\"type\":\"ItemList\"},\n    {\"href\":\"/api/labs/ux/feeders\",\"type\":\"ItemList\"}]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "description": "<p>This API show the information of a specific Lab which are being monitored for energy usage behavior research.</p> ",
+    "version": "0.0.0",
+    "filename": "routes/api.js",
+    "groupTitle": "Lab_Details"
+  },
+  {
+    "type": "get",
+    "url": "api/labs/:labId",
+    "title": "Show the specific Lab.",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "labId",
+            "description": "<p>Lab&#39;s unique ID.</p> "
+          }
+        ]
+      }
+    },
+    "name": "Show_the_Lab_Information",
+    "group": "Lab_Details",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "api/labs/ux",
+        "type": "js"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>application/json</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\"id\":\"ux\",\n\"name\":\"UX Lab.\",\n\"description\":\"User Experience Lab.\",\n\"api\":[{\"href\":\"/api/labs/ux/latest.json\",\"type\":\"ItemList\"},\n    {\"href\":\"/api/labs/ux/quarters.json\",\"type\":\"ItemList\"},\n    {\"href\":\"/api/labs/ux/hours.json\",\"type\":\"ItemList\"},\n    {\"href\":\"/api/labs/ux/total.json\",\"type\":\"ItemList\"},\n    {\"href\":\"/api/labs/ux/feeders\",\"type\":\"ItemList\"}]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "description": "<p>This API show the information of a specific Lab which are being monitored for energy usage behavior research.</p> ",
+    "version": "0.0.0",
+    "filename": "routes/api.js",
+    "groupTitle": "Lab_Details"
+  },
+  {
+    "type": "get",
     "url": "api/labs/:labId/energy/quarters.json",
-    "title": "Retrieve the energy usage information which measured per 15 mins",
+    "title": "Retrieve the previous usage(s) measured at each 15 minutes.",
     "name": "Retrieve_the_energy_usage_information_which_measured_per_15_mins",
     "parameter": {
       "fields": {
@@ -120,7 +273,7 @@
   {
     "type": "get",
     "url": "api/labs/:labId/energy/daily.json",
-    "title": "Retrieve the energy usage information which measured per day",
+    "title": "Retrieve the previous usage(s) measured at each days.",
     "name": "Retrieve_the_energy_usage_information_which_measured_per_day",
     "parameter": {
       "fields": {
@@ -213,7 +366,7 @@
   {
     "type": "get",
     "url": "api/labs/:labId/energy/hours.json",
-    "title": "Retrieve the energy usage information which measured per hours",
+    "title": "Retrieve the previous usage(s) measured at each hours.",
     "name": "Retrieve_the_energy_usage_information_which_measured_per_hours",
     "parameter": {
       "fields": {
@@ -298,7 +451,7 @@
   {
     "type": "get",
     "url": "api/labs/:labId/energy/latest.json",
-    "title": "Retrieve latest energy usage information which measured per one second",
+    "title": "Retrieve the latest usage measured at each 1 seconds.",
     "name": "Retrieve_the_latest_energy_usage_information_which_measured_per_one_second",
     "parameter": {
       "fields": {
@@ -351,7 +504,7 @@
   {
     "type": "get",
     "url": "api/labs/:labId/energy/total.json",
-    "title": "Retrieve the total energy usage information which measured from base_time to to_time.",
+    "title": "Retrieve the total usage measured at a specific time span.",
     "name": "Retrieve_the_total_energy_usage_information_which_measured_from_base_time_to_to_time_",
     "parameter": {
       "fields": {
@@ -424,130 +577,5 @@
     "version": "0.0.0",
     "filename": "routes/api.js",
     "groupTitle": "Lab_Energy_Usage"
-  },
-  {
-    "type": "get",
-    "url": "api/labs",
-    "title": "Listing Lab Information",
-    "name": "Listing_Lab_Information",
-    "group": "Lab_Information",
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Content-Type",
-            "description": "<p>application/json</p> "
-          }
-        ]
-      }
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": " HTTP/1.1 200 OK\n {\n\"labs\":[\n  {\n    \"id\":\"ux\",\n   \"name\":\"UX Lab.\",\n    \"description\":\"User Experience Lab.\",\n    \"api\":[\n      {\n        \"href\":\"/api/labs/ux/energy/latest.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/ux/energy/quarters.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/ux/energy/hours.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/ux/energy/total.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/ux/energy/feeders\",\n        \"type\":\"ItemList\"\n      }\n    ]\n  },\n  {\n    \"id\":\"marg\",\n    \"name\":\"MARG Lab.\",\n    \"description\":\"Music and Audio Research Group\",\n    \"api\":[\n      {\n        \"href\":\"/api/labs/marg/energy/latest.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/marg/energy/quarters.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/marg/energy/hours.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/marg/energy/total.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/marg/energy/feeders\",\n        \"type\":\"ItemList\"\n      }\n    ]\n  },\n  {\n    \"id\":\"hcc\",\n    \"name\":\"HCC Lab.\",\n    \"description\":\"Human Centered Computing Laboratory\",\n    \"api\":[\n      {\n        \"href\":\"/api/labs/hcc/energy/latest.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/hcc/energy/quarters.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/hcc/energy/hours.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/hcc/energy/total.json\",\n        \"type\":\"ItemList\"\n      },\n      {\n        \"href\":\"/api/labs/hcc/energy/feeders\",\n        \"type\":\"ItemList\"\n      }\n    ]\n  }\n],\n\"api\":[\n  {\n    \"href\":\"/api/labs/ux\",\n    \"type\":\"ItemList\"\n  },\n  {\n    \"href\":\"/api/labs/marg\",\n    \"type\":\"ItemList\"\n  },\n  {\n    \"href\":\"/api/labs/hcc\",\n    \"type\":\"ItemList\"\n  }\n]\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "description": "<p>This API lists the available Labs which are being monitored for energy usage behavior research.</p> ",
-    "version": "0.0.0",
-    "filename": "routes/api.js",
-    "groupTitle": "Lab_Information"
-  },
-  {
-    "type": "get",
-    "url": "api/labs:labId",
-    "title": "Show the Lab Information",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "labId",
-            "description": "<p>Lab&#39;s unique ID.</p> "
-          }
-        ]
-      }
-    },
-    "name": "Show_the_Lab_Information",
-    "group": "Lab_Information",
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Content-Type",
-            "description": "<p>application/json</p> "
-          }
-        ]
-      }
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"id\":\"ux\",\n\"name\":\"UX Lab.\",\n\"description\":\"User Experience Lab.\",\n\"api\":[{\"href\":\"/api/labs/ux/latest.json\",\"type\":\"ItemList\"},\n    {\"href\":\"/api/labs/ux/quarters.json\",\"type\":\"ItemList\"},\n    {\"href\":\"/api/labs/ux/hours.json\",\"type\":\"ItemList\"},\n    {\"href\":\"/api/labs/ux/total.json\",\"type\":\"ItemList\"},\n    {\"href\":\"/api/labs/ux/feeders\",\"type\":\"ItemList\"}]\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "description": "<p>This API show the information of a specific Lab which are being monitored for energy usage behavior research.</p> ",
-    "version": "0.0.0",
-    "filename": "routes/api.js",
-    "groupTitle": "Lab_Information"
-  },
-  {
-    "type": "get",
-    "url": "api/labs:labId",
-    "title": "Show the Lab Energy Information",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "labId",
-            "description": "<p>Lab&#39;s unique ID.</p> "
-          }
-        ]
-      }
-    },
-    "name": "Show_the_Lab_Information",
-    "group": "Lab_Information",
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Content-Type",
-            "description": "<p>application/json</p> "
-          }
-        ]
-      }
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\"id\":\"ux\",\n\"name\":\"UX Lab.\",\n\"description\":\"User Experience Lab.\",\n\"api\":[{\"href\":\"/api/labs/ux/latest.json\",\"type\":\"ItemList\"},\n    {\"href\":\"/api/labs/ux/quarters.json\",\"type\":\"ItemList\"},\n    {\"href\":\"/api/labs/ux/hours.json\",\"type\":\"ItemList\"},\n    {\"href\":\"/api/labs/ux/total.json\",\"type\":\"ItemList\"},\n    {\"href\":\"/api/labs/ux/feeders\",\"type\":\"ItemList\"}]\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "description": "<p>This API show the information of a specific Lab which are being monitored for energy usage behavior research.</p> ",
-    "version": "0.0.0",
-    "filename": "routes/api.js",
-    "groupTitle": "Lab_Information"
   }
 ]

@@ -5,9 +5,11 @@ var router = express.Router();
 var controller = require('../control');
 
 /**
- * @api {get} api Listing API
+ * @api {get} api Show available APIs
  * @apiName Listing_API
  * @apiGroup Billboard
+ * @apiExample {js} Example usage:
+ *     api/ 
  * @apiHeader {String} Content-Type application/json or text/html
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
@@ -34,9 +36,11 @@ router.get('/', function (req, res) {
 });
 
 /**
- * @api {get} api/labs Listing Lab Information
- * @apiName Listing_Lab_Information
- * @apiGroup Lab Information
+ * @api {get} api/labs Show all laboratories.
+ * @apiName Listing_All_Labs
+ * @apiGroup Lab Details
+ * @apiExample {js} Example usage:
+ *     api/labs 
  * @apiHeader {String} Content-Type application/json
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
@@ -152,10 +156,12 @@ router.get('/labs', function (req, res) {
 
 
 /**
- * @api {get} api/labs:labId Show the Lab Information
+ * @api {get} api/labs/:labId Show the specific Lab.
  * @apiParam {String} labId Lab's unique ID.
  * @apiName Show_the_Lab_Information
- * @apiGroup Lab Information
+ * @apiGroup Lab Details
+ * @apiExample {js} Example usage:
+ *     api/labs/ux 
  * @apiHeader {String} Content-Type application/json
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
@@ -192,10 +198,12 @@ router.get('/labs/:labId', function (req, res) {
 
 
 /**
- * @api {get} api/labs:labId Show the Lab Energy Information
+ * @api {get} api/labs/:labId/energy Show the supported usage measurements.
  * @apiParam {String} labId Lab's unique ID.
- * @apiName Show_the_Lab_Information
- * @apiGroup Lab Information
+ * @apiName Show_the_Lab_Energy
+ * @apiGroup Lab Details
+ * @apiExample {js} Example usage:
+ *     api/labs/ux/energy
  * @apiHeader {String} Content-Type application/json
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
@@ -233,7 +241,7 @@ router.get('/labs/:labId/energy', function (req, res) {
 
 
 /*
- * @api {get} api/labs/:labId/energy/secs.json Retrieve the_energy usage information which measured per one second
+ * @api {get} api/labs/:labId/energy/secs.json Retrieve the usage measured 1 seconds each.
  *
  * @apiName Retrieve the energy usage information which measured per one second
  *
@@ -398,7 +406,7 @@ router.get('/labs/:labId/energy/secs.json', function (req, res) {
 });
 */
 /**
- * @api {get} api/labs/:labId/energy/latest.json Retrieve latest energy usage information which measured per one second
+ * @api {get} api/labs/:labId/energy/latest.json Retrieve the latest usage measured at each 1 seconds.
  *
  * @apiName Retrieve the latest energy usage information which measured per one second
  *
@@ -618,7 +626,7 @@ function validateQueryParam(queries) {
 }
 
 /**
- * @api {get} api/labs/:labId/energy/quarters.json Retrieve the energy usage information which measured per 15 mins
+ * @api {get} api/labs/:labId/energy/quarters.json Retrieve the previous usage(s) measured at each 15 minutes.
  * @apiName Retrieve the energy usage information which measured per 15 mins
  *
  * @apiParam {String} labId Lab's unique ID.
@@ -804,7 +812,7 @@ router.get('/labs/:labId/energy/quarters.json', function (req, res) {
 });
 
 /**
- * @api {get} api/labs/:labId/energy/hours.json Retrieve the energy usage information which measured per hours
+ * @api {get} api/labs/:labId/energy/hours.json Retrieve the previous usage(s) measured at each hours.
  * @apiName Retrieve the energy usage information which measured per hours
  *
  * @apiParam {String} labId Lab's unique ID.
@@ -979,7 +987,7 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
 });
 
 /**
- * @api {get} api/labs/:labId/energy/daily.json Retrieve the energy usage information which measured per day
+ * @api {get} api/labs/:labId/energy/daily.json Retrieve the previous usage(s) measured at each days.
  * @apiName Retrieve the energy usage information which measured per day
  *
  * @apiParam {String} labId Lab's unique ID.
@@ -1899,7 +1907,7 @@ function validateDayFormat(dateString) {
 }
 
 /**
- * @api {get} api/labs/:labId/energy/total.json Retrieve the total energy usage information which measured from base_time to to_time.
+ * @api {get} api/labs/:labId/energy/total.json Retrieve the total usage measured at a specific time span.
  *
  * @apiName Retrieve the total energy usage information which measured from base_time to to_time.
  * @apiParam {String} labId Lab's unique ID.
