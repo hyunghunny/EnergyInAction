@@ -8,7 +8,7 @@ var start_year  = start_day.getFullYear();
 var start_month = start_day.getMonth()+1;
 var start_date  = start_day.getDate();
 
-var from_date = start_day.setHours(0,0,0,0);
+var from_date = start_day.setHours(9,0,0,0);
 
 
 $(function () {
@@ -25,7 +25,6 @@ $(function () {
     data_etc = [3, 0.5, 4, 4, 3, 2, 1];
 
     data_total = [13, 12.5, 18, 15, 11, 14, 10];
-
 
     //showChart();
     $('#container').highcharts({
@@ -111,7 +110,6 @@ function invokeOpenAPI(url, scb) {
 
         error : function (request) {
             console.log("failed to retrieve:" + request);
-
 
         }
     });
