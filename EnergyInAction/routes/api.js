@@ -5,9 +5,11 @@ var router = express.Router();
 var controller = require('../control');
 
 /**
- * @api {get} api Listing API
+ * @api {get} api Show available APIs
  * @apiName Listing_API
  * @apiGroup Billboard
+ * @apiExample {js} Example usage:
+ *     api/ 
  * @apiHeader {String} Content-Type application/json or text/html
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
@@ -34,9 +36,11 @@ router.get('/', function (req, res) {
 });
 
 /**
- * @api {get} api/labs Listing Lab Information
- * @apiName Listing_Lab_Information
- * @apiGroup Lab Information
+ * @api {get} api/labs Show all laboratories.
+ * @apiName Listing_All_Labs
+ * @apiGroup Lab Details
+ * @apiExample {js} Example usage:
+ *     api/labs 
  * @apiHeader {String} Content-Type application/json
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
@@ -152,17 +156,19 @@ router.get('/labs', function (req, res) {
 
 
 /**
- * @api {get} api/labs:labId Show the Lab Information
+ * @api {get} api/labs/:labId Show the specific Lab.
  * @apiParam {String} labId Lab's unique ID.
  * @apiName Show_the_Lab_Information
- * @apiGroup Lab Information
+ * @apiGroup Lab Details
+ * @apiExample {js} Example usage:
+ *     api/labs/ux 
  * @apiHeader {String} Content-Type application/json
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
  *  {"id":"ux",
  *  "name":"UX Lab.",
  *  "description":"User Experience Lab.",
- *  "api":[{"href":"/api/labs/ux/secs.json","type":"ItemList"},
+ *  "api":[{"href":"/api/labs/ux/latest.json","type":"ItemList"},
  *      {"href":"/api/labs/ux/quarters.json","type":"ItemList"},
  *      {"href":"/api/labs/ux/hours.json","type":"ItemList"},
  *      {"href":"/api/labs/ux/total.json","type":"ItemList"},
@@ -192,17 +198,19 @@ router.get('/labs/:labId', function (req, res) {
 
 
 /**
- * @api {get} api/labs:labId Show the Lab Energy Information
+ * @api {get} api/labs/:labId/energy Show the supported usage measurements.
  * @apiParam {String} labId Lab's unique ID.
- * @apiName Show_the_Lab_Information
- * @apiGroup Lab Information
+ * @apiName Show_the_Lab_Energy
+ * @apiGroup Lab Details
+ * @apiExample {js} Example usage:
+ *     api/labs/ux/energy
  * @apiHeader {String} Content-Type application/json
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
  *  {"id":"ux",
  *  "name":"UX Lab.",
  *  "description":"User Experience Lab.",
- *  "api":[{"href":"/api/labs/ux/secs.json","type":"ItemList"},
+ *  "api":[{"href":"/api/labs/ux/latest.json","type":"ItemList"},
  *      {"href":"/api/labs/ux/quarters.json","type":"ItemList"},
  *      {"href":"/api/labs/ux/hours.json","type":"ItemList"},
  *      {"href":"/api/labs/ux/total.json","type":"ItemList"},
@@ -233,7 +241,7 @@ router.get('/labs/:labId/energy', function (req, res) {
 
 
 /*
- * @api {get} api/labs/:labId/energy/secs.json Retrieve the_energy usage information which measured per one second
+ * @api {get} api/labs/:labId/energy/secs.json Retrieve the usage measured 1 seconds each.
  *
  * @apiName Retrieve the energy usage information which measured per one second
  *
@@ -352,7 +360,7 @@ router.get('/labs/:labId/energy', function (req, res) {
  * It is referred into milliwatt per sec
  *
  * REMARKS: THIS API IS DEPRECATED.
- */
+ *
 router.get('/labs/:labId/energy/secs.json', function (req, res) {
     try {
         var id = req.params.labId;
@@ -371,13 +379,17 @@ router.get('/labs/:labId/energy/secs.json', function (req, res) {
             if (result != null) {
                 for (var i = 0; i < result.length; i++) {
                     var obs = result[i];
-                    var sum = visitFeeders(obs[id].feeders);
+                    var sum = accumulateFeederUsage(obs[id].feeders);
                     obs.deviceID = obs[id].deviceID;
                     obs.location = obs[id].location;
                     obs.feeders = obs[id].feeders;
-                    delete obs[id];
                     obs.sum = sum;
                     obs.unit = 'mW/s';
+
+                    // remove all labs
+                    delete obs['marg'];
+                    delete obs['hcc'];
+                    delete obs['ux'];
                 }
                 res.writeHead(200, controller.api.getContentHeader());
                 res.end(JSON.stringify(result));
@@ -392,9 +404,9 @@ router.get('/labs/:labId/energy/secs.json', function (req, res) {
         res.sendStatus(err.message);
     }
 });
-
+*/
 /**
- * @api {get} api/labs/:labId/energy/latest.json Retrieve latest energy usage information which measured per one second
+ * @api {get} api/labs/:labId/energy/latest.json Retrieve the latest usage measured at each 1 seconds.
  *
  * @apiName Retrieve the latest energy usage information which measured per one second
  *
@@ -518,16 +530,17 @@ router.get('/labs/:labId/energy/latest.json', function (req, res) {
         // validate query parameter
         var queries = validateQueryParam(req.query);
         if (queries == null) {
-            throw new Error('404');
+            throw new Error('400');
         }
         queries.labId = id;
 
         labObj.realtimeUsages(queries, function (result) {
             if (result != null) {
 
-                var sum = visitFeeders(result.feeders);
+                var sum = accumulateFeederUsage(result.feeders);
                 result.sum = sum;
                 result.unit = 'mW/s';
+
                 res.writeHead(200, controller.api.getContentHeader());
                 res.end(JSON.stringify(result));
             } else {
@@ -548,7 +561,7 @@ router.get('/labs/:labId/energy/latest.json', function (req, res) {
  *
  * @return the accumulated power usage
  */
-function visitFeeders(feeders, unitType) {
+function accumulateFeederUsage(feeders, unitType) {
     var sum = 0.0;
     var unit = 1;
     switch (unitType) {
@@ -613,7 +626,7 @@ function validateQueryParam(queries) {
 }
 
 /**
- * @api {get} api/labs/:labId/energy/quarters.json Retrieve the energy usage information which measured per 15 mins
+ * @api {get} api/labs/:labId/energy/quarters.json Retrieve the previous usage(s) measured at each 15 minutes.
  * @apiName Retrieve the energy usage information which measured per 15 mins
  *
  * @apiParam {String} labId Lab's unique ID.
@@ -749,7 +762,7 @@ router.get('/labs/:labId/energy/quarters.json', function (req, res) {
         // validate query parameter
         var queries = validateQueryParam(req.query);
         if (queries == null) {
-            throw new Error('404');
+            throw new Error('400');
         }
 
         // if time span between base time to to time is not enough, return empty result
@@ -765,13 +778,24 @@ router.get('/labs/:labId/energy/quarters.json', function (req, res) {
 
                 for (var i = 0; i < result.length; i++) {
                     var obs = result[i];
-                    var sum = visitFeeders(obs[id].feeders, 'kW/15min');
-                    obs.deviceID = obs[id].deviceID;
-                    obs.location = obs[id].location;
-                    obs.feeders = obs[id].feeders;
-                    delete obs[id];
-                    obs.sum = sum;
-                    obs.unit = 'kW/15min';
+                    if (obs[id]) {
+                        var sum = accumulateFeederUsage(obs[id].feeders, 'kW/15min');
+                        obs.deviceID = obs[id].deviceID;
+                        obs.location = obs[id].location;
+                        obs.feeders = obs[id].feeders;
+
+                        obs.sum = sum;
+                        obs.unit = 'kW/15min';
+
+                        // remove all labs
+                        delete obs['marg'];
+                        delete obs['hcc'];
+                        delete obs['ux'];
+
+                    } else {
+                        console.log('invalid result: ' + JSON.stringify(obs))
+                    }
+
                 }
 
                 res.writeHead(200, controller.api.getContentHeader());
@@ -788,7 +812,7 @@ router.get('/labs/:labId/energy/quarters.json', function (req, res) {
 });
 
 /**
- * @api {get} api/labs/:labId/energy/hours.json Retrieve the energy usage information which measured per hours
+ * @api {get} api/labs/:labId/energy/hours.json Retrieve the previous usage(s) measured at each hours.
  * @apiName Retrieve the energy usage information which measured per hours
  *
  * @apiParam {String} labId Lab's unique ID.
@@ -923,7 +947,7 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
         // validate query parameter
         var queries = validateQueryParam(req.query);
         if (queries == null) {
-            throw new Error('404');
+            throw new Error('400');
         }
         // if time span between base time to to time is not enough, return empty result
         if (queries.to_time - queries.base_time < 3600000) {
@@ -936,13 +960,18 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
                 // result will be translated to kWh
                 for (var i = 0; i < result.length; i++) {
                     var obs = result[i];
-                    var sum = visitFeeders(obs[id].feeders, 'kWh');
+                    var sum = accumulateFeederUsage(obs[id].feeders, 'kWh');
                     obs.deviceID = obs[id].deviceID;
                     obs.location = obs[id].location;
                     obs.feeders = obs[id].feeders;
-                    delete obs[id];
+                    
                     obs.sum = sum;
                     obs.unit = 'kW/h';
+
+                    // remove all labs
+                    delete obs['marg'];
+                    delete obs['hcc'];
+                    delete obs['ux'];
                 }
                 res.writeHead(200, controller.api.getContentHeader());
                 res.end(JSON.stringify(result));
@@ -957,9 +986,928 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
     }
 });
 
+/**
+ * @api {get} api/labs/:labId/energy/daily.json Retrieve the previous usage(s) measured at each days.
+ * @apiName Retrieve the energy usage information which measured per day
+ *
+ * @apiParam {String} labId Lab's unique ID.
+ * @apiParam {String} [day_from=yesterday]  Query parameter to set the base day.
+ *   It should be formated as YYYY-MM-DD. e.g. 2015-4-10.
+ *   The result(s) contains the observations which measured from the value of from to the value of to. 
+ * @apiParam {String} [day_to=same day of from value]  Query parameter to set the time to be collected.
+ *   It should be formated as YYYY-MM-DD. e.g. 2015-4-10.
+ * @apiParam {Number} [offset=0] Query parameter to set the offset hour. e.g. offset=9 means each measurements associated from 9 A.M. to next 9 A.M.  
+ * @apiParam {Number} [limit=100] Query parameter to set the number of items which will be retrieved.
+ * @apiParam {Number} [skip=0] Query parameter to set the skipped numbers of items.
+ *
+ * @apiExample {js} Example usage:
+ *     api/labs/ux/energy/daily.json?day_from=2015-7-19&day_to=2015-7-25&offset=8
+ *
+ * @apiGroup Lab Energy Usage
+ * @apiHeader {String} Content-Type application/json
+ * @apiSuccessExample Success-Response:
+ *  HTTP/1.1 200 OK
+ *  [  
+  {  
+    "dateFrom":"2015-07-18T23:00:00.000Z",
+    "dateTo":"2015-07-19T23:00:00.000Z",
+    "deviceID":1169,
+    "location":"D409",
+    "feeders":[  
+      {  
+        "feederID":3,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":4,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":5,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":6,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":7,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":8,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":9,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":10,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":11,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":12,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":13,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":14,
+        "value":11.422,
+        "description":"computer"
+      },
+      {  
+        "feederID":15,
+        "value":0.258,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":16,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":17,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":18,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":19,
+        "value":0.509,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":20,
+        "value":0.449,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":21,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":22,
+        "value":0.719,
+        "description":"hvac"
+      },
+      {  
+        "feederID":23,
+        "value":7.386,
+        "description":"light"
+      }
+    ],
+    "sum":20.772,
+    "unit":"kW/h"
+  },
+  {  
+    "dateFrom":"2015-07-19T23:00:00.000Z",
+    "dateTo":"2015-07-20T23:00:00.000Z",
+    "deviceID":1169,
+    "location":"D409",
+    "feeders":[  
+      {  
+        "feederID":3,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":4,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":5,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":6,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":7,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":8,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":9,
+        "value":0,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":10,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":11,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":12,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":13,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":14,
+        "value":12.996,
+        "description":"computer"
+      },
+      {  
+        "feederID":15,
+        "value":0.261,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":16,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":17,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":18,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":19,
+        "value":0.64,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":20,
+        "value":0.887,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":21,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":22,
+        "value":0.587,
+        "description":"hvac"
+      },
+      {  
+        "feederID":23,
+        "value":9.393,
+        "description":"light"
+      }
+    ],
+    "sum":24.789,
+    "unit":"kW/h"
+  },
+  {  
+    "dateFrom":"2015-07-20T23:00:00.000Z",
+    "dateTo":"2015-07-21T23:00:00.000Z",
+    "deviceID":1169,
+    "location":"D409",
+    "feeders":[  
+      {  
+        "feederID":3,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":4,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":5,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":6,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":7,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":8,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":9,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":10,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":11,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":12,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":13,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":14,
+        "value":10.563,
+        "description":"computer"
+      },
+      {  
+        "feederID":15,
+        "value":0.261,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":16,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":17,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":18,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":19,
+        "value":0.607,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":20,
+        "value":0.659,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":21,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":22,
+        "value":0.513,
+        "description":"hvac"
+      },
+      {  
+        "feederID":23,
+        "value":12.03,
+        "description":"light"
+      }
+    ],
+    "sum":24.661,
+    "unit":"kW/h"
+  },
+  {  
+    "dateFrom":"2015-07-21T23:00:00.000Z",
+    "dateTo":"2015-07-22T23:00:00.000Z",
+    "deviceID":1169,
+    "location":"D409",
+    "feeders":[  
+      {  
+        "feederID":3,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":4,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":5,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":6,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":7,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":8,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":9,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":10,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":11,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":12,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":13,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":14,
+        "value":13.39,
+        "description":"computer"
+      },
+      {  
+        "feederID":15,
+        "value":0.261,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":16,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":17,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":18,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":19,
+        "value":0.917,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":20,
+        "value":0.515,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":21,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":22,
+        "value":0.67,
+        "description":"hvac"
+      },
+      {  
+        "feederID":23,
+        "value":21.751,
+        "description":"light"
+      }
+    ],
+    "sum":37.531,
+    "unit":"kW/h"
+  },
+  {  
+    "dateFrom":"2015-07-22T23:00:00.000Z",
+    "dateTo":"2015-07-23T23:00:00.000Z",
+    "deviceID":1169,
+    "location":"D409",
+    "feeders":[  
+      {  
+        "feederID":3,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":4,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":5,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":6,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":7,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":8,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":9,
+        "value":0,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":10,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":11,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":12,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":13,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":14,
+        "value":13.612,
+        "description":"computer"
+      },
+      {  
+        "feederID":15,
+        "value":0.339,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":16,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":17,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":18,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":19,
+        "value":1.024,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":20,
+        "value":0.853,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":21,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":22,
+        "value":0.7,
+        "description":"hvac"
+      },
+      {  
+        "feederID":23,
+        "value":15.881,
+        "description":"light"
+      }
+    ],
+    "sum":32.434,
+    "unit":"kW/h"
+  },
+  {  
+    "dateFrom":"2015-07-23T23:00:00.000Z",
+    "dateTo":"2015-07-24T23:00:00.000Z",
+    "deviceID":1169,
+    "location":"D409",
+    "feeders":[  
+      {  
+        "feederID":3,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":4,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":5,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":6,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":7,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":8,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":9,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":10,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":11,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":12,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":13,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":14,
+        "value":11.357,
+        "description":"computer"
+      },
+      {  
+        "feederID":15,
+        "value":0.257,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":16,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":17,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":18,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":19,
+        "value":0.986,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":20,
+        "value":0.484,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":21,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":22,
+        "value":0.426,
+        "description":"hvac"
+      },
+      {  
+        "feederID":23,
+        "value":14.862,
+        "description":"light"
+      }
+    ],
+    "sum":28.4,
+    "unit":"kW/h"
+  },
+  {  
+    "dateFrom":"2015-07-24T23:00:00.000Z",
+    "dateTo":"2015-07-25T23:00:00.000Z",
+    "deviceID":1169,
+    "location":"D409",
+    "feeders":[  
+      {  
+        "feederID":3,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":4,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":5,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":6,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":7,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":8,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":9,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":10,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":11,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":12,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":13,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":14,
+        "value":9.423,
+        "description":"computer"
+      },
+      {  
+        "feederID":15,
+        "value":0.255,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":16,
+        "value":0.001,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":17,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":18,
+        "value":0.002,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":19,
+        "value":0.972,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":20,
+        "value":0.418,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":21,
+        "value":0.003,
+        "description":"unclassified"
+      },
+      {  
+        "feederID":22,
+        "value":0.307,
+        "description":"hvac"
+      },
+      {  
+        "feederID":23,
+        "value":1.415,
+        "description":"light"
+      }
+    ],
+    "sum":12.818,
+    "unit":"kW/h"
+  }
+]
+ *
+ * @apiDescription This API retrieves the energy usage information of a specific Lab
+ * which are being monitored for energy usage behavior research.
+ *
+ * It is referred into kilowatt per hr. (kWh)
+ *
+ */
+router.get('/labs/:labId/energy/daily.json', function (req, res) {
+    try {
+        var id = req.params.labId;
+        
+        var labObj = controller.labs.find(id);
+        
+        if (labObj == null) {
+            throw new Error('404');
+        }
+        // validate day_from, day_to format
+        if (!validateDayFormat(req.query.day_from)) {
+            throw new Error('400');
+        }
+        if (!validateDayFormat(req.query.day_to)) {
+            throw new Error('400');
+        }
+        var queries = req.query;
+
+        if (!queries.offset) {
+            // set 0 if offset is not exited
+            queries.offset = 0;
+        }
+        
+        if (!queries.limit) {
+            // set 0 if offset is not exited
+            queries.limit = 100;
+        }
+        
+        if (!queries.skip) {
+            // set 0 if skip is not exited
+            queries.skip = 0;
+        }
+
+        if (!queries.day_from) {
+            // set yesterday string if day_from is empty
+            var today = new Date();
+            var yesterday = new Date(today);
+            yesterday.setDate(today.getDate() - 1);
+            var yesterdayString = yesterday.getFullYear() + '-' + (yesterday.getMonth() + 1) +
+            '-' + date.getDate();
+            
+            queries.day_from = yesterdayString;
+        }
+        if (!queries.day_to) {            
+            queries.to = queries.from;  // set same value as day_from 
+        }
+        
+        labObj.retrieveDailyUsages(queries, function (result) {
+            if (result != null) {
+                // result will be translated to kWh
+                for (var i = 0; i < result.length; i++) {
+                    var obs = result[i];
+                    var feeders = obs.feeders;
+                    //console.log(JSON.stringify(feeders));
+                    var sum = accumulateFeederUsage(feeders, 'kWh');
+
+                    obs.sum = sum;
+                    obs.unit = 'kW/h';
+
+                }
+                res.writeHead(200, controller.api.getContentHeader());
+                res.end(JSON.stringify(result));
+            } else {
+                var err = new Error('500')
+                res.sendStatus(err.message);
+            }
+        });
+    } catch (err) {
+        // return error code here
+        res.sendStatus(err.message);
+    }
+});
+
+function validateDayFormat(dateString) {
+    if (!dateString) {
+        //XXX: return true when it is omitted
+        return true;
+    }
+    if (/^[0-9][0-9][0-9][0-9]-[0-9][0-9]?-[0-9][0-9]?/.test(dateString)) {
+        return true;
+    } else {
+        false;
+    }
+}
 
 /**
- * @api {get} api/labs/:labId/energy/total.json Retrieve the total energy usage information which measured from base_time to to_time.
+ * @api {get} api/labs/:labId/energy/total.json Retrieve the total usage measured at a specific time span.
  *
  * @apiName Retrieve the total energy usage information which measured from base_time to to_time.
  * @apiParam {String} labId Lab's unique ID.
@@ -1092,7 +2040,7 @@ router.get('/labs/:labId/energy/total.json', function (req, res) {
         // validate query parameter
         var queries = validateQueryParam(req.query);
         if (queries == null) {
-            throw new Error('404');
+            throw new Error('400');
         }
 
         labObj.accumulateUsages(queries, function (result) {
@@ -1101,7 +2049,7 @@ router.get('/labs/:labId/energy/total.json', function (req, res) {
                 // result will be translated to kWh
                 for (var i = 0; i < result.length; i++) {
                     var obs = result[i];
-                    var sum = visitFeeders(obs.feeders, 'kWh');
+                    var sum = accumulateFeederUsage(obs.feeders, 'kWh');
 
                     obs.sum = sum;
                     obs.unit = 'kW/h';

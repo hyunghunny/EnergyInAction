@@ -80,6 +80,14 @@ var EDMInfoFactory = function () {
 
 }
 
+EDMInfoFactory.prototype.getDescription = function (labId, feederId) {
+    if (!this[labId]) {
+        return "invalid labId";
+    } else {
+        return this[labId].getDescription(feederId);
+    }
+}
+
 var EDMInfo = function (id, location) {
     
     this.deviceID = id;
@@ -98,6 +106,15 @@ EDMInfo.prototype.setValue = function (feederId, value) {
     }
 }
 
+EDMInfo.prototype.getDescription = function (feederId) {
+    for (var i = 0; i < this.feeders.length; i++) {
+        var feeder = this.feeders[i];
+        if (feeder.feederID === feederId) {
+            return feeder.description;
+        }
+    }
+    return "invalid feeder Id";
+}
 
 EDMInfo.prototype.addFeeder = function (feedObj) {
     this.feeders.push(feedObj);

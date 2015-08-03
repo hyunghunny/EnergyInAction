@@ -73,7 +73,7 @@ MongoDBManager.prototype.aggregateFeeders = function (collectionName, labId, que
   
     if (queries.startDate != null && queries.endDate != null) {
   
-        console.log("Aggregate " + labId + "feeders" + " at " + queries.startDate + " ~ " + queries.endDate);
+        console.log("Aggregate " + labId + " feeders" + " at " + queries.startDate.toLocaleString() + " ~ " + queries.endDate.toLocaleString());
     } else {
         callback([]); // empty result
         return;
@@ -87,6 +87,7 @@ MongoDBManager.prototype.aggregateFeeders = function (collectionName, labId, que
             var feedersKey = "$" + feeders;
             var feederIDKey = "$" + feeders + ".feederID";
             var feederValueKey = "$" + feeders + ".value";
+            var feederDescriptionKey = "$" + feeders + ".description";
             var projectObj = {}  
             projectObj[feeders] = 1; // XXX: javaScript confused that feeders is the key name or the variable.
 
@@ -99,13 +100,16 @@ MongoDBManager.prototype.aggregateFeeders = function (collectionName, labId, que
                 },
                 { "$project": projectObj },
                 { "$unwind": feedersKey },
-                { "$group": { _id : feederIDKey, "value" : { "$sum" : feederValueKey } } },
+                { "$group": { _id : feederIDKey, "value" : { "$sum" : feederValueKey }} },
                 { "$sort" : { _id : 1 }}],
                 function (err, result) {
                 if (err) {
                     console.log(err);
+                    callback([]);
+                } else {
+                    callback(result);
                 }
-                callback(result);
+                
             });
         }
     });
@@ -140,27 +144,31 @@ MongoDBManager.prototype.find = function (collectionName, queries, filters, call
             $gte: queries.startDate, 
             $lt: queries.endDate  
         }
-        console.log("Find " + queries.startDate + " ~ " + queries.endDate);
+        //console.log("Find " + queries.startDate + " ~ " + queries.endDate);
     } else {
         callback([]); // empty result
         return;
     }
     
     // filter out _id attribute in default;
-    filters._id = false;
+    options._id = false;
+    //options.sort = { "dateFrom" : 1 };
     
     this.db.collection(collectionName, function (err, collection) {
         if (err) {
             console.log(err);
         } else {
-            
-            collection.find(dbquery, filters, options)
+            console.log(JSON.stringify(dbquery) + ', ' + JSON.stringify(options));
+            collection.find(dbquery, options)
                 .sort({ dateFrom : 1 })
                 .toArray(function (err, result) {
                     if (err) {
-                        console.log(err);
-                    }
+                    console.log(err);
+                    callback([]);
+                } else {
                     callback(result);
+                }
+                    
             });
         }
     });
