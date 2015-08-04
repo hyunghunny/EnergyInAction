@@ -37,10 +37,10 @@ $(function () {
         xAxis_categories.push(date_label + '(' + day_label+ ')');
 
         data_total.push(Number(total.toFixed(1)));
-        data_hvac.push(hvac);
-        data_com.push(com);
-        data_light.push(light);
-        data_etc.push(etc);
+        data_hvac.push(Number(hvac.toFixed(1)));
+        data_com.push(Number(com.toFixed(1)));
+        data_light.push(Number(light.toFixed(1)));
+        data_etc.push(Number(etc.toFixed(1)));
       }
 
       console.log('total', data_total);
@@ -70,14 +70,14 @@ $(function () {
                       text: '전력 사용량 (kW/h)'
                   }
               },
-
-              tooltip: {
-                  formatter: function () {
-                      return '<b>' + this.x + '</b><br/>' +
-                          this.series.name + ': ' + this.y + '<br/>' +
-                          'Total: ' + this.point.stackTotal;
-                  }
-              },
+              //
+              // tooltip: {
+              //     formatter: function () {
+              //         return '<b>' + this.x + '</b><br/>' +
+              //             this.series.name + ': ' + this.y + '<br/>' +
+              //             'Total: ' + this.point.stackTotal;
+              //     }
+              // },
 
               plotOptions: {
                   column: {

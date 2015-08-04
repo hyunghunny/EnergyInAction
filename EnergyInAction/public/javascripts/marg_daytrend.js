@@ -1,8 +1,8 @@
 var dayLabel = new Array('일', '월', '화', '수', '목', '금', '토');
 
-//var baseDay     = new Date('2015-07-01');
-var baseDay     = new Date();
-baseDay.setHours(0,0,0,0); // today 날짜만 깔끔히 잡도록 시간 초기화
+var baseDay     = new Date('2015-07-01');
+// var baseDay     = new Date();
+// baseDay.setHours(0,0,0,0); // today 날짜만 깔끔히 잡도록 시간 초기화
 
 var lastWeekDay = new Date(baseDay-(3600000*24*7)) // 7일 전 날짜
 
