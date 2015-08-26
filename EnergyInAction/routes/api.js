@@ -770,6 +770,7 @@ router.get('/labs/:labId/energy/quarters.json', function (req, res) {
             var result = [];
             res.writeHead(200, controller.api.getContentHeader());
             res.end(JSON.stringify(result));
+            return;
         }
 
         labObj.retrieveUsages('quarters', queries, function (result) {
