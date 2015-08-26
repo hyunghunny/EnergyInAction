@@ -9,7 +9,7 @@ var controller = require('../control');
  * @apiName Listing_API
  * @apiGroup Billboard
  * @apiExample {js} Example usage:
- *     api/ 
+ *     api/
  * @apiHeader {String} Content-Type application/json or text/html
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
@@ -40,7 +40,7 @@ router.get('/', function (req, res) {
  * @apiName Listing_All_Labs
  * @apiGroup Lab Details
  * @apiExample {js} Example usage:
- *     api/labs 
+ *     api/labs
  * @apiHeader {String} Content-Type application/json
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
@@ -161,7 +161,7 @@ router.get('/labs', function (req, res) {
  * @apiName Show_the_Lab_Information
  * @apiGroup Lab Details
  * @apiExample {js} Example usage:
- *     api/labs/ux 
+ *     api/labs/ux
  * @apiHeader {String} Content-Type application/json
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
@@ -964,7 +964,7 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
                     obs.deviceID = obs[id].deviceID;
                     obs.location = obs[id].location;
                     obs.feeders = obs[id].feeders;
-                    
+
                     obs.sum = sum;
                     obs.unit = 'kW/h';
 
@@ -993,10 +993,10 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
  * @apiParam {String} labId Lab's unique ID.
  * @apiParam {String} [day_from=yesterday]  Query parameter to set the base day.
  *   It should be formated as YYYY-MM-DD. e.g. 2015-4-10.
- *   The result(s) contains the observations which measured from the value of from to the value of to. 
+ *   The result(s) contains the observations which measured from the value of from to the value of to.
  * @apiParam {String} [day_to=same day of from value]  Query parameter to set the time to be collected.
  *   It should be formated as YYYY-MM-DD. e.g. 2015-4-10.
- * @apiParam {Number} [offset=0] Query parameter to set the offset hour. e.g. offset=9 means each measurements associated from 9 A.M. to next 9 A.M.  
+ * @apiParam {Number} [offset=0] Query parameter to set the offset hour. e.g. offset=9 means each measurements associated from 9 A.M. to next 9 A.M.
  * @apiParam {Number} [limit=100] Query parameter to set the number of items which will be retrieved.
  * @apiParam {Number} [skip=0] Query parameter to set the skipped numbers of items.
  *
@@ -1007,114 +1007,114 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
  * @apiHeader {String} Content-Type application/json
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
- *  [  
-  {  
+ *  [
+  {
     "dateFrom":"2015-07-18T23:00:00.000Z",
     "dateTo":"2015-07-19T23:00:00.000Z",
     "deviceID":1169,
     "location":"D409",
-    "feeders":[  
-      {  
+    "feeders":[
+      {
         "feederID":3,
         "value":0.003,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":4,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":5,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":6,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":7,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":8,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":9,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":10,
         "value":0.003,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":11,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":12,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":13,
         "value":0.003,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":14,
         "value":11.422,
         "description":"computer"
       },
-      {  
+      {
         "feederID":15,
         "value":0.258,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":16,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":17,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":18,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":19,
         "value":0.509,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":20,
         "value":0.449,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":21,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":22,
         "value":0.719,
         "description":"hvac"
       },
-      {  
+      {
         "feederID":23,
         "value":7.386,
         "description":"light"
@@ -1123,113 +1123,113 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
     "sum":20.772,
     "unit":"kW/h"
   },
-  {  
+  {
     "dateFrom":"2015-07-19T23:00:00.000Z",
     "dateTo":"2015-07-20T23:00:00.000Z",
     "deviceID":1169,
     "location":"D409",
-    "feeders":[  
-      {  
+    "feeders":[
+      {
         "feederID":3,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":4,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":5,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":6,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":7,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":8,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":9,
         "value":0,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":10,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":11,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":12,
         "value":0.003,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":13,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":14,
         "value":12.996,
         "description":"computer"
       },
-      {  
+      {
         "feederID":15,
         "value":0.261,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":16,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":17,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":18,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":19,
         "value":0.64,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":20,
         "value":0.887,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":21,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":22,
         "value":0.587,
         "description":"hvac"
       },
-      {  
+      {
         "feederID":23,
         "value":9.393,
         "description":"light"
@@ -1238,113 +1238,113 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
     "sum":24.789,
     "unit":"kW/h"
   },
-  {  
+  {
     "dateFrom":"2015-07-20T23:00:00.000Z",
     "dateTo":"2015-07-21T23:00:00.000Z",
     "deviceID":1169,
     "location":"D409",
-    "feeders":[  
-      {  
+    "feeders":[
+      {
         "feederID":3,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":4,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":5,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":6,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":7,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":8,
         "value":0.003,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":9,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":10,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":11,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":12,
         "value":0.003,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":13,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":14,
         "value":10.563,
         "description":"computer"
       },
-      {  
+      {
         "feederID":15,
         "value":0.261,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":16,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":17,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":18,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":19,
         "value":0.607,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":20,
         "value":0.659,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":21,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":22,
         "value":0.513,
         "description":"hvac"
       },
-      {  
+      {
         "feederID":23,
         "value":12.03,
         "description":"light"
@@ -1353,113 +1353,113 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
     "sum":24.661,
     "unit":"kW/h"
   },
-  {  
+  {
     "dateFrom":"2015-07-21T23:00:00.000Z",
     "dateTo":"2015-07-22T23:00:00.000Z",
     "deviceID":1169,
     "location":"D409",
-    "feeders":[  
-      {  
+    "feeders":[
+      {
         "feederID":3,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":4,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":5,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":6,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":7,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":8,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":9,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":10,
         "value":0.003,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":11,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":12,
         "value":0.003,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":13,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":14,
         "value":13.39,
         "description":"computer"
       },
-      {  
+      {
         "feederID":15,
         "value":0.261,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":16,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":17,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":18,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":19,
         "value":0.917,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":20,
         "value":0.515,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":21,
         "value":0.003,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":22,
         "value":0.67,
         "description":"hvac"
       },
-      {  
+      {
         "feederID":23,
         "value":21.751,
         "description":"light"
@@ -1468,113 +1468,113 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
     "sum":37.531,
     "unit":"kW/h"
   },
-  {  
+  {
     "dateFrom":"2015-07-22T23:00:00.000Z",
     "dateTo":"2015-07-23T23:00:00.000Z",
     "deviceID":1169,
     "location":"D409",
-    "feeders":[  
-      {  
+    "feeders":[
+      {
         "feederID":3,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":4,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":5,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":6,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":7,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":8,
         "value":0.003,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":9,
         "value":0,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":10,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":11,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":12,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":13,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":14,
         "value":13.612,
         "description":"computer"
       },
-      {  
+      {
         "feederID":15,
         "value":0.339,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":16,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":17,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":18,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":19,
         "value":1.024,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":20,
         "value":0.853,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":21,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":22,
         "value":0.7,
         "description":"hvac"
       },
-      {  
+      {
         "feederID":23,
         "value":15.881,
         "description":"light"
@@ -1583,113 +1583,113 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
     "sum":32.434,
     "unit":"kW/h"
   },
-  {  
+  {
     "dateFrom":"2015-07-23T23:00:00.000Z",
     "dateTo":"2015-07-24T23:00:00.000Z",
     "deviceID":1169,
     "location":"D409",
-    "feeders":[  
-      {  
+    "feeders":[
+      {
         "feederID":3,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":4,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":5,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":6,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":7,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":8,
         "value":0.003,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":9,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":10,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":11,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":12,
         "value":0.003,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":13,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":14,
         "value":11.357,
         "description":"computer"
       },
-      {  
+      {
         "feederID":15,
         "value":0.257,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":16,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":17,
         "value":0.003,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":18,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":19,
         "value":0.986,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":20,
         "value":0.484,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":21,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":22,
         "value":0.426,
         "description":"hvac"
       },
-      {  
+      {
         "feederID":23,
         "value":14.862,
         "description":"light"
@@ -1698,113 +1698,113 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
     "sum":28.4,
     "unit":"kW/h"
   },
-  {  
+  {
     "dateFrom":"2015-07-24T23:00:00.000Z",
     "dateTo":"2015-07-25T23:00:00.000Z",
     "deviceID":1169,
     "location":"D409",
-    "feeders":[  
-      {  
+    "feeders":[
+      {
         "feederID":3,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":4,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":5,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":6,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":7,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":8,
         "value":0.003,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":9,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":10,
         "value":0.003,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":11,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":12,
         "value":0.003,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":13,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":14,
         "value":9.423,
         "description":"computer"
       },
-      {  
+      {
         "feederID":15,
         "value":0.255,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":16,
         "value":0.001,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":17,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":18,
         "value":0.002,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":19,
         "value":0.972,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":20,
         "value":0.418,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":21,
         "value":0.003,
         "description":"unclassified"
       },
-      {  
+      {
         "feederID":22,
         "value":0.307,
         "description":"hvac"
       },
-      {  
+      {
         "feederID":23,
         "value":1.415,
         "description":"light"
@@ -1824,9 +1824,9 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
 router.get('/labs/:labId/energy/daily.json', function (req, res) {
     try {
         var id = req.params.labId;
-        
+
         var labObj = controller.labs.find(id);
-        
+
         if (labObj == null) {
             throw new Error('404');
         }
@@ -1843,12 +1843,12 @@ router.get('/labs/:labId/energy/daily.json', function (req, res) {
             // set 0 if offset is not exited
             queries.offset = 0;
         }
-        
+
         if (!queries.limit) {
             // set 0 if offset is not exited
             queries.limit = 100;
         }
-        
+
         if (!queries.skip) {
             // set 0 if skip is not exited
             queries.skip = 0;
@@ -1860,14 +1860,14 @@ router.get('/labs/:labId/energy/daily.json', function (req, res) {
             var yesterday = new Date(today);
             yesterday.setDate(today.getDate() - 1);
             var yesterdayString = yesterday.getFullYear() + '-' + (yesterday.getMonth() + 1) +
-            '-' + date.getDate();
-            
+            '-' + yesterday.getDate();
+
             queries.day_from = yesterdayString;
         }
-        if (!queries.day_to) {            
-            queries.to = queries.from;  // set same value as day_from 
+        if (!queries.day_to) {
+            queries.to = queries.from;  // set same value as day_from
         }
-        
+
         labObj.retrieveDailyUsages(queries, function (result) {
             if (result != null) {
                 // result will be translated to kWh

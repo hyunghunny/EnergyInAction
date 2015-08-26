@@ -45,7 +45,7 @@ $(function () {
         },
         xAxis: {
             type: 'datetime',
-            tickPixelInterval: 150
+            tickPixelInterval: 100
         },
         yAxis: {
             title: {
@@ -55,7 +55,8 @@ $(function () {
                 value: 0,
                 width: 1,
                 color: '#808080'
-            }]
+            }],
+            minTickInterval: 0.5
         },
         plotOptions: {
           spline: {
@@ -90,7 +91,7 @@ $(function () {
                     time = ((new Date()).getTime() - (new Date()).getTimezoneOffset()*60000),
                     i;
 
-                for (i = -19; i <= 0; i += 1) {
+                for (i = -29; i <= 0; i += 1) {
                     data.push({
                         x: time + i * 1000,
                         y: null
