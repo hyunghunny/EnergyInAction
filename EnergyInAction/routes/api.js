@@ -770,6 +770,7 @@ router.get('/labs/:labId/energy/quarters.json', function (req, res) {
             var result = [];
             res.writeHead(200, controller.api.getContentHeader());
             res.end(JSON.stringify(result));
+            return;
         }
 
         labObj.retrieveUsages('quarters', queries, function (result) {
@@ -1865,7 +1866,7 @@ router.get('/labs/:labId/energy/daily.json', function (req, res) {
             queries.day_from = yesterdayString;
         }
         if (!queries.day_to) {
-            queries.to = queries.from;  // set same value as day_from
+            queries.day_to = queries.day_from;  // set same value as day_from
         }
 
         labObj.retrieveDailyUsages(queries, function (result) {
