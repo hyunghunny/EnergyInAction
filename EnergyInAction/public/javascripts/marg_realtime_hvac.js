@@ -1,6 +1,3 @@
-var day = new Date();
-var dayTime = day.getTime();
-
 $(function () {
     //showChart();
     $('#hvac').highcharts({
@@ -23,7 +20,7 @@ $(function () {
                           //console.log(data.feeders.length);
 
                           // accumulate the target feeders values
-                          margLight = accumulater(data, 'hvac')
+                          margLight = realtime_accumulator(data, 'hvac')
                           //console.log(margLight, data.feeders[5].description);
 
                         });
@@ -99,37 +96,4 @@ $(function () {
             }())
         }]
     });
-
 });
-
-
-function invokeOpenAPI(url, scb) {
-    $.ajax({
-        url : url,
-        type : "get",
-        dataType : "json",
-        success : function (data) {
-
-            console.log('retrieve success:' + data);
-            scb(data)
-
-        },
-
-        error : function (request) {
-            console.log("failed to retrieve:" + request);
-
-
-        }
-    });
-}
-
-function accumulater(data, targetDescription) {
-  result = 0;
-  for(i=0; i<data.feeders.length;i++){
-      if(data.feeders[i].description == targetDescription) {
-        result = result + (data.feeders[i].value/1000000);
-        console.log(data.feeders[i].value/1000000, data.feeders[i].description, result)
-      }
-  }
-  return result;
-}

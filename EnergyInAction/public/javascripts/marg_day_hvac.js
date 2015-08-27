@@ -1,35 +1,3 @@
-var dayLabel = new Array('일', '월', '화', '수', '목', '금', '토');
-
-//var baseDay     = new Date('2015-07-31');
-var baseDay     = new Date();
-baseDay.setHours(0,0,0,0); // today 날짜만 깔끔히 잡도록 시간 초기화
-
-// var lastMonday = getLastMonday(baseDay);
-// var lastSunday = shiftDate(lastMonday, 6);
-// var thisMonday = shiftDate(lastMonday, 7);
-// var thisSunday = shiftDate(thisMonday, 6);
-
-
-var comparingDay = shiftDate(baseDay, -1) // 어제
-
-function shiftDate(date, offset) {
-  var shiftedDate = new Date(date);
-  shiftedDate.setDate(shiftedDate.getDate() + offset);
-
-  return shiftedDate;
-}
-
-console.log(baseDay);
-console.log(comparingDay.getMonth());
-
-// var baseTime     = baseDay.getTime() + 3600000*9;
-// var comparingDayTime = comparingDay.getTime() + 3600000*9; // GMT + 09:00
-var baseTime     = baseDay.getTime();
-var comparingDayTime = comparingDay.getTime();
-
-// console.log(baseTime);
-// console.log(comparingDayTime);
-
 $(function () {
     document.getElementById("date").innerHTML = 'MARG ' +
                                                 (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ') 사용량';
@@ -114,33 +82,3 @@ $(function () {
           });
       });
 });
-
-function invokeOpenAPI(url, scb) {
-    $.ajax({
-        url : url,
-        type : "get",
-        dataType : "json",
-        success : function (data) {
-
-            console.log('retrieve success:' + data);
-            scb(data)
-
-        },
-
-        error : function (request) {
-            console.log("failed to retrieve:" + request);
-
-        }
-    });
-}
-
-function accumulator(data, targetDescription) {
-  result = 0;
-  for(i=0; i<data.feeders.length;i++){
-      if(data.feeders[i].description == targetDescription) {
-        result = result + (data.feeders[i].value);
-        //console.log(data.feeders[i].value, data.feeders[i].description, result)
-      }
-  }
-  return result;
-}

@@ -1,8 +1,5 @@
-var day = new Date();
-var dayTime = day.getTime();
-
 $(function () {
-    document.getElementById("date").innerHTML = (day.getMonth() + 1) + '월 ' + day.getDate() + '일 실시간 사용량';
+    //document.getElementById("date").innerHTML = (day.getMonth() + 1) + '월 ' + day.getDate() + '일 실시간 사용량';
 
     //showChart();
     $('#container').highcharts({
@@ -101,26 +98,4 @@ $(function () {
             }())
         }]
     });
-
 });
-
-
-function invokeOpenAPI(url, scb) {
-    $.ajax({
-        url : url,
-        type : "get",
-        dataType : "json",
-        success : function (data) {
-
-            console.log('retrieve success:' + data);
-            scb(data)
-
-        },
-
-        error : function (request) {
-            console.log("failed to retrieve:" + request);
-
-
-        }
-    });
-}
