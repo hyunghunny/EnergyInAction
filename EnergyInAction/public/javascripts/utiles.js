@@ -1,3 +1,5 @@
+var savingRate_Month;
+
 var dayLabel = new Array('일', '월', '화', '수', '목', '금', '토');
 
 var baseDay     = new Date();
@@ -82,4 +84,12 @@ function dateLabelMaker(input_date){
   result = (input_date.getMonth()+1) + '/' + input_date.getDate();
   //console.log(result);
   return result;
+}
+
+function arrayMean(input_array){
+  var sum = 0;
+  for(var i = 0; i < input_array.length; i++){
+    sum += input_array[i];
+  }
+  return Math.round((sum/input_array.length)*10)/10;
 }

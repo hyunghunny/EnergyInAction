@@ -12,13 +12,15 @@ var apis = require('./routes/api');
 
 // add demo pages
 //var daily = require('./routes/daily');
-var daily_flow = require('./routes/daily_flow');
+//var daily_flow = require('./routes/daily_flow');
 //var beyond_extremes = require('./routes/beyond_extremes');
 
 /////////////
 // MARG set
 ////////////
 // 1. Month
+var marg_month           = require('./routes/marg_month');
+var marg_month_breakdown = require('./routes/marg_month_breakdown');
 
 // 2. week
 var marg_week           = require('./routes/marg_week');
@@ -35,12 +37,15 @@ var marg_realtime           = require('./routes/marg_realtime');
 var marg_realtime_breakdown = require('./routes/marg_realtime_breakdown');
 
 
+/////////////
 // HCC set
+/////////////
 var hcc_realtime           = require('./routes/hcc_realtime');
 var hcc_realtime_breakdown = require('./routes/hcc_realtime_breakdown');
 
-
+/////////////
 // UX set
+/////////////
 var ux_realtime = require('./routes/ux_realtime');
 var ux_realtime_breakdown = require('./routes/ux_realtime_breakdown');
 
@@ -77,22 +82,41 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/api', apis);
 //app.use('/daily', daily);
-app.use('/daily_flow', daily_flow);
+//app.use('/daily_flow', daily_flow);
 //app.use('/beyond_extremes', beyond_extremes);
+
+/////////////
+// MARG set
+////////////
+// 1. Month
+app.use('/marg_month', marg_month);
+app.use('/marg_month_breakdown', marg_month_breakdown);
+
+// 2. Week
 app.use('/marg_week', marg_week);
 app.use('/marg_week_breakdown', marg_week_breakdown);
 
+// 3. Day
 app.use('/marg_day', marg_day);
 app.use('/marg_day_com', marg_day_com);
 app.use('/marg_day_hvac', marg_day_hvac);
 app.use('/marg_day_light', marg_day_light);
 
+// 4. Realtime
 app.use('/marg_realtime', marg_realtime);
 app.use('/marg_realtime_breakdown', marg_realtime_breakdown);
 
+
+/////////////
+// HCC set
+////////////
 app.use('/hcc_realtime', hcc_realtime);
 app.use('/hcc_realtime_breakdown', hcc_realtime_breakdown);
 
+
+/////////////
+// UX set
+////////////
 app.use('/ux_realtime', ux_realtime);
 app.use('/ux_realtime_breakdown', ux_realtime_breakdown);
 
