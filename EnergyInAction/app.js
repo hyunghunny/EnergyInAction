@@ -14,9 +14,9 @@ var apis = require('./routes/api');
 //var daily = require('./routes/daily');
 var daily_flow = require('./routes/daily_flow');
 //var beyond_extremes = require('./routes/beyond_extremes');
-var marg_daytrend = require('./routes/marg_daytrend');
-var marg_weektrend = require('./routes/marg_weektrend');
-var marg_weektrend_breakdown = require('./routes/marg_weektrend_breakdown');
+var marg_dailyTrend = require('./routes/marg_dailyTrend');
+var marg_weeklyTrend = require('./routes/marg_weeklyTrend');
+var marg_weeklyTrend_breakdown = require('./routes/marg_weeklyTrend_breakdown');
 var marg_realtime = require('./routes/marg_realtime');
 var marg_realtime_breakdown = require('./routes/marg_realtime_breakdown');
 
@@ -61,9 +61,9 @@ app.use('/api', apis);
 //app.use('/daily', daily);
 app.use('/daily_flow', daily_flow);
 //app.use('/beyond_extremes', beyond_extremes);
-app.use('/marg_daytrend', marg_daytrend);
-app.use('/marg_weektrend', marg_weektrend);
-app.use('/marg_weektrend_breakdown', marg_weektrend_breakdown);
+app.use('/marg_dailyTrend', marg_dailyTrend);
+app.use('/marg_weeklyTrend', marg_weeklyTrend);
+app.use('/marg_weeklyTrend_breakdown', marg_weeklyTrend_breakdown);
 app.use('/marg_realtime', marg_realtime);
 app.use('/marg_realtime_breakdown', marg_realtime_breakdown);
 

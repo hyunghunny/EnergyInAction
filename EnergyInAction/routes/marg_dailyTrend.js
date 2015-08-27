@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET daily flow page. */
 router.get('/', function (req, res) {
-    res.render('marg_daytrend', { title: 'marg_daytrend' });
+    res.render('marg_dailyTrend', { title: 'marg_dailyTrend' });
 });
 
 module.exports = router;
