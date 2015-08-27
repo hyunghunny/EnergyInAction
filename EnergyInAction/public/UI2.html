@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html>
 <head>
@@ -96,4 +97,76 @@
 </div>
 
 </body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
+</head>
+<body>
+<div id="marg_title" class="title_class"><h2>marg title</h2></div>
+<div class="wrapper_class">
+  <div class="marg_class_contents_left"><h2>marg contents left</h2></div>
+  <div class="marg_class_widgets"><h2>marg widget</h2></div>
+</div>
+<div id="marg_tip" style="width: 1920px; height: 300px;"><h2>marg tip</h2></div>
+
+<!--
+<div id="marg_title" ><h2>marg title</h2></div>
+<div id="wrapper" class="wrapper_class">
+<div id="marg_contents_left" class="marg_class_contents_left">
+  <div id="marg_month" class="marg_class_month" style="width: 700px;"><h2>marg month</h2></div>
+  <div class="marg_class_week_day" style="width: 800px;">
+    <div id="marg_week" class="marg_class_week"><h2>marg week</h2></div>
+    <div id="marg_day" class="marg_class_day"><h2>marg day</h2></div>
+  </div>
+  <div id="marg_realtime" class="marg_class_realtime"><h2>marg realtime</h2></div>
+</div>
+<div id="marg_widgets" class="marg_class_widgets"><h2>marg widget</h2></div>
+</div>
+<div id="marg_tip" style="width: 1920px; height: 300px;"><h2>marg tip</h2></div>
+
+-->
+<!--script type="text/javascript">
+$(function () {
+    var pstyle = 'border: 1px solid #dfdfdf; padding: 0px;';
+    $('#layout').w2layout({
+        name: 'layout',
+        panels: [
+            { type: 'top', size: 50, resizable: true, style: pstyle, content: 'MARG Electricity Usage Monitor' },
+            { type: 'left', size: 1500, resizable: true, style: pstyle },
+            { type: 'right', size: 420, resizable: true, style: pstyle, content: 'widgets' },
+            { type: 'bottom', size: 150, resizable: true, style: pstyle, content: 'saving tips' }
+        ]
+    });
+    var pstyle = 'background-color: #F0F0C1; border: 1px solid #dfdfdf; padding: 0px;';
+    $().w2layout({
+        name: 'layout_left',
+        panels: [
+            { type: 'top', hidden: true },
+            { type: 'left', size: 600, resizable: true, style: pstyle, content: 'lastmonth vs this month' },
+            { type: 'main', size: 300,style: pstyle, content: 'last week vs this week' },
+            { type: 'preview', size: 200, resizable: true, style: pstyle, content: 'yesterday vs today' },
+            { type: 'bottom', size: 300, resizable: true, style: pstyle, content: '<div id="marg_realtime">here</div>' },
+            { type: 'right', hidden: true }
+
+        ]
+    });
+
+    w2ui['layout'].content('left', w2ui['layout_left']);
+
+
+});
+
+</script-->
+<script type="text/javascript" src="./javascripts/marg_UI_header.js"></script>
+<script type="text/javascript" src="./javascripts/utiles.js"></script>
+<script type="text/javascript" src="./javascripts/marg_realtime.js"></script>
+<script type="text/javascript" src="./javascripts/marg_day.js"></script>
+<script type="text/javascript" src="./javascripts/marg_week.js"></script>
+
+</body>
+
 </html>

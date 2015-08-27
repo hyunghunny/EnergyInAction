@@ -1,7 +1,4 @@
 $(function () {
-    document.getElementById("date").innerHTML = 'MARG ' +
-                                                (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ') 사용량';
-
     baseDay_query  = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
     comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + comparingDayTime;
 
@@ -29,7 +26,7 @@ $(function () {
           console.log('today', today_data);
           //showChart();
 
-          $('#container').highcharts({
+          $('#layout_layout_left_panel_preview').highcharts({
                 chart: {
                     type: 'line'
                 },

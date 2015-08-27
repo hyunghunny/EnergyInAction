@@ -67,7 +67,9 @@ $(function () {
       }
 
       //showChart();
-      $('#container').highcharts({
+      var divObj = $('#layout_layout_left_panel_main');
+      //  layout_layout_left_panel_main
+      divObj.highcharts({
               chart: {
                   type: 'column'
               },
@@ -125,6 +127,7 @@ $(function () {
               }
 
           });
+          console.log('create highchart at marg week : ' + divObj.highcharts)
         });
       });
 });
