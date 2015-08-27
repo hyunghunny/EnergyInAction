@@ -1,12 +1,11 @@
 $(function () {
-    //document.getElementById("date").innerHTML = (day.getMonth() + 1) + '월 ' + day.getDate() + '일 실시간 사용량';
 
-//    var divObj = document.getElementById("layout_layout_left_panel_bottom"); //marg_realtime
-    var divObj = $('#layout_layout_left_panel_left');
-    console.log(divObj);
+    var elementObj = document.getElementById("date");
+    if(elementObj){
+      elementObj.innerHTML = (baseDay.getMonth() + 1) + '월 ' + baseDay.getDate() + '일 실시간 사용량';
+    }
     //showChart();
-
-    divObj.highcharts({
+    $('#marg_realtime').highcharts({
         chart: {
             type: 'spline',
             animation: Highcharts.svg, // don't animate in old IE

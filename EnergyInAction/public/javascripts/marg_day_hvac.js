@@ -1,4 +1,11 @@
 $(function () {
+
+    var elementObj = document.getElementById("date");
+    if(elementObj){
+      elementObj.innerHTML = 'MARG ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ') 사용량';
+    }
+
+
     baseDay_query  = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
     comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + comparingDayTime;
 
@@ -40,12 +47,12 @@ $(function () {
           //console.log('today', today_data);
           //showChart();
 
-          $('#container').highcharts({
+          $('#marg_day_hvac').highcharts({
                 chart: {
                     type: 'line'
                 },
                 title: {
-                    text: '어제와 오늘 (' + yesterday[0].location + '호 - 전등 사용량)'
+                    text: '어제와 오늘 (' + yesterday[0].location + '호 - 냉난방 사용량)'
                 },
                 subtitle: {
                     text: 'SNU'

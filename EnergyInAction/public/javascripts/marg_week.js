@@ -67,9 +67,9 @@ $(function () {
       }
 
       //showChart();
-      var divObj = $('#layout_layout_left_panel_main');
-      //  layout_layout_left_panel_main
-      divObj.highcharts({
+
+      $('#marg_week').highcharts({
+
               chart: {
                   type: 'column'
               },
