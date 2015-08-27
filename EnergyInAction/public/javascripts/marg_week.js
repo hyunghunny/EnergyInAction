@@ -4,6 +4,8 @@ var dayLabel = new Array('일', '월', '화', '수', '목', '금', '토');
 var baseDay     = new Date();
 baseDay.setHours(0,0,0,0); // today 날짜만 깔끔히 잡도록 시간 초기화
 
+//console.log(baseDay);
+
 var lastMonday = getLastMonday(baseDay);
 var lastSunday = shiftDate(lastMonday, 6);
 var thisMonday = shiftDate(lastMonday, 7);
@@ -49,12 +51,12 @@ $(function () {
     var thisWeek_data_etc   = [];
 
     //query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(lastMonday) + '&day_to=' + dateFormatter(baseDay) + '&offset=9';
-    lastWeek_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(lastMonday) + '&day_to=' + dateFormatter(lastSunday) + '&offset=9';
+    lastWeek_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(lastMonday) + '&day_to=' + dateFormatter(lastSunday) + '&offset=0';
     console.log(lastWeek_query);
 
     invokeOpenAPI(lastWeek_query, function (lastWeek_data) {
 
-      thisWeek_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(thisMonday) + '&day_to=' + dateFormatter(thisSunday) + '&offset=9';
+      thisWeek_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(thisMonday) + '&day_to=' + dateFormatter(thisSunday) + '&offset=0';
       console.log(thisWeek_query);
 
       invokeOpenAPI(thisWeek_query, function (thisWeek_data) {
@@ -107,7 +109,7 @@ $(function () {
               },
 
               title: {
-                  text: '지난 일주일 전력 사용 변화'
+                  text: '일주일 전력 사용 변화'
               },
 
               xAxis: {
@@ -162,49 +164,15 @@ $(function () {
                 // }
 
                 {
-                    name: '냉난방',
-                    data: lastWeek_data_hvac,
+                    name: '지난주',
+                    data: lastWeek_data_total,
                     stack: 'lastWeek',
                     color: Highcharts.getOptions().colors[0]
                 }, {
-                    name: '컴퓨터',
-                    data: lastWeek_data_com,
-                    stack: 'lastWeek',
+                    name: '이번주',
+                    data: thisWeek_data_total,
+                    stack: 'thisWeek',
                     color: Highcharts.getOptions().colors[1]
-                }, {
-                    name: '전등',
-                    data: lastWeek_data_light,
-                    stack: 'lastWeek',
-                    color: Highcharts.getOptions().colors[2]
-                }, {
-                    name: '기타',
-                    data: lastWeek_data_etc,
-                    stack: 'lastWeek',
-                    color: Highcharts.getOptions().colors[3]
-                }, {
-                    name: '냉난방',
-                    data: thisWeek_data_hvac,
-                    stack: 'thisWeek',
-                    linkedTo: ':previous',
-                    color: Highcharts.getOptions().colors[0]
-                }, {
-                    name: '컴퓨터',
-                    data: thisWeek_data_com,
-                    stack: 'thisWeek',
-                    linkedTo: ':previous',
-                    color: Highcharts.getOptions().colors[1]
-                }, {
-                    name: '전등',
-                    data: thisWeek_data_light,
-                    stack: 'thisWeek',
-                    linkedTo: ':previous',
-                    color: Highcharts.getOptions().colors[2]
-                }, {
-                    name: '기타',
-                    data: thisWeek_data_etc,
-                    stack: 'thisWeek',
-                    linkedTo: ':previous',
-                    color: Highcharts.getOptions().colors[3]
                 }
               ],
 

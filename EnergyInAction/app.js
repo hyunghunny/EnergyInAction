@@ -14,15 +14,33 @@ var apis = require('./routes/api');
 //var daily = require('./routes/daily');
 var daily_flow = require('./routes/daily_flow');
 //var beyond_extremes = require('./routes/beyond_extremes');
-var marg_dailyTrend = require('./routes/marg_dailyTrend');
-var marg_weeklyTrend = require('./routes/marg_weeklyTrend');
-var marg_weeklyTrend_breakdown = require('./routes/marg_weeklyTrend_breakdown');
-var marg_realtime = require('./routes/marg_realtime');
+
+/////////////
+// MARG set
+////////////
+// 1. Month
+
+// 2. week
+var marg_week           = require('./routes/marg_week');
+var marg_week_breakdown = require('./routes/marg_week_breakdown');
+
+// 3. Day
+var marg_day       = require('./routes/marg_day');
+var marg_day_com   = require('./routes/marg_day_com');
+var marg_day_hvac  = require('./routes/marg_day_hvac');
+var marg_day_light = require('./routes/marg_day_light');
+
+// 4. Realtime
+var marg_realtime           = require('./routes/marg_realtime');
 var marg_realtime_breakdown = require('./routes/marg_realtime_breakdown');
 
-var hcc_realtime = require('./routes/hcc_realtime');
+
+// HCC set
+var hcc_realtime           = require('./routes/hcc_realtime');
 var hcc_realtime_breakdown = require('./routes/hcc_realtime_breakdown');
 
+
+// UX set
 var ux_realtime = require('./routes/ux_realtime');
 var ux_realtime_breakdown = require('./routes/ux_realtime_breakdown');
 
@@ -61,9 +79,14 @@ app.use('/api', apis);
 //app.use('/daily', daily);
 app.use('/daily_flow', daily_flow);
 //app.use('/beyond_extremes', beyond_extremes);
-app.use('/marg_dailyTrend', marg_dailyTrend);
-app.use('/marg_weeklyTrend', marg_weeklyTrend);
-app.use('/marg_weeklyTrend_breakdown', marg_weeklyTrend_breakdown);
+app.use('/marg_week', marg_week);
+app.use('/marg_week_breakdown', marg_week_breakdown);
+
+app.use('/marg_day', marg_day);
+app.use('/marg_day_com', marg_day_com);
+app.use('/marg_day_hvac', marg_day_hvac);
+app.use('/marg_day_light', marg_day_light);
+
 app.use('/marg_realtime', marg_realtime);
 app.use('/marg_realtime_breakdown', marg_realtime_breakdown);
 
