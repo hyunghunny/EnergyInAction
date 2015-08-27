@@ -102,5 +102,4 @@ $(function () {
             }())
         }]
     });
-      console.log('create highchart at marg reatime : ' + divObj.highcharts)
 });

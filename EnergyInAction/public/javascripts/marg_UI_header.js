@@ -27,7 +27,7 @@ function title(){
             minutes = "0" + minutes;
         }
     $('#marg_title').empty();
-    var title=$("<div>").attr("id","title").css({"font-size": "larger","font-weight": "bolder","text-align": "center"}).text("MARG Electricity Usage Monitor");
-    var titlediv=$("<div>").attr("id","titlediv").css({"text-align": "right"}).text(month+day+ampm+hours+":"+minutes); //시간을 꾸밀 css 추가할것
+    var title=$("<div>").attr("id","title").css({"font-size": "40px","font-weight": "bolder","text-align": "center","background-color": "green"}).text("MARG Electricity Usage Monitor").css('color','white');
+    var titlediv=$("<div>").attr("id","titlediv").css({"font-size": "20px","text-align": "right", "background-color": "green"}).text(month+day+ampm+hours+":"+minutes).css('color','white');
     $('#marg_title').append(title).append(titlediv);
 }

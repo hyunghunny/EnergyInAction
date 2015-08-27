@@ -127,7 +127,6 @@ $(function () {
               }
 
           });
-          console.log('create highchart at marg week : ' + divObj.highcharts)
         });
       });
 });

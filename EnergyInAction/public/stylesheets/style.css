@@ -46,24 +46,58 @@ a {
     vertical-align:middle;
 }
 .title_class {
-
+  width: 1920px;
+  height: 100px;
 }
 .wrapper_class {
-  display: block;
   width: 1920px;
-  overflow : auto;
   height: 800px;
 }
 .marg_class_contents_left {
   float: left;
-  clear: none;
+  clear: both;
   width: 1500px;
   height: 800px;
 }
-
 .marg_class_widgets {
-  float: left;
+  float: right;
   clear: none;
   width: 420px;
   height: 800px;
+}
+.marg_class_month {
+  float: left;
+  clear: both;
+  width: 700px;
+  height: 500px;
+}
+.marg_class_contents_left_week_day {
+  float: left;
+  clear: none;
+  width: 800px;
+  height: 500px;
+}
+.marg_class_contents_left_top {
+  float: left;
+  clear: none;
+  width: 1500px;
+  height: 500px;
+}
+.marg_class_week {
+  float: left;
+  clear: none;
+  width: 800px;
+  height: 250px;
+}
+.marg_class_day {
+  float: left;
+  clear: none;
+  width: 800px;
+  height: 250px;
+}
+.marg_class_realtime {
+  float: left;
+  clear: none;
+  width: 1500px;
+  height: 300px;
 }
