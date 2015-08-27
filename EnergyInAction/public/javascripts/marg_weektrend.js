@@ -162,49 +162,15 @@ $(function () {
                 // }
 
                 {
-                    name: '냉난방',
-                    data: lastWeek_data_hvac,
+                    name: '지난주',
+                    data: lastWeek_data_total,
                     stack: 'lastWeek',
                     color: Highcharts.getOptions().colors[0]
                 }, {
-                    name: '컴퓨터',
-                    data: lastWeek_data_com,
-                    stack: 'lastWeek',
+                    name: '이번주',
+                    data: thisWeek_data_total,
+                    stack: 'thisWeek',
                     color: Highcharts.getOptions().colors[1]
-                }, {
-                    name: '전등',
-                    data: lastWeek_data_light,
-                    stack: 'lastWeek',
-                    color: Highcharts.getOptions().colors[2]
-                }, {
-                    name: '기타',
-                    data: lastWeek_data_etc,
-                    stack: 'lastWeek',
-                    color: Highcharts.getOptions().colors[3]
-                }, {
-                    name: '냉난방',
-                    data: thisWeek_data_hvac,
-                    stack: 'thisWeek',
-                    linkedTo: ':previous',
-                    color: Highcharts.getOptions().colors[0]
-                }, {
-                    name: '컴퓨터',
-                    data: thisWeek_data_com,
-                    stack: 'thisWeek',
-                    linkedTo: ':previous',
-                    color: Highcharts.getOptions().colors[1]
-                }, {
-                    name: '전등',
-                    data: thisWeek_data_light,
-                    stack: 'thisWeek',
-                    linkedTo: ':previous',
-                    color: Highcharts.getOptions().colors[2]
-                }, {
-                    name: '기타',
-                    data: thisWeek_data_etc,
-                    stack: 'thisWeek',
-                    linkedTo: ':previous',
-                    color: Highcharts.getOptions().colors[3]
                 }
               ],
 
