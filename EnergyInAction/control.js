@@ -131,13 +131,14 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
     } else {
         queries.startDate = new Date(queries.base_time);
         queries.endDate = new Date(queries.to_time - (queries.to_time % 900000)); // truncate quarters only
-        // console.log('accumulate data from ' + queries.startDate.toLocaleString() + ' to ' + queries.endDate.toLocaleString());
+        //console.log('accumulate data from ' + queries.startDate.toLocaleString() + ' to ' + queries.endDate.toLocaleString());
         
-        dbmgr.aggregateFeeders(config.collection.hours, self.id, queries, function (results) {
+        // use 15min data to aggregate usage
+        dbmgr.aggregateFeeders(config.collection.quarters, self.id, queries, function (results) {
             
             var returnObj = {};
             returnObj["dateFrom"] = queries.startDate;
-            returnObj["dateTo"] = queries.endDate;
+            returnObj["dateTo"] = queries.endDate; // XXX: If there is insufficient observations, this timestamp is not valid.
             returnObj["deviceID"] = self.deviceID;
             returnObj["location"] = self.location;
             

@@ -1866,7 +1866,7 @@ router.get('/labs/:labId/energy/daily.json', function (req, res) {
             queries.day_from = yesterdayString;
         }
         if (!queries.day_to) {
-            queries.to = queries.from;  // set same value as day_from
+            queries.day_to = queries.day_from;  // set same value as day_from
         }
 
         labObj.retrieveDailyUsages(queries, function (result) {
