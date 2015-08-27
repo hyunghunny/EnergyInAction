@@ -67,7 +67,7 @@ $(function () {
       }
 
       //showChart();
-      $('#container').highcharts({
+      $('#marg_week').highcharts({
               chart: {
                   type: 'column'
               },

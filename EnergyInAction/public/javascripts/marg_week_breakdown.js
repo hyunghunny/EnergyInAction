@@ -67,7 +67,7 @@ $(function () {
         thisWeek_data_etc.push(Number(etc.toFixed(1)));
       }
 
-      $('#container').highcharts({
+      $('#marg_week_breakdown').highcharts({
               chart: {
                   type: 'column'
               },

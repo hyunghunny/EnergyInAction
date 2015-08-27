@@ -1,5 +1,8 @@
 $(function () {
-    //document.getElementById("date").innerHTML = (day.getMonth() + 1) + '월 ' + day.getDate() + '일 실시간 사용량';
+    var elementObj = document.getElementById("date");
+    if(elementObj){
+      elementObj.innerHTML = (baseDay.getMonth() + 1) + '월 ' + baseDay.getDate() + '일 실시간 사용량';
+    }
 
     //showChart();
     $('#total').highcharts({

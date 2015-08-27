@@ -1,6 +1,8 @@
 $(function () {
-    document.getElementById("date").innerHTML = 'MARG ' +
-                                                (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ') 사용량';
+    var elementObj = document.getElementById("date");
+    if(elementObj){
+      elementObj.innerHTML = 'MARG ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ') 사용량';
+    }
 
     baseDay_query  = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
     comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + comparingDayTime;
@@ -30,7 +32,7 @@ $(function () {
             today_data.push(Number(com.toFixed(1)));
           }
 
-          $('#container').highcharts({
+          $('#marg_day_com').highcharts({
                 chart: {
                     type: 'line'
                 },
