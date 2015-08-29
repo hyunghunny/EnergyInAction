@@ -1,4 +1,5 @@
 $(function () {
+
     var elementObj = document.getElementById("date");
     if(elementObj){
       elementObj.innerHTML = (baseDay.getMonth() + 1) + '월 ' + baseDay.getDate() + '일 실시간 사용량';
@@ -11,6 +12,7 @@ $(function () {
             marginRight: 10,
             events: {
                 load: function () {
+                    console.log('marg realtime loaded')
                     // set up the updating of the chart each second
                     var series = this.series[0];
                     var margTotal = 0;

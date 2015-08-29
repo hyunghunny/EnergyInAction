@@ -1,4 +1,5 @@
 $(function () {
+
     var elementObj = document.getElementById("date");
     if(elementObj){
       elementObj.innerHTML = 'MARG ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ') 사용량';
