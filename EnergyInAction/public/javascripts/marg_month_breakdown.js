@@ -18,18 +18,20 @@ $(function () {
     var thisMonth_data_light = [];
     var thisMonth_data_etc   = [];
     //
+    var savingRate_Month;
+
     // //query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(lastMonday) + '&day_to=' + dateFormatter(baseDay) + '&offset=9';
     lastMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfLastMonth)) + '&day_to=' + dateFormatter(new Date(lastDayOfLastMonth)) + '&offset=0';
-    console.log(lastMonth_query);
+    //console.log(lastMonth_query);
 
     invokeOpenAPI(lastMonth_query, function (lastMonth_data) {
-      console.log(lastMonth_data);
+      //console.log(lastMonth_data);
 
       thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(shiftDate(baseDay,-1)) + '&offset=0';
-      console.log(thisMonth_query);
+      //console.log(thisMonth_query);
 
         invokeOpenAPI(thisMonth_query, function (thisMonth_data) {
-        console.log(thisMonth_data);
+        //console.log(thisMonth_data);
 
         for(var index = 0; index < lastMonth_data.length; index++){
           total = lastMonth_data[index].sum;
@@ -58,14 +60,15 @@ $(function () {
             thisMonth_data_light.push(Number(light.toFixed(1)));
             thisMonth_data_etc.push(Number(etc.toFixed(1)));
         }
-        savingRate_Month = arrayMean(thisMonth_data_total) / arrayMean(lastMonth_data_total);
+        savingRate_Month = ((arrayMean(thisMonth_data_total) / arrayMean(lastMonth_data_total)));
+        // console.log(savingRate_Month);
 
         $('#marg_month_breakdown').highcharts({
           chart: {
               type: 'column'
           },
           title: {
-            text: '지난달과 이번달 하루사용량 평균 (' + (Math.round(savingRate_Month*1000)/10 - 100) + '%)'
+            text: '지난달과 이번달 하루사용량 평균 (' + (savingRate_Month*100 - 100).toFixed(1) + '%)'
           },
           xAxis: {
               categories: xAxis_categories

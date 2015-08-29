@@ -36,6 +36,8 @@ var marg_day_light = require('./routes/marg_day_light');
 var marg_realtime           = require('./routes/marg_realtime');
 var marg_realtime_breakdown = require('./routes/marg_realtime_breakdown');
 
+// 5. Smile
+var marg_smile           = require('./routes/marg_smile');
 
 /////////////
 // HCC set
@@ -105,6 +107,10 @@ app.use('/marg_day_light', marg_day_light);
 // 4. Realtime
 app.use('/marg_realtime', marg_realtime);
 app.use('/marg_realtime_breakdown', marg_realtime_breakdown);
+
+// 5. Smile
+app.use('/marg_smile', marg_smile);
+
 
 
 /////////////

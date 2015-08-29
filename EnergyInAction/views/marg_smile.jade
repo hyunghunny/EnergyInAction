@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    
+    h1 어제와 오늘 비교 --> 신호등 smiley face
+    
+    h2#date #{date}
+    div#marg_smile(style='min-width: 310px; height: 50px; margin: 0 auto')
+    div#smiley(style='min-width: 310px; height: 500px; margin: 0 auto')
+
+    script(src='http://code.highcharts.com/highcharts.js')
+    script(src='http://code.highcharts.com/modules/exporting.js')
+
+    script(src='javascripts/api.js')
+    script(src='javascripts/utiles.js')
+    script(src='javascripts/marg_smile.js')
