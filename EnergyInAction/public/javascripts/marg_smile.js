@@ -46,13 +46,13 @@ $(function () {
 
           if(savingRate_Day > 1.05) {
             $('#smiley').css("background-color","red");
-            $('#smiley').prepend('<img id="faces" src="/views/img/red.png" />')
+            $('#smiley').prepend('<img id="faces" src="./images/red.png" />')
           } else if ( savingRate_Day > .90) {
             $('#smiley').css("background-color","yellow");
-            $('#smiley').prepend('<img id="faces" src="/views/img/yellow.jpg" />')
+            $('#smiley').prepend('<img id="faces" src="./images/yellow.jpg" />')
           } else {
             $('#smiley').css("background-color","green");
-            $('#smiley').prepend('<img id="faces" src="/views/img/green.jpg" />')
+            $('#smiley').prepend('<img id="faces" src="./images/green.jpg" />')
           }
         });
     });
