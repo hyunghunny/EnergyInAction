@@ -1,4 +1,4 @@
-var savingRate_Month;
+// var savingRate_Month;
 
 var dayLabel = new Array('일', '월', '화', '수', '목', '금', '토');
 
@@ -38,7 +38,6 @@ function invokeOpenAPI(url, scb) {
 
         error : function (request) {
             console.log("failed to retrieve:" + request);
-
         }
     });
 }
@@ -92,4 +91,12 @@ function arrayMean(input_array){
     sum += input_array[i];
   }
   return Math.round((sum/input_array.length)*10)/10;
+}
+
+function limitedArraySum(input_array, limit){
+  var sum = 0;
+  for(var i=0; i<limit; i++){
+    sum += input_array[i];
+  }
+  return sum
 }

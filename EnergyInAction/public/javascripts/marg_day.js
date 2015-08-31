@@ -5,9 +5,12 @@ $(function () {
       elementObj.innerHTML = 'MARG ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ') 사용량';
     }
 
+    // baseDay_query  = '/api/labs/marg/energy/quarters.json?base_time=' + baseTime;
+    // comparingDay_query = '/api/labs/marg/energy/quarters.json?base_time=' + comparingDayTime;
 
     baseDay_query  = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
     comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + comparingDayTime;
+
 
     // console.log(baseDay_query);
     // console.log(comparingDay_query);
@@ -31,7 +34,9 @@ $(function () {
 
           console.log('comparingDay', comparingDay_data);
           console.log('today', today_data);
-          //showChart();
+
+          var comparingSum = limitedArraySum(comparingDay_data, today.length);
+          var todaySum     = limitedArraySum(today_data, today.length);
 
 
           $('#marg_day').highcharts({
@@ -45,8 +50,23 @@ $(function () {
                 subtitle: {
                     text: 'SNU'
                 },
+                legend: {
+                    layout: 'vertical',
+                    align: 'left',
+                    verticalAlign: 'top',
+                    x: 150,
+                    y: 100,
+                    floating: true,
+                    borderWidth: 1,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+                },
                 xAxis: {
-                    categories: xAxis_categories
+                    categories: xAxis_categories,
+                    plotBands: [{ // visualize so far
+                        from: -0.5,
+                        to: today.length - 1,
+                        color: 'rgba(68, 170, 213, .1)'
+                    }]
                 },
                 yAxis: {
                     title: {
@@ -62,11 +82,13 @@ $(function () {
                     }
                 },
                 series: [{
-                    name: '어제: ' + (comparingDay.getMonth() + 1) + '월 ' +  comparingDay.getDate() + '일(' + dayLabel[comparingDay.getDay()] + ')',
+                    //name: '어제: ' + (comparingDay.getMonth() + 1) + '월 ' +  comparingDay.getDate() + '일(' + dayLabel[comparingDay.getDay()] + ')',
+                    name: '어제 이 시간: ' + comparingSum.toFixed(1) + ' kW/h',
                     data: comparingDay_data,
                     color: '#d3d3d3'
                 }, {
-                    name: '오늘: ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ')',
+                    //name: '오늘: ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ')',
+                    name: '오늘 이 시간: ' + todaySum.toFixed(1) + ' kW/h (' + ((todaySum/comparingSum)*100).toFixed(1) +  '%)',
                     data: today_data,
                     color: '#4169e1'
                 }]
