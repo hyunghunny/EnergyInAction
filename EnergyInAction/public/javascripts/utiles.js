@@ -31,13 +31,13 @@ function invokeOpenAPI(url, scb) {
         dataType : "json",
         success : function (data) {
 
-            console.log('retrieve success:' + data);
+            //console.log('retrieve success:' + data);
             scb(data)
 
         },
 
         error : function (request) {
-            console.log("failed to retrieve:" + request);
+            // console.log("failed to retrieve:" + request);
         }
     });
 }

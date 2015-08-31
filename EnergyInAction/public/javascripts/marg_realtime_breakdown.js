@@ -18,22 +18,22 @@ $(function () {
                     setInterval(function () {
                         //var x = (new Date()).getTime(); // current time
                         var x = ((new Date()).getTime() - (new Date()).getTimezoneOffset()*60000); // current local time
-                        console.log(x);
+                        // console.log(x);
                         //console.log(new Date());
                         invokeOpenAPI('/api/labs/marg/energy/latest.json', function (data) {
                           //console.log(data);
                           margTotal = data.sum/1000000;
-                          console.log(data.location);
+                          // console.log(data.location);
                         });
                         var y = margTotal;
                         //var y = margTotal.toFixed(2);
                         //var y = Highcharts.numberFormat(margTotal,2);
-                        console.log(y);
+                        // console.log(y);
 
                         try {
                           series.addPoint([x, y], true, true);
                         } catch (err) {
-                          console.log(err);
+                          // console.log(err);
                         }
 
                     }, 1000);
