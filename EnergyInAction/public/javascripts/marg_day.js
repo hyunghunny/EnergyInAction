@@ -1,14 +1,16 @@
 $(function () {
+
     var elementObj = document.getElementById("date");
     if(elementObj){
       elementObj.innerHTML = 'MARG ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ') 사용량';
     }
 
-          baseDay_query  = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
-          comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + comparingDayTime;
+    // baseDay_query  = '/api/labs/marg/energy/quarters.json?base_time=' + baseTime;
+    // comparingDay_query = '/api/labs/marg/energy/quarters.json?base_time=' + comparingDayTime;
 
-        // baseDay_query  = '/api/labs/marg/energy/quarters.json?base_time=' + baseTime;
-        // comparingDay_query = '/api/labs/marg/energy/quarters.json?base_time=' + comparingDayTime;
+    baseDay_query  = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
+    comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + comparingDayTime;
+
 
     // console.log(baseDay_query);
     // console.log(comparingDay_query);
@@ -36,7 +38,9 @@ $(function () {
           var comparingSum = limitedArraySum(comparingDay_data, today.length);
           var todaySum     = limitedArraySum(today_data, today.length);
 
+
           $('#marg_day').highcharts({
+
                 chart: {
                     type: 'line'
                 },
