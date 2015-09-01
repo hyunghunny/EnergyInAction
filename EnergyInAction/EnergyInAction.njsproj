@@ -52,6 +52,7 @@
     <Compile Include="routes\daily.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="tests\control_test.js" />
+    <Compile Include="tests\rest_test.js" />
     <Content Include="package.json" />
     <Content Include="public\favicon.ico" />
     <Content Include="public\fonts\glyphicons-halflings-regular.eot" />

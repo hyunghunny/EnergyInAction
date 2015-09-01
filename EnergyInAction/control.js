@@ -200,7 +200,7 @@ LabEnergyManager.prototype.retrieveDailyUsages = function(queries, cb) {
     var dayFrom = new Date(queries.day_from);
     dayFrom.setDate(dayFrom.getDate() + skip);
     dayFrom.setHours(dayFrom.getHours() + offset);
-    //console.log(dayFrom);
+//    console.log(dayFrom);
 
     var dayTo = new Date(queries.day_to);
     dayTo.setHours(dayTo.getHours() + offset);
@@ -287,7 +287,7 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
         // translate timestamp into ISODate add startDate and endDate into queries 
         queries.startDate = new Date(queries.base_time);
         queries.endDate = new Date(queries.to_time);
-        console.log('data from ' + queries.startDate.toLocaleString() + ' to ' + queries.endDate.toLocaleString());
+        console.log(type + ' data from ' + queries.startDate + ' to ' + queries.endDate);
         // set default filters to disable all
         var filters = {
             "ux" : false,

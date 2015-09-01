@@ -90,7 +90,7 @@ MongoDBManager.prototype.aggregateFeeders = function (collectionName, labId, que
             var feederDescriptionKey = "$" + feeders + ".description";
             var projectObj = {}  
             projectObj[feeders] = 1; // XXX: javaScript confused that feeders is the key name or the variable.
-
+//            console.log('aggregate data from ' + queries.startDate + ' until ' + queries.endDate);
             collection.aggregate([
                 { "$match": { "dateFrom" : {
                             "$gte": queries.startDate, 

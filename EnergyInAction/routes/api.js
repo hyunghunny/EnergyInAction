@@ -995,8 +995,10 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
  * @apiParam {String} [day_from=yesterday]  Query parameter to set the base day.
  *   It should be formated as YYYY-MM-DD. e.g. 2015-4-10.
  *   The result(s) contains the observations which measured from the value of from to the value of to.
+ *   CAUTION: this day string format translated to local time.
  * @apiParam {String} [day_to=same day of from value]  Query parameter to set the time to be collected.
  *   It should be formated as YYYY-MM-DD. e.g. 2015-4-10.
+ *   CAUTION: this day string format translated to local time.  
  * @apiParam {Number} [offset=0] Query parameter to set the offset hour. e.g. offset=9 means each measurements associated from 9 A.M. to next 9 A.M.
  * @apiParam {Number} [limit=100] Query parameter to set the number of items which will be retrieved.
  * @apiParam {Number} [skip=0] Query parameter to set the skipped numbers of items.
@@ -1868,6 +1870,9 @@ router.get('/labs/:labId/energy/daily.json', function (req, res) {
         if (!queries.day_to) {
             queries.day_to = queries.day_from;  // set same value as day_from
         }
+        // XXX: add below to change GMT to local time
+        queries.day_from = queries.day_from + " 00:00:00";
+        queries.day_to = queries.day_to + " 00:00:00";
 
         labObj.retrieveDailyUsages(queries, function (result) {
             if (result != null) {
