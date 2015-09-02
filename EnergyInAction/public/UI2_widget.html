@@ -2,22 +2,18 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
-  <!--link rel="stylesheet" type="text/css" href="./stylesheets/jquery.jdigiclock.css" /-->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
   <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
   <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
-  <!--script type="text/javascript" src="./lib/jquery-1.3.2.min.js"></script>
-  <script type="text/javascript" src="./lib/jquery.jdigiclock.js"></script>
-<script type="text/javascript">
-var doctemp = $(document);
-console.log(doctemp);
-$(document).ready(function() {
-    $('#digiclock').jdigiclock({
-        am_pm="true";
-        weatherLocationCode="ASI|KR|KS002|SUWON";
-    });
-});
-</script-->
+
+  <script type="text/javascript">
+  $(document).ready(function() {
+      $('#digiclock').jdigiclock({
+          am_pm="true";
+          weatherLocationCode="ASI|KR|KS002|SUWON";
+      });
+  });
+</script>
 
 </head>
 <body>
@@ -34,24 +30,11 @@ $(document).ready(function() {
     <div id="marg_realtime" class="marg_class_realtime"><h2>marg realtime</h2></div>
   </div>
   <div id="marg_widget" class="marg_class_widgets">
-    <!--div id="digiclock"></div-->
-
-<!--
-    <iframe
-    id="forecast_embed"
-    type="text/html"
-    frameborder="0"
-    height="200" width="1200"
-    src="http://forecast.io/embed/#lat=37.2944304&lon=-127.04677600000002&name=경기도 수원"
-    align="left">
-  </iframe-->
     <div><h2>notice board</h2></div>
-    <div><h2>traffic light</h2></div>
+    <div id="smiley"><h2>traffic light</h2></div>
   </div>
 </div>
 <div id="marg_tip" style="width: 1920px; height: 100px;"><h2>marg tip</h2></div>
-
-
 
 <script type="text/javascript" src="./javascripts/utiles.js"></script>
 <script type="text/javascript" src="./javascripts/marg_UI_header.js"></script>
@@ -59,7 +42,9 @@ $(document).ready(function() {
 <script type="text/javascript" src="./javascripts/marg_day.js"></script>
 <script type="text/javascript" src="./javascripts/marg_week.js"></script>
 <script type="text/javascript" src="./javascripts/marg_month.js"></script>
+<script type="text/javascript" src="./javascripts/marg_smile.js"></script>
 <script type="text/javascript" src="./javascripts/UI_weather_widget.js"></script>
+
 </body>
 
 </html>
