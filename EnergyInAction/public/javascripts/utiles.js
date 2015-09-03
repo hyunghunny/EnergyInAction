@@ -30,12 +30,9 @@ function invokeOpenAPI(url, scb) {
         type : "get",
         dataType : "json",
         success : function (data) {
-
             //console.log('retrieve success:' + data);
             scb(data)
-
         },
-
         error : function (request) {
             console.log("failed to retrieve:" + request);
         }
