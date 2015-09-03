@@ -123,9 +123,15 @@ a {
   height: 600px;*/
   float: left;
   clear: both;
-  width: 1500px;
-  height: 100px;
-
+  width: 1490px;
+  height: 150px;
+  background-image: url('../images/tip.png');
+}
+.marg_class_notice {
+  width: 390px;
+  height: 300px;
+  /*background-color: gray;*/
+  background-image: url('../images/notice.png');
 }
 .marg_class_smile {
   width: 390px;

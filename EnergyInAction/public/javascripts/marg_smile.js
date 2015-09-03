@@ -43,7 +43,14 @@ $(function () {
           savingRate_Day = todaySum / comparingSum;
           console.log(savingRate_Day);
 
-          marg_smile.innerHTML = (new Date(today[today.length-1].dateTo)) + '기준<br>어제 대비 ' + (savingRate_Day*100).toFixed(1) + '% 사용중';
+          var smile_date = new Date(today[today.length-1].dateTo);
+          var s_month = smile_date.getMonth()+1;
+          var s_day = smile_date.getDate();
+          var s_hours = smile_date.getHours();
+          var s_minutes = smile_date.getMinutes();
+
+          marg_smile.innerHTML = s_month+'월'+s_day+'일 '+s_hours+':'+s_minutes + ' 기준<br>어제 대비 ' + (savingRate_Day*100).toFixed(1) + '% 사용중';
+          // marg_smile.innerHTML = (new Date(today[today.length-1].dateTo)) + '기준<br>어제 대비 ' + (savingRate_Day*100).toFixed(1) + '% 사용중';
 
           if(savingRate_Day > 1.05) {
             //$('#smiley').css("background-color","red");
