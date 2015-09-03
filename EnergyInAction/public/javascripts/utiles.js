@@ -37,7 +37,7 @@ function invokeOpenAPI(url, scb) {
         },
 
         error : function (request) {
-            // console.log("failed to retrieve:" + request);
+            console.log("failed to retrieve:" + request);
         }
     });
 }
@@ -99,4 +99,32 @@ function limitedArraySum(input_array, limit){
     sum += input_array[i];
   }
   return sum
+}
+
+function dateToString(date) {
+    var dateString = date.getFullYear() + '년' + (date.getMonth() + 1) + '월' + date.getDate() + '일 ' + date.getHours()+9 + '시' + date.getMinutes()+0 + '분';
+    switch (date.getDay()) {
+        case 0:
+            dateString = dateString + ' [Sun]';
+            break;
+        case 1:
+            dateString = dateString + ' [Mon]';
+            break;
+        case 2:
+            dateString = dateString + ' [Tue]';
+            break;
+        case 3:
+            dateString = dateString + ' [Wed]';
+            break;
+        case 4:
+            dateString = dateString + ' [Thu]';
+            break;
+        case 5:
+            dateString = dateString + ' [Fri]';
+            break;
+        case 6:
+            dateString = dateString + ' [Sat]';
+            break;
+    }
+    return dateString;
 }

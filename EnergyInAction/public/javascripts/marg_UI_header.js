@@ -5,15 +5,14 @@ $(function () {
 
 function title(){
     var now = new Date();
-    var month = now.getMonth();
-    var day = now.getDay();
+    var month = now.getMonth()+1;
+    var day = now.getDate();
     var hours = now.getHours();
     var minutes = now.getMinutes();
     var ampm = "";
-
         month = month+"월 "
         day = day+"일 "
-
+console.log(month+day);
         if (hours > 12){
             hours -= 12;
             ampm = "오후 ";

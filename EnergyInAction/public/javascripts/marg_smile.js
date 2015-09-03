@@ -12,9 +12,9 @@ $(function () {
     // console.log(baseDay_query);
     // console.log(comparingDay_query);
 
-    var xAxis_categories = new Array();
-    var comparingDay_data = new Array();
-    var today_data = new Array();
+    var xAxis_categories = [];
+    var comparingDay_data = [];
+    var today_data = [];
 
     invokeOpenAPI(comparingDay_query, function (yesterday) {
       //console.log(yesterday);
@@ -34,6 +34,7 @@ $(function () {
 
           var comparingSum = limitedArraySum(comparingDay_data, today.length);
           var todaySum     = limitedArraySum(today_data, today.length);
+
           console.log(today.length, comparingSum);
           console.log(today.length, todaySum);
 

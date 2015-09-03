@@ -5,6 +5,7 @@ $(function () {
       elementObj.innerHTML = 'MARG ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ') 사용량';
     }
 
+
     // baseDay_query  = '/api/labs/marg/energy/quarters.json?base_time=' + baseTime;
     // comparingDay_query = '/api/labs/marg/energy/quarters.json?base_time=' + comparingDayTime;
 
@@ -26,6 +27,9 @@ $(function () {
 
     var comparingSum = 0;
     var todaySum     = 0;
+
+    console.log("baseDay_query", baseDay_query);
+    console.log("comparingDay_query", comparingDay_query);
 
     invokeOpenAPI(comparingDay_query, yesterdayCB);
     invokeOpenAPI(baseDay_query, todayCB);
