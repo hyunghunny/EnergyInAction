@@ -62,7 +62,10 @@ $(function () {
           type: 'column'
       },
       title: {
-          text: '지난달과 이번달 하루사용량 평균 (' + (savingRate_Month*100 - 100).toFixed(1) + '%)'
+          text: '지난달과 이번달 하루사용량 평균 <br>(' + (savingRate_Month*100 - 100).toFixed(1) + '%)'
+      },
+      exporting: {
+          enabled: false
       },
       xAxis: {
           categories: xAxis_categories

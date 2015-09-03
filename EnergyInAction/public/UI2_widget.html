@@ -6,18 +6,19 @@
   <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
   <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
 
-  <script type="text/javascript">
+  <!--script type="text/javascript">
+
   $(document).ready(function() {
       $('#digiclock').jdigiclock({
-          am_pm="true";
-          weatherLocationCode="ASI|KR|KS002|SUWON";
+          am_pm:"true",
+          weatherLocationCode: "ASI|KR|KS002|SUWON"
       });
   });
-</script>
+</script-->
 
 </head>
 <body>
-<div id="marg_title" class="title_class"><h2>marg title</h2></div>
+<!-- <div id="marg_title" class="title_class"><h2>marg title</h2></div>
 <div class="wrapper_class">
   <div class="marg_class_contents_left">
     <div class="marg_class_contents_left_top">
@@ -30,11 +31,37 @@
     <div id="marg_realtime" class="marg_class_realtime"><h2>marg realtime</h2></div>
   </div>
   <div id="marg_widget" class="marg_class_widgets">
+    <a href="http://www.accuweather.com/en/kr/suwon/223670/weather-forecast/223670" class="aw-widget-legal">
+</a><div id="awcc1441096686355" class="aw-widget-current"  data-locationkey="223670" data-unit="c" data-language="en-us" data-useip="false" data-uid="awcc1441096686355" style="width: 370px;"></div>
+<script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
     <div><h2>notice board</h2></div>
-    <div id="smiley"><h2>traffic light</h2></div>
+    <div id="marg_smile"></div><div id="smiley"></div>
+
   </div>
 </div>
-<div id="marg_tip" style="width: 1920px; height: 100px;"><h2>marg tip</h2></div>
+<div id="marg_tip" style="width: 1900px; height: 100px;"><h2>marg tip</h2><br><h3>절전형 멀티탭을 사용하여 불필요한 전력 사용을 줄여주세요</h3></div> -->
+<div id="marg_title" class="title_class"><h2>marg title</h2></div>
+<div class="wrapper_class">
+  <div class="marg_class_contents_left">
+    <div class="marg_class_contents_left_top">
+    <div id="marg_month" class="marg_class_month"><h2>marg month</h2></div>
+    <div class="marg_class_contents_left_week_day">
+      <div id="marg_week" class="marg_class_week"><h2>marg week</h2></div>
+      <div id="marg_day" class="marg_class_day"><h2>marg day</h2></div>
+    </div>
+    </div>
+    <div id="marg_realtime" class="marg_class_realtime"><h2>marg realtime</h2></div>
+    <div id="marg_tip" ><h2>marg tip</h2><br><h3>절전형 멀티탭을 사용하여 불필요한 전력 사용을 줄여주세요</h3></div>
+  </div>
+  <div id="marg_widget" class="marg_class_widgets">
+    <a href="http://www.accuweather.com/en/kr/suwon/223670/weather-forecast/223670" class="aw-widget-legal">
+  </a><div id="awcc1441096686355" class="aw-widget-current"  data-locationkey="223670" data-unit="c" data-language="en-us" data-useip="false" data-uid="awcc1441096686355" style="width: 390px;"></div>
+  <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
+    <div><h2>notice board</h2></div>
+    <div id="traffic_light" class="traffic_light_class"><div id="marg_smile" class="marg_class_smile"></div><div id="smiley" class="marg_class_smiley"></div></div>
+  </div>
+</div>
+
 
 <script type="text/javascript" src="./javascripts/utiles.js"></script>
 <script type="text/javascript" src="./javascripts/marg_UI_header.js"></script>
@@ -43,7 +70,7 @@
 <script type="text/javascript" src="./javascripts/marg_week.js"></script>
 <script type="text/javascript" src="./javascripts/marg_month.js"></script>
 <script type="text/javascript" src="./javascripts/marg_smile.js"></script>
-<script type="text/javascript" src="./javascripts/UI_weather_widget.js"></script>
+<!--script type="text/javascript" src="./javascripts/UI_weather_widget.js"></script-->
 
 </body>
 

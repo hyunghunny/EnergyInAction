@@ -46,12 +46,16 @@ a {
     vertical-align:middle;
 }
 .title_class {
-  width: 1920px;
-  height: 100px;
+  width: 1900px;
+  height: 80px;
+  background-color: #369000;
+  padding-top: 15px;
 }
 .wrapper_class {
-  width: 1920px;
+  width: 1900px;
   height: 800px;
+  padding-top: 10px;
+  float: left;
 }
 .marg_class_contents_left {
   float: left;
@@ -60,16 +64,20 @@ a {
   height: 800px;
 }
 .marg_class_widgets {
+  /*float: right;
+  clear: none;
+  width: 390px;
+  height: 800px;*/
   float: right;
   clear: none;
-  width: 420px;
-  height: 800px;
+  width: 390px;
+  height: 960px;
 }
 .marg_class_month {
   float: left;
   clear: both;
-  width: 700px;
-  height: 500px;
+  width: 400px;
+  height: 600px;
 }
 .marg_class_contents_left_week_day {
   float: left;
@@ -80,28 +88,63 @@ a {
 .marg_class_contents_left_top {
   float: left;
   clear: none;
-  width: 1500px;
-  height: 500px;
+  width: 1510px;
+  height: 600px;
 }
 .marg_class_week {
   float: left;
   clear: none;
-  width: 800px;
-  height: 250px;
+  width: 1070px;
+  height: 290px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  padding-right: 20px;
 }
 .marg_class_day {
   float: left;
   clear: none;
-  width: 800px;
-  height: 250px;
+  width: 1070px;
+  height: 290px;
+  padding-left: 10px;
+  padding-right: 20px;
 }
 .marg_class_realtime {
   float: left;
   clear: none;
-  width: 1500px;
-  height: 300px;
+  width: 1490px;
+  height: 190px;
+  padding-top: 10px;
+  padding-right: 20px;
 }
+.marg_class_tip {
+  /*float: left;
+  clear: none;
+  width: 1510px;
+  height: 600px;*/
+  float: left;
+  clear: both;
+  width: 1500px;
+  height: 100px;
 
+}
+.marg_class_smile {
+  width: 390px;
+  height: 30px;
+  padding-top: 10px;
+  padding-right: 10px;
+
+}
+.traffic_light_class {
+  width: 390px;
+  height: 400px;
+  position: absolute;
+  bottom: 0;
+}
+.marg_class_smiley {
+  padding-left: 70px;
+  position: absolute;
+  bottom: 0;
+}
 
 /*        weather         */
 table {

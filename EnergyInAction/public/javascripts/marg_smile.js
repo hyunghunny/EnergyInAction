@@ -45,14 +45,15 @@ $(function () {
           marg_smile.innerHTML = (new Date(today[today.length-1].dateTo)) + '기준<br>어제 대비 ' + (savingRate_Day*100).toFixed(1) + '% 사용중';
 
           if(savingRate_Day > 1.05) {
-            $('#smiley').css("background-color","red");
-            $('#smiley').prepend('<img id="faces" src="./images/red.png" />')
+            //$('#smiley').css("background-color","red");
+            $('#smiley').prepend('<img id="faces" src="./images/RED3.png" />')
+            $('#marg_title').css("background-color","#a50a0a");
           } else if ( savingRate_Day > .90) {
-            $('#smiley').css("background-color","yellow");
-            $('#smiley').prepend('<img id="faces" src="./images/yellow.jpg" />')
+            $('#smiley').css("background-color","#f7cb00");
+            $('#smiley').prepend('<img id="faces" src="./images/YELLOW.jpg" />')
           } else {
-            $('#smiley').css("background-color","green");
-            $('#smiley').prepend('<img id="faces" src="./images/green.jpg" />')
+            $('#smiley').css("background-color","#3e721f");
+            $('#smiley').prepend('<img id="faces" src="./images/GREEN.jpg" />')
           }
         });
     });
