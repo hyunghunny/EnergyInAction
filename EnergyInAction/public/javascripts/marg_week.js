@@ -116,7 +116,7 @@ $(function () {
               data: lastWeek_total,
               stack: 'lastWeek',
               //color: Highcharts.getOptions().colors[0]
-              color: 'rgba(84, 84, 84, .3)'
+              color: '#D3D3D3'
           }, {
               name: '이번주',
               data: thisWeek_total,
