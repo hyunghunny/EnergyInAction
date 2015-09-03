@@ -76,7 +76,7 @@ $(function () {
       yAxis: {
           min: 0,
           title: {
-              text: '전력 사용량 (kW/h)'
+              text: '전체 전력 사용량 (kW/h)'
           },
           stackLabels: {
               enabled: true,
@@ -109,7 +109,7 @@ $(function () {
           //name: '전체사용량',
           data: [arrayMean(lastMonth_total), arrayMean(thisMonth_total)]
       }],
-      colors: ['#D3D3D3','rgba(90, 133, 225, 1)']
+      colors: ['#D3D3D3','#63A8F6']
     });
 
 

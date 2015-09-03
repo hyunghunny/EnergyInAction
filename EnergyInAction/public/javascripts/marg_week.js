@@ -122,7 +122,7 @@ $(function () {
               data: thisWeek_total,
               stack: 'thisWeek',
               //color: Highcharts.getOptions().colors[1]
-              color: 'rgba(90, 133, 225, 1)'
+              color: '#63A8F6'
           }]
         });
       }

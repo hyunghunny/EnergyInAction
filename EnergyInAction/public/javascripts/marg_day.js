@@ -69,7 +69,8 @@ $(function () {
                 type: 'line'
             },
             title: {
-                text: '어제와 오늘 (' + yesterday[0].location + '호 - 사용량 전체)'
+                // text: '어제와 오늘 (' + yesterday[0].location + '호 - 사용량 전체)'
+                text: '어제 vs 오늘'
             },
             // subtitle: {
             //     text: 'SNU'

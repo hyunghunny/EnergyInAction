@@ -42,7 +42,8 @@ $(function () {
             }
         },
         title: {
-            text: 'MARG 실시간 전력 사용량 (전체)'
+            // text: 'MARG 실시간 전력 사용량 (전체)'
+            text: '실시간 전력 사용량 (전체)'
         },
         xAxis: {
             type: 'datetime',
