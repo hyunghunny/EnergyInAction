@@ -58,6 +58,9 @@ $(function () {
     console.log(thisMonth);
 
     var chart_month = $('#marg_month').highcharts({
+      legend: {
+        enabled: false
+      },
       chart: {
           type: 'column'
       },
@@ -88,16 +91,16 @@ $(function () {
           pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
       },
       plotOptions: {
-          // column: {
-          //     stacking: 'normal',
-          //     dataLabels: {
-          //         enabled: false,
-          //         color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
-          //         style: {
-          //             textShadow: '0 0 3px black'
-          //         }
-          //     },
-          // },
+          column: {
+              stacking: 'normal',
+              dataLabels: {
+                  enabled: false,
+                  color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                  style: {
+                      textShadow: '0 0 3px black'
+                  }
+              },
+          },
           series: {
             colorByPoint: true
           }
@@ -106,7 +109,7 @@ $(function () {
           //name: '전체사용량',
           data: [arrayMean(lastMonth_total), arrayMean(thisMonth_total)]
       }],
-      colors: ['rgba(84, 84, 84, .3)','rgba(90, 133, 225, 1)']
+      colors: ['#D3D3D3','rgba(90, 133, 225, 1)']
     });
 
 
