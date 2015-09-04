@@ -86,7 +86,7 @@
         var selectedLab = 'marg';
         var postType = "notice";
         var uri = 'api/labs/' + selectedLab + '/actuators/notices/latest';
-        var baseUrl = 'http://localhost:3000/';
+        var baseUrl = 'http://http://147.47.123.199:3000/';
         var message = "NO returns";
 
         $(document).ready(function() {
@@ -105,8 +105,6 @@
                 var marquee = $('#marquee')
                 marquee.attr('data-marquee', message);
 
-                // $(#tip_msg).append(marquee);
-                console.log('tip2: ',message);
                 document.getElementById("tip_msg").innerHTML = message;
             })
         });
