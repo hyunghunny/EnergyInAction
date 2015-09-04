@@ -7,9 +7,9 @@
     },
 
     collection: {
-        secs: "site73_1sec",
         quarters: "site73_15min_new",
-        hours: "site73_hour_new"
+        hours: "site73_hour_new",
+        messages: "site73_messages"
     },
 
     server: {

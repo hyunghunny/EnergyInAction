@@ -52,6 +52,7 @@
     <Compile Include="routes\daily.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="tests\control_test.js" />
+    <Compile Include="tests\rest_test.js" />
     <Content Include="package.json" />
     <Content Include="public\favicon.ico" />
     <Content Include="public\fonts\glyphicons-halflings-regular.eot" />
@@ -59,7 +60,9 @@
     <Content Include="public\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="public\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="public\javascripts\api.js.map" />
+    <Content Include="public\post.html" />
     <Content Include="public\stylesheets\bootstrap.min.css" />
+    <Content Include="public\stylesheets\marquee.css" />
     <Content Include="public\stylesheets\style.css" />
     <Content Include="public\stylesheets\style.styl" />
     <Content Include="public\stylesheets\widlhtml.css" />
