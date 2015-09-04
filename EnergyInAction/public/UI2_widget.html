@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Energy Saving Behavior Research</title>
   <meta http-equiv="refresh" content="300">
   <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
   <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
   <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
+
+  <!-- for notice and tip -->
+  <link rel="stylesheet" href="stylesheets/marquee.css">
+  <!-- <meta charset="utf-8" />
+  <title>Energy Saving Behavior Research Messaging Board</title> -->
+  <!-- <link rel="stylesheet" href="stylesheets/marquee.css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js" ></script>
+  <script type="text/javascript" src="./javascripts/utiles.js"></script> -->
+
+
+
 </head>
 <body>
 <!-- <div id="marg_title" class="title_class"><h2>marg title</h2></div>
@@ -67,7 +79,40 @@
     </div>
     </div>
     <!-- <div id="marg_tip" class="marg_class_tip" ><br><br><br><br><h2><span style="margin-left:7em"><marquee direction="left" width=1490px style="border:solid">절전형 멀티탭을 사용하여 불필요한 전력 사용을 줄여주세요</marquee></span></h2></div> -->
-    <div id="marg_tip" class="marg_class_tip" ><br><h2><span style="margin-left:7em"><marquee direction="left" width=1300px >절전형 멀티탭을 사용하여 불필요한 전력 사용을 줄여주세요</marquee></span></h2></div>
+    <div id="marg_tip" class="marg_class_tip" ><br><h2><span style="margin-left:7em"><marquee id="tip_msg" direction="left" width=1300px >절전형 멀티탭을 사용하여 불필요한 전력 사용을 줄여주세요</marquee></span></h2>
+
+    </div>
+    <script type="text/javascript">
+        var selectedLab = 'marg';
+        var postType = "notice";
+        var uri = 'api/labs/' + selectedLab + '/actuators/notices/latest';
+        var baseUrl = 'http://localhost:3000/';
+        var message = "NO returns";
+
+        $(document).ready(function() {
+            var url = baseUrl + uri;
+            console.log(url);
+            invokeOpenAPI(url, function (msg) {
+                // var message = "NO returns";
+                if (msg.notice) {
+                    message = msg.notice.message;
+                }
+                if (msg.tip) {
+                    message = msg.tip.message;
+                }
+                console.log('tip: ',message);
+
+                var marquee = $('#marquee')
+                marquee.attr('data-marquee', message);
+
+                // $(#tip_msg).append(marquee);
+                console.log('tip2: ',message);
+                document.getElementById("tip_msg").innerHTML = message;
+            })
+        });
+
+
+    </script>
   </div>
   <div id="marg_widget" class="marg_class_widgets">
     <a href="http://www.accuweather.com/en/kr/suwon/223670/weather-forecast/223670" class="aw-widget-legal">
@@ -88,6 +133,10 @@
 <script type="text/javascript" src="./javascripts/marg_month.js"></script>
 <script type="text/javascript" src="./javascripts/marg_smile.js"></script>
 <!--script type="text/javascript" src="./javascripts/UI_weather_widget.js"></script-->
+
+<!-- <link rel="stylesheet" href="stylesheets/marquee.css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js" ></script>
+<script type="text/javascript" src="./javascripts/utiles.js"></script> -->
 
 </body>
 
