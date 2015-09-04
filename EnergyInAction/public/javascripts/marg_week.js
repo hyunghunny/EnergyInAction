@@ -96,19 +96,33 @@ $(function () {
         },
 
         legend: {
-            enabled: true
+            layout: 'horizontal',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 60,
+            y: 25,
+            floating: true,
+            borderWidth: 1,
+            // backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+            backgroundColor: 'rgba(255, 255, 255, .8)',
+            borderColor: '#FFFFFF'
+        },
+        exporting: {
+            enabled: false
         },
 
         series: [{
               name: '지난주',
               data: lastWeek_total,
               stack: 'lastWeek',
-              color: Highcharts.getOptions().colors[0]
+              //color: Highcharts.getOptions().colors[0]
+              color: '#D3D3D3'
           }, {
               name: '이번주',
               data: thisWeek_total,
               stack: 'thisWeek',
-              color: Highcharts.getOptions().colors[1]
+              //color: Highcharts.getOptions().colors[1]
+              color: '#63A8F6'
           }]
         });
       }

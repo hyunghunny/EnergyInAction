@@ -5,11 +5,12 @@ $(function () {
       elementObj.innerHTML = 'MARG ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ') 사용량';
     }
 
-    baseDay_query  = '/api/labs/marg/energy/quarters.json?base_time=' + baseTime;
-    comparingDay_query = '/api/labs/marg/energy/quarters.json?base_time=' + comparingDayTime;
 
-    // baseDay_query  = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
-    // comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + comparingDayTime;
+    // baseDay_query  = '/api/labs/marg/energy/quarters.json?base_time=' + baseTime;
+    // comparingDay_query = '/api/labs/marg/energy/quarters.json?base_time=' + comparingDayTime;
+
+    baseDay_query  = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
+    comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + comparingDayTime;
 
     // console.log(baseDay_query);
     // console.log(comparingDay_query);
@@ -26,6 +27,9 @@ $(function () {
 
     var comparingSum = 0;
     var todaySum     = 0;
+
+    console.log("baseDay_query", baseDay_query);
+    console.log("comparingDay_query", comparingDay_query);
 
     invokeOpenAPI(comparingDay_query, yesterdayCB);
     invokeOpenAPI(baseDay_query, todayCB);
@@ -65,21 +69,28 @@ $(function () {
                 type: 'line'
             },
             title: {
-                text: '어제와 오늘 (' + yesterday[0].location + '호 - 사용량 전체)'
+                // text: '어제와 오늘 (' + yesterday[0].location + '호 - 사용량 전체)'
+                text: '어제 vs 오늘'
             },
-            subtitle: {
-                text: 'SNU'
-            },
+            // subtitle: {
+            //     text: 'SNU'
+            // },
             legend: {
                 layout: 'vertical',
                 align: 'left',
                 verticalAlign: 'top',
-                x: 150,
-                y: 100,
+                x: 50,
+                y: 20,
                 floating: true,
                 borderWidth: 1,
-                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+                //backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+                backgroundColor: 'rgba(255, 255, 255, .8)',
+                borderColor: '#FFFFFF'
             },
+            exporting: {
+                enabled: false
+            },
+
             xAxis: {
                 categories: xAxis_categories,
                 plotBands: [{ // visualize so far
@@ -101,6 +112,7 @@ $(function () {
                     enableMouseTracking: false
                 }
             },
+
             series: [{
                 //name: '어제: ' + (comparingDay.getMonth() + 1) + '월 ' +  comparingDay.getDate() + '일(' + dayLabel[comparingDay.getDay()] + ')',
                 name: '어제 이 시간: ' + comparingSum.toFixed(1) + ' kW/h',

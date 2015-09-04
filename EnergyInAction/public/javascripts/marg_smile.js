@@ -12,9 +12,10 @@ $(function () {
     // console.log(baseDay_query);
     // console.log(comparingDay_query);
 
-    var xAxis_categories = new Array();
-    var comparingDay_data = new Array();
-    var today_data = new Array();
+    var xAxis_categories = [];
+    var comparingDay_data = [];
+    var today_data = [];
+var smile_date = 0;
 
     invokeOpenAPI(comparingDay_query, function (yesterday) {
       //console.log(yesterday);
@@ -34,25 +35,43 @@ $(function () {
 
           var comparingSum = limitedArraySum(comparingDay_data, today.length);
           var todaySum     = limitedArraySum(today_data, today.length);
+
           console.log(today.length, comparingSum);
           console.log(today.length, todaySum);
 
-          console.log(new Date(today[today.length-1].dateTo));
+          // console.log(new Date(today[today.length].dateTo));
+          console.log("today:", today);
 
           savingRate_Day = todaySum / comparingSum;
           console.log(savingRate_Day);
 
-          marg_smile.innerHTML = (new Date(today[today.length-1].dateTo)) + '기준<br>어제 대비 ' + (savingRate_Day*100).toFixed(1) + '% 사용중';
+          // var smile_date = new Date(today[today.length-1].dateTo);
+          if(today.length == 0){
+             smile_date = baseDay;
+          } else {
+             smile_date = new Date(today[today.length-1].dateTo);
+          }
+          var s_month = smile_date.getMonth()+1;
+          var s_day = smile_date.getDate();
+          var s_hours = smile_date.getHours();
+          var s_minutes = smile_date.getMinutes();
+
+console.log(baseDay);
+          marg_smile.innerHTML = s_month+'월'+s_day+'일 '+s_hours+':'+s_minutes + ' 기준<br>어제 대비 ' + (savingRate_Day*100).toFixed(1) + '% 사용중';
+          // marg_smile.innerHTML = (new Date(today[today.length-1].dateTo)) + '기준<br>어제 대비 ' + (savingRate_Day*100).toFixed(1) + '% 사용중';
 
           if(savingRate_Day > 1.05) {
-            $('#smiley').css("background-color","red");
-            $('#smiley').prepend('<img id="faces" src="./images/red.png" />')
+            //$('#smiley').css("background-color","red");
+            $('#smiley').prepend('<img id="faces" src="./images/RED3.png" />')
+            $('#marg_title').css("background-color","#a50a0a");
           } else if ( savingRate_Day > .90) {
-            $('#smiley').css("background-color","yellow");
-            $('#smiley').prepend('<img id="faces" src="./images/yellow.jpg" />')
+            // $('#smiley').css("background-color","#f7cb00");
+            $('#smiley').prepend('<img id="faces" src="./images/YELLOW2.png" />')
+            $('#marg_title').css("background-color","#f7cb00");
           } else {
-            $('#smiley').css("background-color","green");
-            $('#smiley').prepend('<img id="faces" src="./images/green.jpg" />')
+            // $('#smiley').css("background-color","#3e721f");
+            $('#smiley').prepend('<img id="faces" src="./images/GREEN2.png" />')
+            $('#marg_title').css("background-color","#3e721f");
           }
         });
     });

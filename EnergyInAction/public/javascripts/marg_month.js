@@ -57,12 +57,18 @@ $(function () {
 
     console.log(thisMonth);
 
-    $('#marg_month').highcharts({
+    var chart_month = $('#marg_month').highcharts({
+      legend: {
+        enabled: false
+      },
       chart: {
           type: 'column'
       },
       title: {
-          text: '지난달과 이번달 하루사용량 평균 (' + (savingRate_Month*100 - 100).toFixed(1) + '%)'
+          text: '지난달과 이번달 하루사용량 평균 <br>(' + (savingRate_Month*100 - 100).toFixed(1) + '%)'
+      },
+      exporting: {
+          enabled: false
       },
       xAxis: {
           categories: xAxis_categories
@@ -70,7 +76,7 @@ $(function () {
       yAxis: {
           min: 0,
           title: {
-              text: '전력 사용량 (kW/h)'
+              text: '전체 전력 사용량 (kW/h)'
           },
           stackLabels: {
               enabled: true,
@@ -93,13 +99,19 @@ $(function () {
                   style: {
                       textShadow: '0 0 3px black'
                   }
-              }
+              },
+          },
+          series: {
+            colorByPoint: true
           }
       },
       series: [{
-          name: '전체사용량',
+          //name: '전체사용량',
           data: [arrayMean(lastMonth_total), arrayMean(thisMonth_total)]
-      }]
+      }],
+      colors: ['#D3D3D3','#63A8F6']
     });
+
+
   }
 });
