@@ -34,7 +34,7 @@ define({ "api": [
         }
       ]
     },
-    "description": "<p>This API lists the top level APIs. You can navigate the other APIs by starting with this API.</p> <p>If you doesn&#39;t set Content-Type as JSON, human readable help document will be shown.</p> ",
+    "description": "<p>This API lists the top level APIs. You can navigate the other APIs by starting with this API.</p> <p>If you doesn't set Content-Type as JSON, human readable help document will be shown.</p> ",
     "version": "0.0.0",
     "filename": "routes/api.js",
     "groupTitle": "Billboard"
@@ -88,10 +88,10 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "labId",
-            "description": "<p>Lab&#39;s unique ID.</p> "
+            "description": "<p>Lab's unique ID.</p> "
           }
         ]
       }
@@ -141,10 +141,10 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "labId",
-            "description": "<p>Lab&#39;s unique ID.</p> "
+            "description": "<p>Lab's unique ID.</p> "
           }
         ]
       }
@@ -195,30 +195,30 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "labId",
-            "description": "<p>Lab&#39;s unique ID.</p> "
+            "description": "<p>Lab's unique ID.</p> "
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": true,
             "field": "base_time",
             "defaultValue": "timestamp_of_today's_midnight",
-            "description": "<p>Query parameter to set the base time.   It can be returned by invoking Date().getTime() in JavaScript.   If skipped it will be set as today&#39;s midnight</p> "
+            "description": "<p>Query parameter to set the base time. It can be returned by invoking Date().getTime() in JavaScript. If skipped it will be set as today's midnight</p> "
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": true,
             "field": "to_time",
             "defaultValue": "1_day_more_from_base_time",
-            "description": "<p>Query parameter to set the time to be collected.   It can be returned by invoking Date().getTime() in JavaScript.   If skipped it will be set as 1 day more from the base time</p> "
+            "description": "<p>Query parameter to set the time to be collected. It can be returned by invoking Date().getTime() in JavaScript. If skipped it will be set as 1 day more from the base time</p> "
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": true,
             "field": "limit",
             "defaultValue": "100",
@@ -226,7 +226,7 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": true,
             "field": "skip",
             "defaultValue": "0",
@@ -280,30 +280,30 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "labId",
-            "description": "<p>Lab&#39;s unique ID.</p> "
+            "description": "<p>Lab's unique ID.</p> "
           },
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": true,
             "field": "day_from",
             "defaultValue": "yesterday",
-            "description": "<p>Query parameter to set the base day.   It should be formated as YYYY-MM-DD. e.g. 2015-4-10.   The result(s) contains the observations which measured from the value of from to the value of to.</p> "
+            "description": "<p>Query parameter to set the base day. It should be formated as YYYY-MM-DD. e.g. 2015-4-10. The result(s) contains the observations which measured from the value of from to the value of to. CAUTION: this day string format translated to local time.</p> "
           },
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": true,
             "field": "day_to",
             "defaultValue": "same",
-            "description": "<p>day of from value]  Query parameter to set the time to be collected.   It should be formated as YYYY-MM-DD. e.g. 2015-4-10.</p> "
+            "description": "<p>day of from value]  Query parameter to set the time to be collected. It should be formated as YYYY-MM-DD. e.g. 2015-4-10. CAUTION: this day string format translated to local time.</p> "
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": true,
             "field": "offset",
             "defaultValue": "0",
@@ -311,7 +311,7 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": true,
             "field": "limit",
             "defaultValue": "100",
@@ -319,7 +319,7 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": true,
             "field": "skip",
             "defaultValue": "0",
@@ -353,7 +353,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": " HTTP/1.1 200 OK\n [  \n  {  \n    \"dateFrom\":\"2015-07-18T23:00:00.000Z\",\n    \"dateTo\":\"2015-07-19T23:00:00.000Z\",\n    \"deviceID\":1169,\n    \"location\":\"D409\",\n    \"feeders\":[  \n      {  \n        \"feederID\":3,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":4,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":5,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":6,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":7,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":8,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":9,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":10,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":11,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":12,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":13,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":14,\n        \"value\":11.422,\n        \"description\":\"computer\"\n      },\n      {  \n        \"feederID\":15,\n        \"value\":0.258,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":16,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":17,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":18,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":19,\n        \"value\":0.509,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":20,\n        \"value\":0.449,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":21,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":22,\n        \"value\":0.719,\n        \"description\":\"hvac\"\n      },\n      {  \n        \"feederID\":23,\n        \"value\":7.386,\n        \"description\":\"light\"\n      }\n    ],\n    \"sum\":20.772,\n    \"unit\":\"kW/h\"\n  },\n  {  \n    \"dateFrom\":\"2015-07-19T23:00:00.000Z\",\n    \"dateTo\":\"2015-07-20T23:00:00.000Z\",\n    \"deviceID\":1169,\n    \"location\":\"D409\",\n    \"feeders\":[  \n      {  \n        \"feederID\":3,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":4,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":5,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":6,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":7,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":8,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":9,\n        \"value\":0,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":10,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":11,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":12,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":13,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":14,\n        \"value\":12.996,\n        \"description\":\"computer\"\n      },\n      {  \n        \"feederID\":15,\n        \"value\":0.261,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":16,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":17,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":18,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":19,\n        \"value\":0.64,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":20,\n        \"value\":0.887,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":21,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":22,\n        \"value\":0.587,\n        \"description\":\"hvac\"\n      },\n      {  \n        \"feederID\":23,\n        \"value\":9.393,\n        \"description\":\"light\"\n      }\n    ],\n    \"sum\":24.789,\n    \"unit\":\"kW/h\"\n  },\n  {  \n    \"dateFrom\":\"2015-07-20T23:00:00.000Z\",\n    \"dateTo\":\"2015-07-21T23:00:00.000Z\",\n    \"deviceID\":1169,\n    \"location\":\"D409\",\n    \"feeders\":[  \n      {  \n        \"feederID\":3,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":4,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":5,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":6,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":7,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":8,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":9,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":10,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":11,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":12,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":13,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":14,\n        \"value\":10.563,\n        \"description\":\"computer\"\n      },\n      {  \n        \"feederID\":15,\n        \"value\":0.261,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":16,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":17,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":18,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":19,\n        \"value\":0.607,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":20,\n        \"value\":0.659,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":21,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":22,\n        \"value\":0.513,\n        \"description\":\"hvac\"\n      },\n      {  \n        \"feederID\":23,\n        \"value\":12.03,\n        \"description\":\"light\"\n      }\n    ],\n    \"sum\":24.661,\n    \"unit\":\"kW/h\"\n  },\n  {  \n    \"dateFrom\":\"2015-07-21T23:00:00.000Z\",\n    \"dateTo\":\"2015-07-22T23:00:00.000Z\",\n    \"deviceID\":1169,\n    \"location\":\"D409\",\n    \"feeders\":[  \n      {  \n        \"feederID\":3,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":4,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":5,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":6,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":7,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":8,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":9,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":10,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":11,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":12,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":13,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":14,\n        \"value\":13.39,\n        \"description\":\"computer\"\n      },\n      {  \n        \"feederID\":15,\n        \"value\":0.261,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":16,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":17,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":18,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":19,\n        \"value\":0.917,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":20,\n        \"value\":0.515,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":21,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":22,\n        \"value\":0.67,\n        \"description\":\"hvac\"\n      },\n      {  \n        \"feederID\":23,\n        \"value\":21.751,\n        \"description\":\"light\"\n      }\n    ],\n    \"sum\":37.531,\n    \"unit\":\"kW/h\"\n  },\n  {  \n    \"dateFrom\":\"2015-07-22T23:00:00.000Z\",\n    \"dateTo\":\"2015-07-23T23:00:00.000Z\",\n    \"deviceID\":1169,\n    \"location\":\"D409\",\n    \"feeders\":[  \n      {  \n        \"feederID\":3,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":4,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":5,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":6,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":7,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":8,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":9,\n        \"value\":0,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":10,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":11,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":12,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":13,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":14,\n        \"value\":13.612,\n        \"description\":\"computer\"\n      },\n      {  \n        \"feederID\":15,\n        \"value\":0.339,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":16,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":17,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":18,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":19,\n        \"value\":1.024,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":20,\n        \"value\":0.853,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":21,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":22,\n        \"value\":0.7,\n        \"description\":\"hvac\"\n      },\n      {  \n        \"feederID\":23,\n        \"value\":15.881,\n        \"description\":\"light\"\n      }\n    ],\n    \"sum\":32.434,\n    \"unit\":\"kW/h\"\n  },\n  {  \n    \"dateFrom\":\"2015-07-23T23:00:00.000Z\",\n    \"dateTo\":\"2015-07-24T23:00:00.000Z\",\n    \"deviceID\":1169,\n    \"location\":\"D409\",\n    \"feeders\":[  \n      {  \n        \"feederID\":3,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":4,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":5,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":6,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":7,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":8,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":9,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":10,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":11,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":12,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":13,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":14,\n        \"value\":11.357,\n        \"description\":\"computer\"\n      },\n      {  \n        \"feederID\":15,\n        \"value\":0.257,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":16,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":17,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":18,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":19,\n        \"value\":0.986,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":20,\n        \"value\":0.484,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":21,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":22,\n        \"value\":0.426,\n        \"description\":\"hvac\"\n      },\n      {  \n        \"feederID\":23,\n        \"value\":14.862,\n        \"description\":\"light\"\n      }\n    ],\n    \"sum\":28.4,\n    \"unit\":\"kW/h\"\n  },\n  {  \n    \"dateFrom\":\"2015-07-24T23:00:00.000Z\",\n    \"dateTo\":\"2015-07-25T23:00:00.000Z\",\n    \"deviceID\":1169,\n    \"location\":\"D409\",\n    \"feeders\":[  \n      {  \n        \"feederID\":3,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":4,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":5,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":6,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":7,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":8,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":9,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":10,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":11,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":12,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":13,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":14,\n        \"value\":9.423,\n        \"description\":\"computer\"\n      },\n      {  \n        \"feederID\":15,\n        \"value\":0.255,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":16,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":17,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":18,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":19,\n        \"value\":0.972,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":20,\n        \"value\":0.418,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":21,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {  \n        \"feederID\":22,\n        \"value\":0.307,\n        \"description\":\"hvac\"\n      },\n      {  \n        \"feederID\":23,\n        \"value\":1.415,\n        \"description\":\"light\"\n      }\n    ],\n    \"sum\":12.818,\n    \"unit\":\"kW/h\"\n  }\n]",
+          "content": " HTTP/1.1 200 OK\n [\n  {\n    \"dateFrom\":\"2015-07-18T23:00:00.000Z\",\n    \"dateTo\":\"2015-07-19T23:00:00.000Z\",\n    \"deviceID\":1169,\n    \"location\":\"D409\",\n    \"feeders\":[\n      {\n        \"feederID\":3,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":4,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":5,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":6,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":7,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":8,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":9,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":10,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":11,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":12,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":13,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":14,\n        \"value\":11.422,\n        \"description\":\"computer\"\n      },\n      {\n        \"feederID\":15,\n        \"value\":0.258,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":16,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":17,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":18,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":19,\n        \"value\":0.509,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":20,\n        \"value\":0.449,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":21,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":22,\n        \"value\":0.719,\n        \"description\":\"hvac\"\n      },\n      {\n        \"feederID\":23,\n        \"value\":7.386,\n        \"description\":\"light\"\n      }\n    ],\n    \"sum\":20.772,\n    \"unit\":\"kW/h\"\n  },\n  {\n    \"dateFrom\":\"2015-07-19T23:00:00.000Z\",\n    \"dateTo\":\"2015-07-20T23:00:00.000Z\",\n    \"deviceID\":1169,\n    \"location\":\"D409\",\n    \"feeders\":[\n      {\n        \"feederID\":3,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":4,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":5,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":6,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":7,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":8,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":9,\n        \"value\":0,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":10,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":11,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":12,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":13,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":14,\n        \"value\":12.996,\n        \"description\":\"computer\"\n      },\n      {\n        \"feederID\":15,\n        \"value\":0.261,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":16,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":17,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":18,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":19,\n        \"value\":0.64,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":20,\n        \"value\":0.887,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":21,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":22,\n        \"value\":0.587,\n        \"description\":\"hvac\"\n      },\n      {\n        \"feederID\":23,\n        \"value\":9.393,\n        \"description\":\"light\"\n      }\n    ],\n    \"sum\":24.789,\n    \"unit\":\"kW/h\"\n  },\n  {\n    \"dateFrom\":\"2015-07-20T23:00:00.000Z\",\n    \"dateTo\":\"2015-07-21T23:00:00.000Z\",\n    \"deviceID\":1169,\n    \"location\":\"D409\",\n    \"feeders\":[\n      {\n        \"feederID\":3,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":4,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":5,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":6,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":7,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":8,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":9,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":10,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":11,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":12,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":13,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":14,\n        \"value\":10.563,\n        \"description\":\"computer\"\n      },\n      {\n        \"feederID\":15,\n        \"value\":0.261,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":16,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":17,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":18,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":19,\n        \"value\":0.607,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":20,\n        \"value\":0.659,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":21,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":22,\n        \"value\":0.513,\n        \"description\":\"hvac\"\n      },\n      {\n        \"feederID\":23,\n        \"value\":12.03,\n        \"description\":\"light\"\n      }\n    ],\n    \"sum\":24.661,\n    \"unit\":\"kW/h\"\n  },\n  {\n    \"dateFrom\":\"2015-07-21T23:00:00.000Z\",\n    \"dateTo\":\"2015-07-22T23:00:00.000Z\",\n    \"deviceID\":1169,\n    \"location\":\"D409\",\n    \"feeders\":[\n      {\n        \"feederID\":3,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":4,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":5,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":6,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":7,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":8,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":9,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":10,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":11,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":12,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":13,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":14,\n        \"value\":13.39,\n        \"description\":\"computer\"\n      },\n      {\n        \"feederID\":15,\n        \"value\":0.261,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":16,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":17,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":18,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":19,\n        \"value\":0.917,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":20,\n        \"value\":0.515,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":21,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":22,\n        \"value\":0.67,\n        \"description\":\"hvac\"\n      },\n      {\n        \"feederID\":23,\n        \"value\":21.751,\n        \"description\":\"light\"\n      }\n    ],\n    \"sum\":37.531,\n    \"unit\":\"kW/h\"\n  },\n  {\n    \"dateFrom\":\"2015-07-22T23:00:00.000Z\",\n    \"dateTo\":\"2015-07-23T23:00:00.000Z\",\n    \"deviceID\":1169,\n    \"location\":\"D409\",\n    \"feeders\":[\n      {\n        \"feederID\":3,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":4,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":5,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":6,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":7,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":8,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":9,\n        \"value\":0,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":10,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":11,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":12,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":13,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":14,\n        \"value\":13.612,\n        \"description\":\"computer\"\n      },\n      {\n        \"feederID\":15,\n        \"value\":0.339,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":16,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":17,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":18,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":19,\n        \"value\":1.024,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":20,\n        \"value\":0.853,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":21,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":22,\n        \"value\":0.7,\n        \"description\":\"hvac\"\n      },\n      {\n        \"feederID\":23,\n        \"value\":15.881,\n        \"description\":\"light\"\n      }\n    ],\n    \"sum\":32.434,\n    \"unit\":\"kW/h\"\n  },\n  {\n    \"dateFrom\":\"2015-07-23T23:00:00.000Z\",\n    \"dateTo\":\"2015-07-24T23:00:00.000Z\",\n    \"deviceID\":1169,\n    \"location\":\"D409\",\n    \"feeders\":[\n      {\n        \"feederID\":3,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":4,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":5,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":6,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":7,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":8,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":9,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":10,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":11,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":12,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":13,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":14,\n        \"value\":11.357,\n        \"description\":\"computer\"\n      },\n      {\n        \"feederID\":15,\n        \"value\":0.257,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":16,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":17,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":18,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":19,\n        \"value\":0.986,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":20,\n        \"value\":0.484,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":21,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":22,\n        \"value\":0.426,\n        \"description\":\"hvac\"\n      },\n      {\n        \"feederID\":23,\n        \"value\":14.862,\n        \"description\":\"light\"\n      }\n    ],\n    \"sum\":28.4,\n    \"unit\":\"kW/h\"\n  },\n  {\n    \"dateFrom\":\"2015-07-24T23:00:00.000Z\",\n    \"dateTo\":\"2015-07-25T23:00:00.000Z\",\n    \"deviceID\":1169,\n    \"location\":\"D409\",\n    \"feeders\":[\n      {\n        \"feederID\":3,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":4,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":5,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":6,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":7,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":8,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":9,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":10,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":11,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":12,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":13,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":14,\n        \"value\":9.423,\n        \"description\":\"computer\"\n      },\n      {\n        \"feederID\":15,\n        \"value\":0.255,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":16,\n        \"value\":0.001,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":17,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":18,\n        \"value\":0.002,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":19,\n        \"value\":0.972,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":20,\n        \"value\":0.418,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":21,\n        \"value\":0.003,\n        \"description\":\"unclassified\"\n      },\n      {\n        \"feederID\":22,\n        \"value\":0.307,\n        \"description\":\"hvac\"\n      },\n      {\n        \"feederID\":23,\n        \"value\":1.415,\n        \"description\":\"light\"\n      }\n    ],\n    \"sum\":12.818,\n    \"unit\":\"kW/h\"\n  }\n]",
           "type": "json"
         }
       ]
@@ -373,30 +373,30 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "labId",
-            "description": "<p>Lab&#39;s unique ID.</p> "
+            "description": "<p>Lab's unique ID.</p> "
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": true,
             "field": "base_time",
             "defaultValue": "timestamp_of_today's_midnight",
-            "description": "<p>Query parameter to set the base time.   It can be returned by invoking Date().getTime() in JavaScript.   If skipped it will be set as today&#39;s midnight</p> "
+            "description": "<p>Query parameter to set the base time. It can be returned by invoking Date().getTime() in JavaScript. If skipped it will be set as today's midnight</p> "
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": true,
             "field": "to_time",
             "defaultValue": "1_day_more_from_base_time",
-            "description": "<p>Query parameter to set the time to be collected.   It can be returned by invoking Date().getTime() in JavaScript.   If skipped it will be set as 1 day more from the base time</p> "
+            "description": "<p>Query parameter to set the time to be collected. It can be returned by invoking Date().getTime() in JavaScript. If skipped it will be set as 1 day more from the base time</p> "
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": true,
             "field": "limit",
             "defaultValue": "100",
@@ -404,7 +404,7 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": true,
             "field": "skip",
             "defaultValue": "0",
@@ -458,10 +458,10 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "labId",
-            "description": "<p>Lab&#39;s unique ID.</p> "
+            "description": "<p>Lab's unique ID.</p> "
           }
         ]
       }
@@ -511,30 +511,30 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "labId",
-            "description": "<p>Lab&#39;s unique ID.</p> "
+            "description": "<p>Lab's unique ID.</p> "
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": true,
             "field": "base_time",
             "defaultValue": "timestamp_of_today's_midnight",
-            "description": "<p>Query parameter to set the base time.   It can be returned by invoking Date().getTime() in JavaScript.   If skipped it will be set as today&#39;s midnight</p> "
+            "description": "<p>Query parameter to set the base time. It can be returned by invoking Date().getTime() in JavaScript. If skipped it will be set as today's midnight</p> "
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": true,
             "field": "to_time",
             "defaultValue": "1_day_more_from_base_time",
-            "description": "<p>Query parameter to set the time to be collected.   It can be returned by invoking Date().getTime() in JavaScript.   If skipped it will be set as 1 day more from the base time</p> "
+            "description": "<p>Query parameter to set the time to be collected. It can be returned by invoking Date().getTime() in JavaScript. If skipped it will be set as 1 day more from the base time</p> "
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": true,
             "field": "skip",
             "defaultValue": "0",
@@ -577,5 +577,161 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "routes/api.js",
     "groupTitle": "Lab_Energy_Usage"
+  },
+  {
+    "type": "get",
+    "url": "api/labs/:labId/actuators/notices/latest",
+    "title": "retrieve the latest notice message",
+    "name": "Getting_notice",
+    "group": "Messaging",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "GET /labs/marg/actuators/notices/latest",
+        "type": "js"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>application/json</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n   { \"notice\" : \n     {\n       \"datePublished\": 1428591600000,\n       \"dateFrom\": 1428591600000,\n       \"message\": \"It is a good day to save energy!\"\n       }\n   }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/api.js",
+    "groupTitle": "Messaging"
+  },
+  {
+    "type": "get",
+    "url": "api/labs/:labId/actuators/tips/latest",
+    "title": "retrieve the latest tip",
+    "name": "Getting_tip",
+    "group": "Messaging",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "GET /labs/marg/actuators/tips/latest",
+        "type": "js"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>application/json</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n   { \"tip\" : \n     {\n       \"datePublished\": 1428591600000,\n       \"dateFrom\": 1428591600000,\n       \"message\": \"Power off your computer when you leave!\"\n       }\n   }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/api.js",
+    "groupTitle": "Messaging"
+  },
+  {
+    "type": "post",
+    "url": "api/labs/:labId/actuators/notices",
+    "title": "Posting a notice message",
+    "name": "Posting_notice",
+    "group": "Messaging",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "POST /labs/marg/actuators/notices \n\n{ \"notice\" : \n  {\n    \"dateFrom\": 1428591600000,\n    \"message\": \"It is a good day to save energy!\"\n    }\n}",
+        "type": "js"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>application/json</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 202 Accepted",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/api.js",
+    "groupTitle": "Messaging"
+  },
+  {
+    "type": "post",
+    "url": "api/labs/:labId/actuators/tips",
+    "title": "Posting a tip message",
+    "name": "Posting_tip",
+    "group": "Messaging",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "POST /labs/marg/actuators/tips \n\n{ \"tip\" : \n  {\n    \"dateFrom\": 1428591600000,\n    \"message\": \"Power off your computer when you leave!\"\n    }\n}",
+        "type": "js"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>application/json</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 202 Accepted",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/api.js",
+    "groupTitle": "Messaging"
   }
 ] });

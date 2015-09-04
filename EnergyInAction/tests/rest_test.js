@@ -1,4 +1,4 @@
-﻿var dayFrom = '2015-9-1';
+﻿var dayFrom = '2015-9-3';
 if (process.argv[2]) {
     dayFrom = process.argv[2];
 } else {
@@ -8,7 +8,7 @@ if (process.argv[2]) {
 var dayFromTimestamp = new Date(dayFrom + " 00:00:00").getTime(); 
 //console.log(dayFromTimestamp);
 
-var baseURL = 'http://127.0.0.1:3000/';
+var baseURL = 'http://147.47.123.199:3000/';
 
 
 var dailyQuery = 'api/labs/marg/energy/daily.json?day_from=' + dayFrom;

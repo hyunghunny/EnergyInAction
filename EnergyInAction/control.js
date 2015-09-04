@@ -252,14 +252,58 @@ LabEnergyManager.prototype.retrieveDailyUsages = function(queries, cb) {
 
 }
 
-LabEnergyManager.prototype.retrieveMonthlyUsages = function(queries, cb) {
-    // TODO: code required!
+LabEnergyManager.prototype.postMessage = function (type, messageObj) {
+    
+    var now = new Date();
+    var postObj = {
+        "_id" : parseInt(now.getTime()),
+        "type" : type,
+        "labId": this.id,
+        "message" : messageObj.message,
+        "datePublished" : now
+    };
+
+    if (messageObj.dateFrom) {
+        postObj.dateFrom = new Date(messageObj.dateFrom);
+    } else {
+        postObj.dateFrom = new Date();
+    }
+
+    dbmgr.insert(config.collection.messages, postObj);
+    return true;
+}
+
+LabEnergyManager.prototype.getLatestMessage = function (type, cb) {
+    var collection = config.collection.messages;
+   
+    var queries = {};
+    queries.endDate = new Date(); // set now
+    queries.limit = 10; // XXX: how many messages will be required?
+    
+    queries.labId = this.id;
+    queries.type = 'message';
+
+    if (dbmgr.dbOpened == false) {
+        console.log('data base is not opened');
+        cb(null);
+    } else {
+        dbmgr.find(collection, queries, function (msgs) {
+            var size = msgs.length;
+            // TODO:Sort with datePublished ascending order and return the 1st element
+            var array = msgs;
+            array.sort(function (a, b) {
+                // Turn your strings into dates, and then subtract them
+                // to get a value that is either negative, positive, or zero.
+                return new Date(b.datePublished) - new Date(a.datePublished);
+            });
+            cb(array[0]);     
+        });
+    }
 }
 
 
 LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
     
-    // type can be one of follows: secs, quarters, hours, total
     var collection = null;
     switch (type) {
    //     case 'secs': // XXX: This API will be deprecated!
@@ -271,13 +315,6 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
         case 'hours':
             collection = config.collection.hours;
             break;
-        //case 'daily':
-        //    this.retrieveDailyUsages(queries, cb);
-        //    break;
-        //case 'monthly':
-        //    this.retrieveMonthlyUsages(queries, cb);
-        //    break;
-
         default:
             // ERROR: unknown type
             cb(null);
@@ -299,11 +336,11 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
         if (dbmgr.dbOpened == false) {
             dbmgr.open(function (result) {
                 if (result) {
-                    dbmgr.find(collection, queries, filters, cb);
+                    dbmgr.find(collection, queries, cb);
                 }
             })
         } else {
-            dbmgr.find(collection, queries, filters, cb);
+            dbmgr.find(collection, queries, cb);
         }
     }
 }

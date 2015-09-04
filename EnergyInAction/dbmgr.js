@@ -59,7 +59,6 @@ MongoDBManager.prototype.insert = function (collectionName, obj) {
             });
         }
     });
-
 }
 
 MongoDBManager.prototype.aggregateFeeders = function (collectionName, labId, queries, callback) {
@@ -117,8 +116,8 @@ MongoDBManager.prototype.aggregateFeeders = function (collectionName, labId, que
 }
 
 
-MongoDBManager.prototype.find = function (collectionName, queries, filters, callback) {
-    
+MongoDBManager.prototype.find = function (collectionName, queries, callback) {
+   
     if (this.dbOpened == false) {
         console.log('database is not opened: invoke open() before find()');
         callback(new Error("database is not opened."));
@@ -138,21 +137,34 @@ MongoDBManager.prototype.find = function (collectionName, queries, filters, call
     }
     
     if (queries.startDate != null && queries.endDate != null) {
-        //TODO:validate dateString later
-        
+               
         dbquery.dateFrom = {
             $gte: queries.startDate, 
             $lt: queries.endDate  
         }
         //console.log("Find " + queries.startDate + " ~ " + queries.endDate);
+    } else if (queries.startDate != null) {
+
+        dbquery.dateFrom = {
+            $gte: queries.startDate
+        }
+    } else if (queries.endDate != null) {
+        
+        dbquery.dateFrom = {
+            $lt: queries.endDate  
+        }
     } else {
         callback([]); // empty result
         return;
     }
     
+    // inquiry only for 
+    if (queries.type == 'message') {
+        dbquery.labId = queries.labId;
+    }
+    
     // filter out _id attribute in default;
     options._id = false;
-    //options.sort = { "dateFrom" : 1 };
     
     this.db.collection(collectionName, function (err, collection) {
         if (err) {

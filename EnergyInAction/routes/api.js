@@ -2073,6 +2073,222 @@ router.get('/labs/:labId/energy/total.json', function (req, res) {
     }
 });
 
+/**
+ * @api {post} api/labs/:labId/actuators/notices Posting a notice message
+ * @apiName Posting_notice
+ * @apiGroup Messaging
+ * @apiExample {js} Example usage:
+ *     POST /labs/marg/actuators/notices 
+ *     
+ *     { "notice" : 
+ *       {
+ *         "dateFrom": 1428591600000,
+ *         "message": "It is a good day to save energy!"
+ *         }
+ *     }
+ * @apiHeader {String} Content-Type application/json
+ * @apiSuccessExample Success-Response:
+ *  HTTP/1.1 202 Accepted
+ *
+ *
+ */
+router.post('/labs/:labId/actuators/notices', function (req, res) {
+    try {
+        var id = req.params.labId;
+        
+        // TODO get query parameter
+        var notice = req.body.notice;
+
+        var labObj = controller.labs.find(id);
+        
+        if (labObj == null) {
+            throw new Error('404');
+        }
+        
+        // validate notice
+        if (notice == null || notice.message == null) {
+            throw new Error('400');
+        }
+        
+        if (labObj.postMessage('notice', notice)) {           
+            res.sendStatus('202');
+        } else {
+            res.sendStatus('500');
+        }
+
+        
+
+    } catch (err) {
+        // return error code here
+        res.sendStatus(err.message);
+    }
+});
+
+/**
+ * @api {get} api/labs/:labId/actuators/notices/latest retrieve the latest notice message
+ * @apiName Getting_notice
+ * @apiGroup Messaging
+ * @apiExample {js} Example usage:
+ *     GET /labs/marg/actuators/notices/latest 
+ *     
+ * @apiHeader {String} Content-Type application/json
+ * @apiSuccessExample Success-Response:
+ *  HTTP/1.1 200 OK
+ *     { "notice" : 
+ *       {
+ *         "datePublished": 1428591600000,
+ *         "dateFrom": 1428591600000,
+ *         "message": "It is a good day to save energy!"
+ *         }
+ *     }
+ */
+router.get('/labs/:labId/actuators/notices/latest', function (req, res) {
+    try {
+        var id = req.params.labId;
+        
+        // TODO get query parameter        
+        var labObj = controller.labs.find(id);
+        
+        if (labObj == null) {
+            throw new Error('404');
+        }
+        
+        var noticeObj = {};
+        labObj.getLatestMessage('notice', function (obj) {
+            if (obj) {
+                noticeObj.notice = {
+                    "datePublished": obj.datePublished,
+                    "dateFrom": obj.dateFrom,
+                    "message": obj.message
+                }
+            } else {
+                var now = new Date();
+                noticeObj.notice = {
+                    "datePublished": now,
+                    "dateFrom": now,
+                    "message": "No notice available"
+                }
+            }
+            // TODO retrieve json data from mongodb
+            res.writeHead(200, controller.api.getContentHeader());
+            res.end(JSON.stringify(noticeObj));
+        });
+
+    } catch (err) {
+        // return error code here
+        res.sendStatus(err.message);
+    }
+});
+
+/**
+ * @api {post} api/labs/:labId/actuators/tips Posting a tip message
+ * @apiName Posting_tip
+ * @apiGroup Messaging
+ * @apiExample {js} Example usage:
+ *     POST /labs/marg/actuators/tips 
+ *     
+ *     { "tip" : 
+ *       {
+ *         "dateFrom": 1428591600000,
+ *         "message": "Power off your computer when you leave!"
+ *         }
+ *     }
+ * @apiHeader {String} Content-Type application/json
+ * @apiSuccessExample Success-Response:
+ *  HTTP/1.1 202 Accepted
+ *
+ *
+ */
+router.post('/labs/:labId/actuators/tips', function (req, res) {
+    try {
+        var id = req.params.labId;
+        
+        // TODO get query parameter
+        var tip = req.body.tip;
+        
+        var labObj = controller.labs.find(id);
+        
+        if (labObj == null) {
+            throw new Error('404');
+        }
+        
+        // validate notice
+        if (tip == null || tip.message == null) {
+            throw new Error('400');
+        }
+        
+        if (labObj.postMessage('tip', tip)) {
+            res.sendStatus('202');
+        } else {
+            res.sendStatus('500');
+        }        
+
+    } catch (err) {
+        // return error code here
+        res.sendStatus(err.message);
+    }
+});
+
+/**
+ * @api {get} api/labs/:labId/actuators/tips/latest retrieve the latest tip
+ * @apiName Getting_tip
+ * @apiGroup Messaging
+ * @apiExample {js} Example usage:
+ *     GET /labs/marg/actuators/tips/latest 
+ * 
+ * @apiHeader {String} Content-Type application/json
+ * @apiSuccessExample Success-Response:
+ *  HTTP/1.1 200 OK
+ *     { "tip" : 
+ *       {
+ *         "datePublished": 1428591600000,
+ *         "dateFrom": 1428591600000,
+ *         "message": "Power off your computer when you leave!"
+ *         }
+ *     }
+ */
+router.get('/labs/:labId/actuators/tips/latest', function (req, res) {
+    try {
+        var id = req.params.labId;
+        
+        // TODO get query parameter        
+        var labObj = controller.labs.find(id);
+        
+        if (labObj == null) {
+            throw new Error('404');
+        }
+        
+        var tipObj = {};
+        labObj.getLatestMessage('tip', function (obj) {
+            if (obj) {
+                tipObj.tip = {
+                    "datePublished": obj.datePublished,
+                    "dateFrom": obj.dateFrom,
+                    "message": obj.message
+                }
+            } else {
+                var now = new Date();
+                tipObj.tip = {
+                    "datePublished": now,
+                    "dateFrom": now,
+                    "message": "No tips available"
+                }
+            }
+            // TODO retrieve json data from mongodb
+            res.writeHead(200, controller.api.getContentHeader());
+            res.end(JSON.stringify(tipObj));
+        });
+
+    } catch (err) {
+        // return error code here
+        res.sendStatus(err.message);
+    }
+});
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 /* GET api/labs/:labId/energy/feeders */
 router.get('/labs/:labId/energy/feeders', function (req, res) {
