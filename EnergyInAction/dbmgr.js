@@ -1,23 +1,11 @@
 ﻿var mongodb = require('mongodb');
 
 var MongoDBManager = function (options) {
-    var dbServer = new mongodb.Server(
-        options.host, 
-        options.port, 
-        { auto_reconnect: true }
-    );
-
+    
+    this.url = 'mongodb://' + options.host + ':' + options.port + '/' + options.dbName;
     this.defaultLimit = options.limit | 100;
 
-    this.db = new mongodb.Db(options.dbName, 
-    dbServer, 
-    { w: 1 }
-    );
-
-    // flag to check db connection
-    this.dbOpened = false;
-    
-    //this.open(function (result) { }); // automatically open the database
+    this.database = null;
 
     process.on('exit', function (code) {
         // close database on exit.
@@ -25,30 +13,46 @@ var MongoDBManager = function (options) {
     });
 
 }
+MongoDBManager.prototype.isConnected = function () {
+    if (this.database) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
-MongoDBManager.prototype.open = function (cb) {
+MongoDBManager.prototype.connect = function (cb) {
     var self = this;
-    this.db.open(function (err, connection) {
+    var client = mongodb.MongoClient;
+    client.connect(this.url, function (err, db) {
         if (err) {
             console.log(err);
-            self.dbOpened = false;
+            self.database = db;
             cb(false);
         } else {
             console.log('database opened properly.');
-            self.dbOpened = true;
+            self.database = db;
             cb(true);
         }
  
     });
 }
 
+MongoDBManager.prototype.disconnect = function () {
+    if (this.database) {
+        this.database.close();
+        this.database = null;
+        console.log('data base is disconnected properly.');
+    }
+}
+
 MongoDBManager.prototype.insert = function (collectionName, obj) {
-    if (this.dbOpened === false) {
+    if (this.database === null) {
         console.log('database is not opened: invoke open() before insert()');
         return;
     }
     
-    this.db.collection(collectionName, function (err, collection) {
+    this.database.collection(collectionName, function (err, collection) {
         if (err) {
             console.log(err);
         } else {
@@ -64,7 +68,7 @@ MongoDBManager.prototype.insert = function (collectionName, obj) {
 MongoDBManager.prototype.aggregateFeeders = function (collectionName, labId, queries, callback) {
     
      
-    if (this.dbOpened == false) {
+    if (this.database == null) {
         console.log('database is not opened: invoke open() before find()');
         callback(new Error("database is not opened."));
         return;
@@ -78,7 +82,7 @@ MongoDBManager.prototype.aggregateFeeders = function (collectionName, labId, que
         return;
     }
 
-    this.db.collection(collectionName, function (err, collection) {
+    this.database.collection(collectionName, function (err, collection) {
         if (err) {
             console.log(err);
         } else {
@@ -118,7 +122,7 @@ MongoDBManager.prototype.aggregateFeeders = function (collectionName, labId, que
 
 MongoDBManager.prototype.find = function (collectionName, queries, callback) {
    
-    if (this.dbOpened == false) {
+    if (this.database == null) {
         console.log('database is not opened: invoke open() before find()');
         callback(new Error("database is not opened."));
         return;
@@ -166,7 +170,7 @@ MongoDBManager.prototype.find = function (collectionName, queries, callback) {
     // filter out _id attribute in default;
     options._id = false;
     
-    this.db.collection(collectionName, function (err, collection) {
+    this.database.collection(collectionName, function (err, collection) {
         if (err) {
             console.log(err);
         } else {
@@ -188,12 +192,12 @@ MongoDBManager.prototype.find = function (collectionName, queries, callback) {
 }
 
 MongoDBManager.prototype.findLatest = function (collectionName, callback) {
-    if (this.dbOpened == false) {
+    if (this.database == null) {
         console.log('database is not opened: invoke open() before find()');
         callback(new Error("database is not opened."));
         return;
     }
-    this.db.collection(collectionName, function (err, collection) {
+    this.database.collection(collectionName, function (err, collection) {
         if (err) {
             console.log(err);
         } else {
@@ -212,8 +216,6 @@ MongoDBManager.prototype.findLatest = function (collectionName, callback) {
             });
         }
     });
-
-
 }
 
 
