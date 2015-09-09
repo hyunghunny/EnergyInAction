@@ -39,6 +39,9 @@ var marg_realtime_breakdown = require('./routes/marg_realtime_breakdown');
 // 5. Smile
 var marg_smile           = require('./routes/marg_smile');
 
+// 6. meter
+var marg_meter  = require('./routes/marg_meter');
+
 /////////////
 // HCC set
 /////////////
@@ -111,7 +114,8 @@ app.use('/marg_realtime_breakdown', marg_realtime_breakdown);
 // 5. Smile
 app.use('/marg_smile', marg_smile);
 
-
+// 6. meter
+app.use('/marg_meter', marg_meter);
 
 /////////////
 // HCC set
