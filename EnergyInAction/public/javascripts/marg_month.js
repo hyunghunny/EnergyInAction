@@ -76,6 +76,9 @@ $(function () {
 
           text: '[ 지난달과 이번달 (' +sign+ (savingRate_Month*100 - 100).toFixed(1) + '%) ]'
       },
+      credits: {
+          enabled: false
+      },
       exporting: {
           enabled: false
       },

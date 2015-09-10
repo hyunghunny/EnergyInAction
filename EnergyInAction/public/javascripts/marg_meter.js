@@ -17,7 +17,9 @@ $(function () {
         title: {
             text: '[ 실시간 전력 사용량 ]'
         },
-
+        exporting: {
+            enabled: false
+        },
         pane: {
             center: ['50%', '85%'],
             size: '150%',
@@ -38,11 +40,14 @@ $(function () {
         // the value axis
         yAxis: {
             min: 0,
-            max: 8,
+            max: 8.5,
             stops: [
-                [0.1, '#55BF3B'], // green
-                [0.8, '#DDDF0D'], // yellow
-                [0.9, '#DF5353'] // red
+                // [0.1, '#55BF3B'], // green
+                // [0.8, '#DDDF0D'], // yellow
+                // [0.9, '#DF5353'] // red
+                [0.1, '#4169e1'], // green
+                [0.8, '#4169e1'], // yellow
+                [0.9, '#4169e1'] // red
             ],
             lineWidth: 0,
             minorTickInterval: null,
@@ -78,7 +83,7 @@ $(function () {
             name: 'kWh',
             data: [8],
             dataLabels: {
-                format: '<div style="text-align:center"><span style="font-size:30px;color:' +
+                format: '<div style="text-align:center"><span style="font-size:40px;color:' +
                     ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
                        '<span style="font-size:12px;color:silver">kW/h</span></div>'
             },

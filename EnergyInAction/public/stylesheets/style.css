@@ -48,8 +48,8 @@ a {
 .title_class {
   width: 1900px;
   height: 80px;
-  background-color: #369000;
-  padding-top: 15px;
+  background-color: #424242;
+  padding-top: 20px;
 }
 .wrapper_class {
   width: 1900px;
@@ -85,6 +85,7 @@ a {
   clear: both;
   width: 500px;
   height: 420px;
+  padding-top: 20px;
 }
 /*.marg_class_contents_left_week_day {
   float: left;
@@ -118,16 +119,20 @@ a {
 .marg_class_week {
   float: left;
   clear: none;
-  width: 1000px;
-  height: 435px;
+  width: 980px;
+  height: 425px;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-bottom: 10px;
   /*padding-right: 20px;*/
 
 }
 .marg_class_day {
   float: right;
   clear: none;
-  width: 1000px;
+  width: 980px;
   height: 420px;
+  padding-right: 20px;
 }
 /*before add gauge
 .marg_class_realtime {
@@ -177,7 +182,7 @@ a {
   clear: none;
   width: 1900px;
   height: 100px;
-  background-image: url('../images/tip2.png');
+  background-image: url('../images/tip_long.png');
   background-color: gray;
   position: absolute;
   bottom: 0;
@@ -185,7 +190,7 @@ a {
 }
 .marg_class_notice {
   width: 390px;
-  height: 500px;
+  height: 300px;
   background-image: url('../images/notice.png');
 }
 .marg_class_smile {
@@ -198,13 +203,13 @@ a {
 .traffic_light_class {
   width: 390px;
   height: 400px;
-  position: absolute;
-  bottom: 0;
+  /*position: absolute;
+  bottom: 0;*/
 }
 .marg_class_smiley {
-  padding-left: 70px;
-  position: absolute;
-  bottom: 0;
+  padding-left: 0px;
+  /*position: absolute;
+  bottom: 0;*/
 }
 
 /*        weather         */
