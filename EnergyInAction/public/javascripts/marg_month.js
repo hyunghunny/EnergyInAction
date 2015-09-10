@@ -57,15 +57,24 @@ $(function () {
 
     console.log(thisMonth);
 
+    var sign="";
+    if (savingRate_Month>=1) {
+      sign="+";
+    }else {
+      sig="-";
+    }
+
     var chart_month = $('#marg_month').highcharts({
       legend: {
         enabled: false
       },
       chart: {
-          type: 'column'
+          // type: 'column'
+          type: 'bar'
       },
       title: {
-          text: '지난달과 이번달 하루사용량 평균 <br>(' + (savingRate_Month*100 - 100).toFixed(1) + '%)'
+
+          text: '[ 지난달과 이번달 (' +sign+ (savingRate_Month*100 - 100).toFixed(1) + '%) ]'
       },
       exporting: {
           enabled: false
@@ -74,9 +83,14 @@ $(function () {
           categories: xAxis_categories
       },
       yAxis: {
-          min: 0,
+          // min: 0,
+          breaks: [{
+                from: 0,
+                to: 60,
+                breakSize: 20
+            }],
           title: {
-              text: '전체 전력 사용량 (kW/h)'
+              text: '하루 평균 사용량 (kW/h)'
           },
           stackLabels: {
               enabled: true,
@@ -85,6 +99,7 @@ $(function () {
                   color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
               }
           }
+
       },
       tooltip: {
           headerFormat: '<b>{point.x}</b><br/>',

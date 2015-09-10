@@ -48,7 +48,7 @@ a {
 .title_class {
   width: 1900px;
   height: 80px;
-  /*background-color: #369000;*/
+  background-color: #369000;
   padding-top: 15px;
 }
 .wrapper_class {
@@ -73,25 +73,39 @@ a {
   width: 390px;
   height: 960px;
 }
+/*before add gauge
 .marg_class_month {
   float: left;
-  /*clear: both;*/
   clear: both;
   width: 400px;
   height: 790px;
+}*/
+.marg_class_month {
+  float: left;
+  clear: both;
+  width: 500px;
+  height: 420px;
 }
-.marg_class_contents_left_week_day {
+/*.marg_class_contents_left_week_day {
   float: left;
   clear: none;
   width: 800px;
   height: 500px;
-}
-.marg_class_contents_left_top {
+}*/
+/*before add gauge*/
+/*.marg_class_contents_left_top {
   float: left;
   clear: none;
   width: 1510px;
   height: 600px;
+}*/
+.marg_class_contents_left_top {
+  float: left;
+  clear: none;
+  width: 1510px;
+  height: 425px;
 }
+/*before add gauge
 .marg_class_week {
   float: left;
   clear: none;
@@ -100,33 +114,68 @@ a {
   padding-left: 10px;
   padding-bottom: 10px;
   padding-right: 20px;
-}
-.marg_class_day {
+}*/
+.marg_class_week {
   float: left;
   clear: none;
-  width: 1070px;
-  height: 290px;
-  padding-left: 10px;
-  padding-right: 20px;
+  width: 1000px;
+  height: 435px;
+  /*padding-right: 20px;*/
+
 }
+.marg_class_day {
+  float: right;
+  clear: none;
+  width: 1000px;
+  height: 420px;
+}
+/*before add gauge
 .marg_class_realtime {
   float: left;
   clear: none;
-  /*width: 1490px;*/
   width: 1070px;
   height: 210px;
   padding-top: 10px;
   padding-right: 20px;
-}
-.marg_class_tip {
-  /*float: left;
+}*/
+.marg_class_realtimePlots {
+  float: left;
   clear: none;
-  width: 1510px;
-  height: 600px;*/
+  width: 500px;
+  height: 400px;
+
+}
+.marg_class_meter {
+  float: left;
+  clear: none;
+  width: 500px;
+  height: 380px;
+  /*background-color: red;*/
+}
+/*.marg_class_realtime {
+  float: left;
+  clear: none;
+  width: 500px;
+  height: 100px;
+  padding-left: 20px;
+  padding-right: 20px;
+}*/
+/*before add gauge
+.marg_class_tip {
   float: left;
   clear: both;
-  width: 1490px;
-  /*height: 150px;*/
+  width: 1510px;
+  height: 100px;
+  background-image: url('../images/tip2.png');
+  background-color: gray;
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 0px;
+}*/
+.marg_class_tip {
+  float: left;
+  clear: none;
+  width: 1900px;
   height: 100px;
   background-image: url('../images/tip2.png');
   background-color: gray;
@@ -136,8 +185,7 @@ a {
 }
 .marg_class_notice {
   width: 390px;
-  height: 300px;
-  /*background-color: gray;*/
+  height: 500px;
   background-image: url('../images/notice.png');
 }
 .marg_class_smile {

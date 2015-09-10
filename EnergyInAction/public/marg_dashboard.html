@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Energy Saving Behavior Research</title>
+  <meta http-equiv="refresh" content="300">
+  <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+  <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+  <script src="http://code.highcharts.com/highcharts-more.js"></script>
+  <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
+
+  <!-- for notice and tip -->
+  <link rel="stylesheet" href="stylesheets/marquee.css">
+  <!-- <meta charset="utf-8" />
+  <title>Energy Saving Behavior Research Messaging Board</title> -->
+  <!-- <link rel="stylesheet" href="stylesheets/marquee.css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js" ></script>
+  <script type="text/javascript" src="./javascripts/utiles.js"></script> -->
+
+
+
+</head>
+<body>
+  <div id="marg_title" class="title_class"></div>
+  <div class="wrapper_class">
+    <div class="marg_class_contents_left">
+      <div class="marg_class_contents_left_top">
+        <div class="marg_class_realtimePlots">
+          <div id="marg_meter" class="marg_class_meter"></div>
+          <div id="marg_clock" class="marg_class_clock"></div>
+        </div>
+        <div id="marg_day" class="marg_class_day"></div>
+      </div>
+      <div class="marg_class_bottom">
+        <div id="marg_month" class="marg_class_month"></div>
+        <div id="marg_week" class="marg_class_week"></div>
+      </div>
+    </div>
+    <div id="marg_widget" class="marg_class_widgets">
+      <a href="http://www.accuweather.com/en/kr/suwon/223670/weather-forecast/223670" class="aw-widget-legal">
+    </a><div id="awcc1441096686355" class="aw-widget-current"  data-locationkey="223670" data-unit="c" data-language="kor" data-useip="false" data-uid="awcc1441096686355" style="width: 390px;"></div>
+    <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
+      <div id="marg_notice" class="marg_class_notice"><br><br><h2><span style="margin-left:2em">공지를 위한 공간입니다.</span></h2></div>
+      <div id="marg_smile"></div>
+  </div>
+  <div id="marg_tip" class="marg_class_tip" ><br><h2><span style="margin-left:7em"><marquee id="tip_msg" direction="left" width=1300px >절전형 멀티탭을 사용하여 불필요한 전력 사용을 줄여주세요</marquee></span></h2></div>
+</div>
+
+<script type="text/javascript" src="./javascripts/utiles.js"></script>
+<script type="text/javascript" src="./javascripts/marg_UI_header.js"></script>
+<script type="text/javascript" src="./javascripts/marg_realtime.js"></script>
+<script type="text/javascript" src="./javascripts/marg_day.js"></script>
+<script type="text/javascript" src="./javascripts/marg_week.js"></script>
+<script type="text/javascript" src="./javascripts/marg_month.js"></script>
+<!-- <script type="text/javascript" src="./javascripts/marg_smile.js"></script> -->
+<script type="text/javascript" src="./javascripts/marg_meter.js"></script>
+<!--script type="text/javascript" src="./javascripts/UI_weather_widget.js"></script-->
+
+</body>
+
+</html>

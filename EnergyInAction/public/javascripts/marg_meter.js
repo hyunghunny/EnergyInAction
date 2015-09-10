@@ -95,10 +95,12 @@ $(function () {
           series: [{
               // name: '실시간 전력사용량',
               data: [80]
-              // tooltip: {
-              //     valueSuffix: '단위 kW/h'
-              // }
-          }]
+
+          }],
+          tooltip: {
+              // valueSuffix: '단위 kW/h'
+              enabled: false
+          }
 
       },
       // Add some life
