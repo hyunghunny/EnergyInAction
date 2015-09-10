@@ -62,15 +62,15 @@ console.log(baseDay);
 
           if(savingRate_Day > 1.05) {
             //$('#smiley').css("background-color","red");
-            $('#smiley').prepend('<img id="faces" src="./images/RED3.png" />')
+            $('#smiley').prepend('<img id="faces" src="./images/red_all.png" />')
             $('#marg_title').css("background-color","#a50a0a");
           } else if ( savingRate_Day > .90) {
             // $('#smiley').css("background-color","#f7cb00");
-            $('#smiley').prepend('<img id="faces" src="./images/YELLOW2.png" />')
+            $('#smiley').prepend('<img id="faces" src="./images/yellow_all.png" />')
             $('#marg_title').css("background-color","#f7cb00");
           } else {
             // $('#smiley').css("background-color","#3e721f");
-            $('#smiley').prepend('<img id="faces" src="./images/GREEN2.png" />')
+            $('#smiley').prepend('<img id="faces" src="./images/green_all.png" />')
             $('#marg_title').css("background-color","#3e721f");
           }
         });

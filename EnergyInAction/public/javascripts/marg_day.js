@@ -28,6 +28,8 @@ $(function () {
     var comparingSum = 0;
     var todaySum     = 0;
 
+    var data_currentHour = 0;
+
     console.log("baseDay_query", baseDay_query);
     console.log("comparingDay_query", comparingDay_query);
 
@@ -41,6 +43,7 @@ $(function () {
       for(var index = 0; index < today.length; index++){
         today_data.push(Number(today[index].sum.toFixed(1)));
       }
+      data_currentHour = new Date(today[index].dateFrom).getHours();
       if (yesterday_loading) {
         drawChart();
       }
@@ -63,6 +66,9 @@ $(function () {
       comparingSum = limitedArraySum(comparingDay_data, today.length);
       todaySum     = limitedArraySum(today_data, today.length);
 
+      var legend_x = 50;
+      var legend_y = 47;
+
       $('#marg_day').highcharts({
 
             chart: {
@@ -70,17 +76,21 @@ $(function () {
             },
             title: {
                 // text: '어제와 오늘 (' + yesterday[0].location + '호 - 사용량 전체)'
-                text: '어제 vs 오늘'
+                text: '[ 어제와 오늘 ]'
             },
             // subtitle: {
             //     text: 'SNU'
             // },
+            credits: {
+                enabled: false
+            },
             legend: {
                 layout: 'vertical',
                 align: 'left',
                 verticalAlign: 'top',
-                x: 50,
-                y: 20,
+                // x: legend_x+(today.length - 1)*24,
+                x:740,
+                y: 320,
                 floating: true,
                 borderWidth: 1,
                 //backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
@@ -100,6 +110,7 @@ $(function () {
                 }]
             },
             yAxis: {
+              maxPadding: 0.2,
                 title: {
                     text: '전력 사용량 (kW/h)'
                 }

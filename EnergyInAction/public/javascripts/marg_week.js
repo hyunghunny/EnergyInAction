@@ -62,9 +62,11 @@ $(function () {
         },
 
         title: {
-            text: '일주일 전력 사용 변화'
+            text: '[ 일주일 전력 사용 변화 ]'
         },
-
+        credits: {
+            enabled: false
+        },
         xAxis: {
             categories: xAxis_categories,
             plotBands: [{ // visualize the weekend
@@ -99,8 +101,8 @@ $(function () {
             layout: 'horizontal',
             align: 'left',
             verticalAlign: 'top',
-            x: 60,
-            y: 25,
+            x: 800,
+            y: 45,
             floating: true,
             borderWidth: 1,
             // backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
