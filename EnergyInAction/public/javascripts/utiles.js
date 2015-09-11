@@ -4,8 +4,20 @@ var dayLabel = new Array('일', '월', '화', '수', '목', '금', '토');
 
 var baseDay     = new Date();
 baseDay.setHours(0,0,0,0); // today 날짜만 깔끔히 잡도록 시간 초기화
+var yesterDay = shiftDate(baseDay, -1) // 어제
+var lastWeekSameDay = shiftDate(baseDay, -7) // 어제
 
-var comparingDay = shiftDate(baseDay, -1) // 어제
+var baseTime     = baseDay.getTime();
+var yesterDayTime = yesterDay.getTime();
+var lastWeekDayTime = lastWeekSameDay.getTime();
+
+if(baseDay.getDay() > 0 && baseDay.getDay() < 6){
+  console.log("오늘은 평일");
+  var weekDay_Indicator = 1; // 1: 평일, 0: 주말
+} else {
+  console.log("오늘은 주말");
+  var weekDay_Indicator = 0; // 1: 평일, 0: 주말
+}
 
 function getLastMonday(date){
   var dayNumber = date.getDay();
@@ -21,8 +33,6 @@ function shiftDate(date, offset) {
   return shiftedDate;
 }
 
-var baseTime     = baseDay.getTime();
-var comparingDayTime = comparingDay.getTime();
 
 function invokeOpenAPI(url, scb) {
     $.ajax({

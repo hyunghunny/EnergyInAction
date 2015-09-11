@@ -34,9 +34,13 @@ $(function () {
 
       for(var index = 0; index < lastWeek.length; index++){
         total = lastWeek[index].sum;
-        lastWeek_total.push(Number(total.toFixed(1)));
+        if(index == (baseDay.getDay()-1)) {
+          lastWeek_total.push({y: Number(total.toFixed(1)),
+                               color: 'green'});
+        } else {
+          lastWeek_total.push(Number(total.toFixed(1)));
+        }
       }
-
       if (thisWeek_loading){
         drawChart();
       }
@@ -48,7 +52,12 @@ $(function () {
 
       for(var index = 0; index < thisWeek.length; index++){
         total = thisWeek[index].sum;
-        thisWeek_total.push(Number(total.toFixed(1)));
+        if(index == (baseDay.getDay()-1)) {
+          thisWeek_total.push({y: Number(total.toFixed(1)),
+                               color: 'red'});
+        } else {
+          thisWeek_total.push(Number(total.toFixed(1)));
+        }
       }
       if (lastWeek_loading){
         drawChart();
@@ -60,22 +69,25 @@ $(function () {
         chart: {
             type: 'column'
         },
-
         title: {
-            text: '[ 일주일 전력 사용 변화 ]'
+            text: '[ 지난주와 이번주 ]'
         },
         credits: {
             enabled: false
         },
+        plotOptions: {
+             column: {
+                 colorByPoint: true
+             }
+         },
         xAxis: {
             categories: xAxis_categories,
             plotBands: [{ // visualize the weekend
                 from: (0.5 * (baseDay.getDay()*2+1)) -2 ,
                 to: (0.5 * (baseDay.getDay()*2+1)) -1,
-                color: 'rgba(68, 170, 213, .2)'
+                color: 'rgba(50, 50, 213, .2)'
             }]
         },
-
         yAxis: {
             allowDecimals: false,
             min: 0,
@@ -90,7 +102,6 @@ $(function () {
                 }
             }
         },
-
         plotOptions: {
             column: {
                 stacking: 'normal'
@@ -98,6 +109,7 @@ $(function () {
         },
 
         legend: {
+            enabled: false,
             layout: 'horizontal',
             align: 'left',
             verticalAlign: 'top',
