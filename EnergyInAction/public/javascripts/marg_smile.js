@@ -15,7 +15,7 @@ $(function () {
     var xAxis_categories = [];
     var comparingDay_data = [];
     var today_data = [];
-var smile_date = 0;
+    var smile_date = 0;
 
     invokeOpenAPI(comparingDay_query, function (yesterday) {
       //console.log(yesterday);

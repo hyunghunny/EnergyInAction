@@ -1,4 +1,51 @@
 $(function () {
+
+
+  comparingDay = lastWeekSameDay;
+
+  baseDay_query  = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
+  comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + lastWeekDayTime;
+
+  // console.log(baseDay_query);
+  // console.log(comparingDay_query);
+
+  // var comparingDay = [];
+  // var today_length = 0;
+  //
+  // var comparingDay_loading = false;
+  // var        today_loading = false;
+  //
+  // var xAxis_categories = [];
+  // var comparingDay_data = [];
+  // var today_data = [];
+  //
+  // var comparingSum = 0;
+  // var todaySum     = 0;
+  //
+  // // console.log("baseDay_query", baseDay_query);
+  // // console.log("comparingDay_query", comparingDay_query);
+  //
+  // invokeOpenAPI(comparingDay_query, comparingDayCB);
+  // invokeOpenAPI(baseDay_query, todayCB);
+  //
+  // function todayCB(today_){
+  //   today_length = today_.length;
+  //   console.log(today_length);
+  // }
+  //
+  // function comparingDayCB (comparingDay_) {
+  //   comparingDay = comparingDay_;
+  //   comparingDay_loading = true;
+  //
+  //   for(var index = 0; index < comparingDay.length; index++){
+  //     comparingDay_data.push(Number(comparingDay[index].sum.toFixed(1)));
+  //     xAxis_categories.push(new Date(comparingDay[index].dateFrom).getHours() + '시');
+  //   }
+  // }
+  //
+  // console.log(comparingDay_data.slice(0,today_data.length));
+
+
   var lastMonday = getLastMonday(baseDay);
   var lastSunday = shiftDate(lastMonday, 6);
   var thisMonday = shiftDate(lastMonday, 7);
@@ -41,6 +88,7 @@ $(function () {
           lastWeek_total.push(Number(total.toFixed(1)));
         }
       }
+      // if (thisWeek_loading && comparingDay_loading && today_loading)
       if (thisWeek_loading){
         drawChart();
       }
@@ -59,7 +107,8 @@ $(function () {
           thisWeek_total.push(Number(total.toFixed(1)));
         }
       }
-      if (lastWeek_loading){
+      // if (lastWeek_loading && comparingDay_loading && today_loading)
+      if(lastWeek_loading){
         drawChart();
       }
   }
@@ -131,7 +180,14 @@ $(function () {
               stack: 'lastWeek',
               //color: Highcharts.getOptions().colors[0]
               color: '#D3D3D3'
-          }, {
+          },
+          // {
+          //     name: '지난주',
+          //     data: lastWeek_total,
+          //     stack: 'lastWeek',
+          //     linkedTo: ':previous',
+          // },
+          {
               name: '이번주',
               data: thisWeek_total,
               stack: 'thisWeek',

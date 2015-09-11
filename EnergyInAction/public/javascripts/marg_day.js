@@ -7,7 +7,9 @@ $(function () {
   // setInterval("marg_day()",3600000);
   });
 
-function marg_day(){
+
+function marg_day() {
+
   // 지난달 평일, 주말 시간별 평균 계산 ---> 지난주 같은 요일 대비로 계획 변경
 // {
     // var firstDayOfThisMonth = new Date(baseDay).setDate(1);
@@ -66,11 +68,11 @@ function marg_day(){
     // console.log(baseDay_query);
     // console.log(comparingDay_query);
 
-    var yesterday = [];
+    var comparingDay = [];
     var today = [];
 
-    var yesterday_loading = false;
-    var     today_loading = false;
+    var comparingDay_loading = false;
+    var        today_loading = false;
 
     var xAxis_categories = [];
     var comparingDay_data = [];
@@ -82,7 +84,7 @@ function marg_day(){
     // console.log("baseDay_query", baseDay_query);
     // console.log("comparingDay_query", comparingDay_query);
 
-    invokeOpenAPI(comparingDay_query, yesterdayCB);
+    invokeOpenAPI(comparingDay_query, comparingDayCB);
     invokeOpenAPI(baseDay_query, todayCB);
 
     function todayCB(today_){
@@ -92,18 +94,18 @@ function marg_day(){
       for(var index = 0; index < today.length; index++){
         today_data.push(Number(today[index].sum.toFixed(1)));
       }
-      if (yesterday_loading) {
+      if (comparingDay_loading) {
         drawChart();
       }
     }
 
-    function yesterdayCB (yesterday_) {
-      yesterday = yesterday_;
-      yesterday_loading = true;
+    function comparingDayCB (comparingDay_) {
+      comparingDay = comparingDay_;
+      comparingDay_loading = true;
 
-      for(var index = 0; index < yesterday.length; index++){
-        comparingDay_data.push(Number(yesterday[index].sum.toFixed(1)));
-        xAxis_categories.push(new Date(yesterday[index].dateFrom).getHours() + '시');
+      for(var index = 0; index < comparingDay.length; index++){
+        comparingDay_data.push(Number(comparingDay[index].sum.toFixed(1)));
+        xAxis_categories.push(new Date(comparingDay[index].dateFrom).getHours() + '시');
       }
       if (today_loading) {
         drawChart();
@@ -158,7 +160,7 @@ function marg_day(){
             //     type: 'line'
             // },
             title: {
-                // text: '어제와 오늘 (' + yesterday[0].location + '호 - 사용량 전체)'
+                // text: '어제와 오늘 (' + comparingDay[0].location + '호 - 사용량 전체)'
                 // text: '[ 어제와 오늘 ]'
                 text: null
             },
