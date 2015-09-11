@@ -57,8 +57,13 @@ var smile_date = 0;
           var s_minutes = smile_date.getMinutes();
 
 console.log(baseDay);
-          marg_smile.innerHTML = s_month+'월'+s_day+'일 '+s_hours+':'+s_minutes + ' 기준<br>어제 대비 ' + (savingRate_Day*100).toFixed(1) + '% 사용중';
+          // marg_smile.innerHTML = s_month+'월'+s_day+'일 '+s_hours+':'+s_minutes + ' 기준<br>어제 대비 ' + (savingRate_Day*100).toFixed(1) + '% 사용중';
           // marg_smile.innerHTML = (new Date(today[today.length-1].dateTo)) + '기준<br>어제 대비 ' + (savingRate_Day*100).toFixed(1) + '% 사용중';
+          var traffic_title=$("<div>").attr("id","title").css({"font-size": "18px","text-align": "center"}).text('오늘의 전기사용 현황').css('color','black');
+
+          $('#marg_smile').append(traffic_title);
+
+
 
           if(savingRate_Day > 1.05) {
             //$('#smiley').css("background-color","red");

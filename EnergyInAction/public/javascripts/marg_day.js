@@ -1,5 +1,14 @@
 $(function () {
+  marg_day();
+  // // console.log('seconds: ',seconds);
+  // // if (seconds == 15) {
+  // //   marg_day();
+  // // }
+  // setInterval("marg_day()",3600000);
+  });
 
+
+function marg_day(){
     var elementObj = document.getElementById("date");
     if(elementObj){
       elementObj.innerHTML = 'MARG ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ') 사용량';
@@ -43,7 +52,7 @@ $(function () {
       for(var index = 0; index < today.length; index++){
         today_data.push(Number(today[index].sum.toFixed(1)));
       }
-      data_currentHour = new Date(today[index].dateFrom).getHours();
+
       if (yesterday_loading) {
         drawChart();
       }
@@ -137,4 +146,4 @@ $(function () {
             }]
         });
       }
-});
+}

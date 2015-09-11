@@ -86,12 +86,14 @@ $(function () {
           categories: xAxis_categories
       },
       yAxis: {
-          // min: 0,
-          breaks: [{
-                from: 0,
-                to: 60,
-                breakSize: 20
-            }],
+          // min: 0.00001,
+          type: 'logarithmic',
+          // minorTickInterval: '0.0001',
+          // breaks: [{
+          //       from: 0,
+          //       to: 60,
+          //       breakSize: 20
+          //   }],
           title: {
               text: '하루 평균 사용량 (kW/h)'
           },
@@ -102,6 +104,16 @@ $(function () {
                   color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
               }
           }
+          // ,
+          // labels: {
+          //   formatter: function() {
+          //       if(this.value === 0.00001){
+          //           return 0;
+          //       } else {
+          //           return this.value;
+          //       }
+          //   }
+          // }
 
       },
       tooltip: {
@@ -109,15 +121,20 @@ $(function () {
           pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
       },
       plotOptions: {
-          column: {
-              stacking: 'normal',
-              dataLabels: {
-                  enabled: false,
-                  color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
-                  style: {
-                      textShadow: '0 0 3px black'
-                  }
-              },
+          // column: {
+          //     stacking: 'normal',
+          //     dataLabels: {
+          //         enabled: false,
+          //         color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+          //         style: {
+          //             textShadow: '0 0 3px black'
+          //         }
+          //     },
+          // },
+          bar: {
+            dataLabels: {
+              enabled: true
+            }
           },
           series: {
             colorByPoint: true
