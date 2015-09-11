@@ -258,7 +258,7 @@ td pre {
 
 /*clock*/
 
-@font-face {
+/*@font-face {
     font-family: 'BebasNeueRegular';
     src: url('BebasNeue-webfont.eot');
     src: url('BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
@@ -268,7 +268,7 @@ td pre {
     font-weight: normal;
     font-style: normal;
 
-}
+}*/
 
 .container {width: 500px; margin: 0 auto; overflow: hidden; }
 

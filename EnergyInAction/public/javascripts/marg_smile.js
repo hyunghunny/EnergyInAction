@@ -7,7 +7,7 @@ $(function () {
     var savingRate_Day;
 
     var baseDay_query  = '/api/labs/marg/energy/quarters.json?base_time=' + baseTime;
-    var comparingDay_query = '/api/labs/marg/energy/quarters.json?base_time=' + comparingDayTime;
+    var comparingDay_query = '/api/labs/marg/energy/quarters.json?base_time=' + yesterDayTime;
 
     // console.log(baseDay_query);
     // console.log(comparingDay_query);
@@ -15,7 +15,7 @@ $(function () {
     var xAxis_categories = [];
     var comparingDay_data = [];
     var today_data = [];
-var smile_date = 0;
+    var smile_date = 0;
 
     invokeOpenAPI(comparingDay_query, function (yesterday) {
       //console.log(yesterday);
