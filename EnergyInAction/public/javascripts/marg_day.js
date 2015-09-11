@@ -8,18 +8,60 @@ $(function () {
   });
 
 
-function marg_day(){
-    var elementObj = document.getElementById("date");
-    if(elementObj){
-      elementObj.innerHTML = 'MARG ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ') 사용량';
-    }
+  // 지난달 평일, 주말 시간별 평균 계산 ---> 지난주 같은 요일 대비로 계획 변경
+{
+    // var firstDayOfThisMonth = new Date(baseDay).setDate(1);
+    // var firstDayOfLastMonth = new Date(baseDay).setMonth(baseDay.getMonth()-1, 1); // -1 means the last month
 
+    // var firstDayOfThisMonth_lastYear = new Date(firstDayOfThisMonth).setFullYear(baseDay.getFullYear() - 1);
+    // var firstDayOfNextMonth_lastYear = new Date(firstDayOfThisMonth_lastYear).setMonth(new Date(firstDayOfThisMonth_lastYear).getMonth() + 1);
+    // var  lastDayOfLastMonth_lastYear = new Date(shiftDate(firstDayOfNextMonth_lastYear, -1));
 
-    // baseDay_query  = '/api/labs/marg/energy/quarters.json?base_time=' + baseTime;
-    // comparingDay_query = '/api/labs/marg/energy/quarters.json?base_time=' + comparingDayTime;
+    // firstDayOfThisMonth_lastYear = new Date(firstDayOfThisMonth_lastYear).setHours(0,0,0,0);
+    //  lastDayOfLastMonth_lastYear = new Date(lastDayOfLastMonth_lastYear).setHours(0,0,0,0)
+
+    // console.log(firstDayOfThisMonth_lastYear, dateToString(new Date(firstDayOfThisMonth_lastYear)));
+    // console.log(firstDayOfNextMonth_lastYear, dateToString(new Date(firstDayOfNextMonth_lastYear)));
+    // console.log(lastDayOfLastMonth_lastYear, dateToString(new Date(lastDayOfLastMonth_lastYear)));
+
+    // var lastMonth = [];
+    // var lastMonthWeekDay_data = [];
+    // var lastMonthWeekEnd_data = [];
+
+    // for(var i=0; i < 31; i++){
+    //   targetDate = new Date(shiftDate(firstDayOfThisMonth_lastYear, i)).setHours(0,0,0,0);
+    //   if(targetDate < firstDayOfNextMonth_lastYear){
+    //     // console.log(targetDate, dateToString(new Date(targetDate)));
+    //     lastMonth_query = '/api/labs/marg/energy/hours.json?base_time=' + targetDate;
+    //     invokeOpenAPI(lastMonth_query, lastYearMonthCB);
+    //   }
+    // }
+    //
+    // function lastYearMonthCB(lastMonth_){
+    //   lastMonth = lastMonth_;
+    //   if(lastMonth.length == 24) {
+    //     for(var index = 0; index < lastMonth.length; index++){
+    //       if(new Date(lastMonth[lastMonth.length-1].dateFrom).getDay() > 0 && new Date(lastMonth[lastMonth.length-1].dateFrom).getDay() < 6) {
+    //         // WeekDay
+    //         // console.log(index, lastMonth[index].sum)
+    //         lastMonthWeekDay_data.push(lastMonth[index].sum);
+    //         // console.log(new Date(lastMonth[lastMonth.length-1].dateFrom).getDay(), lastMonthWeekDay_data.length);
+    //       } else {
+    //         // WeekEnd
+    //         lastMonthWeekEnd_data.push(lastMonth[index].sum);
+    //         // console.log(new Date(lastMonth[lastMonth.length-1].dateFrom).getDay(), lastMonthWeekEnd_data.length);
+    //       }
+    //     }
+    //   } else {
+    //     console.log("data missing @", lastMonth_query, lastMonth);
+    //   }
+    // }
+}
+
+    comparingDay = lastWeekSameDay;
 
     baseDay_query  = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
-    comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + comparingDayTime;
+    comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + lastWeekDayTime;
 
     // console.log(baseDay_query);
     // console.log(comparingDay_query);
@@ -37,10 +79,8 @@ function marg_day(){
     var comparingSum = 0;
     var todaySum     = 0;
 
-    var data_currentHour = 0;
-
-    console.log("baseDay_query", baseDay_query);
-    console.log("comparingDay_query", comparingDay_query);
+    // console.log("baseDay_query", baseDay_query);
+    // console.log("comparingDay_query", comparingDay_query);
 
     invokeOpenAPI(comparingDay_query, yesterdayCB);
     invokeOpenAPI(baseDay_query, todayCB);
@@ -52,7 +92,6 @@ function marg_day(){
       for(var index = 0; index < today.length; index++){
         today_data.push(Number(today[index].sum.toFixed(1)));
       }
-
       if (yesterday_loading) {
         drawChart();
       }
@@ -71,25 +110,58 @@ function marg_day(){
       }
     }
 
+    // function hourlyMean(data){
+    //   var result = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+    //   denominator = data.length/24;
+    //   // console.log(denominator);
+    //   // var tmp = 0;
+    //   for(var index=0; index < data.length; index++){
+    //     // if(index%24==1) {
+    //     //   console.log(data[index]);
+    //     //   tmp = tmp + data[index];
+    //     // }
+    //     result[index % 24] = result[index % 24] + data[index];
+    //   }
+    //   // console.log(tmp, result);
+    //
+    //   for(var index=0; index < result.length; index++){
+    //     result[index] = Number((result[index] / denominator).toFixed(1));
+    //   }
+    //   // console.log(result);
+    //   return(result);
+    // }
+
     function drawChart() {
+      // console.log(lastMonthWeekDay_data);
+      // console.log(lastMonthWeekEnd_data);
+
+      // weekDay_hourlyMean = hourlyMean(lastMonthWeekDay_data);
+      // weekEnd_hourlyMean = hourlyMean(lastMonthWeekEnd_data);
+
+      // console.log("weekDay_hourlyMean", weekDay_hourlyMean);
+      // console.log("weekEnd_hourlyMean", weekEnd_hourlyMean);
+
       comparingSum = limitedArraySum(comparingDay_data, today.length);
       todaySum     = limitedArraySum(today_data, today.length);
+
+      if(weekDay_Indicator){
+        // var vsData = weekDay_hourlyMean;
+      } else {
+        // var vsData = weekEnd_hourlyMean;
+      }
 
       var legend_x = 50;
       var legend_y = 47;
 
       $('#marg_day').highcharts({
-
-            chart: {
-                type: 'line'
-            },
+            // chart: {
+            //     type: 'line'
+            // },
             title: {
                 // text: '어제와 오늘 (' + yesterday[0].location + '호 - 사용량 전체)'
-                text: '[ 어제와 오늘 ]'
+                // text: '[ 어제와 오늘 ]'
+                text: null
             },
-            // subtitle: {
-            //     text: 'SNU'
-            // },
             credits: {
                 enabled: false
             },
@@ -111,12 +183,12 @@ function marg_day(){
             },
 
             xAxis: {
-                categories: xAxis_categories,
-                plotBands: [{ // visualize so far
-                    from: -0.5,
-                    to: today.length - 1,
-                    color: 'rgba(68, 170, 213, .1)'
-                }]
+                categories: xAxis_categories
+                // plotBands: [{ // visualize so far
+                //     from: -0.5,
+                //     to: today.length - 1,
+                //     color: 'rgba(68, 170, 213, .1)'
+                // }]
             },
             yAxis: {
               maxPadding: 0.2,
@@ -130,19 +202,47 @@ function marg_day(){
                         enabled: true
                     },
                     enableMouseTracking: false
+                },
+                area: { /* or spline, area, series, areaspline etc.*/
+                    marker: {
+                       enabled: false
+                    }
                 }
             },
 
             series: [{
                 //name: '어제: ' + (comparingDay.getMonth() + 1) + '월 ' +  comparingDay.getDate() + '일(' + dayLabel[comparingDay.getDay()] + ')',
-                name: '어제 이 시간: ' + comparingSum.toFixed(1) + ' kW/h',
+                name: '어제 사용 패턴',
                 data: comparingDay_data,
-                color: '#d3d3d3'
+                // data: vsData,
+                color: '#d3d3d3',
+                // linkedTo: ':previous',
+                zIndex: 1,
+            },{
+                //name: '어제: ' + (comparingDay.getMonth() + 1) + '월 ' +  comparingDay.getDate() + '일(' + dayLabel[comparingDay.getDay()] + ')',
+                name: '지난주 이 시간: ' + comparingSum.toFixed(1) + ' kW/h',
+                data: comparingDay_data.slice(0,today_data.length),
+                type: 'area',
+                lineWidth: 0,
+                color: '#00ff00',
+                fillOpacity: 0.3,
+                zIndex: 0,
             }, {
                 //name: '오늘: ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ')',
                 name: '오늘 이 시간: ' + todaySum.toFixed(1) + ' kW/h (' + ((todaySum/comparingSum)*100).toFixed(1) +  '%)',
                 data: today_data,
-                color: '#4169e1'
+                type: 'area',
+                lineWidth: 0,
+                color: '#ff0000',
+                fillOpacity: 0.9,
+                zIndex: 2,
+            }, {
+                //name: '어제: ' + (comparingDay.getMonth() + 1) + '월 ' +  comparingDay.getDate() + '일(' + dayLabel[comparingDay.getDay()] + ')',
+                data: today_data,
+                // data: vsData,
+                color: '#d3d3d3',
+                linkedTo: ':previous',
+                zIndex: 3,
             }]
         });
       }
