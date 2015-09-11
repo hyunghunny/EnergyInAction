@@ -258,7 +258,7 @@ td pre {
 
 /*clock*/
 
-@font-face {
+/*@font-face {
     font-family: 'BebasNeueRegular';
     src: url('BebasNeue-webfont.eot');
     src: url('BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
@@ -268,7 +268,7 @@ td pre {
     font-weight: normal;
     font-style: normal;
 
-}
+}*/
 
 .container {width: 500px; margin: 0 auto; overflow: hidden; }
 
@@ -294,76 +294,4 @@ ul li { display:inline; font-size:80px; text-align:center; font-family:'BebasNeu
 0% {opacity:1.0; text-shadow:0 0 10px #D3D3D3;}
 50% {opacity:0; text-shadow:none; }
 100% {opacity:1.0; text-shadow:0 0 10px #D3D3D3; }
-}
-
-
-/*weather widget*/
-/* -----------WIDGET NUMBER 1 & 2------------ */
-div.widget-1, div.widget-2{
-	position: relative;
-	display: inline-block;
-	font-size: 1em;
-	color: #595353;
-	text-shadow: 1px 1px 0px #fff;
-	width: 200px;
-	min-height: 100px;
-	vertical-align: top;
-	padding: 5px;
-	margin: 5px;
-	border: 1px solid #fff;
-	background: rgb(255,255,255); /* Old browsers */
-	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
-	box-shadow: 1px 2px 5px rgba(0,0,0,0.7);
-}
-div.widget-1 sup, div.widget-2 sup{
-	font-size: 0.2em;
-}
-div.widget-1 p, div.widget-2 p{
-	margin: 0;
-	padding: 3px;
-}
-div.widget-1 span, div.widget-2 span{
-	display: inline-block;
-	text-align: center;
-}
-div.widget-1 .temperature, div.widget-2 .temperature{
-	font-size: 2.8em;
-}
-div.widget-1 span.pic, div.widget-2 span.pic{
-	float: right;
-	font-size: 7em;
-	color: #595353;
-	text-shadow: 1px 1px 0px #fff;
-	line-height: 0.5;
-	text-shadow: inset 1px 1px 1px rgba(0,0,0,0.7);
-}
-div.widget-1 .pic img, div.widget-2 .pic img{
-	max-width: 100%;
-}
-div.widget-1 .location, div.widget-2 .location{
-	text-align: left;
-	font-size: 0.6em;
-	width: 100%;
-}
-div.widget-1 .day, div.widget-2 .day{
-	width: 44%;
-	text-align: left;
-}
-div.widget-1 .temp-max, div.widget-1 .temp-min, div.widget-2 .temp-max, div.widget-2 .temp-min{
-	width: 15%;
-}
-div.widget-1 .temp-pic, div.widget-2 .temp-pic{
-	font-size: 2em;
-    line-height: 0.2;
-    vertical-align: middle;
-    width: 18%;
-}
-div.widget-1 .temp-pic img, div.widget-2 .temp-pic img{
-	max-width: 30px;
 }

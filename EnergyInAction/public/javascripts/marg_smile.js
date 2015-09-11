@@ -7,7 +7,7 @@ $(function () {
     var savingRate_Day;
 
     var baseDay_query  = '/api/labs/marg/energy/quarters.json?base_time=' + baseTime;
-    var comparingDay_query = '/api/labs/marg/energy/quarters.json?base_time=' + comparingDayTime;
+    var comparingDay_query = '/api/labs/marg/energy/quarters.json?base_time=' + yesterDayTime;
 
     // console.log(baseDay_query);
     // console.log(comparingDay_query);

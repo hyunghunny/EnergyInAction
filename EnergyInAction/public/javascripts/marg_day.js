@@ -7,9 +7,9 @@ $(function () {
   // setInterval("marg_day()",3600000);
   });
 
-
+function marg_day(){
   // 지난달 평일, 주말 시간별 평균 계산 ---> 지난주 같은 요일 대비로 계획 변경
-{
+// {
     // var firstDayOfThisMonth = new Date(baseDay).setDate(1);
     // var firstDayOfLastMonth = new Date(baseDay).setMonth(baseDay.getMonth()-1, 1); // -1 means the last month
 
@@ -56,7 +56,7 @@ $(function () {
     //     console.log("data missing @", lastMonth_query, lastMonth);
     //   }
     // }
-}
+// }
 
     comparingDay = lastWeekSameDay;
 
