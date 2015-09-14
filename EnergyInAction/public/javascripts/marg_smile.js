@@ -7,7 +7,7 @@ $(function () {
     var savingRate_Day;
 
     var baseDay_query  = '/api/labs/marg/energy/quarters.json?base_time=' + baseTime;
-    var comparingDay_query = '/api/labs/marg/energy/quarters.json?base_time=' + yesterDayTime;
+    var comparingDay_query = '/api/labs/marg/energy/quarters.json?base_time=' + lastWeekDayTime;
 
     // console.log(baseDay_query);
     // console.log(comparingDay_query);
@@ -17,11 +17,11 @@ $(function () {
     var today_data = [];
     var smile_date = 0;
 
-    invokeOpenAPI(comparingDay_query, function (yesterday) {
-      //console.log(yesterday);
-      for(var index = 0; index < yesterday.length; index++){
-        comparingDay_data.push(Number(yesterday[index].sum.toFixed(1)));
-        xAxis_categories.push(new Date(yesterday[index].dateFrom).getHours() + '시');
+    invokeOpenAPI(comparingDay_query, function (comparingDay) {
+      //console.log(comparingDay);
+      for(var index = 0; index < comparingDay.length; index++){
+        comparingDay_data.push(Number(comparingDay[index].sum.toFixed(1)));
+        xAxis_categories.push(new Date(comparingDay[index].dateFrom).getHours() + '시');
       }
 
         invokeOpenAPI(baseDay_query, function (today) {
@@ -59,11 +59,11 @@ $(function () {
 console.log(baseDay);
           // marg_smile.innerHTML = s_month+'월'+s_day+'일 '+s_hours+':'+s_minutes + ' 기준<br>어제 대비 ' + (savingRate_Day*100).toFixed(1) + '% 사용중';
           // marg_smile.innerHTML = (new Date(today[today.length-1].dateTo)) + '기준<br>어제 대비 ' + (savingRate_Day*100).toFixed(1) + '% 사용중';
-          var traffic_title=$("<div>").attr("id","title").css({"font-size": "18px","text-align": "center"}).text('오늘의 전기사용 현황').css('color','black');
+          var traffic_title=$("<div>").attr("id","title").css({"font-size": "18px","text-align": "center"}).text('오늘 누적 전기사용 현황 <br> 좋음, 별로, 나쁨').css('color','black');
 
           $('#marg_smile').append(traffic_title);
 
-
+          console.log("savingRate_Day", savingRate_Day);
 
           if(savingRate_Day > 1.05) {
             //$('#smiley').css("background-color","red");

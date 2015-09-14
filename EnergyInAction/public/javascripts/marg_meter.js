@@ -40,14 +40,14 @@ $(function () {
         // the value axis
         yAxis: {
             min: 0,
-            max: 8.5,
+            max: 8,
             stops: [
-                // [0.1, '#55BF3B'], // green
-                // [0.8, '#DDDF0D'], // yellow
-                // [0.9, '#DF5353'] // red
-                [0.1, '#4169e1'], // green
-                [0.8, '#4169e1'], // yellow
-                [0.9, '#4169e1'] // red
+                [0.1, '#55BF3B'], // green
+                [0.8, '#DDDF0D'], // yellow
+                [0.9, '#DF5353'] // red
+                // [0.1, '#4169e1'], // green
+                // [0.8, '#4169e1'], // yellow
+                // [0.9, '#4169e1'] // red
             ],
             lineWidth: 0,
             minorTickInterval: null,
@@ -80,15 +80,15 @@ $(function () {
         },
 
         series: [{
-            name: 'kWh',
+            name: 'kW',
             data: [8],
             dataLabels: {
                 format: '<div style="text-align:center"><span style="font-size:40px;color:' +
                     ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
-                       '<span style="font-size:12px;color:silver">kW/h</span></div>'
+                       '<span style="font-size:12px;color:silver">kW</span></div>'
             },
             tooltip: {
-                valueSuffix: ' kW/h'
+                valueSuffix: ' kW'
             }
         }]
     }));
@@ -104,7 +104,7 @@ $(function () {
             margTotal = data.sum/1000000;
             // console.log(data.location);
           });
-          console.log(margTotal);
+          // console.log(margTotal);
 
           var point = chart.series[0].points[0];
 

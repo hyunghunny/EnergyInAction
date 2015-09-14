@@ -87,7 +87,8 @@ $(function () {
       },
       yAxis: {
           // min: 0.00001,
-          type: 'logarithmic',
+          // type: 'logarithmic',
+          type: 'bar',
           // minorTickInterval: '0.0001',
           // breaks: [{
           //       from: 0,
