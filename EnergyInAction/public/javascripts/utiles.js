@@ -135,3 +135,56 @@ function dateToString(date) {
     }
     return dateString;
 }
+
+// function comparingSumData(baseTime,lastWeekDayTime) {
+//   var baseDay_query  = '/api/labs/marg/energy/quarters.json?base_time=' + baseTime;
+//   var comparingDay_query = '/api/labs/marg/energy/quarters.json?base_time=' + lastWeekDayTime;
+//
+//   // console.log(baseDay_query);
+//   // console.log(comparingDay_query);
+//
+//   var xAxis_categories = [];
+//   var comparingDay_data = [];
+//   var today_data = [];
+//   var smile_date = 0;
+//
+//
+//   invokeOpenAPI(comparingDay_query, function (comparingDay) {
+//     //console.log(comparingDay);
+//     for(var index = 0; index < comparingDay.length; index++){
+//       comparingDay_data.push(Number(comparingDay[index].sum.toFixed(1)));
+//       xAxis_categories.push(new Date(comparingDay[index].dateFrom).getHours() + '시');
+//     }
+//
+//       invokeOpenAPI(baseDay_query, function (today) {
+//         //console.log(today);
+//         for(var index = 0; index < today.length; index++){
+//           today_data.push(Number(today[index].sum.toFixed(1)));
+//         }
+//
+//         // console.log('comparingDay', comparingDay_data);
+//         // console.log('today', today_data);
+//
+//         var comparingSum = limitedArraySum(comparingDay_data, today.length);
+//         var todaySum     = limitedArraySum(today_data, today.length);
+//
+//         console.log(today.length, comparingSum);
+//         console.log(today.length, todaySum);
+//
+//         // console.log(new Date(today[today.length].dateTo));
+//         console.log("today:", today);
+//
+//         savingRate_Day = todaySum / comparingSum;
+//         console.log(savingRate_Day);
+//
+//         if(savingRate_Day > 1.05) {
+//           var currentState = 1;
+//         } else if ( savingRate_Day > .90) {
+//           var currentState = 2;
+//         } else {
+//           var currentState = 3;
+//         }
+//       }
+//     }
+//     return comparingSum,todaySum;
+// }

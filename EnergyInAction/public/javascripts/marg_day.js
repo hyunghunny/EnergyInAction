@@ -79,6 +79,9 @@ function marg_day() {
     var comparingSum = 0;
     var todaySum     = 0;
 
+    var currentState;
+    var stateColors = ['#a50a0a','#f7cb00','#3e721f'];
+
     // console.log("baseDay_query", baseDay_query);
     // console.log("comparingDay_query", comparingDay_query);
 
@@ -131,6 +134,7 @@ function marg_day() {
     //   return(result);
     // }
 
+
     function drawChart() {
       // console.log(lastMonthWeekDay_data);
       // console.log(lastMonthWeekEnd_data);
@@ -148,6 +152,16 @@ function marg_day() {
       comparingSum = limitedArraySum(comparingDay_plotData, today_queryReturn.length);
       todaySum     = limitedArraySum(today_plotData, today_queryReturn.length);
 
+      var savingRate_Day = todaySum / comparingSum;
+
+      if(savingRate_Day > 1.05) {
+         currentState = 0;
+      } else if ( savingRate_Day > .90) {
+         currentState = 1;
+      } else {
+         currentState = 2;
+      }
+
       if(weekDay_Indicator){
         // var vsData = weekDay_hourlyMean;
       } else {
@@ -156,6 +170,9 @@ function marg_day() {
 
       var legend_x = 50;
       var legend_y = 47;
+
+      console.log('currentState: ',currentState);
+      console.log('colorcode: ',stateColors[currentState-1]);
 
       $('#marg_day').highcharts({
             // chart: {
@@ -175,7 +192,7 @@ function marg_day() {
                 verticalAlign: 'top',
                 // x: legend_x+(today_queryReturn.length - 1)*24,
                 x:740,
-                y: 320,
+                y: 310,
                 floating: true,
                 borderWidth: 1,
                 //backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
@@ -228,8 +245,8 @@ function marg_day() {
                 data: comparingDay_plotData.slice(0,today_plotData.length),
                 type: 'area',
                 lineWidth: 0,
-                color: '#00ff00',
-                fillOpacity: 0.3,
+                color: '#d3d3d3',
+                fillOpacity: 0.7,
                 zIndex: 0,
             }, {
                 //name: '오늘: ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ')',
@@ -237,8 +254,8 @@ function marg_day() {
                 data: today_plotData,
                 type: 'area',
                 lineWidth: 0,
-                color: '#ff0000',
-                fillOpacity: 0.9,
+                color: stateColors[currentState],
+                fillOpacity: 0.7,
                 zIndex: 0,
             }, {
                 //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',

@@ -22,6 +22,9 @@ $(function () {
   var comparingSum_forWeek = 0;
   var todaySum_forWeek     = 0;
 
+  var currentState;
+  var stateColors = ['#a50a0a','#f7cb00','#3e721f'];
+
   //////////////////////////
   // 2. WeekData process
   //////////////////////////
@@ -111,7 +114,7 @@ $(function () {
         total = thisWeek_queryReturn[index].sum;
         if(index == (baseDay.getDay()-1)) {
           thisWeek_plotData.push({y: Number(total.toFixed(1)),
-                               color: 'red'});
+                               color: ''});
         } else {
           thisWeek_plotData.push(Number(total.toFixed(1)));
         }
@@ -130,12 +133,27 @@ $(function () {
     console.log(today_queryReturn);
     console.log("today_queryReturn.length", today_queryReturn.length);
 
-    // todaySum_forWeek = limitedArraySum(today_plotData_forWeek, today_queryReturn.length);
     comparingSum_forWeek = limitedArraySum(comparingDay_plotData_forWeek, today_queryReturn.length);
     comparingSum_forWeek = Number(comparingSum_forWeek.toFixed(2));
 
-    // todaySum_forWeek = Number(todaySum_forWeek).toFixed(2);
-    // comparingSum_forWeek = Number(comparingSum_forWeek).toFixed(2);
+    todaySum_forWeek = limitedArraySum(today_plotData_forWeek, today_queryReturn.length);
+    todaySum_forWeek = Number(todaySum_forWeek).toFixed(2);
+
+    var savingRate_Day = todaySum_forWeek / comparingSum_forWeek;
+    console.log("savingRate from week",savingRate_Day);
+
+    if(savingRate_Day > 1.05) {
+       currentState = 0;
+    } else if ( savingRate_Day > .90) {
+       currentState = 1;
+    } else {
+       currentState = 2;
+    }
+
+    thisWeek_plotData[baseDay.getDay()-1].color = stateColors[currentState];
+    console.log("*********test: ",thisWeek_plotData);
+    console.log("*********test: ",thisWeek_plotData[0].color);
+
 
     var today_current_plotData = [0,0,0,0,0,0,0]
     today_current_plotData[baseDay.getDay()-1] = comparingSum_forWeek;
@@ -146,13 +164,12 @@ $(function () {
 
     console.log(lastWeek_plotData[baseDay.getDay()-1]);
     console.log(lastWeek_plotData);
-    // console.log(thisWeek_plotData);
+    console.log("thisWeek_plotData",thisWeek_plotData);
 
+    console.log("length from week: ",today_queryReturn.length);
     // console.log("todaySum_forWeek", todaySum_forWeek);
     console.log("comparingSum_forWeek", comparingSum_forWeek);
-    console.log("today_current_plotData", today_current_plotData);
-
-    // console.log("comparingDay_queryReturn", comparingDay_queryReturn);
+    console.log("todaySum_forWeek", todaySum_forWeek);
 
 
     $('#marg_week').highcharts({
@@ -204,7 +221,7 @@ $(function () {
             align: 'left',
             verticalAlign: 'top',
             x: 800,
-            y: 10,
+            y: 45,
             floating: true,
             borderWidth: 1,
             // backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
@@ -228,7 +245,7 @@ $(function () {
               data: today_current_plotData,
               stack: 'lastWeek_queryReturn',
               linkedTo: ':previous',
-              color: 'green',
+              color: '#3D3D3D',
               dataLabels: {
                   enabled: true,
                   color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',

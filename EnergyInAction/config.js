@@ -1,5 +1,5 @@
 ﻿var Config = {
-    
+
     mongodb: {
         host: 'datascience.snu.ac.kr',
         port: 27017,
