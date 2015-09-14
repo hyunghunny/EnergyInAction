@@ -1,12 +1,14 @@
 $(function () {
 
+  var margWeekObj = function () {
+
   /////////////////////////////////////////////////
   // 1. hours data process
   // 오늘 1시간 단위 누적 사용량 (높이) 표현을 위함
   /////////////////////////////////////////////////
 
-  baseDay_query  = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
-  comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + lastWeekDayTime;
+  var baseDay_query  = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
+  var comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + lastWeekDayTime;
 
   var comparingDay_queryReturn = [];
   var today_queryReturn = [];
@@ -14,32 +16,11 @@ $(function () {
   var comparingDay_loading = false;
   var        today_loading = false;
 
-  var comparingDay_plotData = [];
-  var today_plotData = [];
+  var comparingDay_plotData_forWeek = [];
+  var today_plotData_forWeek = [];
 
-  var comparingSum = 0;
-  var todaySum     = 0;
-
-  invokeOpenAPI(comparingDay_query, comparingDayCB);
-  invokeOpenAPI(baseDay_query, todayCB);
-
-  function todayCB(today_){
-    today_queryReturn = today_;
-    today_loading = true;
-
-    for(var index = 0; index < today_queryReturn.length; index++){
-      today_plotData.push(Number(today_queryReturn[index].sum.toFixed(1)));
-    }
-  }
-
-  function comparingDayCB (comparingDay_) {
-    comparingDay_queryReturn = comparingDay_;
-    comparingDay_loading = true;
-
-    for(var index = 0; index < comparingDay_queryReturn.length; index++){
-      comparingDay_plotData.push(Number(comparingDay_queryReturn[index].sum.toFixed(1)));
-    }
-  }
+  var comparingSum_forWeek = 0;
+  var todaySum_forWeek     = 0;
 
   //////////////////////////
   // 2. WeekData process
@@ -67,11 +48,40 @@ $(function () {
   var thisWeek_plotData = [];
   var lastWeek_plotData = [];
 
-  lastWeek_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(lastMonday) + '&day_to=' + dateFormatter(lastSunday) + '&offset=0';
-  thisWeek_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(thisMonday) + '&day_to=' + dateFormatter(thisSunday) + '&offset=0';
+  var lastWeek_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(lastMonday) + '&day_to=' + dateFormatter(lastSunday) + '&offset=0';
+  var thisWeek_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(thisMonday) + '&day_to=' + dateFormatter(thisSunday) + '&offset=0';
 
-  invokeOpenAPI(lastWeek_query, lastWeekCB);
-  invokeOpenAPI(thisWeek_query, thisWeekCB);
+  function isAllLoaded(){
+    return(lastWeek_loading && thisWeek_loading && comparingDay_loading && today_loading);
+  }
+
+  function comparingDayCB (comparingDay_) {
+    comparingDay_queryReturn = comparingDay_;
+    comparingDay_loading = true;
+
+    for(var index = 0; index < comparingDay_queryReturn.length; index++){
+      comparingDay_plotData_forWeek.push(Number(comparingDay_queryReturn[index].sum.toFixed(1)));
+    }
+    console.log("comparingDay_plotData_forWeek",comparingDay_plotData_forWeek);
+    if (isAllLoaded()){
+    // if (thisWeek_loading){
+      drawChart();
+    }
+  }
+
+  function todayCB(today_){
+    today_queryReturn = today_;
+    today_loading = true;
+
+    for(var index = 0; index < today_queryReturn.length; index++){
+      today_plotData_forWeek.push(Number(today_queryReturn[index].sum.toFixed(1)));
+    }
+    console.log("today_plotData_forWeek", today_plotData_forWeek);
+    if (isAllLoaded()){
+    // if (thisWeek_loading){
+      drawChart();
+    }
+  }
 
   function lastWeekCB(lastWeek_) {
       lastWeek_queryReturn = lastWeek_;
@@ -87,8 +97,8 @@ $(function () {
         //   lastWeek_plotData.push(Number(total.toFixed(1)));
         // }
       }
-      // if (thisWeek_loading && comparingDay_loading && today_loading){
-      if (thisWeek_loading){
+      if (isAllLoaded()){
+      // if (thisWeek_loading){
         drawChart();
       }
   }
@@ -106,8 +116,8 @@ $(function () {
           thisWeek_plotData.push(Number(total.toFixed(1)));
         }
       }
-      // if (lastWeek_loading && comparingDay_loading && today_loading) {
-      if(lastWeek_loading){
+      if (isAllLoaded()){
+      // if (thisWeek_loading){
         drawChart();
       }
   }
@@ -117,12 +127,19 @@ $(function () {
   // 3. draw chart
   ///////////////////////
   function drawChart() {
-    todaySum = limitedArraySum(today_plotData, today_queryReturn.length);
-    comparingSum = limitedArraySum(comparingDay_plotData, today_queryReturn.length);
+    console.log(today_queryReturn);
+    console.log("today_queryReturn.length", today_queryReturn.length);
+
+    // todaySum_forWeek = limitedArraySum(today_plotData_forWeek, today_queryReturn.length);
+    comparingSum_forWeek = limitedArraySum(comparingDay_plotData_forWeek, today_queryReturn.length);
+    comparingSum_forWeek = Number(comparingSum_forWeek.toFixed(2));
+
+    // todaySum_forWeek = Number(todaySum_forWeek).toFixed(2);
+    // comparingSum_forWeek = Number(comparingSum_forWeek).toFixed(2);
 
     var today_current_plotData = [0,0,0,0,0,0,0]
-    today_current_plotData[baseDay.getDay()-1] = comparingSum;
-    lastWeek_plotData[baseDay.getDay()-1] = lastWeek_plotData[baseDay.getDay()-1] - comparingSum;
+    today_current_plotData[baseDay.getDay()-1] = comparingSum_forWeek;
+    lastWeek_plotData[baseDay.getDay()-1] = lastWeek_plotData[baseDay.getDay()-1] - comparingSum_forWeek;
 
     // console.log(comparingDay_queryReturn);
     // console.log(today_queryReturn);
@@ -131,11 +148,11 @@ $(function () {
     console.log(lastWeek_plotData);
     // console.log(thisWeek_plotData);
 
-    // console.log("todaySum", todaySum);
-    console.log("comparingSum", comparingSum);
+    // console.log("todaySum_forWeek", todaySum_forWeek);
+    console.log("comparingSum_forWeek", comparingSum_forWeek);
     console.log("today_current_plotData", today_current_plotData);
 
-    console.log("comparingDay_queryReturn", comparingDay_queryReturn);
+    // console.log("comparingDay_queryReturn", comparingDay_queryReturn);
 
 
     $('#marg_week').highcharts({
@@ -236,4 +253,13 @@ $(function () {
           }]
         });
       }
+
+  invokeOpenAPI(comparingDay_query, comparingDayCB);
+  invokeOpenAPI(baseDay_query, todayCB);
+
+  invokeOpenAPI(lastWeek_query, lastWeekCB);
+  invokeOpenAPI(thisWeek_query, thisWeekCB);
+
+  }();
+
 });
