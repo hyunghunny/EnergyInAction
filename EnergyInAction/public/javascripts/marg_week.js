@@ -8,9 +8,6 @@ $(function () {
   baseDay_query  = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
   comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + lastWeekDayTime;
 
-  // console.log(baseDay_query);
-  // console.log(comparingDay_query);
-
   var comparingDay_queryReturn = [];
   var today_queryReturn = [];
 
@@ -61,20 +58,17 @@ $(function () {
   xAxis_categories[5] = dateLabelMaker(shiftDate(lastMonday, 5)) + ' ... ' + dateLabelMaker(shiftDate(thisMonday, 5)) + '<br>(토)';
   xAxis_categories[6] = dateLabelMaker(shiftDate(lastMonday, 6)) + ' ... ' + dateLabelMaker(shiftDate(thisMonday, 6)) + '<br>(일)';
 
-  var thisWeek_queryReturn = [];
   var lastWeek_queryReturn = [];
+  var thisWeek_queryReturn = [];
 
-  var thisWeek_loading = false;
   var lastWeek_loading = false;
+  var thisWeek_loading = false;
 
-  var lastWeek_plotData = [];
   var thisWeek_plotData = [];
+  var lastWeek_plotData = [];
 
   lastWeek_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(lastMonday) + '&day_to=' + dateFormatter(lastSunday) + '&offset=0';
   thisWeek_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(thisMonday) + '&day_to=' + dateFormatter(thisSunday) + '&offset=0';
-
-  // console.log(lastWeek_query);
-  // console.log(thisWeek_query);
 
   invokeOpenAPI(lastWeek_query, lastWeekCB);
   invokeOpenAPI(thisWeek_query, thisWeekCB);
@@ -93,8 +87,8 @@ $(function () {
         //   lastWeek_plotData.push(Number(total.toFixed(1)));
         // }
       }
-      if (thisWeek_loading && comparingDay_loading && today_loading){
-      // if (thisWeek_loading){
+      // if (thisWeek_loading && comparingDay_loading && today_loading){
+      if (thisWeek_loading){
         drawChart();
       }
   }
@@ -112,8 +106,8 @@ $(function () {
           thisWeek_plotData.push(Number(total.toFixed(1)));
         }
       }
-      if (lastWeek_loading && comparingDay_loading && today_loading) {
-      // if(lastWeek_loading){
+      // if (lastWeek_loading && comparingDay_loading && today_loading) {
+      if(lastWeek_loading){
         drawChart();
       }
   }
@@ -140,6 +134,8 @@ $(function () {
     // console.log("todaySum", todaySum);
     console.log("comparingSum", comparingSum);
     console.log("today_current_plotData", today_current_plotData);
+
+    console.log("comparingDay_queryReturn", comparingDay_queryReturn);
 
 
     $('#marg_week').highcharts({
