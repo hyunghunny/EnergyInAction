@@ -15,8 +15,8 @@ function title(){
     var minutes = now.getMinutes();
     seconds = now.getSeconds();
     var fastHour=seconds;
-    console.log('fastHour: ',fastHour);
-console.log('currentHour: ',minutes);
+//     console.log('fastHour: ',fastHour);
+// console.log('currentHour: ',minutes);
     if(fastHour == 30) {
       // window.document.getElementById('#marg_day').contentWindow.location.reload(true);
       // $("#marg_day").load(location.href+"#marg_day>*","");
@@ -26,7 +26,7 @@ console.log('currentHour: ',minutes);
     var ampm = "";
         month = month+"월 "
         day = day+"일 "
-console.log(month+day);
+// console.log(month+day);
         if (hours > 12){
             hours -= 12;
             ampm = "오후 ";

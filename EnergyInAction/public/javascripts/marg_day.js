@@ -58,23 +58,21 @@ function marg_day() {
     // }
 }
 
-    comparingDay = lastWeekSameDay;
-
     baseDay_query  = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
-    comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + lastWeekDayTime;
+    comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + lastWeekDayTime; // 지난 주 같은 요일로 설정
 
-    // console.log(baseDay_query);
-    // console.log(comparingDay_query);
+    console.log(baseDay_query);
+    console.log(comparingDay_query);
 
-    var comparingDay = [];
-    var today = [];
+    var comparingDay_queryReturn = [];
+    var today_queryReturn = [];
 
     var comparingDay_loading = false;
     var        today_loading = false;
 
     var xAxis_categories = [];
-    var comparingDay_data = [];
-    var today_data = [];
+    var comparingDay_plotData = [];
+    var today_plotData = [];
 
     var comparingSum = 0;
     var todaySum     = 0;
@@ -86,11 +84,11 @@ function marg_day() {
     invokeOpenAPI(baseDay_query, todayCB);
 
     function todayCB(today_){
-      today = today_;
+      today_queryReturn = today_;
       today_loading = true;
 
-      for(var index = 0; index < today.length; index++){
-        today_data.push(Number(today[index].sum.toFixed(1)));
+      for(var index = 0; index < today_queryReturn.length; index++){
+        today_plotData.push(Number(today_queryReturn[index].sum.toFixed(1)));
       }
       if (comparingDay_loading) {
         drawChart();
@@ -98,12 +96,12 @@ function marg_day() {
     }
 
     function comparingDayCB (comparingDay_) {
-      comparingDay = comparingDay_;
+      comparingDay_queryReturn = comparingDay_;
       comparingDay_loading = true;
 
-      for(var index = 0; index < comparingDay.length; index++){
-        comparingDay_data.push(Number(comparingDay[index].sum.toFixed(1)));
-        xAxis_categories.push(new Date(comparingDay[index].dateFrom).getHours() + '시');
+      for(var index = 0; index < comparingDay_queryReturn.length; index++){
+        comparingDay_plotData.push(Number(comparingDay_queryReturn[index].sum.toFixed(1)));
+        xAxis_categories.push(new Date(comparingDay_queryReturn[index].dateTo).getHours() + '시');
       }
       if (today_loading) {
         drawChart();
@@ -135,14 +133,18 @@ function marg_day() {
       // console.log(lastMonthWeekDay_data);
       // console.log(lastMonthWeekEnd_data);
 
+
+      console.log(comparingDay_queryReturn);
+      console.log(today_queryReturn);
+
       // weekDay_hourlyMean = hourlyMean(lastMonthWeekDay_data);
       // weekEnd_hourlyMean = hourlyMean(lastMonthWeekEnd_data);
 
       // console.log("weekDay_hourlyMean", weekDay_hourlyMean);
       // console.log("weekEnd_hourlyMean", weekEnd_hourlyMean);
 
-      comparingSum = limitedArraySum(comparingDay_data, today.length);
-      todaySum     = limitedArraySum(today_data, today.length);
+      comparingSum = limitedArraySum(comparingDay_plotData, today_queryReturn.length);
+      todaySum     = limitedArraySum(today_plotData, today_queryReturn.length);
 
       if(weekDay_Indicator){
         // var vsData = weekDay_hourlyMean;
@@ -158,7 +160,7 @@ function marg_day() {
             //     type: 'line'
             // },
             title: {
-                // text: '어제와 오늘 (' + comparingDay[0].location + '호 - 사용량 전체)'
+                // text: '어제와 오늘 (' + comparingDay_queryReturn[0].location + '호 - 사용량 전체)'
                 // text: '[ 어제와 오늘 ]'
                 text: null
             },
@@ -169,7 +171,7 @@ function marg_day() {
                 layout: 'vertical',
                 align: 'left',
                 verticalAlign: 'top',
-                // x: legend_x+(today.length - 1)*24,
+                // x: legend_x+(today_queryReturn.length - 1)*24,
                 x:740,
                 y: 320,
                 floating: true,
@@ -186,7 +188,7 @@ function marg_day() {
                 categories: xAxis_categories
                 // plotBands: [{ // visualize so far
                 //     from: -0.5,
-                //     to: today.length - 1,
+                //     to: today_queryReturn.length - 1,
                 //     color: 'rgba(68, 170, 213, .1)'
                 // }]
             },
@@ -211,17 +213,17 @@ function marg_day() {
             },
 
             series: [{
-                //name: '어제: ' + (comparingDay.getMonth() + 1) + '월 ' +  comparingDay.getDate() + '일(' + dayLabel[comparingDay.getDay()] + ')',
-                name: '어제 사용 패턴',
-                data: comparingDay_data,
+                //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
+                name: '일주 전 사용 패턴',
+                data: comparingDay_plotData,
                 // data: vsData,
                 color: '#d3d3d3',
                 // linkedTo: ':previous',
-                zIndex: 1,
+                zIndex: 0,
             },{
-                //name: '어제: ' + (comparingDay.getMonth() + 1) + '월 ' +  comparingDay.getDate() + '일(' + dayLabel[comparingDay.getDay()] + ')',
-                name: '지난주 이 시간: ' + comparingSum.toFixed(1) + ' kW/h',
-                data: comparingDay_data.slice(0,today_data.length),
+                //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
+                name: '일주 전 이 시간: ' + comparingSum.toFixed(1) + ' kW/h',
+                data: comparingDay_plotData.slice(0,today_plotData.length),
                 type: 'area',
                 lineWidth: 0,
                 color: '#00ff00',
@@ -230,19 +232,19 @@ function marg_day() {
             }, {
                 //name: '오늘: ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ')',
                 name: '오늘 이 시간: ' + todaySum.toFixed(1) + ' kW/h (' + ((todaySum/comparingSum)*100).toFixed(1) +  '%)',
-                data: today_data,
+                data: today_plotData,
                 type: 'area',
                 lineWidth: 0,
                 color: '#ff0000',
                 fillOpacity: 0.9,
-                zIndex: 2,
+                zIndex: 0,
             }, {
-                //name: '어제: ' + (comparingDay.getMonth() + 1) + '월 ' +  comparingDay.getDate() + '일(' + dayLabel[comparingDay.getDay()] + ')',
-                data: today_data,
+                //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
+                data: today_plotData,
                 // data: vsData,
                 color: '#d3d3d3',
                 linkedTo: ':previous',
-                zIndex: 3,
+                zIndex: 0,
             }]
         });
       }

@@ -1,7 +1,9 @@
 $(function () {
 
-
-  comparingDay = lastWeekSameDay;
+  /////////////////////////////////////////////////
+  // 1. hours data process
+  // 오늘 1시간 단위 누적 사용량 (높이) 표현을 위함
+  /////////////////////////////////////////////////
 
   baseDay_query  = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
   comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + lastWeekDayTime;
@@ -9,43 +11,42 @@ $(function () {
   // console.log(baseDay_query);
   // console.log(comparingDay_query);
 
-  // var comparingDay = [];
-  // var today_length = 0;
-  //
-  // var comparingDay_loading = false;
-  // var        today_loading = false;
-  //
-  // var xAxis_categories = [];
-  // var comparingDay_data = [];
-  // var today_data = [];
-  //
-  // var comparingSum = 0;
-  // var todaySum     = 0;
-  //
-  // // console.log("baseDay_query", baseDay_query);
-  // // console.log("comparingDay_query", comparingDay_query);
-  //
-  // invokeOpenAPI(comparingDay_query, comparingDayCB);
-  // invokeOpenAPI(baseDay_query, todayCB);
-  //
-  // function todayCB(today_){
-  //   today_length = today_.length;
-  //   console.log(today_length);
-  // }
-  //
-  // function comparingDayCB (comparingDay_) {
-  //   comparingDay = comparingDay_;
-  //   comparingDay_loading = true;
-  //
-  //   for(var index = 0; index < comparingDay.length; index++){
-  //     comparingDay_data.push(Number(comparingDay[index].sum.toFixed(1)));
-  //     xAxis_categories.push(new Date(comparingDay[index].dateFrom).getHours() + '시');
-  //   }
-  // }
-  //
-  // console.log(comparingDay_data.slice(0,today_data.length));
+  var comparingDay_queryReturn = [];
+  var today_queryReturn = [];
 
+  var comparingDay_loading = false;
+  var        today_loading = false;
 
+  var comparingDay_plotData = [];
+  var today_plotData = [];
+
+  var comparingSum = 0;
+  var todaySum     = 0;
+
+  invokeOpenAPI(comparingDay_query, comparingDayCB);
+  invokeOpenAPI(baseDay_query, todayCB);
+
+  function todayCB(today_){
+    today_queryReturn = today_;
+    today_loading = true;
+
+    for(var index = 0; index < today_queryReturn.length; index++){
+      today_plotData.push(Number(today_queryReturn[index].sum.toFixed(1)));
+    }
+  }
+
+  function comparingDayCB (comparingDay_) {
+    comparingDay_queryReturn = comparingDay_;
+    comparingDay_loading = true;
+
+    for(var index = 0; index < comparingDay_queryReturn.length; index++){
+      comparingDay_plotData.push(Number(comparingDay_queryReturn[index].sum.toFixed(1)));
+    }
+  }
+
+  //////////////////////////
+  // 2. WeekData process
+  //////////////////////////
   var lastMonday = getLastMonday(baseDay);
   var lastSunday = shiftDate(lastMonday, 6);
   var thisMonday = shiftDate(lastMonday, 7);
@@ -60,60 +61,87 @@ $(function () {
   xAxis_categories[5] = dateLabelMaker(shiftDate(lastMonday, 5)) + ' ... ' + dateLabelMaker(shiftDate(thisMonday, 5)) + '<br>(토)';
   xAxis_categories[6] = dateLabelMaker(shiftDate(lastMonday, 6)) + ' ... ' + dateLabelMaker(shiftDate(thisMonday, 6)) + '<br>(일)';
 
-  var thisWeek = [];
-  var lastWeek = [];
+  var thisWeek_queryReturn = [];
+  var lastWeek_queryReturn = [];
 
   var thisWeek_loading = false;
   var lastWeek_loading = false;
 
-  var lastWeek_total = [];
-  var thisWeek_total = [];
+  var lastWeek_plotData = [];
+  var thisWeek_plotData = [];
 
   lastWeek_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(lastMonday) + '&day_to=' + dateFormatter(lastSunday) + '&offset=0';
   thisWeek_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(thisMonday) + '&day_to=' + dateFormatter(thisSunday) + '&offset=0';
+
+  // console.log(lastWeek_query);
+  // console.log(thisWeek_query);
 
   invokeOpenAPI(lastWeek_query, lastWeekCB);
   invokeOpenAPI(thisWeek_query, thisWeekCB);
 
   function lastWeekCB(lastWeek_) {
-      lastWeek = lastWeek_;
+      lastWeek_queryReturn = lastWeek_;
       lastWeek_loading = true;
 
-      for(var index = 0; index < lastWeek.length; index++){
-        total = lastWeek[index].sum;
-        if(index == (baseDay.getDay()-1)) {
-          lastWeek_total.push({y: Number(total.toFixed(1)),
-                               color: 'green'});
-        } else {
-          lastWeek_total.push(Number(total.toFixed(1)));
-        }
+      for(var index = 0; index < lastWeek_queryReturn.length; index++){
+        total = lastWeek_queryReturn[index].sum;
+        lastWeek_plotData.push(Number(total.toFixed(1)));
+        // if(index == (baseDay.getDay()-1)) {
+        //   lastWeek_plotData.push({y: Number(total.toFixed(1)),
+        //                        color: 'green'});
+        // } else {
+        //   lastWeek_plotData.push(Number(total.toFixed(1)));
+        // }
       }
-      // if (thisWeek_loading && comparingDay_loading && today_loading)
-      if (thisWeek_loading){
+      if (thisWeek_loading && comparingDay_loading && today_loading){
+      // if (thisWeek_loading){
         drawChart();
       }
   }
 
   function thisWeekCB(thisWeek_) {
-      thisWeek = thisWeek_;
+      thisWeek_queryReturn = thisWeek_;
       thisWeek_loading = true;
 
-      for(var index = 0; index < thisWeek.length; index++){
-        total = thisWeek[index].sum;
+      for(var index = 0; index < thisWeek_queryReturn.length; index++){
+        total = thisWeek_queryReturn[index].sum;
         if(index == (baseDay.getDay()-1)) {
-          thisWeek_total.push({y: Number(total.toFixed(1)),
+          thisWeek_plotData.push({y: Number(total.toFixed(1)),
                                color: 'red'});
         } else {
-          thisWeek_total.push(Number(total.toFixed(1)));
+          thisWeek_plotData.push(Number(total.toFixed(1)));
         }
       }
-      // if (lastWeek_loading && comparingDay_loading && today_loading)
-      if(lastWeek_loading){
+      if (lastWeek_loading && comparingDay_loading && today_loading) {
+      // if(lastWeek_loading){
         drawChart();
       }
   }
 
+
+  ///////////////////////
+  // 3. draw chart
+  ///////////////////////
   function drawChart() {
+    todaySum = limitedArraySum(today_plotData, today_queryReturn.length);
+    comparingSum = limitedArraySum(comparingDay_plotData, today_queryReturn.length);
+
+    var today_current_plotData = [0,0,0,0,0,0,0]
+    today_current_plotData[baseDay.getDay()-1] = comparingSum;
+    lastWeek_plotData[baseDay.getDay()-1] = lastWeek_plotData[baseDay.getDay()-1] - comparingSum;
+
+    // console.log(comparingDay_queryReturn);
+    // console.log(today_queryReturn);
+
+    console.log(lastWeek_plotData[baseDay.getDay()-1]);
+    console.log(lastWeek_plotData);
+    // console.log(thisWeek_plotData);
+
+    // console.log("todaySum", todaySum);
+    console.log("comparingSum", comparingSum);
+    console.log("today_current_plotData", today_current_plotData);
+
+
     $('#marg_week').highcharts({
         chart: {
             type: 'column'
@@ -174,25 +202,41 @@ $(function () {
             enabled: false
         },
 
-        series: [{
+        series: [
+          {
               name: '지난주',
-              data: lastWeek_total,
-              stack: 'lastWeek',
+              data: lastWeek_plotData,
+              stack: 'lastWeek_queryReturn',
               //color: Highcharts.getOptions().colors[0]
               color: '#D3D3D3'
           },
-          // {
-          //     name: '지난주',
-          //     data: lastWeek_total,
-          //     stack: 'lastWeek',
-          //     linkedTo: ':previous',
-          // },
+          {
+              name: '지난주',
+              data: today_current_plotData,
+              stack: 'lastWeek_queryReturn',
+              linkedTo: ':previous',
+              color: 'green',
+              dataLabels: {
+                  enabled: true,
+                  color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                  style: {
+                      textShadow: '0 0 3px black'
+                  }
+              }
+          },
           {
               name: '이번주',
-              data: thisWeek_total,
-              stack: 'thisWeek',
+              data: thisWeek_plotData,
+              stack: 'thisWeek_queryReturn',
               //color: Highcharts.getOptions().colors[1]
-              color: '#63A8F6'
+              color: '#63A8F6',
+              dataLabels: {
+                  enabled: true,
+                  color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                  style: {
+                      textShadow: '0 0 3px black'
+                  }
+              }
           }]
         });
       }
