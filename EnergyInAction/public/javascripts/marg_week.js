@@ -204,7 +204,7 @@ $(function () {
             align: 'left',
             verticalAlign: 'top',
             x: 800,
-            y: 45,
+            y: 10,
             floating: true,
             borderWidth: 1,
             // backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
