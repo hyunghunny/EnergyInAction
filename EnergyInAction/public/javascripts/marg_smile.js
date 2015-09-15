@@ -81,17 +81,31 @@ console.log(baseDay);
 
           if(savingRate_Day > 1.05) {
             //$('#smiley').css("background-color","red");
-            $('#smiley').prepend('<img id="faces" src="./images/red_all.png" />')
+            $('#smiley').prepend('<img id="faces" src="./images/red_all.png" />');
+            $('#axis').prepend('<img src="./images/percent_red.png" />');
             $('#marg_title').css("background-color","#a50a0a");
           } else if ( savingRate_Day > .90) {
             // $('#smiley').css("background-color","#f7cb00");
-            $('#smiley').prepend('<img id="faces" src="./images/yellow_all.png" />')
+            $('#smiley').prepend('<img id="faces" src="./images/yellow_all.png" />');
+            $('#axis').prepend('<img src="./images/percent_yellow.png" />');
             $('#marg_title').css("background-color","#f7cb00");
           } else {
             // $('#smiley').css("background-color","#3e721f");
-            $('#smiley').prepend('<img id="faces" src="./images/green_all.png" />')
+            $('#smiley').prepend('<img id="faces" src="./images/green_all.png" />');
+            $('#axis').prepend('<img src="./images/percent_green.png" />');
             $('#marg_title').css("background-color","#3e721f");
           }
+
+          var sign="";
+          if (savingRate_Day>=1) {
+            sign="+";
+          }else {
+            sig="-";
+          }
+          percentage_text = '지난주 '+ dayLabel[baseDay.getDay()]+'요일 대비 ' + (sign+savingRate_Day.toFixed(3)*100)+'% 사용';
+
+          var percentage_title=$("<div>").attr("id","percentage_title").css({"font-size": "18px","text-align": "center"}).text(percentage_text).css('color','black','align-text','center');
+          $('#percentage_title').append(percentage_title);
         });
     });
 });

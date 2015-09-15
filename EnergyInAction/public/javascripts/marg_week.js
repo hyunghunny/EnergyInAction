@@ -192,7 +192,8 @@ $(function () {
             plotBands: [{ // visualize the weekend
                 from: (0.5 * (baseDay.getDay()*2+1)) -2 ,
                 to: (0.5 * (baseDay.getDay()*2+1)) -1,
-                color: 'rgba(50, 50, 213, .2)'
+                borderColor: '#ffd0b8', //'rgba(50, 50, 213, .2)'
+                borderWidth: 3
             }]
         },
         yAxis: {
@@ -238,14 +239,14 @@ $(function () {
               data: lastWeek_plotData,
               stack: 'lastWeek_queryReturn',
               //color: Highcharts.getOptions().colors[0]
-              color: '#D3D3D3'
+              color: '#e2e3d7'
           },
           {
               name: '지난주',
               data: today_current_plotData,
               stack: 'lastWeek_queryReturn',
               linkedTo: ':previous',
-              color: '#3D3D3D',
+              color: '#44413f',
               dataLabels: {
                   enabled: true,
                   color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
@@ -259,7 +260,7 @@ $(function () {
               data: thisWeek_plotData,
               stack: 'thisWeek_queryReturn',
               //color: Highcharts.getOptions().colors[1]
-              color: '#63A8F6',
+              color: '#cfccb9',
               dataLabels: {
                   enabled: true,
                   color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',

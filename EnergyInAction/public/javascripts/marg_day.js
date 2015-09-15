@@ -175,9 +175,9 @@ function marg_day() {
       console.log('colorcode: ',stateColors[currentState-1]);
 
       $('#marg_day').highcharts({
-            // chart: {
-            //     type: 'line'
-            // },
+            chart: {
+                // backgroundColor: "#ffd0b8"
+            },
             title: {
                 // text: '어제와 오늘 (' + comparingDay_queryReturn[0].location + '호 - 사용량 전체)'
                 // text: '[ 어제와 오늘 ]'
@@ -192,7 +192,7 @@ function marg_day() {
                 verticalAlign: 'top',
                 // x: legend_x+(today_queryReturn.length - 1)*24,
                 x:740,
-                y: 310,
+                y: 305,
                 floating: true,
                 borderWidth: 1,
                 //backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
@@ -236,18 +236,18 @@ function marg_day() {
                 name: '일주 전 사용 패턴',
                 data: comparingDay_plotData,
                 // data: vsData,
-                color: '#d3d3d3',
+                color: '#e2e3d7',
                 // linkedTo: ':previous',
-                zIndex: 0,
+                zIndex: 0
             },{
                 //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
                 name: '일주 전 이 시간: ' + comparingSum.toFixed(1) + ' kW/h',
                 data: comparingDay_plotData.slice(0,today_plotData.length),
                 type: 'area',
                 lineWidth: 0,
-                color: '#d3d3d3',
+                color: '#e2e3d7',
                 fillOpacity: 0.7,
-                zIndex: 0,
+                zIndex: 0
             }, {
                 //name: '오늘: ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ')',
                 name: '오늘 이 시간: ' + todaySum.toFixed(1) + ' kW/h (' + ((todaySum/comparingSum)*100).toFixed(1) +  '%)',
@@ -256,14 +256,14 @@ function marg_day() {
                 lineWidth: 0,
                 color: stateColors[currentState],
                 fillOpacity: 0.7,
-                zIndex: 0,
+                zIndex: 0
             }, {
                 //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
                 data: today_plotData,
                 // data: vsData,
                 color: '#d3d3d3',
                 linkedTo: ':previous',
-                zIndex: 0,
+                zIndex: 0
             }]
         });
       }

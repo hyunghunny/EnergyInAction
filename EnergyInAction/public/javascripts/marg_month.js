@@ -139,12 +139,13 @@ $(function () {
           // },
           series: {
             colorByPoint: true,
-            colors: ['#3D3D3D','#63A8F6']
+            colors: ['#848174','#cfccb9']
           }
       },
       series: [{
           //name: '전체사용량',
-          data: [arrayMean(lastMonth_total), arrayMean(thisMonth_total)]
+          data: [arrayMean(lastMonth_total), arrayMean(thisMonth_total)],
+          pointWidth: 120
       }]
     });
 

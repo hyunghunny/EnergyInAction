@@ -11,7 +11,8 @@ $(function () {
     var gaugeOptions = {
 
         chart: {
-            type: 'solidgauge'
+            type: 'solidgauge',
+            backgroundColor: "#ecede7"
         },
 
         title: {
