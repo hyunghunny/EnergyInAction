@@ -154,7 +154,7 @@ function marg_day() {
 
       var savingRate_Day = todaySum / comparingSum;
 
-      if(savingRate_Day > 1.05) {
+      if(savingRate_Day > 1.00) {
          currentState = 0;
       } else if ( savingRate_Day > .90) {
          currentState = 1;
@@ -172,7 +172,7 @@ function marg_day() {
       var legend_y = 47;
 
       console.log('currentState: ',currentState);
-      console.log('colorcode: ',stateColors[currentState-1]);
+      console.log('colorcode: ',stateColors[currentState], stateColors[2]);
 
       $('#marg_day').highcharts({
             chart: {

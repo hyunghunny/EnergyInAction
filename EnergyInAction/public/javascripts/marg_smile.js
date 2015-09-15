@@ -82,7 +82,7 @@ console.log(baseDay);
 
           console.log("savingRate_Day", savingRate_Day);
 
-          if(savingRate_Day > 1.05) {
+          if(savingRate_Day > 1.00) {
             //$('#smiley').css("background-color","red");
             $('#smiley').prepend('<img id="faces" src="./images/red_all.png" />');
             $('#axis').prepend('<img src="./images/percent_red.png" />');
@@ -99,14 +99,18 @@ console.log(baseDay);
             $('#marg_title').css("background-color","#3e721f");
           }
 
-          var sign="";
+          var sign = "";
+          var percent_smile = "";
+          console.log(100 - savingRate_Day.toFixed(3)*100);
           if (savingRate_Day>=1) {
-            sign="+";
+            sign = "+";
+            percent_smile = (savingRate_Day*100-100).toFixed(1);
           }else {
-            sig="-";
+            sign = "-";
+            percent_smile = (100-savingRate_Day*100).toFixed(1);
           }
-          percentage_text = '지난주 '+ dayLabel[baseDay.getDay()]+'요일 대비 ' + (sign+savingRate_Day.toFixed(3)*100)+'% 사용';
-
+          percentage_text = '지난주 '+ dayLabel[baseDay.getDay()]+'요일 대비 ' + sign + percent_smile +'% 사용';
+          console.log(percent_smile);
           var percentage_title=$("<div>").attr("id","percentage_title").css({"font-size": "18px","text-align": "center"}).text(percentage_text).css('color','black','align-text','center');
           $('#percentage_title').append(percentage_title);
         });

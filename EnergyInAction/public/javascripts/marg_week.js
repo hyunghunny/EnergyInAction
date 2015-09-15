@@ -142,7 +142,7 @@ $(function () {
     var savingRate_Day = todaySum_forWeek / comparingSum_forWeek;
     console.log("savingRate from week",savingRate_Day);
 
-    if(savingRate_Day > 1.05) {
+    if(savingRate_Day > 1.00) {
        currentState = 0;
     } else if ( savingRate_Day > .90) {
        currentState = 1;
