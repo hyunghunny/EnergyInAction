@@ -4,8 +4,20 @@ var dayLabel = new Array('일', '월', '화', '수', '목', '금', '토');
 
 var baseDay     = new Date();
 baseDay.setHours(0,0,0,0); // today 날짜만 깔끔히 잡도록 시간 초기화
+var yesterDay = shiftDate(baseDay, -1) // 어제
+var lastWeekSameDay = shiftDate(baseDay, -7) // 어제
 
-var comparingDay = shiftDate(baseDay, -1) // 어제
+var baseTime     = baseDay.getTime();
+var yesterDayTime = yesterDay.getTime();
+var lastWeekDayTime = lastWeekSameDay.getTime();
+
+if(baseDay.getDay() > 0 && baseDay.getDay() < 6){
+  console.log("오늘은 평일");
+  var weekDay_Indicator = 1; // 1: 평일, 0: 주말
+} else {
+  console.log("오늘은 주말");
+  var weekDay_Indicator = 0; // 1: 평일, 0: 주말
+}
 
 function getLastMonday(date){
   var dayNumber = date.getDay();
@@ -21,8 +33,6 @@ function shiftDate(date, offset) {
   return shiftedDate;
 }
 
-var baseTime     = baseDay.getTime();
-var comparingDayTime = comparingDay.getTime();
 
 function invokeOpenAPI(url, scb) {
     $.ajax({
@@ -125,3 +135,56 @@ function dateToString(date) {
     }
     return dateString;
 }
+
+// function comparingSumData(baseTime,lastWeekDayTime) {
+//   var baseDay_query  = '/api/labs/marg/energy/quarters.json?base_time=' + baseTime;
+//   var comparingDay_query = '/api/labs/marg/energy/quarters.json?base_time=' + lastWeekDayTime;
+//
+//   // console.log(baseDay_query);
+//   // console.log(comparingDay_query);
+//
+//   var xAxis_categories = [];
+//   var comparingDay_data = [];
+//   var today_data = [];
+//   var smile_date = 0;
+//
+//
+//   invokeOpenAPI(comparingDay_query, function (comparingDay) {
+//     //console.log(comparingDay);
+//     for(var index = 0; index < comparingDay.length; index++){
+//       comparingDay_data.push(Number(comparingDay[index].sum.toFixed(1)));
+//       xAxis_categories.push(new Date(comparingDay[index].dateFrom).getHours() + '시');
+//     }
+//
+//       invokeOpenAPI(baseDay_query, function (today) {
+//         //console.log(today);
+//         for(var index = 0; index < today.length; index++){
+//           today_data.push(Number(today[index].sum.toFixed(1)));
+//         }
+//
+//         // console.log('comparingDay', comparingDay_data);
+//         // console.log('today', today_data);
+//
+//         var comparingSum = limitedArraySum(comparingDay_data, today.length);
+//         var todaySum     = limitedArraySum(today_data, today.length);
+//
+//         console.log(today.length, comparingSum);
+//         console.log(today.length, todaySum);
+//
+//         // console.log(new Date(today[today.length].dateTo));
+//         console.log("today:", today);
+//
+//         savingRate_Day = todaySum / comparingSum;
+//         console.log(savingRate_Day);
+//
+//         if(savingRate_Day > 1.05) {
+//           var currentState = 1;
+//         } else if ( savingRate_Day > .90) {
+//           var currentState = 2;
+//         } else {
+//           var currentState = 3;
+//         }
+//       }
+//     }
+//     return comparingSum,todaySum;
+// }

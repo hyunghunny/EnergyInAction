@@ -57,15 +57,27 @@ $(function () {
 
     console.log(thisMonth);
 
+    var sign="";
+    if (savingRate_Month>=1) {
+      sign="+";
+    }else {
+      sig="-";
+    }
+
     var chart_month = $('#marg_month').highcharts({
       legend: {
         enabled: false
       },
       chart: {
           type: 'column'
+          // type: 'bar'
       },
       title: {
-          text: '지난달과 이번달 하루사용량 평균 <br>(' + (savingRate_Month*100 - 100).toFixed(1) + '%)'
+
+          text: '[ 지난달과 이번달 (' +sign+ (savingRate_Month*100 - 100).toFixed(1) + '%) ]'
+      },
+      credits: {
+          enabled: false
       },
       exporting: {
           enabled: false
@@ -74,9 +86,17 @@ $(function () {
           categories: xAxis_categories
       },
       yAxis: {
-          min: 0,
+          // min: 0.00001,
+          // type: 'logarithmic',
+          type: 'bar',
+          // minorTickInterval: '0.0001',
+          // breaks: [{
+          //       from: 0,
+          //       to: 60,
+          //       breakSize: 20
+          //   }],
           title: {
-              text: '전체 전력 사용량 (kW/h)'
+              text: '하루 평균 사용량 (kW/h)'
           },
           stackLabels: {
               enabled: true,
@@ -85,6 +105,17 @@ $(function () {
                   color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
               }
           }
+          // ,
+          // labels: {
+          //   formatter: function() {
+          //       if(this.value === 0.00001){
+          //           return 0;
+          //       } else {
+          //           return this.value;
+          //       }
+          //   }
+          // }
+
       },
       tooltip: {
           headerFormat: '<b>{point.x}</b><br/>',
@@ -101,15 +132,21 @@ $(function () {
                   }
               },
           },
+          // bar: {
+          //   dataLabels: {
+          //     enabled: true
+          //   }
+          // },
           series: {
-            colorByPoint: true
+            colorByPoint: true,
+            colors: ['#848174','#cfccb9']
           }
       },
       series: [{
           //name: '전체사용량',
-          data: [arrayMean(lastMonth_total), arrayMean(thisMonth_total)]
-      }],
-      colors: ['#D3D3D3','#63A8F6']
+          data: [arrayMean(lastMonth_total), arrayMean(thisMonth_total)],
+          pointWidth: 120
+      }]
     });
 
 

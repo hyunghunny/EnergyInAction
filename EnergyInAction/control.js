@@ -40,11 +40,11 @@ var SiteManager = function (array) {
             "type": "ItemList"
         }
         this.api.push(apiObj);
-        
+
 
         // add api property in each lab object
         var lab = array[i];
-        var labApiObj = [            
+        var labApiObj = [
             {
                 "href": "/api/labs/" + array[i].id + "/energy/latest.json",
                 "type": "ItemList"
@@ -68,12 +68,12 @@ var SiteManager = function (array) {
         ];
         lab.api = labApiObj;
 
-        
+
     }
 }
 
 /*
- * Find a lab with a id which is monitored 
+ * Find a lab with a id which is monitored
  */
 SiteManager.prototype.find = function (id) {
     var labObj = null;
@@ -85,7 +85,7 @@ SiteManager.prototype.find = function (id) {
         }
     }
     return null;
-} 
+}
 
 
 var LabEnergyManager = function (id, name, description) {
@@ -96,19 +96,20 @@ var LabEnergyManager = function (id, name, description) {
     this.deviceID = '';
     this.location = '';
     this.feeders = []; // initialize feeder list
-    
+
     var self = this;
     // get feeder list at db
+
     if (!dbmgr.isConnected()) {
         dbmgr.connect(function (result) {
            
             if (result) {
                 dbmgr.findLatest(collection, function (result) {
-                    
+
                     var labObj = result[self.id];
                     self.deviceID = labObj.deviceID;
                     self.location = labObj.location;
-                    
+
                     for (var i = 0; i < labObj.feeders.length; i++) {
                         var feederObj = labObj.feeders[i];
                         delete feederObj.value;
@@ -124,7 +125,7 @@ var LabEnergyManager = function (id, name, description) {
 LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
 
     var self = this;
-    
+
     if (dbmgr.dbOpened == false) {
         console.log('database is not opened.');
         cb(null);
@@ -132,17 +133,17 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
         queries.startDate = new Date(queries.base_time);
         queries.endDate = new Date(queries.to_time - (queries.to_time % 900000)); // truncate quarters only
         //console.log('accumulate data from ' + queries.startDate.toLocaleString() + ' to ' + queries.endDate.toLocaleString());
-        
+
         // use 15min data to aggregate usage
-        dbmgr.aggregateFeeders(config.collection.quarters, self.id, queries, function (results) {
-            
+        dbmgr.aggregateFeeders(config.collection.hours, self.id, queries, function (results) {
+
             var returnObj = {};
             returnObj["dateFrom"] = queries.startDate;
             returnObj["dateTo"] = queries.endDate; // XXX: If there is insufficient observations, this timestamp is not valid.
             returnObj["deviceID"] = self.deviceID;
             returnObj["location"] = self.location;
-            
-            var feeders = [];            
+
+            var feeders = [];
             for (var i = 0; i < results.length; i++) {
                 var result = results[i];
                 var feeder = {};
@@ -154,7 +155,7 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
             returnObj["feeders"] = feeders;
 
             cb(returnObj);
-            
+
         });
 
     }
@@ -163,7 +164,7 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
 
 /*
  * return date as YYYY-MM-dd [Sun-Sat]
- */ 
+ */
 function dateToSimpleString(date) {
     var dateString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     switch (date.getDay()) {
@@ -215,16 +216,16 @@ LabEnergyManager.prototype.retrieveDailyUsages = function(queries, cb) {
         var startDate = new Date(dayFrom);
         startDate.setDate(startDate.getDate() + i);
         var endDate = new Date(startDate);
-        endDate.setDate(endDate.getDate() + 1); // increase 1 day  after startDate 
-        
+        endDate.setDate(endDate.getDate() + 1); // increase 1 day  after startDate
+
         queries.base_time = startDate.getTime();
 
-        if (queries.base_time <= dayTo.getTime()) {           
-            
+        if (queries.base_time <= dayTo.getTime()) {
+
             queries.to_time = endDate.getTime();
 
             //console.log("From " + startDate.toLocaleDateString() + " to " + endDate.toLocaleDateString());
-           
+
             var accumluateAsync = function (queries) {
                 // repeat accumulateUsages() day by day
                 self.accumulateUsages(queries, function(result) {
@@ -236,24 +237,24 @@ LabEnergyManager.prototype.retrieveDailyUsages = function(queries, cb) {
                             return a.dateFrom.getTime() - b.dateFrom.getTime();
                         });
                         cb(results);
-                        
+
                     }
                 });
             }(queries);
 
-            queries.base_time = queries.to_time; // set next day 
+            queries.base_time = queries.to_time; // set next day
             count = count + 1;
         } else {
             break;
-        }       
+        }
 
     }
-    
+
 
 }
 
 LabEnergyManager.prototype.postMessage = function (type, messageObj) {
-    
+
     var now = new Date();
     var postObj = {
         "_id" : parseInt(now.getTime()),
@@ -275,11 +276,11 @@ LabEnergyManager.prototype.postMessage = function (type, messageObj) {
 
 LabEnergyManager.prototype.getLatestMessage = function (type, cb) {
     var collection = config.collection.messages;
-   
+
     var queries = {};
     queries.endDate = new Date(); // set now
     queries.limit = 10; // XXX: how many messages will be required?
-    
+
     queries.labId = this.id;
     queries.type = 'message';
 
@@ -296,14 +297,14 @@ LabEnergyManager.prototype.getLatestMessage = function (type, cb) {
                 // to get a value that is either negative, positive, or zero.
                 return new Date(b.datePublished) - new Date(a.datePublished);
             });
-            cb(array[0]);     
+            cb(array[0]);
         });
     }
 }
 
 
 LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
-    
+
     var collection = null;
     switch (type) {
    //     case 'secs': // XXX: This API will be deprecated!
@@ -321,7 +322,7 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
             return;
     }
     if (collection != null) {
-        // translate timestamp into ISODate add startDate and endDate into queries 
+        // translate timestamp into ISODate add startDate and endDate into queries
         queries.startDate = new Date(queries.base_time);
         queries.endDate = new Date(queries.to_time);
         console.log(type + ' data from ' + queries.startDate + ' to ' + queries.endDate);
@@ -332,7 +333,8 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
             "hcc" : false
         }
         delete filters[this.id]; // enable a specific lab information only
-        
+
+
         if (!dbmgr.isConnected()) {
             dbmgr.connect(function (result) {
                 if (result) {
@@ -352,7 +354,7 @@ LabEnergyManager.prototype.realtimeUsages = function (queries, cb) {
     })
 }
 
-// TODO: add API handlers 
+// TODO: add API handlers
 
 exports.labs = new SiteManager([
     new LabEnergyManager("ux", "UX Lab.", "User Experience Lab."),
