@@ -99,10 +99,8 @@ var LabEnergyManager = function (id, name, description) {
 
     var self = this;
     // get feeder list at db
-
     if (!dbmgr.isConnected()) {
         dbmgr.connect(function (result) {
-           
             if (result) {
                 dbmgr.findLatest(collection, function (result) {
 
@@ -333,7 +331,6 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
             "hcc" : false
         }
         delete filters[this.id]; // enable a specific lab information only
-
 
         if (!dbmgr.isConnected()) {
             dbmgr.connect(function (result) {

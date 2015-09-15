@@ -172,7 +172,7 @@ function marg_day() {
       var legend_y = 47;
 
       console.log('currentState: ',currentState);
-      console.log('colorcode: ',stateColors[currentState], stateColors[2]);
+      console.log('colorcode: ',stateColors[currentState-1]);
 
       $('#marg_day').highcharts({
             chart: {
