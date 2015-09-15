@@ -11,6 +11,9 @@ $(function () {
     var baseDay_query  = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
     var comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + lastWeekDayTime;
 
+    // var baseDay_query  = '/api/labs/marg/energy/quarters.json?base_time=' + baseTime;
+    // var comparingDay_query = '/api/labs/marg/energy/quarters.json?base_time=' + lastWeekDayTime;
+
     // console.log(baseDay_query);
     // console.log(comparingDay_query);
 
