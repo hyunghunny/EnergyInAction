@@ -69,8 +69,8 @@ $(function () {
         enabled: false
       },
       chart: {
-          // type: 'column'
-          type: 'bar'
+          type: 'column'
+          // type: 'bar'
       },
       title: {
 
@@ -86,12 +86,15 @@ $(function () {
           categories: xAxis_categories
       },
       yAxis: {
-          // min: 0,
-          breaks: [{
-                from: 0,
-                to: 60,
-                breakSize: 20
-            }],
+          // min: 0.00001,
+          // type: 'logarithmic',
+          type: 'bar',
+          // minorTickInterval: '0.0001',
+          // breaks: [{
+          //       from: 0,
+          //       to: 60,
+          //       breakSize: 20
+          //   }],
           title: {
               text: '하루 평균 사용량 (kW/h)'
           },
@@ -102,6 +105,16 @@ $(function () {
                   color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
               }
           }
+          // ,
+          // labels: {
+          //   formatter: function() {
+          //       if(this.value === 0.00001){
+          //           return 0;
+          //       } else {
+          //           return this.value;
+          //       }
+          //   }
+          // }
 
       },
       tooltip: {
@@ -119,15 +132,21 @@ $(function () {
                   }
               },
           },
+          // bar: {
+          //   dataLabels: {
+          //     enabled: true
+          //   }
+          // },
           series: {
-            colorByPoint: true
+            colorByPoint: true,
+            colors: ['#848174','#cfccb9']
           }
       },
       series: [{
           //name: '전체사용량',
-          data: [arrayMean(lastMonth_total), arrayMean(thisMonth_total)]
-      }],
-      colors: ['#D3D3D3','#63A8F6']
+          data: [arrayMean(lastMonth_total), arrayMean(thisMonth_total)],
+          pointWidth: 120
+      }]
     });
 
 

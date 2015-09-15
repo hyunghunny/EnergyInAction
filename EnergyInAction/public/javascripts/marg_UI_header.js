@@ -1,5 +1,8 @@
+var seconds=0;
 $(function () {
+
     setInterval("title()",1000);
+
 });
 
 
@@ -10,10 +13,20 @@ function title(){
     var dayOfWeek = now.getDay();
     var hours = now.getHours();
     var minutes = now.getMinutes();
+    seconds = now.getSeconds();
+    var fastHour=seconds;
+//     console.log('fastHour: ',fastHour);
+// console.log('currentHour: ',minutes);
+    if(fastHour == 30) {
+      // window.document.getElementById('#marg_day').contentWindow.location.reload(true);
+      // $("#marg_day").load(location.href+"#marg_day>*","");
+      // $('#marg_day').load('marg_dashboard.html #marg_day');
+      // $('#marg_day').load('marg_dashboard.html #marg_day');
+    }
     var ampm = "";
         month = month+"월 "
         day = day+"일 "
-console.log(month+day);
+// console.log(month+day);
         if (hours > 12){
             hours -= 12;
             ampm = "오후 ";
@@ -43,15 +56,15 @@ console.log(month+day);
           dayOfWeek=" 토요일 ";
         }
     $('#marg_title').empty();
-    $('#marg_clock').empty();
+    // $('#marg_clock').empty();
     // var title=$("<div>").attr("id","title").css({"font-size": "40px","font-weight": "bolder","text-align": "center","background-color": "green"}).text("MARG Electricity Usage Monitor").css('color','white');
     // var titlediv=$("<div>").attr("id","titlediv").css({"font-size": "20px","text-align": "right", "background-color": "green"}).text(month+day+ampm+hours+":"+minutes).css('color','white');
-    var title=$("<div>").attr("id","title").css({"font-size": "40px","font-weight": "bolder","text-align": "center"}).text("MARG Electricity Usage Monitor").css('color','white');
+    var title=$("<div>").attr("id","title").css({"font-size": "15px","font-weight": "bolder","text-align": "center"}).text("MARG Electricity Usage Monitor").css('color','white');
     // var titlediv=$("<div>").attr("id","titlediv").css({"font-size": "20px","text-align": "right", "padding-right": "10px"}).text(month+day+dayOfWeek+ampm+hours+":"+minutes).css('color','black');
     var titlediv=$("<div>").attr("id","titlediv").css({"font-size": "20px","text-align": "center"}).text(month+day+dayOfWeek+ampm+hours+":"+minutes).css('color','black');
 
     // $('#marg_title').append(title).append(titlediv);
     // $('#marg_title').prepend(titlediv).prepend(title);
     $('#marg_title').prepend(title);
-    $('#marg_clock').append(titlediv);
+    // $('#marg_clock').append(titlediv);
 }
