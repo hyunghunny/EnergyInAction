@@ -54,6 +54,8 @@ $(function () {
   var lastWeek_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(lastMonday) + '&day_to=' + dateFormatter(lastSunday) + '&offset=0';
   var thisWeek_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(thisMonday) + '&day_to=' + dateFormatter(thisSunday) + '&offset=0';
 
+
+  ///// functions /////
   function isAllLoaded(){
     return(lastWeek_loading && thisWeek_loading && comparingDay_loading && today_loading);
   }
@@ -113,8 +115,11 @@ $(function () {
       for(var index = 0; index < thisWeek_queryReturn.length; index++){
         total = thisWeek_queryReturn[index].sum;
         if(index == (baseDay.getDay()-1)) {
-          thisWeek_plotData.push({y: Number(total.toFixed(1)),
-                               color: ''});
+          // thisWeek_plotData.push({y: Number(total.toFixed(1)),
+          //                      color: ''});
+          thisWeek_plotData.push(null);
+        } else if(total == 0) {
+          thisWeek_plotData.push(null);
         } else {
           thisWeek_plotData.push(Number(total.toFixed(1)));
         }
@@ -134,10 +139,10 @@ $(function () {
     console.log("today_queryReturn.length", today_queryReturn.length);
 
     comparingSum_forWeek = limitedArraySum(comparingDay_plotData_forWeek, today_queryReturn.length);
-    comparingSum_forWeek = Number(comparingSum_forWeek.toFixed(2));
+    comparingSum_forWeek = Number(comparingSum_forWeek.toFixed(1));
 
     todaySum_forWeek = limitedArraySum(today_plotData_forWeek, today_queryReturn.length);
-    todaySum_forWeek = Number(todaySum_forWeek).toFixed(2);
+    todaySum_forWeek = Number(todaySum_forWeek.toFixed(1));
 
     var savingRate_Day = todaySum_forWeek / comparingSum_forWeek;
     console.log("savingRate from week",savingRate_Day);
@@ -150,20 +155,24 @@ $(function () {
        currentState = 2;
     }
 
-    thisWeek_plotData[baseDay.getDay()-1].color = stateColors[currentState];
+    // thisWeek_plotData[baseDay.getDay()-1].color = stateColors[currentState];
     console.log("*********test: ",thisWeek_plotData);
     console.log("*********test: ",thisWeek_plotData[0].color);
 
 
-    var today_current_plotData = [0,0,0,0,0,0,0]
-    today_current_plotData[baseDay.getDay()-1] = comparingSum_forWeek;
+    var comparingDay_current_plotData = [null,null,null,null,null,null,null]
+    var today_current_plotData        = [null,null,null,null,null,null,null]
+
+    comparingDay_current_plotData[baseDay.getDay()-1] = comparingSum_forWeek;
+    today_current_plotData[baseDay.getDay()-1] = todaySum_forWeek;
     lastWeek_plotData[baseDay.getDay()-1] = lastWeek_plotData[baseDay.getDay()-1] - comparingSum_forWeek;
 
-    // console.log(comparingDay_queryReturn);
-    // console.log(today_queryReturn);
+    console.log("### comparingDay_current_plotData", comparingDay_current_plotData);
+    console.log("### today_current_plotData", today_current_plotData);
+    console.log("### thisWeek_plotData", lastWeek_plotData);
+    console.log("### thisWeek_plotData", thisWeek_plotData);
 
     console.log(lastWeek_plotData[baseDay.getDay()-1]);
-    console.log(lastWeek_plotData);
     console.log("thisWeek_plotData",thisWeek_plotData);
 
     console.log("length from week: ",today_queryReturn.length);
@@ -237,14 +246,14 @@ $(function () {
           {
               name: '지난주',
               data: lastWeek_plotData,
-              stack: 'lastWeek_queryReturn',
+              stack: 'lastWeek',
               //color: Highcharts.getOptions().colors[0]
               color: '#e2e3d7'
           },
           {
               name: '지난주',
-              data: today_current_plotData,
-              stack: 'lastWeek_queryReturn',
+              data: comparingDay_current_plotData,
+              stack: 'lastWeek',
               linkedTo: ':previous',
               color: '#44413f',
               dataLabels: {
@@ -258,9 +267,17 @@ $(function () {
           {
               name: '이번주',
               data: thisWeek_plotData,
-              stack: 'thisWeek_queryReturn',
+              stack: 'thisWeek',
               //color: Highcharts.getOptions().colors[1]
               color: '#cfccb9',
+          },
+          {
+              name: '이번주',
+              data: today_current_plotData,
+              stack: 'thisWeek',
+              //color: Highcharts.getOptions().colors[1]
+              linkedTo: ':previous',
+              color: stateColors[currentState],
               dataLabels: {
                   enabled: true,
                   color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
@@ -268,7 +285,8 @@ $(function () {
                       textShadow: '0 0 3px black'
                   }
               }
-          }]
+          }
+        ]
         });
       }
 
