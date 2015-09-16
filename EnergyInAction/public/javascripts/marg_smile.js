@@ -99,21 +99,18 @@ console.log(baseDay);
             $('#marg_title').css("background-color","#3e721f");
           }
 
-          var sign = "";
           var percent_smile = "";
           // console.log(100 - savingRate_Day.toFixed(3)*100);
           console.log(savingRate_Day);
           if (savingRate_Day>=1) {
-            sign = "+";
             percent_smile = (savingRate_Day*100).toFixed(1);
           }else {
-            sign = "-";
             percent_smile = (savingRate_Day*100).toFixed(1);
           }
           if (isNaN(savingRate_Day)) {
             percentage_text = '아직 데이터가 들어오지 않았습니다';
           }else {
-            percentage_text = '지난주 '+ dayLabel[baseDay.getDay()]+'요일 대비 ' + sign + percent_smile +'% 사용';
+            percentage_text = '지난주 '+ dayLabel[baseDay.getDay()]+'요일 대비 ' + percent_smile +'% 사용';
           }
 
           console.log(percent_smile);
