@@ -191,7 +191,7 @@ function marg_day() {
                 align: 'left',
                 verticalAlign: 'top',
                 // x: legend_x+(today_queryReturn.length - 1)*24,
-                x:740,
+                x:745,
                 y: 305,
                 floating: true,
                 borderWidth: 1,
@@ -231,20 +231,18 @@ function marg_day() {
                 }
             },
 
-            series: [
-              {
+            series: [{
                 //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
-                name: '1주전 사용 패턴',
+                name: '일주 전 사용 패턴',
                 data: comparingDay_plotData,
                 // data: vsData,
                 color: '#848174',
                 lineWidth: 1,
                 // linkedTo: ':previous',
                 zIndex: 0
-            },
-            {
+            },{
                 //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
-                name: '1주전: ' + comparingSum.toFixed(1) + ' kW/h',
+                name: '일주 전 이 시간: ' + comparingSum.toFixed(1) + ' kW/h',
                 data: comparingDay_plotData.slice(0,today_plotData.length),
                 type: 'area',
                 lineWidth: 0,
@@ -253,7 +251,7 @@ function marg_day() {
                 zIndex: 0
             }, {
                 //name: '오늘: ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ')',
-                name: '오  늘: ' + todaySum.toFixed(1) + ' kW/h (' + ((todaySum/comparingSum)*100).toFixed(1) +  '%)',
+                name: '오늘 이 시간: ' + todaySum.toFixed(1) + ' kW/h (' + ((todaySum/comparingSum)*100).toFixed(1) +  '%)',
                 data: today_plotData,
                 type: 'area',
                 lineWidth: 0,

@@ -133,7 +133,7 @@ a {
 .marg_class_tip {
   float: left;
   clear: none;
-  width: 1900px;
+  width: 1910px;
   height: 100px;
   background-image: url('../images/tip_long.png');
   background-color: gray;
@@ -164,9 +164,10 @@ a {
   /*padding-bottom: 10px;*/
 }
 .marg_class_notice {
-  width: 390px;
+  width: 380px;
   height: 200px;
   background-image: url('../images/notice.png');
+  /*padding-right: 20px;*/
 }
 
 
