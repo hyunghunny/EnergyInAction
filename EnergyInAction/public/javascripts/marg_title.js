@@ -8,12 +8,13 @@ $(function () {
 
 function title(){
     var now = new Date();
+    var year = now.getFullYear();
     var month = now.getMonth()+1;
     var day = now.getDate();
     var dayOfWeek = now.getDay();
     var hours = now.getHours();
     var minutes = now.getMinutes();
-    seconds = now.getSeconds();
+    var seconds = now.getSeconds();
     var fastHour=seconds;
 //     console.log('fastHour: ',fastHour);
 // console.log('currentHour: ',minutes);
@@ -24,8 +25,8 @@ function title(){
       // $('#marg_day').load('marg_dashboard.html #marg_day');
     }
     var ampm = "";
-        month = month+"월 "
-        day = day+"일 "
+        month = month+"."
+        day = day+" "
 // console.log(month+day);
         if (hours > 12){
             hours -= 12;
@@ -39,32 +40,34 @@ function title(){
         if (minutes < 10){
             minutes = "0" + minutes;
         }
+        if (seconds < 10){
+            seconds = "0" + seconds;
+        }
+
 
         if(dayOfWeek==0){
-          dayOfWeek=" 일요일 ";
+          dayOfWeek=" 일 ";
         }else if (dayOfWeek==1) {
-          dayOfWeek=" 월요일 ";
+          dayOfWeek=" 월 ";
         }else if (dayOfWeek==2) {
-          dayOfWeek=" 화요일 ";
+          dayOfWeek=" 화 ";
         }else if (dayOfWeek==3) {
-          dayOfWeek=" 수요일 ";
+          dayOfWeek=" 수 ";
         }else if (dayOfWeek==4) {
-          dayOfWeek=" 목요일 ";
+          dayOfWeek=" 목 ";
         }else if (dayOfWeek==5) {
-          dayOfWeek=" 금요일 ";
+          dayOfWeek=" 금 ";
         }else {
-          dayOfWeek=" 토요일 ";
+          dayOfWeek=" 토 ";
         }
     $('#marg_title').empty();
     // $('#marg_clock').empty();
     // var title=$("<div>").attr("id","title").css({"font-size": "40px","font-weight": "bolder","text-align": "center","background-color": "green"}).text("MARG Electricity Usage Monitor").css('color','white');
     // var titlediv=$("<div>").attr("id","titlediv").css({"font-size": "20px","text-align": "right", "background-color": "green"}).text(month+day+ampm+hours+":"+minutes).css('color','white');
-    var title=$("<div>").attr("id","title").css({"font-size": "15px","font-weight": "bolder","text-align": "center"}).text("MARG Electricity Usage Monitor").css('color','white');
-    // var titlediv=$("<div>").attr("id","titlediv").css({"font-size": "20px","text-align": "right", "padding-right": "10px"}).text(month+day+dayOfWeek+ampm+hours+":"+minutes).css('color','black');
-    var titlediv=$("<div>").attr("id","titlediv").css({"font-size": "20px","text-align": "center"}).text(month+day+dayOfWeek+ampm+hours+":"+minutes).css('color','black');
-
+    var title=$("<div>").attr("id","title").css({"float": "left","clear":"none","font-size": "18px","font-weight": "bolder","text-align": "center", "padding-top": "5px", "padding-left": "900px", "text-shadow":"1px 1px 5px #A0A0A0"}).text("MARG Electricity Usage Monitor").css('color','white');
+    var titlediv=$("<div>").attr("id","titlediv").css({"float": "right","clear":"none","font-size": "18px","text-align": "right","font-weight": "bolder", "padding-right": "5px", "padding-top": "5px", "text-shadow":"1px 1px 5px #A0A0A0"}).text(year+"."+month+day+dayOfWeek+ampm+hours+":"+minutes+":"+seconds).css('color','white');
     // $('#marg_title').append(title).append(titlediv);
-    // $('#marg_title').prepend(titlediv).prepend(title);
-    $('#marg_title').prepend(title);
+    $('#marg_title').prepend(titlediv).prepend(title);
+    // $('#marg_title').prepend(title);
     // $('#marg_clock').append(titlediv);
 }

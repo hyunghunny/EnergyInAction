@@ -76,7 +76,7 @@ $(function () {
 console.log(baseDay);
           // marg_smile.innerHTML = s_month+'월'+s_day+'일 '+s_hours+':'+s_minutes + ' 기준<br>어제 대비 ' + (savingRate_Day*100).toFixed(1) + '% 사용중';
           // marg_smile.innerHTML = (new Date(today[today.length-1].dateTo)) + '기준<br>어제 대비 ' + (savingRate_Day*100).toFixed(1) + '% 사용중';
-          var traffic_title=$("<div>").attr("id","title").css({"font-size": "18px","text-align": "center"}).text('오늘 누적 전기사용 현황').css('color','black','align-text','center');
+          var traffic_title=$("<div>").attr("id","title").css({"font-size": "17px","text-align": "center"}).text('[ 오늘 누적 전기사용 현황 ]').css('color','black','align-text','center');
 
           $('#marg_smile').append(traffic_title);
 
@@ -87,7 +87,7 @@ console.log(baseDay);
             $('#smiley').prepend('<img id="faces" src="./images/red_all.png" />');
             $('#axis').prepend('<img src="./images/percent_red.png" />');
             $('#marg_title').css("background-color","#a50a0a");
-          } else if ( savingRate_Day > .90) {
+          } else if ( savingRate_Day > .95) {
             // $('#smiley').css("background-color","#f7cb00");
             $('#smiley').prepend('<img id="faces" src="./images/yellow_all.png" />');
             $('#axis').prepend('<img src="./images/percent_yellow.png" />');
@@ -99,15 +99,22 @@ console.log(baseDay);
             $('#marg_title').css("background-color","#3e721f");
           }
 
-          var sign="";
+          var percent_smile = "";
+          // console.log(100 - savingRate_Day.toFixed(3)*100);
+          console.log(savingRate_Day);
           if (savingRate_Day>=1) {
-            sign="+";
+            percent_smile = (savingRate_Day*100).toFixed(1);
           }else {
-            sig="-";
+            percent_smile = (savingRate_Day*100).toFixed(1);
           }
-          percentage_text = '지난주 '+ dayLabel[baseDay.getDay()]+'요일 대비 ' + (sign+savingRate_Day.toFixed(3)*100)+'% 사용';
+          if (isNaN(savingRate_Day)) {
+            percentage_text = '아직 데이터가 들어오지 않았습니다';
+          }else {
+            percentage_text = '지난주 '+ dayLabel[baseDay.getDay()]+'요일 대비 ' + percent_smile +'% 사용';
+          }
 
-          var percentage_title=$("<div>").attr("id","percentage_title").css({"font-size": "18px","text-align": "center"}).text(percentage_text).css('color','black','align-text','center');
+          console.log(percent_smile);
+          var percentage_title=$("<div>").attr("id","percentage_title").css({"font-size": "19px","text-align": "center", "padding-top": "5px", "font-weight" : "bold"}).text(percentage_text).css('color','black','align-text','center');
           $('#percentage_title').append(percentage_title);
         });
     });

@@ -43,7 +43,7 @@ $(function () {
             min: 0,
             max: 8,
             stops: [
-                [0.1, '#55BF3B'], // green
+                [0.1, '#197F00'], // green
                 [0.8, '#DDDF0D'], // yellow
                 [0.9, '#DF5353'] // red
                 // [0.1, '#4169e1'], // green

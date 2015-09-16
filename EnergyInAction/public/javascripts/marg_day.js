@@ -156,7 +156,7 @@ function marg_day() {
 
       if(savingRate_Day > 1.05) {
          currentState = 0;
-      } else if ( savingRate_Day > .90) {
+      } else if ( savingRate_Day > .95) {
          currentState = 1;
       } else {
          currentState = 2;
@@ -176,7 +176,7 @@ function marg_day() {
 
       $('#marg_day').highcharts({
             chart: {
-                // backgroundColor: "#ffd0b8"
+                backgroundColor: "#f9f3e8"
             },
             title: {
                 // text: '어제와 오늘 (' + comparingDay_queryReturn[0].location + '호 - 사용량 전체)'
@@ -191,7 +191,7 @@ function marg_day() {
                 align: 'left',
                 verticalAlign: 'top',
                 // x: legend_x+(today_queryReturn.length - 1)*24,
-                x:740,
+                x:745,
                 y: 305,
                 floating: true,
                 borderWidth: 1,
@@ -212,7 +212,7 @@ function marg_day() {
                 // }]
             },
             yAxis: {
-              maxPadding: 0.2,
+              // maxPadding: 0.05,
                 title: {
                     text: '전력 사용량 (kW/h)'
                 }
@@ -236,7 +236,7 @@ function marg_day() {
                 name: '일주 전 사용 패턴',
                 data: comparingDay_plotData,
                 // data: vsData,
-                color: '#e2e3d7',
+                color: '#848174',
                 // linkedTo: ':previous',
                 zIndex: 0
             },{
@@ -245,7 +245,7 @@ function marg_day() {
                 data: comparingDay_plotData.slice(0,today_plotData.length),
                 type: 'area',
                 lineWidth: 0,
-                color: '#e2e3d7',
+                color: '#7f8c91',//'#848174',
                 fillOpacity: 0.7,
                 zIndex: 0
             }, {
@@ -261,10 +261,27 @@ function marg_day() {
                 //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
                 data: today_plotData,
                 // data: vsData,
-                color: '#d3d3d3',
+                color: stateColors[currentState],
                 linkedTo: ':previous',
                 zIndex: 0
             }]
         });
+      }
+
+      var day = baseDay.getDay();
+      if(day==0){
+        $('#arrow').prepend('<img id="faces" src="./images/arrow_sun.png" />');
+      }else if (day==1) {
+        $('#arrow').prepend('<img id="faces" src="./images/arrow_mon.png" />');
+      }else if (day==2) {
+        $('#arrow').prepend('<img id="faces" src="./images/arrow_tue.png" />');
+      }else if (day==3) {
+        $('#arrow').prepend('<img id="faces" src="./images/arrow_wed.png" />');
+      }else if (day==4) {
+        $('#arrow').prepend('<img id="faces" src="./images/arrow_thu.png" />');
+      }else if (day==5) {
+        $('#arrow').prepend('<img id="faces" src="./images/arrow_fri.png" />');
+      }else {
+        $('#arrow').prepend('<img id="faces" src="./images/arrow_sat.png" />');
       }
 }

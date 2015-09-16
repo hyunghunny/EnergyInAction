@@ -1,0 +1,17 @@
+/*weather*/
+body {
+    /*background-color: #1a1a1a;
+    background-image: url(http://jsrun.it/assets/z/n/P/0/znP0Z.png);*/
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /*overflow: scroll;*/
+}
+
+canvas {
+    /*position: absolute;*/
+}
+
+.dg.ac {
+  display: none;
+}
