@@ -3,7 +3,13 @@
 var dayLabel = new Array('일', '월', '화', '수', '목', '금', '토');
 
 var baseDay     = new Date();
-baseDay.setHours(0,0,0,0); // today 날짜만 깔끔히 잡도록 시간 초기화
+if (baseDay.getHours == 0) {
+  baseDay = shiftDate(baseDay, -1)
+  baseDay.setHours(0,0,0,0); // today 날짜만 깔끔히 잡도록 시간 초기화
+} else {
+  baseDay.setHours(0,0,0,0); // today 날짜만 깔끔히 잡도록 시간 초기화
+}
+
 var yesterDay = shiftDate(baseDay, -1) // 어제
 var lastWeekSameDay = shiftDate(baseDay, -7) // 어제
 
