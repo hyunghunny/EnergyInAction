@@ -95,6 +95,7 @@ $(function () {
           //       to: 60,
           //       breakSize: 20
           //   }],
+          opposite: true,
           title: {
               text: '하루 평균 사용량 (kW/h)'
           },
@@ -139,7 +140,7 @@ $(function () {
           // },
           series: {
             colorByPoint: true,
-            colors: ['#848174','#cfccb9']
+            colors: ['#bed1d4','#9ab0b4']
           }
       },
       series: [{

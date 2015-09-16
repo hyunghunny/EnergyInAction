@@ -46,8 +46,8 @@ a {
     vertical-align:middle;
 }
 .title_class {
-  width: 1900px;
-  height: 20px;
+  width: 1920px;
+  height: 30px;
   /*background-color: #424242;*/
 }
 .wrapper_class {
@@ -56,75 +56,12 @@ a {
   padding-top: 10px;
   float: left;
 }
+
 .marg_class_contents_left {
   float: left;
   clear: both;
   width: 500px;
   height: 960px;
-}
-.marg_class_widgets {
-  float: right;
-  clear: none;
-  width: 390px;
-  height: 960px;
-}
-.marg_class_month {
-  float: left;
-  clear: both;
-  width: 390px;
-  height: 480px;
-  padding-top: 20px;
-}
-.marg_center {
-  float: left;
-  clear: none;
-  width: 980px;
-  height: 960px;
-}
-
-.marg_class_week {
-  float: left;
-  clear: none;
-  width: 980px;
-  height: 500px;
-}
-.marg_class_day {
-  float: left;
-  clear: both;
-  width: 980px;
-  height: 420px;
-  padding-top: 20px;
-}
-.marg_class_realtimePlots {
-  float: left;
-  clear: both;
-  width: 500px;
-  height: 450px;
-  padding-top: 20px;
-  background-color: #ecede7;
-}
-.marg_class_meter {
-  float: left;
-  clear: none;
-  width: 500px;
-  height: 380px;
-  background-color: #ecede7;
-}
-.marg_class_tip {
-  float: left;
-  clear: none;
-  width: 1900px;
-  height: 100px;
-  background-image: url('../images/tip_long.png');
-  background-color: gray;
-  position: absolute;
-  bottom: 0;
-  padding-bottom: 0px;
-}
-.marg_class_notice {
-  width: 390px;
-  height: 200px;
-  background-image: url('../images/notice.png');
 }
 .marg_class_smile {
   width: 500px;
@@ -144,16 +81,104 @@ a {
 }
 .marg_class_smiley {
   width: 500px;
-
-
 }
+.marg_class_realtimePlots {
+  float: left;
+  clear: both;
+  width: 500px;
+  height: 450px;
+  padding-top: 20px;
+  background-color: #ecede7;
+}
+.marg_class_meter {
+  float: left;
+  clear: none;
+  width: 500px;
+  height: 380px;
+  background-color: #ecede7;
+}
+.percentage_title_class {
+  padding-top: 5px;
+}
+
+.marg_center {
+  float: left;
+  clear: none;
+  width: 980px;
+  height: 960px;
+}
+.marg_class_week {
+  float: left;
+  clear: none;
+  width: 980px;
+  height: 480px;
+  padding-left: 10px;
+}
+.marg_class_day {
+  float: left;
+  clear: both;
+  width: 980px;
+  height: 420px;
+  padding-left: 10px;
+}
+.arrow_class {
+  float: left;
+  clear: both;
+  width: 980px;
+  height: 50px;
+}
+
+.marg_class_tip {
+  float: left;
+  clear: none;
+  width: 1900px;
+  height: 100px;
+  background-image: url('../images/tip_long.png');
+  background-color: gray;
+  position: absolute;
+  bottom: 0;
+}
+.marg_class_widgets {
+  float: right;
+  clear: none;
+  width: 390px;
+  height: 960px;
+}
+.marg_class_month {
+  float: left;
+  clear: both;
+  width: 390px;
+  height: 460px;
+  padding-top: 20px;
+  position: absolute;
+  bottom: 90px;
+  right: 10px;
+  /*float: bottom;*/
+}
+.weather_class {
+  width: 390px;
+  height: 100px;
+  padding-top: 20px;
+  /*padding-bottom: 10px;*/
+}
+.marg_class_notice {
+  width: 390px;
+  height: 200px;
+  /*background-image: url('../images/notice.png');*/
+}
+
 
 
 /*clock*/
 
 .container {width: 390px; margin: 0 auto; overflow: hidden; }
 
-.clock {width:390px; margin:0 auto; padding:0px;  color:#303030; }
+.clock {
+  width:390px;
+  margin:0 auto;
+  padding-top: 20px;
+  color:#303030;
+}
 
 #Date { font-family:'BebasNeueRegular', Arial, Helvetica, sans-serif; font-size:20px; text-align:center;  }/*text-shadow:0 0 5px #00c6ff;*/
 

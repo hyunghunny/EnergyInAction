@@ -4,6 +4,7 @@
   <title>Energy Saving Behavior Research</title>
   <meta http-equiv="refresh" content="600">
   <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
+  <link rel="stylesheet" type="text/css" href="./stylesheets/weather.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
   <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
   <script src="http://code.highcharts.com/highcharts-more.js"></script>
@@ -17,20 +18,18 @@
 
 
 <!-- clock -->
-
-
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).ready(function() {
 // Create two variable with the names of the months and days in an array
-var monthNames = [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ];
-var dayNames= ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"]
+var monthNames = [ "01.", "02.", "03.", "04.", "05.", "06.", "07.", "08.", "09.", "10.", "11.", "12." ];
+var dayNames= ["일","월","화","수","목","금","토"]
 
 // Create a newDate() object
 var newDate = new Date();
 // Extract the current date from Date object
 newDate.setDate(newDate.getDate());
 // Output the day, date, month and year
-$('#Date').html(newDate.getFullYear()+'년 '+monthNames[newDate.getMonth()]+ " " + newDate.getDate()+'일 '+dayNames[newDate.getDay()]);
+$('#Date').html(newDate.getFullYear()+'.'+monthNames[newDate.getMonth()]+ newDate.getDate()+' '+dayNames[newDate.getDay()]);
 
 setInterval( function() {
 	// Create a newDate() object and extract the seconds of the current time on the visitor's
@@ -54,7 +53,7 @@ setInterval( function() {
     }, 1000);
 
 });
-</script>
+</script> -->
 
 </head>
 <body>
@@ -66,7 +65,7 @@ setInterval( function() {
             <div id="marg_smile" class="marg_class_smile"></div>
             <div id="smiley" class="marg_class_smiley"></div>
             <div id="axis" class="marg_class_axis"></div>
-            <div id="percentage_title"></div>
+            <div id="percentage_title" class="percentage_title_class"></div>
           </div>
         </div>
       <div class="marg_class_realtimePlots">
@@ -76,11 +75,12 @@ setInterval( function() {
 
     <div class="marg_center">
       <div id="marg_week" class="marg_class_week"></div>
+      <div id="arrow" class="arrow_class"></div>
       <div id="marg_day" class="marg_class_day"></div>
     </div>
 
     <div id="marg_widget" class="marg_class_widgets">
-      <div class="container">
+      <!-- <div class="container">
         <div class="clock">
           <div id="Date">Monday 14 January 2013</div>
           <ul>
@@ -91,13 +91,43 @@ setInterval( function() {
             <li id="sec">03</li>
           </ul>
         </div>
-      </div>
+      </div> -->
 
       <!-- <a href="http://www.accuweather.com/en/kr/suwon/223670/weather-forecast/223670" class="aw-widget-legal">
     </a><div id="awcc1441096686355" class="aw-widget-current"  data-locationkey="223670" data-unit="c" data-language="kor" data-useip="false" data-uid="awcc1441096686355" style="width: 390px;"></div>
     <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script> -->
-    <div id="weather_widget" class="weather_widget_class"></div>
-      <div id="marg_notice" class="marg_class_notice"><br><h2><span style="margin-left:2em">공지를 위한 공간입니다.</span></h2></div>
+
+    <div id="weather" class="weather_class">
+    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+    <!-- EaselJS -->
+    <script type="text/javascript" src="http://code.createjs.com/easeljs-0.6.1.min.js"></script>
+    <!-- PreloadJS -->
+    <script type="text/javascript" src="http://jsrun.it/assets/m/j/M/u/mjMua"></script>
+    <!-- dat.GUI -->
+    <script type="text/javascript" src="http://jsrun.it/assets/q/S/i/g/qSigr"></script>
+    <!-- canvas -->
+    <canvas id='canvas' width='390' height='200'></canvas><p id='helloWorld'></p>
+  </div>
+      <div id="marg_notice" class="marg_class_notice">
+        <h4>
+          <br>오늘의 점심<br>
+            <table>
+            <tr>
+              <th>중소</th>
+              <th>R&DB</th>
+              <th>나노</th>
+              <th>델리</th>
+            </tr>
+            <tr>
+              <td>기장밥/현미밥<br>청국장<br>돈육불고기<br>잡채<br>감자조림<br>숙주나물<br>배추김치</td>
+              <td>혼합잡곡밥<br>얼큰김치국<br>돈육부추잡채<br>두부구이&양념장<br>후르츠샐러드<br>마늘쫑무침<br>깍두기</td>
+              <td>버섯쇠고기덮밥<br>유부장국<br>꼬치어묵구이<br>실곤약채소무침<br>포기김치</td>
+              <td>달걀볶음밥<br>옛날짜장면<br>맑은콩나물국<br>사천탕수육<br>팽이버섯냉채<br>단무지,양파&춘장<br>포기김치*깍두기</td>
+            </tr>
+          </table>
+
+        </h4>
+      </div>
       <!-- <div id="marg_smile"></div> -->
       <div id="marg_month" class="marg_class_month"></div>
     </div>
@@ -106,14 +136,14 @@ setInterval( function() {
 </div>
 
 <script type="text/javascript" src="./javascripts/utiles.js"></script>
-<script type="text/javascript" src="./javascripts/marg_UI_header.js"></script>
+<script type="text/javascript" src="./javascripts/marg_title.js"></script>
 <!-- <script type="text/javascript" src="./javascripts/marg_realtime.js"></script> -->
 <script type="text/javascript" src="./javascripts/marg_smile.js"></script>
 <script type="text/javascript" src="./javascripts/marg_day.js"></script>
 <script type="text/javascript" src="./javascripts/marg_week.js"></script>
 <script type="text/javascript" src="./javascripts/marg_month.js"></script>
 <script type="text/javascript" src="./javascripts/marg_meter.js"></script>
-<!--script type="text/javascript" src="./javascripts/UI_weather_widget.js"></script-->
+<script type="text/javascript" src="./javascripts/UI_weather_widget.js"></script>
 
 
 </body>

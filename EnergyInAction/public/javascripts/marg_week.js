@@ -142,17 +142,17 @@ $(function () {
     var savingRate_Day = todaySum_forWeek / comparingSum_forWeek;
     console.log("savingRate from week",savingRate_Day);
 
-    if(savingRate_Day > 1.00) {
+    if(savingRate_Day > 1.05) {
        currentState = 0;
-    } else if ( savingRate_Day > .90) {
+    } else if ( savingRate_Day > .95) {
        currentState = 1;
     } else {
        currentState = 2;
     }
 
     thisWeek_plotData[baseDay.getDay()-1].color = stateColors[currentState];
-    console.log("*********test: ",thisWeek_plotData);
-    console.log("*********test: ",thisWeek_plotData[0].color);
+    // console.log("*********test: ",thisWeek_plotData);
+    // console.log("*********test: ",thisWeek_plotData[0].color);
 
 
     var today_current_plotData = [0,0,0,0,0,0,0]
@@ -162,19 +162,61 @@ $(function () {
     // console.log(comparingDay_queryReturn);
     // console.log(today_queryReturn);
 
-    console.log(lastWeek_plotData[baseDay.getDay()-1]);
-    console.log(lastWeek_plotData);
-    console.log("thisWeek_plotData",thisWeek_plotData);
-
-    console.log("length from week: ",today_queryReturn.length);
+    // console.log(lastWeek_plotData[baseDay.getDay()-1]);
+    // console.log(lastWeek_plotData);
+    // console.log("thisWeek_plotData",thisWeek_plotData);
+    //
+    // console.log("length from week: ",today_queryReturn.length);
+    // // console.log("todaySum_forWeek", todaySum_forWeek);
+    // console.log("comparingSum_forWeek", comparingSum_forWeek);
     // console.log("todaySum_forWeek", todaySum_forWeek);
-    console.log("comparingSum_forWeek", comparingSum_forWeek);
-    console.log("todaySum_forWeek", todaySum_forWeek);
 
+    var tickStart = 1;
+    var tickEnd = 3;
+    var rect = null;
+    function drawRect(chart){
+        if (rect){
+            rect.element.remove();
+        }
+        var xAxis = chart.xAxis[0];
+        var pixStart = 0;
+        day = baseDay.getDay();
+        if(day==0){
+          pixStart = 843;
+        }else if (day==1) {
+          pixStart = 74;
+        }else if (day==2) {
+          pixStart = 202;
+        }else if (day==3) {
+          pixStart = 330;
+        }else if (day==4) {
+          pixStart = 459;
+        }else if (day==5) {
+          pixStart = 587;
+        }else {
+          pixStart = 715;
+        }
+        rect = chart.renderer.rect(pixStart, chart.chartHeight - xAxis.bottom+1, 127 , 70, 00)
+         .attr({
+            'stroke-width': 0,
+            stroke: '#f9f3e8',
+            fill: '#f9f3e8',
+            zIndex: 3
+         })
+         .add();
+    }
 
     $('#marg_week').highcharts({
         chart: {
-            type: 'column'
+            type: 'column',
+            events: {
+              load: function() {
+                drawRect(this);
+              },
+              redraw: function() {
+                drawRect(this);
+              }
+            }
         },
         title: {
             text: '[ 지난주와 이번주 ]'
@@ -192,8 +234,9 @@ $(function () {
             plotBands: [{ // visualize the weekend
                 from: (0.5 * (baseDay.getDay()*2+1)) -2 ,
                 to: (0.5 * (baseDay.getDay()*2+1)) -1,
-                borderColor: '#ffd0b8', //'rgba(50, 50, 213, .2)'
-                borderWidth: 3
+                color: '#f9f3e8'
+                // borderColor: '#f9f3e8', //'rgba(50, 50, 213, .2)'
+                // borderWidth: 3
             }]
         },
         yAxis: {
@@ -239,14 +282,14 @@ $(function () {
               data: lastWeek_plotData,
               stack: 'lastWeek_queryReturn',
               //color: Highcharts.getOptions().colors[0]
-              color: '#e2e3d7'
+              color: '#e6deda'
           },
           {
               name: '지난주',
               data: today_current_plotData,
               stack: 'lastWeek_queryReturn',
               linkedTo: ':previous',
-              color: '#44413f',
+              color: '#7f8c91',
               dataLabels: {
                   enabled: true,
                   color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
@@ -260,7 +303,7 @@ $(function () {
               data: thisWeek_plotData,
               stack: 'thisWeek_queryReturn',
               //color: Highcharts.getOptions().colors[1]
-              color: '#cfccb9',
+              color: '#d8ccc6',
               dataLabels: {
                   enabled: true,
                   color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
