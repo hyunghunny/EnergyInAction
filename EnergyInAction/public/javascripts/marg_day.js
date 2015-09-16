@@ -212,7 +212,7 @@ function marg_day() {
                 // }]
             },
             yAxis: {
-              maxPadding: 0.2,
+              maxPadding: 0.1,
                 title: {
                     text: '전력 사용량 (kW/h)'
                 }
@@ -238,6 +238,7 @@ function marg_day() {
                 data: comparingDay_plotData,
                 // data: vsData,
                 color: '#848174',
+                lineWidth: 1,
                 // linkedTo: ':previous',
                 zIndex: 0
             },
