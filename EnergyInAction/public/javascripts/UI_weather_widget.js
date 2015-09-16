@@ -117,7 +117,8 @@ function build() {
 function loadWeatherData() {
     showLoading(true);
 
-    cityLabel.text = currentCity;
+    // cityLabel.text = currentCity;
+    cityLabel.text = '수원';
     tempLabel.text = "";
 
     var currentUnit = "metric";
