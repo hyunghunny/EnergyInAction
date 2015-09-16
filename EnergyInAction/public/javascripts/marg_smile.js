@@ -101,15 +101,21 @@ console.log(baseDay);
 
           var sign = "";
           var percent_smile = "";
-          console.log(100 - savingRate_Day.toFixed(3)*100);
+          // console.log(100 - savingRate_Day.toFixed(3)*100);
+          console.log(savingRate_Day);
           if (savingRate_Day>=1) {
             sign = "+";
-            percent_smile = (savingRate_Day*100-100).toFixed(1);
+            percent_smile = (savingRate_Day*100).toFixed(1);
           }else {
             sign = "-";
-            percent_smile = (100-savingRate_Day*100).toFixed(1);
+            percent_smile = (savingRate_Day*100).toFixed(1);
           }
-          percentage_text = '지난주 '+ dayLabel[baseDay.getDay()]+'요일 대비 ' + sign + percent_smile +'% 사용';
+          if (isNaN(savingRate_Day)) {
+            percentage_text = '아직 데이터가 들어오지 않았습니다';
+          }else {
+            percentage_text = '지난주 '+ dayLabel[baseDay.getDay()]+'요일 대비 ' + sign + percent_smile +'% 사용';
+          }
+
           console.log(percent_smile);
           var percentage_title=$("<div>").attr("id","percentage_title").css({"font-size": "19px","text-align": "center", "padding-top": "5px", "font-weight" : "bold"}).text(percentage_text).css('color','black','align-text','center');
           $('#percentage_title').append(percentage_title);
