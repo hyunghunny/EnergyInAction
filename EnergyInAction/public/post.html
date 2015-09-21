@@ -8,27 +8,46 @@
     <script type="text/javascript" src="./javascripts/utiles.js"></script>
     <script type="text/javascript">
         var selectedLab = 'marg';
-        var uri = 'api/labs/' + selectedLab + '/actuators/tips/latest';
+        
         var baseUrl = 'http://localhost:3000/';
 
-        $(document).ready(function() {
+        $(document).ready(function () {
+            updateMessages();
+        });
+
+        function updateMessages() {
+            var uri = 'api/labs/' + selectedLab + '/actuators/tips/latest';
             var url = baseUrl + uri;
             console.log(url);
+
             invokeOpenAPI(url, function (msg) {
-                var message = "NO returns";
-                if (msg.notice) {
-                    message = msg.notice.message;
-                }
+                var message = "No tip available";
                 if (msg.tip) {
                     message = msg.tip.message;
                 }
-                console.log(message);
+                //console.log(message);
                 var marquee = $('#marquee')
                 marquee.attr('data-marquee', message);
-               
 
-            })
-        });
+            });
+
+            uri = 'api/labs/' + selectedLab + '/actuators/notices/latest';
+            url = baseUrl + uri;
+            console.log(url);
+            invokeOpenAPI(url, function (msg) {
+                var message = "No notice available";
+                if (msg.notice) {
+                    message = msg.notice.message;
+                }
+                //console.log(message);
+                var boardMsg = $('#board_message');
+                boardMsg.text(message);
+
+
+            });
+        }
+
+
         function postMessage() {
             var postType = $('select[name=type]').val();
             console.log(postType);
@@ -72,8 +91,11 @@
                     'type': 'post',
                     'contentType': "application/json",
                     'dataType': 'json',
-                    'success': function (data) {
-                        alert('The message is posted successfully');
+                    'statusCode': { 
+                       '202': function (data) {
+                           alert('The message is posted successfully');
+                           updateMessages();
+                        }
                     },
                     'data': JSON.stringify(postData)
                 });
@@ -84,9 +106,17 @@
 
 </head>
 <body>
-    <div id="marquee_box">
-        <p>Tips</p>
-        <h1 id="marquee" class=" marquee marquee-direction-alternate" data-marquee="HTML5 marquee"></h1>
+    <div id="marg">
+        <h1>MARG 공지글과 팁:</h1>
+        <div id="board">
+            <p>[NOTICE]</p>
+            <h2 id="board_message">공지글이 표시되는 보드판입니다.</h2>
+        </div>
+        <br />
+        <div id="marquee_box">
+            <p>[TIP]</p>
+            <h2 id="marquee" class=" marquee marquee-direction-alternate" data-marquee="HTML5 marquee"></h2>
+        </div>
     </div>
     <hr />
     <form id="input_box" action="javascript:postMessage()">
