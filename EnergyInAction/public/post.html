@@ -8,8 +8,7 @@
     <script type="text/javascript" src="./javascripts/utiles.js"></script>
     <script type="text/javascript">
         var selectedLab = 'marg';
-        var postType = "notice";
-        var uri = 'api/labs/' + selectedLab + '/actuators/notices/latest';
+        var uri = 'api/labs/' + selectedLab + '/actuators/tips/latest';
         var baseUrl = 'http://localhost:3000/';
 
         $(document).ready(function() {
@@ -26,26 +25,78 @@
                 console.log(message);
                 var marquee = $('#marquee')
                 marquee.attr('data-marquee', message);
+               
 
             })
         });
+        function postMessage() {
+            var postType = $('select[name=type]').val();
+            console.log(postType);
+            var dateString = $('#datePicker').val();
 
+            // check date is not set properly
+            var pickDate = null;
+            var timestamp = Date.parse(dateString);
+            if (isNaN(timestamp) == false) {
+                var d = new Date(timestamp);
+                // set it as localtime (GMT+9)
+                d.setHours(d.getHours() + 9);
+                pickDate = new Date(d);
+            } else {
+                pickDate = new Date();
+            }
+            
+            console.log(pickDate.toLocaleString());
+            var labId = $('select[name=labId]').val();
+            console.log(labId);
+            var msg = $('input[name=message]').val();
+            console.log(msg);
+            if (msg == '') {
+                alert('no message! check your input before submitting');
+            } else {
+                var postData = { };
+                var now = new Date();
+                postData[postType] = {
+                    "dateFrom": pickDate.getTime(),
+                    "message": msg
+                }
+                var postUrl = baseUrl + 'api/labs/' + labId + '/actuators';
+                if (postType == 'notice') {
+                    postUrl = postUrl + '/notices';
+                } else if (postType == 'tip') {
+                    postUrl = postUrl + '/tips';
+                }
+                console.log(JSON.stringify(postData));
+                $.ajax({
+                    'url': postUrl,
+                    'type': 'post',
+                    'contentType': "application/json",
+                    'dataType': 'json',
+                    'success': function (data) {
+                        alert('The message is posted successfully');
+                    },
+                    'data': JSON.stringify(postData)
+                });
+            }
+            
+        }
     </script>
 
 </head>
 <body>
     <div id="marquee_box">
+        <p>Tips</p>
         <h1 id="marquee" class=" marquee marquee-direction-alternate" data-marquee="HTML5 marquee"></h1>
     </div>
     <hr />
-    <form id="input_box">
+    <form id="input_box" action="javascript:postMessage()">
         <div>게시 형태</div>
         <select name="type">
             <option value="notice">notice</option>
             <option value="tip">tip</option>
         </select>
         <br />
-        <div>게시일</div>
+        <div>게시예정일 (무시하면 현재 시간 기준)</div>
         <input id="datePicker" type="datetime-local" name="dateFrom"/>
         <br />
         <select name="labId">
