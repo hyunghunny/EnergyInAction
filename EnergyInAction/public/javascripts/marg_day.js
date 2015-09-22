@@ -154,9 +154,9 @@ function marg_day() {
 
       var savingRate_Day = todaySum / comparingSum;
 
-      if(savingRate_Day > 1.05) {
+      if(savingRate_Day > 1.20) {
          currentState = 0;
-      } else if ( savingRate_Day > .95) {
+      } else if ( savingRate_Day > 1.00) {
          currentState = 1;
       } else {
          currentState = 2;
