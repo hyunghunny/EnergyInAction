@@ -39,6 +39,7 @@
     <Compile Include="dbmgr.js" />
     <Compile Include="encored_data_loader.js" />
     <Compile Include="lab_info.js" />
+    <Compile Include="notify.js" />
     <Compile Include="public\javascripts\api-finder.js" />
     <Compile Include="public\javascripts\api-sample.js" />
     <Compile Include="public\javascripts\api.js" />
@@ -48,6 +49,7 @@
     <Compile Include="public\javascripts\gchart.js" />
     <Compile Include="public\javascripts\holder.js" />
     <Compile Include="public\javascripts\jquery.js" />
+    <Compile Include="public\javascripts\socket.io.js" />
     <Compile Include="routes\api.js" />
     <Compile Include="routes\daily.js" />
     <Compile Include="routes\index.js" />
@@ -60,6 +62,7 @@
     <Content Include="public\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="public\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="public\javascripts\api.js.map" />
+    <Content Include="public\notification.html" />
     <Content Include="public\post.html" />
     <Content Include="public\stylesheets\bootstrap.min.css" />
     <Content Include="public\stylesheets\marquee.css" />
