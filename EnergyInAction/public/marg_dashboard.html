@@ -11,8 +11,17 @@
   <script src="http://code.highcharts.com/modules/solid-gauge.js"></script>
   <script type="text/javascript" src="javascripts/socket.io.js"></script>
   <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+        var socket = io.connect();
 
+        socket.on('update', function (msg) {
+          location.reload();
+        })
+    });
+  </script>
   <!-- for notice and tip -->
+
   <link rel="stylesheet" href="stylesheets/marquee.css">
 
   <!-- weather -->
@@ -162,7 +171,6 @@ setInterval( function() {
                 document.getElementById("tip_msg").innerHTML = message;
             })
         });
-
 
     </script>
 </div>
