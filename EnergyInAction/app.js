@@ -165,8 +165,21 @@ app.use(function (err, req, res, next) {
 var http = require('http');
 var config = require('./config');
 
-http.createServer(app).listen(config.server.port, function () {
+var server = http.createServer(app).listen(config.server.port, function () {
     console.log("Express server listening on port " + config.server.port);
 });
+
+// attach realtime notifier
+var notifier = require('./notify.js');
+notifier.connect(server, function (socket) {
+    console.log('socket.io is connected');
+    notifier.start();
+    /*
+    setInterval(function () {
+        var now = new Date();
+        notifier.emit(now.toTimeString(), socket);
+    }, 1000);
+    */ 
+})
 
 module.exports = app;
