@@ -280,7 +280,7 @@ LabEnergyManager.prototype.getLatestMessage = function (type, cb) {
     queries.limit = 10; // XXX: how many messages will be required?
 
     queries.labId = this.id;
-    queries.type = 'message';
+    queries.type = type;
 
     if (dbmgr.dbOpened == false) {
         console.log('data base is not opened');

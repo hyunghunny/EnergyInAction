@@ -163,7 +163,8 @@ MongoDBManager.prototype.find = function (collectionName, queries, callback) {
     }
     
     // inquiry only for 
-    if (queries.type == 'message') {
+    if (queries.type != null) {
+        dbquery.type = queries.type;
         dbquery.labId = queries.labId;
     }
     
