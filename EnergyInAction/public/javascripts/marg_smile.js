@@ -1,5 +1,3 @@
-
-
 $(function () {
     var elementObj = document.getElementById("date");
     if(elementObj){

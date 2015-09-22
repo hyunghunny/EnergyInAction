@@ -2,16 +2,26 @@
 <html>
 <head>
   <title>Energy Saving Behavior Research</title>
-  <meta http-equiv="refresh" content="600">
+  <!-- <meta http-equiv="refresh" content="600"> -->
   <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
   <link rel="stylesheet" type="text/css" href="./stylesheets/weather.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
   <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
   <script src="http://code.highcharts.com/highcharts-more.js"></script>
   <script src="http://code.highcharts.com/modules/solid-gauge.js"></script>
+  <script type="text/javascript" src="javascripts/socket.io.js"></script>
   <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+        var socket = io.connect();
 
+        socket.on('update', function (msg) {
+          location.reload();
+        })
+    });
+  </script>
   <!-- for notice and tip -->
+
   <link rel="stylesheet" href="stylesheets/marquee.css">
 
   <!-- weather -->
@@ -161,7 +171,6 @@ setInterval( function() {
                 document.getElementById("tip_msg").innerHTML = message;
             })
         });
-
 
     </script>
 </div>
