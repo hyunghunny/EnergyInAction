@@ -228,7 +228,8 @@ $(function () {
             }
         },
         title: {
-            text: '[ 지난주와 이번주 ]'
+            // text: '[ 지난주와 이번주 ]'
+            text: null
         },
         credits: {
             enabled: false

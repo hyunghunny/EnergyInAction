@@ -180,8 +180,8 @@ function marg_day() {
             },
             title: {
                 // text: '어제와 오늘 (' + comparingDay_queryReturn[0].location + '호 - 사용량 전체)'
-                // text: '[ 어제와 오늘 ]'
-                text: null
+                text: '[ 어제와 오늘 ]'
+                // text: null
             },
             credits: {
                 enabled: false
