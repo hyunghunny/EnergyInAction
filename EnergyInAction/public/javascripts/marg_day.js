@@ -180,8 +180,8 @@ function marg_day() {
             },
             title: {
                 // text: '어제와 오늘 (' + comparingDay_queryReturn[0].location + '호 - 사용량 전체)'
-                text: '[ 어제와 오늘 ]'
-                // text: null
+                // text: '[ 어제와 오늘 ]'
+                text: null
             },
             credits: {
                 enabled: false
@@ -271,18 +271,18 @@ function marg_day() {
 
       var day = baseDay.getDay();
       if(day==0){
-        $('#arrow').prepend('<img id="faces" src="./images/arrow_sun.png" />');
+        $('#arrow').prepend('<img id="faces" src="./images/arrow_depth_sun.png" />');
       }else if (day==1) {
-        $('#arrow').prepend('<img id="faces" src="./images/arrow_mon.png" />');
+        $('#arrow').prepend('<img id="faces" src="./images/arrow_depth_mon.png" />');
       }else if (day==2) {
-        $('#arrow').prepend('<img id="faces" src="./images/arrow_tue.png" />');
+        $('#arrow').prepend('<img id="faces" src="./images/arrow_depth_tue.png" />');
       }else if (day==3) {
-        $('#arrow').prepend('<img id="faces" src="./images/arrow_wed.png" />');
+        $('#arrow').prepend('<img id="faces" src="./images/arrow_depth_wed.png" />');
       }else if (day==4) {
-        $('#arrow').prepend('<img id="faces" src="./images/arrow_thu.png" />');
+        $('#arrow').prepend('<img id="faces" src="./images/arrow_depth_thu.png" />');
       }else if (day==5) {
-        $('#arrow').prepend('<img id="faces" src="./images/arrow_fri.png" />');
+        $('#arrow').prepend('<img id="faces" src="./images/arrow_depth_fri.png" />');
       }else {
-        $('#arrow').prepend('<img id="faces" src="./images/arrow_sat.png" />');
+        $('#arrow').prepend('<img id="faces" src="./images/arrow_depth_sat.png" />');
       }
 }

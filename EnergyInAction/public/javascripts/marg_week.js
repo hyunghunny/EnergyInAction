@@ -218,19 +218,26 @@ $(function () {
     $('#marg_week').highcharts({
         chart: {
             type: 'column',
-            events: {
-              load: function() {
-                drawRect(this);
-              },
-              redraw: function() {
-                drawRect(this);
-              }
-            }
+            // events: {
+            //   load: function() {
+            //     drawRect(this);
+            //   },
+            //   redraw: function() {
+            //     drawRect(this);
+            //   }
+            // }
         },
         title: {
-            // text: '[ 지난주와 이번주 ]'
-            text: null
-        },
+           useHTML: true,
+           text: '[ 지난주와 이번주 ]',
+           style: {
+             color: '#FFFFFF',
+             fontWeight: 'bold',
+             'background-color': '#8E8989',
+             'border-radius': '6px',
+             border: '4px solid #8E8989'
+           }
+       },
         credits: {
             enabled: false
         },

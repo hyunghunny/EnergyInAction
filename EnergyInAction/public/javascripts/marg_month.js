@@ -73,9 +73,16 @@ $(function () {
           // type: 'bar'
       },
       title: {
-
-          text: '[ 지난달과 이번달 (' +sign+ (savingRate_Month*100 - 100).toFixed(1) + '%) ]'
-      },
+         useHTML: true,
+         text: '[ 지난달과 이번달 (' +sign+ (savingRate_Month*100 - 100).toFixed(1) + '%) ]',
+         style: {
+           color: '#FFFFFF',
+           fontWeight: 'bold',
+           'background-color': '#8E8989',
+           'border-radius': '6px',
+           border: '4px solid #8E8989'
+         }
+     },
       credits: {
           enabled: false
       },
