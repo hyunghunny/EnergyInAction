@@ -66,7 +66,7 @@ function emitLatestUpdate() {
 
         if (difference > now.getTime() - lastUpdated.getTime()) {
             if (currentSocket) {
-                currentSocket.emit('update', 'DB updated: ' + lastUpdated + "@" + now);
+                currentSocket.emit('update', lastUpdated);
                 console.log('update has been emitted.');
             }
         } else {

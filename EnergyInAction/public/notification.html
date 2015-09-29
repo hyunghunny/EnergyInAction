@@ -7,21 +7,24 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="javascripts/socket.io.js"></script>
     <script type="text/javascript">
-        
+        var log = "";
         $(document).ready(function () {
             var socket = io.connect();
 
-            socket.on('update', function (msg) {
+            socket.on('update', function (latest) {
                 var consoleLog = $('#console_log');
-                console.log(consoleLog);
-                consoleLog.text('[updated]' + msg);
+                var now = new Date();
+                var msg = latest + '@' + now;
+                console.log(msg);
+                log = consoleLog.text() + '\n' + msg;
+                consoleLog.text(log);
             })
         });
     </script>
 </head>
 <body>
     <div id="console">
-        <h3 id="console_log"></h3>
+        <h4 id="console_log"></h4>
     </div>
 </body>
 </html>
