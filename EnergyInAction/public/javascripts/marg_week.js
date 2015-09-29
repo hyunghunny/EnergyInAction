@@ -147,9 +147,9 @@ $(function () {
     var savingRate_Day = todaySum_forWeek / comparingSum_forWeek;
     console.log("savingRate from week",savingRate_Day);
 
-    if(savingRate_Day > 1.05) {
+    if(savingRate_Day > 1.20) {
        currentState = 0;
-    } else if ( savingRate_Day > .95) {
+    } else if ( savingRate_Day > 1.00) {
        currentState = 1;
     } else {
        currentState = 2;
@@ -228,7 +228,8 @@ $(function () {
             }
         },
         title: {
-            text: '[ 지난주와 이번주 ]'
+            // text: '[ 지난주와 이번주 ]'
+            text: null
         },
         credits: {
             enabled: false

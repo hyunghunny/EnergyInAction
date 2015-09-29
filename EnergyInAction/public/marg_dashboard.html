@@ -2,16 +2,26 @@
 <html>
 <head>
   <title>Energy Saving Behavior Research</title>
-  <meta http-equiv="refresh" content="600">
+  <!-- <meta http-equiv="refresh" content="600"> -->
   <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
   <link rel="stylesheet" type="text/css" href="./stylesheets/weather.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
   <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
   <script src="http://code.highcharts.com/highcharts-more.js"></script>
   <script src="http://code.highcharts.com/modules/solid-gauge.js"></script>
+  <script type="text/javascript" src="javascripts/socket.io.js"></script>
   <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+        var socket = io.connect();
 
+        socket.on('update', function (msg) {
+          location.reload();
+        })
+    });
+  </script>
   <!-- for notice and tip -->
+
   <link rel="stylesheet" href="stylesheets/marquee.css">
 
   <!-- weather -->
@@ -54,6 +64,7 @@ setInterval( function() {
 
 });
 </script> -->
+
 
 </head>
 <body>
@@ -108,43 +119,46 @@ setInterval( function() {
     <!-- canvas -->
     <canvas id='canvas' width='390' height='200'></canvas><p id='helloWorld'></p>
   </div>
-      <div id="marg_notice" class="marg_class_notice">
-        <!-- <h4>
-          <br>오늘의 점심<br>
-            <table>
-            <tr>
-              <th>중소</th>
-              <th>R&DB</th>
-              <th>나노</th>
-              <th>델리</th>
-            </tr>
-            <tr>
-              <td>기장밥/현미밥<br>청국장<br>돈육불고기<br>잡채<br>감자조림<br>숙주나물<br>배추김치</td>
-              <td>혼합잡곡밥<br>얼큰김치국<br>돈육부추잡채<br>두부구이&양념장<br>후르츠샐러드<br>마늘쫑무침<br>깍두기</td>
-              <td>버섯쇠고기덮밥<br>유부장국<br>꼬치어묵구이<br>실곤약채소무침<br>포기김치</td>
-              <td>달걀볶음밥<br>옛날짜장면<br>맑은콩나물국<br>사천탕수육<br>팽이버섯냉채<br>단무지,양파&춘장<br>포기김치*깍두기</td>
-            </tr>
-          </table>
+      <div id="marg_notice" class="marg_class_notice"><h2 id = "notice_msg">ddd</h2></div>
+      <script type="text/javascript">
+          var selectedLab = 'marg';
+          var postType = "notice";
+          var uri_notice = 'api/labs/' + selectedLab + '/actuators/notices/latest';
+          var baseUrl = 'http://147.47.123.199:3000/';
+          var message = "NO returns";
 
-        </h4> -->
-      </div>
-      <!-- <div id="marg_smile"></div> -->
+          $(document).ready(function() {
+
+            var url_notice = baseUrl + uri_notice;
+            // console.log("notice url: ",url_notice);
+
+              invokeOpenAPI(url_notice, function (msg) {
+                  var message = "No notice available";
+                  if (msg.notice) {
+                      message = msg.notice.message;
+                  }
+                  // console.log("***********notice msg:",message);
+                  var boardMsg = $('#board_message');
+                  boardMsg.text(message);
+
+                  document.getElementById("notice_msg").innerHTML = message;
+              });
+          });
+      </script>
       <div id="marg_month" class="marg_class_month"></div>
     </div>
 
-    <div id="marg_tip" class="marg_class_tip" ><br><h2><span style="margin-left:7em"><marquee id="tip_msg" direction="left" width=1300px >절전형 멀티탭을 사용하여 불필요한 전력 사용을 줄여주세요</marquee></span></h2>
-
-    </div>
+    <div id="marg_tip" class="marg_class_tip" ><br><h2><span style="margin-left:7em"><marquee id="tip_msg" direction="left" width=1700px >절전형 멀티탭을 사용하여 불필요한 전력 사용을 줄여주세요</marquee></span></h2></div>
     <script type="text/javascript">
         var selectedLab = 'marg';
         var postType = "notice";
-        var uri = 'api/labs/' + selectedLab + '/actuators/notices/latest';
+        var uri = 'api/labs/' + selectedLab + '/actuators/tips/latest';
         var baseUrl = 'http://147.47.123.199:3000/';
         var message = "NO returns";
 
         $(document).ready(function() {
             var url = baseUrl + uri;
-            console.log(url);
+
             invokeOpenAPI(url, function (msg) {
                 // var message = "NO returns";
                 if (msg.notice) {
@@ -153,7 +167,7 @@ setInterval( function() {
                 if (msg.tip) {
                     message = msg.tip.message;
                 }
-                console.log('tip: ',message);
+                // console.log('***********tip: ',message);
 
                 var marquee = $('#marquee')
                 marquee.attr('data-marquee', message);
@@ -161,9 +175,8 @@ setInterval( function() {
                 document.getElementById("tip_msg").innerHTML = message;
             })
         });
-
-
     </script>
+
 </div>
 
 <script type="text/javascript" src="./javascripts/utiles.js"></script>
