@@ -174,12 +174,7 @@ var notifier = require('./notify.js');
 notifier.connect(server, function (socket) {
     console.log('socket.io is connected');
     notifier.start();
-    /*
-    setInterval(function () {
-        var now = new Date();
-        notifier.emit(now.toTimeString(), socket);
-    }, 1000);
-    */ 
+
 })
 
 module.exports = app;
