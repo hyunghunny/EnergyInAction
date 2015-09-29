@@ -58,8 +58,6 @@ exports.start = function () {
 }
 
 
-var isProcessing = false;
-
 function checkUpdate(type) {   
     console.log('try to check DB updated when ' + type);    
     if (!dbmgr.isConnected()) {
@@ -74,6 +72,8 @@ function checkUpdate(type) {
     }
 }
 
+var previousUpdated = null;
+
 // check DB has been updated and emit it 
 function emitLatestUpdate() {
     var collection = config.collection.quarters;
@@ -86,8 +86,13 @@ function emitLatestUpdate() {
 
         if (difference > now.getTime() - lastUpdated.getTime()) {
             if (currentSocket) {
-                currentSocket.emit('update', lastUpdated);
-                console.log('update has been emitted.');
+                if (previousUpdated != lastUpdated) {
+                    currentSocket.emit('update', lastUpdated);
+                    console.log('update has been emitted.');
+                } else {
+                    console.log('skip to emit due to duplication');
+                }                
+                previousUpdated = lastUpdated;
             } else {
                 console.log('no socket connected!');
             }
