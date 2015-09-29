@@ -13,6 +13,7 @@
 
             socket.on('update', function (msg) {
                 var consoleLog = $('#console_log');
+                console.log(consoleLog);
                 consoleLog.text('[updated]' + msg);
             })
         });
