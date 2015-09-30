@@ -5,10 +5,10 @@ var currentSocket = null;
 
 var DBManager = require('./dbmgr');
 var dbmgr = new DBManager(config.mongodb);
-
+var io = null;
 
 exports.connect = function (server, cb) {
-    var io = socketIo.listen(server);
+    io = socketIo.listen(server);
     //io.set('log level', 2); // to reduce log messages
 
     io.sockets.on('connection', function (socket) {
@@ -89,13 +89,19 @@ function emitLatestUpdate() {
                 if (previousUpdated != lastUpdated) {
                     currentSocket.emit('update', lastUpdated);
                     console.log('update has been emitted.');
+
                 } else {
                     console.log('skip to emit due to duplication');
                 }                
                 previousUpdated = lastUpdated;
             } else {
                 console.log('no socket connected!');
-                previousUpdated = null;
+                // XXX:reconnection required here
+                io.sockets.on('connection', function (socket) {
+                    console.log('socket connected');
+                    currentSocket = socket;
+                    checkUpdate('retry');
+                });
             }
             
         } else {
