@@ -95,8 +95,9 @@ function emitLatestUpdate() {
                 previousUpdated = lastUpdated;
             } else {
                 console.log('no socket connected!');
+                previousUpdated = null;
             }
-            isProcessing = false;
+            
         } else {
             console.log('DB is not updated yet. waiting 1 minute to retrieve again.');
             // invoke it again after 1 min. later
