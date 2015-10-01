@@ -15,6 +15,14 @@ exports.connect = function (server, cb) {
     });
 }
 
+exports.isConnected = function () {
+    if (socketServer) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 exports.emit = function (msg, socket) {
     if (socket == null && socketServer != null) {
         socketServer.sockets.emit('update', msg);
@@ -26,8 +34,13 @@ exports.emit = function (msg, socket) {
     
 }
 
-exports.start = function () {
+exports.start = function (server) {
+    socketServer = socketIo.listen(server);
     
+    socketServer.sockets.on('connection', function (socket) {
+        console.log('socket client connected');
+    });    
+       
     var hoursJob = new CronJob('30 02 * * * *', function () {
         checkUpdate('hour'); 
     }, null, false);
