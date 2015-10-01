@@ -1,32 +1,27 @@
 ﻿var config = require('./config');
 var socketIo = require('socket.io');
 var CronJob = require('cron').CronJob;
-var currentSocket = null;
 
 var DBManager = require('./dbmgr');
 var dbmgr = new DBManager(config.mongodb);
+var socketServer = null;
 
 exports.connect = function (server, cb) {
-    var io = socketIo.listen(server);
-    //io.set('log level', 2); // to reduce log messages
-
-    io.sockets.on('connection', function (socket) {
-        //console.log('socket connected');
-        currentSocket = socket;
-
+    socketServer = socketIo.listen(server);
+ 
+    socketServer.sockets.on('connection', function (socket) {
+        console.log('socket connected');
         cb(socket);
     });
-
-
 }
 
 exports.emit = function (msg, socket) {
-    if (socket == null && currentSocket != null) {
-        socket = currentSocket;
-    }
-    
-    if (socket != null) {
+    if (socket == null && socketServer != null) {
+        socketServer.sockets.emit('update', msg);
+    } else if (socket != null) {
         socket.emit('update', msg);
+    } else {
+        console.log('no socket available. please connect first');
     }
     
 }
@@ -81,10 +76,10 @@ function emitLatestUpdate() {
         console.log(now + ":" + lastUpdated);
 
         if (difference > now.getTime() - lastUpdated.getTime()) {
-            if (currentSocket) {
+            if (socketServer) {
                 if (previousUpdated != lastUpdated) {
-                    currentSocket.emit('update', lastUpdated);
-                    console.log('update has been emitted.');
+                    socketServer.sockets.emit('update', lastUpdated);
+                    console.log('update has been emitted to everyone.');
 
                 } else {
                     console.log('skip to emit due to duplication');
