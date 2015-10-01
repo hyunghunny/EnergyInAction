@@ -14,10 +14,18 @@ $(function () {
             type: 'solidgauge',
             backgroundColor: "#ecede7"
         },
-
         title: {
-            text: '[ 실시간 전력 사용량 ]'
-        },
+           useHTML: true,
+           text: '[ 실시간 전력 사용량 ]',
+           style: {
+             color: '#FFFFFF',
+             fontWeight: 'bold',
+             'background-color': '#8E8989',
+             'border-radius': '6px',
+             border: '4px solid #8E8989'
+           }
+       },
+
         exporting: {
             enabled: false
         },
