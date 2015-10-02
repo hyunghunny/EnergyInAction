@@ -229,7 +229,7 @@ $(function () {
         },
         title: {
            useHTML: true,
-           text: '[ 지난주와 이번주 ]',
+           text: '[ 주간 비교 및 오늘 사용 현황 ]',
            style: {
              color: '#FFFFFF',
              fontWeight: 'bold',

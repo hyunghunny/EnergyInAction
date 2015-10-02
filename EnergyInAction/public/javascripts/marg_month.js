@@ -23,8 +23,20 @@ $(function () {
   console.log(lastMonth_query);
   console.log(thisMonth_query);
 
-  invokeOpenAPI(lastMonth_query, lastMonthCB);
-  invokeOpenAPI(thisMonth_query, thisMonthCB);
+  // if(baseDay.getDate() == 1){
+  //   notEnoughData();
+  // } else {
+  //   invokeOpenAPI(lastMonth_query, lastMonthCB);
+  //   invokeOpenAPI(thisMonth_query, thisMonthCB);
+  // }
+  //
+  // function notEnoughData(){
+  //   var divTag = "<div><b>NOTICE</b><br>데이터가 충분하지 않습니다.<br>Not enough data</div>"
+  //   $('#marg_month').html(divTag);
+  // }
+
+    invokeOpenAPI(lastMonth_query, lastMonthCB);
+    invokeOpenAPI(thisMonth_query, thisMonthCB);
 
   function lastMonthCB(lastMonth_) {
     lastMonth = lastMonth_;
@@ -55,7 +67,7 @@ $(function () {
   function drawChart(){
     savingRate_Month = ((arrayMean(thisMonth_total) / arrayMean(lastMonth_total)));
 
-    console.log(thisMonth);
+    //console.log(thisMonth);
 
     var sign="";
     if (savingRate_Month>=1) {
