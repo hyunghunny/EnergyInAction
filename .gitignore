@@ -191,5 +191,4 @@ ModelManifest.xml
 .ntvs_analysis.dat
 
 # exclude node modules
-EnergyInAction/node_modules
-node_modules
+EnergyInAction/node_modules/*
