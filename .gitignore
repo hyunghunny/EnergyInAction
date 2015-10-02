@@ -192,3 +192,5 @@ ModelManifest.xml
 
 # exclude node modules
 EnergyInAction/node_modules/*
+EnergyInAction/node_modules/
+/EnergyInAction/node_modules
