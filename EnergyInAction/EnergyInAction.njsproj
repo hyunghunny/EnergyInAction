@@ -61,7 +61,9 @@
     <Content Include="public\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="public\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="public\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="public\hcc_dashboard.html" />
     <Content Include="public\javascripts\api.js.map" />
+    <Content Include="public\marg_dashboard.html" />
     <Content Include="public\notification.html" />
     <Content Include="public\post.html" />
     <Content Include="public\stylesheets\bootstrap.min.css" />
@@ -69,6 +71,8 @@
     <Content Include="public\stylesheets\style.css" />
     <Content Include="public\stylesheets\style.styl" />
     <Content Include="public\stylesheets\widlhtml.css" />
+    <Content Include="public\ux_dashboard.html" />
+    <Content Include="public\weather.html" />
     <Content Include="README.md" />
     <Content Include="views\daily.jade" />
     <Content Include="views\index.jade" />
