@@ -194,3 +194,4 @@ ModelManifest.xml
 EnergyInAction/node_modules/*
 EnergyInAction/node_modules/
 /EnergyInAction/node_modules
+*.csv
