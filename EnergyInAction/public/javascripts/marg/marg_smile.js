@@ -81,18 +81,18 @@ console.log(baseDay);
           console.log("savingRate_Day", savingRate_Day);
 
           if(savingRate_Day > 1.20) {
-            //$('#smiley').css("background-color","red");
-            $('#smiley').prepend('<img id="faces" src="./images/marg_red.png" />');
+            // $('#smiley').prepend('<img id="faces" src="./images/marg_red.png" />');
+            $('#smiley').prepend('<img id="faces" src="./images/red_all.png" />');
             $('#axis').prepend('<img src="./images/percent_red.png" />');
             $('#marg_title').css("background-color","#a50a0a");
           } else if ( savingRate_Day > 1.0) {
-            // $('#smiley').css("background-color","#f7cb00");
-            $('#smiley').prepend('<img id="faces" src="./images/marg_yellow.png" />');
+            // $('#smiley').prepend('<img id="faces" src="./images/marg_yellow.png" />');
+            $('#smiley').prepend('<img id="faces" src="./images/yellow_all.png" />');
             $('#axis').prepend('<img src="./images/percent_yellow.png" />');
             $('#marg_title').css("background-color","#f7cb00");
           } else {
-            // $('#smiley').css("background-color","#3e721f");
-            $('#smiley').prepend('<img id="faces" src="./images/marg_green.png" />');
+            // $('#smiley').prepend('<img id="faces" src="./images/marg_green.png" />');
+            $('#smiley').prepend('<img id="faces" src="./images/green_all.png" />');
             $('#axis').prepend('<img src="./images/percent_green.png" />');
             $('#marg_title').css("background-color","#3e721f");
           }
