@@ -70,29 +70,29 @@ setInterval( function() {
 <body>
   <div id="marg_title" class="title_class"></div>
   <div class="wrapper_class">
-    <div class="marg_class_contents_left">
+    <div class="class_contents_left">
         <div class="traffic_container">
           <div id="traffic_light" class="traffic_light_class">
-            <div id="marg_smile" class="marg_class_smile">
-              <h3 class="marg_class_smile_title"><span class="marg_class_smile_title_span">[오늘 누적 전기사용 현황]</span></h3>
+            <div id="marg_smile" class="class_smile">
+              <h3 class="class_smile_title"><span class="class_smile_title_span">[오늘 누적 전기사용 현황]</span></h3>
             </div>
-            <div id="smiley" class="marg_class_smiley"></div>
-            <div id="axis" class="marg_class_axis"></div>
+            <div id="smiley" class="class_smiley"></div>
+            <div id="axis" class="class_axis"></div>
             <div id="percentage_title" class="percentage_title_class"></div>
           </div>
         </div>
-      <div class="marg_class_realtimePlots">
-        <div id="marg_meter" class="marg_class_meter"></div>
+      <div class="class_realtimePlots">
+        <div id="marg_meter" class="class_meter"></div>
       </div>
     </div>
 
-    <div class="marg_center">
-      <div id="marg_week" class="marg_class_week"></div>
+    <div class="center">
+      <div id="marg_week" class="class_week"></div>
       <div id="arrow" class="arrow_class"></div>
-      <div id="marg_day" class="marg_class_day"></div>
+      <div id="marg_day" class="class_day"></div>
     </div>
 
-    <div id="marg_widget" class="marg_class_widgets">
+    <div id="marg_widget" class="class_widgets">
       <!-- <div class="container">
         <div class="clock">
           <div id="Date">Monday 14 January 2013</div>
@@ -121,7 +121,7 @@ setInterval( function() {
     <!-- canvas -->
     <canvas id='canvas' width='390' height='200'></canvas><p id='helloWorld'></p>
   </div>
-      <div id="marg_notice" class="marg_class_notice"><h2 id = "notice_msg">ddd</h2></div>
+      <div id="marg_notice" class="class_notice"><h2 id = "notice_msg">ddd</h2></div>
       <script type="text/javascript">
           var selectedLab = 'marg';
           var postType = "notice";
@@ -147,10 +147,10 @@ setInterval( function() {
               });
           });
       </script>
-      <div id="marg_month" class="marg_class_month"></div>
+      <div id="marg_month" class="class_month"></div>
     </div>
 
-    <div id="marg_tip" class="marg_class_tip" ><br><h2><span style="margin-left:7em"><marquee id="tip_msg" direction="left" width=1700px >절전형 멀티탭을 사용하여 불필요한 전력 사용을 줄여주세요</marquee></span></h2></div>
+    <div id="marg_tip" class="class_tip" ><br><h2><span style="margin-left:7em"><marquee id="tip_msg" direction="left" width=1750px >절전형 멀티탭을 사용하여 불필요한 전력 사용을 줄여주세요</marquee></span></h2></div>
     <script type="text/javascript">
         var selectedLab = 'marg';
         var postType = "notice";
@@ -182,13 +182,13 @@ setInterval( function() {
 </div>
 
 <script type="text/javascript" src="./javascripts/utiles.js"></script>
-<script type="text/javascript" src="./javascripts/marg_title.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_title.js"></script>
 <!-- <script type="text/javascript" src="./javascripts/marg_realtime.js"></script> -->
-<script type="text/javascript" src="./javascripts/marg_smile.js"></script>
-<script type="text/javascript" src="./javascripts/marg_day.js"></script>
-<script type="text/javascript" src="./javascripts/marg_week.js"></script>
-<script type="text/javascript" src="./javascripts/marg_month.js"></script>
-<script type="text/javascript" src="./javascripts/marg_meter.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_smile.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_day.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_week.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_month.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_meter.js"></script>
 <script type="text/javascript" src="./javascripts/UI_weather_widget.js"></script>
 
 
