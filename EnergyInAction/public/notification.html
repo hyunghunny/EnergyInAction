@@ -7,20 +7,27 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="javascripts/socket.io.js"></script>
     <script type="text/javascript">
-        
+        var socket = null;
         $(document).ready(function () {
-            var socket = io.connect();
-
-            socket.on('update', function (msg) {
-                var consoleLog = $('#console_log');
-                consoleLog.text('[updated]' + msg);
+            socket = io.connect();
+            var now = new Date();
+            var consoleDiv = $('#console');
+            console.log('socket connected');
+            socket.on('update', function (latest) {                
+                now = new Date();
+                var msg = '[' + now + '] ' + latest;
+                console.log(msg);
+                consoleDiv.prepend('<p>' + msg + '</p>');
             })
+        });
+        $(document).unload(function () {
+            if (socket) socket.disconnect();
+            console.log('disconnect a socket');
         });
     </script>
 </head>
 <body>
     <div id="console">
-        <h3 id="console_log"></h3>
     </div>
 </body>
 </html>

@@ -1,49 +1,71 @@
 ﻿var config = require('./config');
 var socketIo = require('socket.io');
 var CronJob = require('cron').CronJob;
-var currentSocket = null;
 
 var DBManager = require('./dbmgr');
 var dbmgr = new DBManager(config.mongodb);
-
+var socketServer = null;
 
 exports.connect = function (server, cb) {
-    var io = socketIo.listen(server);
-    //io.set('log level', 2); // to reduce log messages
-
-    io.sockets.on('connection', function (socket) {
-        //console.log('socket connected');
-        currentSocket = socket;
+    socketServer = socketIo.listen(server);
+ 
+    socketServer.sockets.on('connection', function (socket) {
+        console.log('socket connected');
         cb(socket);
     });
+}
 
+exports.isConnected = function () {
+    if (socketServer) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 exports.emit = function (msg, socket) {
-    if (socket == null && currentSocket != null) {
-        socket = currentSocket;
-    }
-    
-    if (socket != null) {
+    if (socket == null && socketServer != null) {
+        socketServer.sockets.emit('update', msg);
+    } else if (socket != null) {
         socket.emit('update', msg);
+    } else {
+        console.log('no socket available. please connect first');
     }
     
 }
 
-exports.start = function () {
-    var hoursJob = new CronJob('30 02 * * * *', checkUpdate);
-    var quarter1Job = new CronJob('30 17 * * * *', checkUpdate);
-    var halfJob = new CronJob('30 32 * * * *', checkUpdate);
-    var quarter3Job = new CronJob('30 47 * * * *', checkUpdate);
+exports.start = function (server) {
+    socketServer = socketIo.listen(server);
+    
+    socketServer.sockets.on('connection', function (socket) {
+        console.log('socket client connected');
+    });    
+       
+    var hoursJob = new CronJob('30 02 * * * *', function () {
+        checkUpdate('hour'); 
+    }, null, false);
+    var quarter1Job = new CronJob('30 17 * * * *', function () {
+        checkUpdate('15min');
+    }, null, false);
+    var halfJob = new CronJob('30 32 * * * *', function () {
+        checkUpdate('30min');
+    }, null, false);
+    var quarter3Job = new CronJob('30 47 * * * *', function () {
+        checkUpdate('45min'); 
+    }, null, false);    
+    
+    console.log('register event handlers...');
     hoursJob.start();
     quarter1Job.start();
     halfJob.start();
     quarter3Job.start();
 }
 
-function checkUpdate() {   
-        
+
+function checkUpdate(type) {   
+    console.log('try to check DB updated when ' + type);    
     if (!dbmgr.isConnected()) {
+        console.log('try to connect DB...');  
         dbmgr.connect(function (result) {
             if (result) {
                 emitLatestUpdate();
@@ -53,6 +75,8 @@ function checkUpdate() {
         emitLatestUpdate();
     }
 }
+
+var previousUpdated = null;
 
 // check DB has been updated and emit it 
 function emitLatestUpdate() {
@@ -65,15 +89,25 @@ function emitLatestUpdate() {
         console.log(now + ":" + lastUpdated);
 
         if (difference > now.getTime() - lastUpdated.getTime()) {
-            if (currentSocket) {
-                currentSocket.emit('update', 'DB updated: ' + lastUpdated + "@" + now);
-                console.log('update has been emitted.');
+            if (socketServer) {
+                if (previousUpdated != lastUpdated) {
+                    socketServer.sockets.emit('update', lastUpdated);
+                    console.log('update has been emitted to everyone.');
+
+                } else {
+                    console.log('skip to emit due to duplication');
+                }                
+                previousUpdated = lastUpdated;
+            } else {
+                console.log('no socket connected!');
+                // XXX:reconnection required here
             }
+            
         } else {
             console.log('DB is not updated yet. waiting 1 minute to retrieve again.');
             // invoke it again after 1 min. later
             setTimeout(function () {
-                checkUpdate();
+                checkUpdate('retry');
             }, 60000);
         }
     });
