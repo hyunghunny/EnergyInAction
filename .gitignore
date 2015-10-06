@@ -190,13 +190,7 @@ ModelManifest.xml
 
 .ntvs_analysis.dat
 
-<<<<<<< HEAD
-# exclude node modules 
+
+# exclude node modules
 EnergyInAction/node_modules
 *.csv
-=======
-# exclude node modules
-EnergyInAction/node_modules/*
-EnergyInAction/node_modules/
-/EnergyInAction/node_modules
->>>>>>> origin/master

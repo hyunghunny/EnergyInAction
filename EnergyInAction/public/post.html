@@ -8,7 +8,7 @@
     <script type="text/javascript" src="./javascripts/utiles.js"></script>
     <script type="text/javascript">
         var selectedLab = 'marg';
-        
+
         var baseUrl = 'http://147.47.123.199:3000/';
 
         $(document).ready(function () {
@@ -64,7 +64,7 @@
             } else {
                 pickDate = new Date();
             }
-            
+
             console.log(pickDate.toLocaleString());
             var labId = $('select[name=labId]').val();
             console.log(labId);
@@ -91,7 +91,7 @@
                     'type': 'post',
                     'contentType': "application/json",
                     'dataType': 'json',
-                    'statusCode': { 
+                    'statusCode': {
                        '202': function (data) {
                            alert('The message is posted successfully');
                            updateMessages();
@@ -100,7 +100,7 @@
                     'data': JSON.stringify(postData)
                 });
             }
-            
+
         }
     </script>
 
