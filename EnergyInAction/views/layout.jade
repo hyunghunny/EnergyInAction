@@ -3,12 +3,12 @@ html
   head
     title= title
     meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel="stylesheet" type="text/css" href="stylesheets/highslide.css")
     link(href='stylesheets/bootstrap.min.css' rel='stylesheet' media='screen')
-    link(href='stylesheets/style.css' rel='stylesheet')
-    link(rel="stylesheet" type="text/css" href="http://www.highcharts.com/media/com_demo/highslide.css")
-    script(src='javascripts/jquery.js')
-    script(src='javascripts/bootstrap.min.js')
-    script(src='javascripts/holder.js')    
+
+    script(src='javascripts/lib/jquery.js')
+    script(src='javascripts/lib/bootstrap.min.js')
+    script(src='javascripts/lib/holder.js')    
   body
     div.navbar.navbar-inverse.navbar-fixed-top
         div.container
@@ -21,4 +21,8 @@ html
             div.navbar-collapse.collapse
                 ul.nav.navbar-nav
                     li: a(href='/') Home
+                    li: a(href='/marg_dashboard.html') MARG Dashboard
+                    li: a(href='/ux_dashboard.html') UX Dashboard
+                    li: a(href='/hcc_dashboard.html') HCC Dashboard
+
     block content

@@ -5,12 +5,12 @@
   <!-- <meta http-equiv="refresh" content="600"> -->
   <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
   <link rel="stylesheet" type="text/css" href="./stylesheets/weather.css">
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-  <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
-  <script src="http://code.highcharts.com/highcharts-more.js"></script>
-  <script src="http://code.highcharts.com/modules/solid-gauge.js"></script>
-  <script type="text/javascript" src="javascripts/socket.io.js"></script>
-  <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
+  <script src="javascripts/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/lib/highcharts.js"></script>
+    <script src="javascripts/lib/highcharts-more.js"></script>
+    <script src="javascripts/lib/solid-gauge.js"></script>
+    <script type="text/javascript" src="javascripts/lib/socket.io.js"></script>
+    <script type="text/javascript" src="javascripts/lib/exporting.js"></script>
   <script type="text/javascript">
     $(document).ready(function () {
         var socket = io.connect();
@@ -111,13 +111,13 @@ setInterval( function() {
     <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script> -->
 
     <div id="weather" class="weather_class">
-    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+        <script src="javascripts/lib/webfont.js"></script>
     <!-- EaselJS -->
-    <script type="text/javascript" src="http://code.createjs.com/easeljs-0.6.1.min.js"></script>
+        <script type="text/javascript" src="javascripts/lib/easeljs-0.6.1.min.js"></script>
     <!-- PreloadJS -->
-    <script type="text/javascript" src="http://jsrun.it/assets/m/j/M/u/mjMua"></script>
+        <script type="text/javascript" src="javascripts/lib/mjMua.js"></script>
     <!-- dat.GUI -->
-    <script type="text/javascript" src="http://jsrun.it/assets/q/S/i/g/qSigr"></script>
+        <script type="text/javascript" src="javascripts/lib/qSigr.js"></script>
     <!-- canvas -->
     <canvas id='canvas' width='390' height='200'></canvas><p id='helloWorld'></p>
   </div>
@@ -126,7 +126,7 @@ setInterval( function() {
           var selectedLab = 'marg';
           var postType = "notice";
           var uri_notice = 'api/labs/' + selectedLab + '/actuators/notices/latest';
-          var baseUrl = 'http://147.47.123.199:3000/';
+          var baseUrl = '';
           var message = "NO returns";
 
           $(document).ready(function() {
@@ -155,7 +155,7 @@ setInterval( function() {
         var selectedLab = 'marg';
         var postType = "notice";
         var uri = 'api/labs/' + selectedLab + '/actuators/tips/latest';
-        var baseUrl = 'http://147.47.123.199:3000/';
+        var baseUrl = '';
         var message = "NO returns";
 
         $(document).ready(function() {
