@@ -124,7 +124,9 @@ function loadWeatherData() {
     var currentUnit = "metric";
     if(metricUnits === false) currentUnit = "imperial";
 
-    var path = jsonProxy + encodeURIComponent("http://api.openweathermap.org/data/2.5/weather?q=" + currentCity  + "&mode=json&units=" + currentUnit);
+    apikey = "3a0dad724ecd4024df6785e56b2a9760";
+
+    var path = jsonProxy + encodeURIComponent("http://api.openweathermap.org/data/2.5/weather?q=" + currentCity  + "&mode=json&units=" + currentUnit + "&APPID="+ apikey);
     preloader.loadFile(path);
 }
 
