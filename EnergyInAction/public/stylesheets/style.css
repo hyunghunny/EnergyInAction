@@ -94,6 +94,11 @@ a {
 }
 .class_smiley {
   width: 500px;
+  padding-top: 30px;
+}
+.class_axis {
+  position: absolute;
+  top: 430px;
 }
 .class_realtimePlots {
   float: left;
@@ -111,7 +116,7 @@ a {
   background-color: #ecede7;
 }
 .percentage_title_class {
-  padding-top: 5px;
+  padding-top: 25px;
 }
 
 .center {
