@@ -113,12 +113,16 @@ console.log(baseDay);
           if (isNaN(savingRate_Day)) {
             percentage_text = '아직 데이터가 들어오지 않았습니다';
           }else {
-            percentage_text = '지난주 '+ dayLabel[baseDay.getDay()]+'요일 대비 ' + percent_smile +'% 사용';
+            percentage_text = '지난주 '+ dayLabel[baseDay.getDay()]+'요일 대비 ' ;
           }
 
           console.log(percent_smile);
-          var percentage_title=$("<div>").attr("id","percentage_title").css({"font-size": "19px","text-align": "center", "padding-top": "5px", "font-weight" : "bold"}).text(percentage_text).css('color','black','align-text','center');
-          $('#percentage_title').append(percentage_title);
+
+          var percentage_title=$("<div>").attr("id","percentage_title").css({"font-size": "19px", "font-weight" : "bold", "display" : "inline"}).text(percentage_text);
+          var percentage_title2=$("<div>").attr("id","percentage_title").css({"font-size": "19px", "font-weight" : "bold", "color": currentColor, "display" : "inline", "text-shadow" : "1px 1px #000000"}).text(percent_smile+'% ');
+          var percentage_title3=$("<div>").attr("id","percentage_title").css({"font-size": "19px", "font-weight" : "bold", "display" : "inline"}).text('사용');
+
+          $('#percentage_title').append(percentage_title).append(percentage_title2).append(percentage_title3);
         });
     });
 });
