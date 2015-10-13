@@ -116,7 +116,9 @@ a {
   background-color: #ecede7;
 }
 .percentage_title_class {
-  padding-top: 25px;
+  float: center;
+  text-align: center;
+  padding-top: 35px;
 }
 
 .center {

@@ -80,21 +80,26 @@ console.log(baseDay);
 
           console.log("savingRate_Day", savingRate_Day);
 
+          var currentColor = "";
+
           if(savingRate_Day > 1.20) {
-            //$('#smiley').css("background-color","red");
+            // $('#smiley').prepend('<img id="faces" src="./images/marg_red.png" />');
             $('#smiley').prepend('<img id="faces" src="./images/red_all.png" />');
             $('#axis').prepend('<img src="./images/percent_red.png" />');
-            $('#ux_title').css("background-color","#a50a0a");
+            $('#marg_title').css("background-color","#a50a0a");
+            currentColor = "#a50a0a";
           } else if ( savingRate_Day > 1.0) {
-            // $('#smiley').css("background-color","#f7cb00");
+            // $('#smiley').prepend('<img id="faces" src="./images/marg_yellow.png" />');
             $('#smiley').prepend('<img id="faces" src="./images/yellow_all.png" />');
             $('#axis').prepend('<img src="./images/percent_yellow.png" />');
-            $('#ux_title').css("background-color","#f7cb00");
+            $('#marg_title').css("background-color","#f7cb00");
+            currentColor = "#f7cb00";
           } else {
-            // $('#smiley').css("background-color","#3e721f");
+            // $('#smiley').prepend('<img id="faces" src="./images/marg_green.png" />');
             $('#smiley').prepend('<img id="faces" src="./images/green_all.png" />');
             $('#axis').prepend('<img src="./images/percent_green.png" />');
-            $('#ux_title').css("background-color","#3e721f");
+            $('#marg_title').css("background-color","#3e721f");
+            currentColor = "#3e721f";
           }
 
           var percent_smile = "";
@@ -108,12 +113,16 @@ console.log(baseDay);
           if (isNaN(savingRate_Day)) {
             percentage_text = '아직 데이터가 들어오지 않았습니다';
           }else {
-            percentage_text = '지난주 '+ dayLabel[baseDay.getDay()]+'요일 대비 ' + percent_smile +'% 사용';
+            percentage_text = '지난주 '+ dayLabel[baseDay.getDay()]+'요일 대비 ' ;
           }
 
           console.log(percent_smile);
-          var percentage_title=$("<div>").attr("id","percentage_title").css({"font-size": "19px","text-align": "center", "padding-top": "5px", "font-weight" : "bold"}).text(percentage_text).css('color','black','align-text','center');
-          $('#percentage_title').append(percentage_title);
+
+          var percentage_title=$("<div>").attr("id","percentage_title").css({"font-size": "19px", "font-weight" : "bold", "display" : "inline"}).text(percentage_text);
+          var percentage_title2=$("<div>").attr("id","percentage_title").css({"font-size": "19px", "font-weight" : "bold", "color": currentColor, "display" : "inline", "text-shadow" : "1px 1px #000000"}).text(percent_smile+'% ');
+          var percentage_title3=$("<div>").attr("id","percentage_title").css({"font-size": "19px", "font-weight" : "bold", "display" : "inline"}).text('사용');
+
+          $('#percentage_title').append(percentage_title).append(percentage_title2).append(percentage_title3);
         });
     });
 });
