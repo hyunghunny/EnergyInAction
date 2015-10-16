@@ -18,7 +18,17 @@ $(function () {
   var savingRate_Month;
 
   lastMonth_query = 'api/labs/hcc/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfLastMonth)) + '&day_to=' + dateFormatter(new Date(lastDayOfLastMonth)) + '&offset=0';
-  thisMonth_query = 'api/labs/hcc/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(shiftDate(baseDay, 0)) + '&offset=0';
+
+  if(dateFormatter(new Date(firstDayOfLastMonth)) != dateFormatter(baseDay)){
+    console.log("The baseDay is NOT the fitst day of the month")
+    thisMonth_query = 'api/labs/hcc/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(shiftDate(baseDay, -1)) + '&offset=0';
+  } else {
+    console.log("The baseDay is the FIRST day of the month")
+    thisMonth_query = 'api/labs/hcc/energy/daily.json?day_from=' + dateFormatter(shiftDate(baseDay, 0)) + '&day_to=' + dateFormatter(shiftDate(baseDay, 0)) + '&offset=0';
+  }
+
+  // console.log("firstDayOfThisMonth", dateFormatter(new Date(firstDayOfLastMonth)));
+  // console.log("baseDay", dateFormatter(baseDay));
 
   console.log(lastMonth_query);
   console.log(thisMonth_query);
