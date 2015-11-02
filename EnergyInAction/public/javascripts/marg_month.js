@@ -3,9 +3,15 @@ $(function () {
   var firstDayOfLastMonth = new Date(baseDay).setMonth(baseDay.getMonth()-1, 1); // -1 means the last month
   var  lastDayOfLastMonth = shiftDate(firstDayOfThisMonth, -1);
 
+
+var firstDayofLastYear = shiftDate(firstDayOfThisMonth, -365)
+var lastDayofLastYear = shiftDate(firstDayofLastYear, 30)
+
+  console.log(firstDayofLastYear);
+  console.log(lastDayofLastYear);
+
   var xAxis_categories = [(new Date(firstDayOfLastMonth).getMonth()+1) + '월',
                           (new Date(firstDayOfThisMonth).getMonth()+1) + '월'];
-
   var lastMonth = [];
   var thisMonth = [];
 
@@ -17,8 +23,11 @@ $(function () {
 
   var savingRate_Month;
 
-  lastMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfLastMonth)) + '&day_to=' + dateFormatter(new Date(lastDayOfLastMonth)) + '&offset=0';
-  thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(shiftDate(baseDay, 0)) + '&offset=0';
+  // lastMonth_query = 'api/labs/ux/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayofLastYear)) + '&day_to=' + dateFormatter(new Date(lastDayofLastYear)) + '&offset=0';
+  // thisMonth_query = 'api/labs/ux/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(shiftDate(baseDay, 0)) + '&offset=0';
+
+  lastMonth_query = 'api/labs/ux/energy/daily.json?day_from=' + "2014-10-01" + '&day_to=' + "2014-10-31" + '&offset=0';
+  thisMonth_query = 'api/labs/ux/energy/daily.json?day_from=' + "2015-10-01" + '&day_to=' + "2015-10-29" + '&offset=0';
 
   console.log(lastMonth_query);
   console.log(thisMonth_query);
