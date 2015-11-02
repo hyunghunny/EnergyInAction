@@ -4,21 +4,22 @@
 <head>
     <meta charset="utf-8" />
     <title>Notification Test</title>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-    <script type="text/javascript" src="javascripts/socket.io.js"></script>
+    <script type="text/javascript" src="javascripts/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/lib/socket.io.js"></script>
     <script type="text/javascript">
+        
+
         var socket = null;
         $(document).ready(function () {
             socket = io.connect();
             var now = new Date();
             var consoleDiv = $('#console');
             console.log('socket connected');
-            socket.on('update', function (latest) {                
-                now = new Date();
-                var msg = '[' + now + '] ' + latest;
+            socket.on('updated', function (msg) {                
                 console.log(msg);
                 consoleDiv.prepend('<p>' + msg + '</p>');
             })
+
         });
         $(document).unload(function () {
             if (socket) socket.disconnect();

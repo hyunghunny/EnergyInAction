@@ -12,11 +12,22 @@
     <script type="text/javascript" src="javascripts/lib/socket.io.js"></script>
     <script type="text/javascript" src="javascripts/lib/exporting.js"></script>
   <script type="text/javascript">
+      var myIp = '127.0.0.1';
+      var pageId = 'MARG';
+
     $(document).ready(function () {
         var socket = io.connect();
-
+        var now = new Date();
+        $.get("http://ipinfo.io", function (response) {
+            console.log(response.ip);
+            myIp = response.ip;
+            socket.emit('updated', { 'date': now, 'id': myIp + '/' + pageId, 'state': 'loaded' });
+        }, "jsonp");
+        
         socket.on('update', function (msg) {
-          location.reload();
+            location.reload();
+            var now = new Date();
+            socket.emit('updated', { 'date': now, 'id': myIp + '/' + pageId, 'state': 'updated' });
         })
     });
   </script>
