@@ -46,7 +46,8 @@ exports.start = function (server) {
             // echoing to clients
             console.log('page updated: ' + obj);
             
-            if ((obj.id).indexOf('147.47.120.217') !== -1) {
+            // skip airport IP
+            if ((obj.id).indexOf('147.47.120.217') == -1) {
                 var csvStream = fs.createWriteStream(csvFileName, { 'flags': 'a' }); 
                 var timestamp = new Date(obj.date).getTime();
                 var id = obj.id;
