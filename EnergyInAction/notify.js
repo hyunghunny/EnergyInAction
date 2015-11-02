@@ -5,6 +5,8 @@ var CronJob = require('cron').CronJob;
 var DBManager = require('./dbmgr');
 var dbmgr = new DBManager(config.mongodb);
 var socketServer = null;
+var fs = require('fs');
+var csvFileName = 'lab_display_state_log.csv';
 
 exports.connect = function (server, cb) {
     socketServer = socketIo.listen(server);
@@ -38,7 +40,26 @@ exports.start = function (server) {
     socketServer = socketIo.listen(server);
     
     socketServer.sockets.on('connection', function (socket) {
-        console.log('socket client connected');
+        //console.log('socket client connected');
+        // add updated event listener to broadcast
+        socket.on('updated', function (obj) {
+            // echoing to clients
+            console.log('page updated: ' + obj);
+            
+            if ((obj.id).indexOf('147.47.120.217') !== -1) {
+                var csvStream = fs.createWriteStream(csvFileName, { 'flags': 'a' }); 
+                var timestamp = new Date(obj.date).getTime();
+                var id = obj.id;
+                var state = obj.state;
+                var logMsg = timestamp + ',' + id + ',' + state;
+                console.log('write log:' + logMsg);
+                // save as a csv file
+                csvStream.write(logMsg + '\n');               
+                csvStream.end();
+            }
+            // broadcast messages to check page health
+            socketServer.sockets.emit('updated', '[' + new Date(obj.date).toLocaleString() + '] ' + obj.id  + ' is ' + obj.state);
+        });  
     });    
        
     var hoursJob = new CronJob('30 02 * * * *', function () {
@@ -60,7 +81,6 @@ exports.start = function (server) {
     halfJob.start();
     quarter3Job.start();
 }
-
 
 function checkUpdate(type) {   
     console.log('try to check DB updated when ' + type);    
