@@ -10,7 +10,7 @@ var csvFileName = 'lab_display_state_log.csv';
 
 exports.connect = function (server, cb) {
     socketServer = socketIo.listen(server);
- 
+
     socketServer.sockets.on('connection', function (socket) {
         console.log('socket connected');
         cb(socket);
@@ -33,37 +33,37 @@ exports.emit = function (msg, socket) {
     } else {
         console.log('no socket available. please connect first');
     }
-    
+
 }
 
 exports.start = function (server) {
     socketServer = socketIo.listen(server);
-    
+
     socketServer.sockets.on('connection', function (socket) {
         //console.log('socket client connected');
         // add updated event listener to broadcast
         socket.on('updated', function (obj) {
             // echoing to clients
             console.log('page updated: ' + obj);
-            
-            if ((obj.id).indexOf('147.47.120.217') !== -1) {
-                var csvStream = fs.createWriteStream(csvFileName, { 'flags': 'a' }); 
+
+            if ((obj.id).indexOf('147.47.120.217') == -1) {
+                var csvStream = fs.createWriteStream(csvFileName, { 'flags': 'a' });
                 var timestamp = new Date(obj.date).getTime();
                 var id = obj.id;
                 var state = obj.state;
                 var logMsg = timestamp + ',' + id + ',' + state;
                 console.log('write log:' + logMsg);
                 // save as a csv file
-                csvStream.write(logMsg + '\n');               
+                csvStream.write(logMsg + '\n');
                 csvStream.end();
             }
             // broadcast messages to check page health
             socketServer.sockets.emit('updated', '[' + new Date(obj.date).toLocaleString() + '] ' + obj.id  + ' is ' + obj.state);
-        });  
-    });    
-       
+        });
+    });
+
     var hoursJob = new CronJob('30 02 * * * *', function () {
-        checkUpdate('hour'); 
+        checkUpdate('hour');
     }, null, false);
     var quarter1Job = new CronJob('30 17 * * * *', function () {
         checkUpdate('15min');
@@ -72,9 +72,9 @@ exports.start = function (server) {
         checkUpdate('30min');
     }, null, false);
     var quarter3Job = new CronJob('30 47 * * * *', function () {
-        checkUpdate('45min'); 
-    }, null, false);    
-    
+        checkUpdate('45min');
+    }, null, false);
+
     console.log('register event handlers...');
     hoursJob.start();
     quarter1Job.start();
@@ -82,10 +82,10 @@ exports.start = function (server) {
     quarter3Job.start();
 }
 
-function checkUpdate(type) {   
-    console.log('try to check DB updated when ' + type);    
+function checkUpdate(type) {
+    console.log('try to check DB updated when ' + type);
     if (!dbmgr.isConnected()) {
-        console.log('try to connect DB...');  
+        console.log('try to connect DB...');
         dbmgr.connect(function (result) {
             if (result) {
                 emitLatestUpdate();
@@ -98,11 +98,11 @@ function checkUpdate(type) {
 
 var previousUpdated = null;
 
-// check DB has been updated and emit it 
+// check DB has been updated and emit it
 function emitLatestUpdate() {
     var collection = config.collection.quarters;
     dbmgr.findLatest(collection, function (result) {
-        
+
         var lastUpdated = new Date(result.dateTo);
         var now = new Date();
         var difference = 900000; // 15 min
@@ -116,13 +116,13 @@ function emitLatestUpdate() {
 
                 } else {
                     console.log('skip to emit due to duplication');
-                }                
+                }
                 previousUpdated = lastUpdated;
             } else {
                 console.log('no socket connected!');
                 // XXX:reconnection required here
             }
-            
+
         } else {
             console.log('DB is not updated yet. waiting 1 minute to retrieve again.');
             // invoke it again after 1 min. later

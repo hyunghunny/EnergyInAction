@@ -26,8 +26,8 @@ var lastDayofLastYear = shiftDate(firstDayofLastYear, 30)
   // lastMonth_query = 'api/labs/ux/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayofLastYear)) + '&day_to=' + dateFormatter(new Date(lastDayofLastYear)) + '&offset=0';
   // thisMonth_query = 'api/labs/ux/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(shiftDate(baseDay, 0)) + '&offset=0';
 
-  lastMonth_query = 'api/labs/ux/energy/daily.json?day_from=' + "2014-10-01" + '&day_to=' + "2014-10-31" + '&offset=0';
-  thisMonth_query = 'api/labs/ux/energy/daily.json?day_from=' + "2015-10-01" + '&day_to=' + "2015-10-29" + '&offset=0';
+  lastMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + "2014-09-01" + '&day_to=' + "2014-09-30" + '&offset=0';
+  thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + "2015-09-01" + '&day_to=' + "2015-09-30" + '&offset=0';
 
   console.log(lastMonth_query);
   console.log(thisMonth_query);
@@ -95,7 +95,7 @@ var lastDayofLastYear = shiftDate(firstDayofLastYear, 30)
       },
       title: {
          useHTML: true,
-         text: '[ 지난달과 이번달 (' +sign+ (savingRate_Month*100 - 100).toFixed(1) + '%) ]',
+         text: '[ 월 비교 (' +sign+ (savingRate_Month*100 - 100).toFixed(1) + '%) ]',
          style: {
            color: '#FFFFFF',
            fontWeight: 'bold',
