@@ -7,11 +7,6 @@ var MongoDBManager = function (options) {
 
     this.database = null;
 
-    process.on('exit', function (code) {
-        // close database on exit.
-        db.close();
-    });
-
 }
 MongoDBManager.prototype.isConnected = function () {
     if (this.database) {
