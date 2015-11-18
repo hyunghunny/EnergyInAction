@@ -1,7 +1,11 @@
-var counter = 2;
+var now = new Date();
+var hours = now.getHours();
+var minutes = now.getMinutes();
+var counter = Math.floor((hours*60 + minutes)/15) % 3;
+
 $(function () {
   marg_day_breakdown();
-  var timer = setInterval( marg_day_breakdown, 10000);
+  // var timer = setInterval( marg_day_breakdown, 3000);
   });
 
 
@@ -28,7 +32,8 @@ function marg_day_breakdown() {
 
     var currentState;
     var stateColors = ['#a50a0a','#f7cb00','#3e721f'];
-    var breakdownColors = []; //hvac, com, light, etc
+    var comparing_breakdownColors = ['#b3d5c8', '#f5e0b3', '#e8c2c1', '#d3bdd1']; //com, light, hvac, etc
+    var today_breakdownColors = ['#7db19f', '#eecf8d', '#f3a3a1', '#a889a5'];
 
     var today_total = [];
     var today_hvac  = [];
@@ -59,7 +64,7 @@ function marg_day_breakdown() {
         etc = total - (hvac + com + light);
 
         today_total.push(Number(total.toFixed(1)));
-        today_hvac.push(Number(hvac));//현재 hvac값이 낮아 fixed(1)하면 모두 0으로 나와 week과 숫자 불일치, 추후 hvac사용량 높아지면 다시 수정
+        today_hvac.push(Number(hvac.toFixed(3)));//현재 hvac값이 낮아 fixed(1)하면 모두 0으로 나와 week과 숫자 불일치, 추후 hvac사용량 높아지면 다시 수정
         today_com.push(Number(com.toFixed(1)));
         today_light.push(Number(light.toFixed(1)));
         today_etc.push(Number(etc.toFixed(1)));
@@ -84,7 +89,7 @@ function marg_day_breakdown() {
                 com  = accumulator(comparingDay_queryReturn[index], 'computer');
                 light = accumulator(comparingDay_queryReturn[index], 'light');
                 etc = total - (hvac + com + light);
-                comparingDay_hvac.push(Number(hvac)); //현재 hvac값이 낮아 fixed(1)하면 모두 0으로 나와 week과 숫자 불일치, 추후 hvac사용량 높아지면 다시 수정
+                comparingDay_hvac.push(Number(hvac.toFixed(3))); //현재 hvac값이 낮아 fixed(1)하면 모두 0으로 나와 week과 숫자 불일치, 추후 hvac사용량 높아지면 다시 수정
                 comparingDay_com.push(Number(com.toFixed(1)));
                 comparingDay_light.push(Number(light.toFixed(1)));
                 comparingDay_etc.push(Number(etc.toFixed(1)));
@@ -152,135 +157,8 @@ function marg_day_breakdown() {
       console.log('colorcode: ', stateColors[currentState-1]);
 
       console.log('*************counter:',counter);
-      if (counter==1) {
-        counter++;
-        $('#marg_day_breakdown').highcharts({
-              chart: {
-                  backgroundColor: "#f9f3e8"
-              },
-              title: {
-                  // text: '어제와 오늘 (' + comparingDay_queryReturn[0].location + '호 - 사용량 전체)'
-                  // text: '[ 어제와 오늘 ]'
-                  text: null
-              },
-              credits: {
-                  enabled: false
-              },
-              legend: {
-                  layout: 'vertical',
-                  align: 'left',
-                  verticalAlign: 'top',
-                  // x: legend_x+(today_queryReturn.length - 1)*24,
-                  x:745,
-                  y: 205,
-                  floating: true,
-                  borderWidth: 1,
-                  //backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-                  backgroundColor: 'rgba(255, 255, 255, .8)',
-                  borderColor: '#FFFFFF'
-              },
-              exporting: {
-                  enabled: false
-              },
-              xAxis: {
-                  categories: xAxis_categories
-                  // plotBands: [{ // visualize so far
-                  //     from: -0.5,
-                  //     to: today_queryReturn.length - 1,
-                  //     color: 'rgba(68, 170, 213, .1)'
-                  // }]
-              },
-              yAxis: {
-                maxPadding: 0.1,
-                  title: {
-                      text: '전력 사용량 (kW/h)'
-                  }
-              },
-              plotOptions: {
-                  line: {
-                      dataLabels: {
-                          enabled: true
-                      },
-                      enableMouseTracking: false
-                  },
-                  area: { /* or spline, area, series, areaspline etc.*/
-                      marker: {
-                         enabled: false
-                      }
-                  }
-              },
-
-              series: [{
-                  //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
-                  name: '일주 전 사용 패턴',
-                  data: comparingDay_plotData,
-                  // data: vsData,
-                  color: '#848174',
-                  lineWidth: 1,
-                  // linkedTo: ':previous',
-                  zIndex: 0
-              },{
-                  //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
-                  name: '일주 전 이 시간: ' + comparingSum.toFixed(1) + ' kW/h',
-                  data: comparingDay_plotData.slice(0,today_plotData.length),
-                  type: 'area',
-                  lineWidth: 0,
-                  color: '#7f8c91',//'#848174',
-                  fillOpacity: 0.7,
-                  zIndex: 0
-              }, {
-                  //name: '오늘: ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ')',
-                  name: '오늘 이 시간: ' + todaySum.toFixed(1) + ' kW/h (' + ((todaySum/comparingSum)*100).toFixed(1) +  '%)',
-                  data: today_plotData,
-                  type: 'area',
-                  lineWidth: 0,
-                  color: stateColors[currentState],
-                  // color: Highcharts.getOptions().colors[9],
-                  fillOpacity: 0.5,
-                  zIndex: 0
-              }, {
-                  //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
-                  data: today_plotData,
-                  // data: vsData,
-                  color: stateColors[currentState],
-                  linkedTo: ':previous',
-                  zIndex: 0
-              }, {
-                  name: '냉난방: ' + limitedArraySum(today_hvac, today_queryReturn.length).toFixed(1) + ' kW/h',
-                  data: today_hvac,
-                  // data: vsData,
-                  // color: stateColors[currentState],
-                  color: Highcharts.getOptions().colors[0],
-                  // linkedTo: ':previous',
-                  zIndex: 0
-              }, {
-                  name: '컴퓨터: ' + limitedArraySum(today_com, today_queryReturn.length).toFixed(1) + ' kW/h',
-                  data: today_com,
-                  // data: vsData,
-                  // color: stateColors[currentState],
-                  color: Highcharts.getOptions().colors[1],
-                  // linkedTo: ':previous',
-                  zIndex: 0
-              }, {
-                  name: '전등: ' + limitedArraySum(today_light, today_queryReturn.length).toFixed(1) + ' kW/h',
-                  data: today_light,
-                  // data: vsData,
-                  // color: stateColors[currentState],
-                  color: Highcharts.getOptions().colors[2],
-                  // linkedTo: ':previous',
-                  zIndex: 0
-              }, {
-                  name: '기타: ' + limitedArraySum(today_etc, today_queryReturn.length).toFixed(1) + ' kW/h',
-                  data: today_etc,
-                  // data: vsData,
-                  // color: stateColors[currentState],
-                  color: Highcharts.getOptions().colors[3],
-                  // linkedTo: ':previous',
-                  zIndex: 0
-              }]
-          });
-      }else if (counter==2) {
-        counter++;
+      if (counter==0) {
+        // counter=1;
         $('#marg_day_breakdown').highcharts({
               chart: {
                   backgroundColor: "#f9f3e8"
@@ -343,7 +221,7 @@ function marg_day_breakdown() {
                   name: '일주 전 냉난방 사용 패턴',
                   data: comparingDay_hvac,
                   // data: vsData,
-                  color: '#848174',
+                  color: comparing_breakdownColors[2],
                   lineWidth: 1,
                   // linkedTo: ':previous',
                   zIndex: 0
@@ -353,40 +231,32 @@ function marg_day_breakdown() {
                   data: comparingDay_hvac.slice(0,today_plotData.length),
                   type: 'area',
                   lineWidth: 0,
-                  color: '#7f8c91',//'#848174',
-                  fillOpacity: 0.7,
+                  color: comparing_breakdownColors[2],//'#848174',
+                  fillOpacity: 1,
                   zIndex: 0
-              },
-              // {
-              //     //name: '오늘: ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ')',
-              //     name: '오늘 이 시간: ' + todaySum.toFixed(1) + ' kW/h (' + ((todaySum/comparingSum)*100).toFixed(1) +  '%)',
-              //     data: today_plotData,
-              //     type: 'area',
-              //     lineWidth: 0,
-              //     color: stateColors[currentState],
-              //     // color: Highcharts.getOptions().colors[1],
-              //     fillOpacity: 0.5,
-              //     zIndex: 0
-              // }, {
-              //     //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
-              //     data: today_plotData,
-              //     // data: vsData,
-              //     color: stateColors[currentState],
-              //     linkedTo: ':previous',
-              //     zIndex: 0
-              // },
-              {
+              },{
                   name: '오늘 이 시간: ' + limitedArraySum(today_hvac, today_queryReturn.length).toFixed(1) + ' kW/h',
                   data: today_hvac,
                   // data: vsData,
                   // color: stateColors[currentState],
-                  color: Highcharts.getOptions().colors[0],
+                  color: today_breakdownColors[2],
+                  type: 'area',
+                  lineWidth: 0,
+                  fillOpacity: 0.5,
                   // linkedTo: ':previous',
+                  zIndex: 0
+              }, {
+                  data: today_hvac.slice(0,today_plotData.length),
+                  // data: vsData,
+                  // color: stateColors[currentState],
+                  color: today_breakdownColors[2],
+                  lineWidth: 1,
+                  linkedTo: ':previous',
                   zIndex: 0
               }]
           });
-      }else if (counter==3) {
-        counter++;
+      }else if (counter==1) {
+        // counter++;
         $('#marg_day_breakdown').highcharts({
               chart: {
                   backgroundColor: "#f9f3e8"
@@ -449,7 +319,7 @@ function marg_day_breakdown() {
                   name: '일주 전 컴퓨터 사용 패턴',
                   data: comparingDay_com,
                   // data: vsData,
-                  color: '#848174',
+                  color: comparing_breakdownColors[0],
                   lineWidth: 1,
                   // linkedTo: ':previous',
                   zIndex: 0
@@ -459,40 +329,30 @@ function marg_day_breakdown() {
                   data: comparingDay_com.slice(0,today_plotData.length),
                   type: 'area',
                   lineWidth: 0,
-                  color: '#7f8c91',//'#848174',
+                  color: comparing_breakdownColors[0],//'#848174',
                   fillOpacity: 0.7,
                   zIndex: 0
-              },
-              // {
-              //     //name: '오늘: ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ')',
-              //     name: '오늘 이 시간: ' + todaySum.toFixed(1) + ' kW/h (' + ((todaySum/comparingSum)*100).toFixed(1) +  '%)',
-              //     data: today_plotData,
-              //     type: 'area',
-              //     lineWidth: 0,
-              //     color: stateColors[currentState],
-              //     // color: Highcharts.getOptions().colors[1],
-              //     fillOpacity: 0.5,
-              //     zIndex: 0
-              // }, {
-              //     //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
-              //     data: today_plotData,
-              //     // data: vsData,
-              //     color: stateColors[currentState],
-              //     linkedTo: ':previous',
-              //     zIndex: 0
-              // },
-              {
+              },{
                   name: '오늘 이 시간: ' + limitedArraySum(today_com, today_queryReturn.length).toFixed(1) + ' kW/h',
                   data: today_com,
                   // data: vsData,
                   // color: stateColors[currentState],
-                  color: Highcharts.getOptions().colors[1],
-                  // linkedTo: ':previous',
+                  type: 'area',
+                  color: today_breakdownColors[0],
+                  fillOpacity: 0.7,
+                  zIndex: 0
+              }, {
+                  data: today_com.slice(0,today_plotData.length),
+                  // data: vsData,
+                  // color: stateColors[currentState],
+                  color: today_breakdownColors[0],
+                  lineWidth: 1,
+                  linkedTo: ':previous',
                   zIndex: 0
               }]
           });
-      } else if (counter==4) {
-        counter++;
+      } else if (counter==2) {
+        // counter++;
         $('#marg_day_breakdown').highcharts({
               chart: {
                   backgroundColor: "#f9f3e8"
@@ -510,8 +370,8 @@ function marg_day_breakdown() {
                   align: 'left',
                   verticalAlign: 'top',
                   // x: legend_x+(today_queryReturn.length - 1)*24,
-                  x:745,
-                  y: 286,
+                  x:770,
+                  y: 305,
                   floating: true,
                   borderWidth: 1,
                   //backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
@@ -555,7 +415,7 @@ function marg_day_breakdown() {
                   name: '일주 전 전등 사용 패턴',
                   data: comparingDay_light,
                   // data: vsData,
-                  color: '#848174',
+                  color: comparing_breakdownColors[1],
                   lineWidth: 1,
                   // linkedTo: ':previous',
                   zIndex: 0
@@ -565,145 +425,128 @@ function marg_day_breakdown() {
                   data: comparingDay_light.slice(0,today_plotData.length),
                   type: 'area',
                   lineWidth: 0,
-                  color: '#7f8c91',//'#848174',
-                  fillOpacity: 0.7,
+                  color: comparing_breakdownColors[1],//'#848174',
+                  fillOpacity: 1,
                   zIndex: 0
-              },
-              //  {
-              //     //name: '오늘: ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ')',
-              //     name: '오늘 이 시간: ' + todaySum.toFixed(1) + ' kW/h (' + ((todaySum/comparingSum)*100).toFixed(1) +  '%)',
-              //     data: today_plotData,
-              //     type: 'area',
-              //     lineWidth: 0,
-              //     color: stateColors[currentState],
-              //     // color: Highcharts.getOptions().colors[1],
-              //     fillOpacity: 0.5,
-              //     zIndex: 0
-              // }, {
-              //     //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
-              //     data: today_plotData,
-              //     // data: vsData,
-              //     color: stateColors[currentState],
-              //     linkedTo: ':previous',
-              //     zIndex: 0
-              // },
-               {
+              },{
                   name: '오늘 이 시간: ' + limitedArraySum(today_light, today_queryReturn.length).toFixed(1) + ' kW/h',
                   data: today_light,
                   // data: vsData,
                   // color: stateColors[currentState],
-                  color: Highcharts.getOptions().colors[2],
-                  // linkedTo: ':previous',
-                  zIndex: 0
-              }]
-          });
-      } else {
-        counter=2;
-        $('#marg_day_breakdown').highcharts({
-              chart: {
-                  backgroundColor: "#f9f3e8"
-              },
-              title: {
-                  // text: '어제와 오늘 (' + comparingDay_queryReturn[0].location + '호 - 사용량 전체)'
-                  // text: '[ 어제와 오늘 ]'
-                  text: null
-              },
-              credits: {
-                  enabled: false
-              },
-              legend: {
-                  layout: 'vertical',
-                  align: 'left',
-                  verticalAlign: 'top',
-                  // x: legend_x+(today_queryReturn.length - 1)*24,
-                  x:745,
-                  y: 286,
-                  floating: true,
-                  borderWidth: 1,
-                  //backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-                  backgroundColor: 'rgba(255, 255, 255, .8)',
-                  borderColor: '#FFFFFF'
-              },
-              exporting: {
-                  enabled: false
-              },
-
-              xAxis: {
-                  categories: xAxis_categories
-                  // plotBands: [{ // visualize so far
-                  //     from: -0.5,
-                  //     to: today_queryReturn.length - 1,
-                  //     color: 'rgba(68, 170, 213, .1)'
-                  // }]
-              },
-              yAxis: {
-                maxPadding: 0.1,
-                  title: {
-                      text: '전력 사용량 (kW/h)'
-                  }
-              },
-              plotOptions: {
-                  line: {
-                      dataLabels: {
-                          enabled: true
-                      },
-                      enableMouseTracking: false
-                  },
-                  area: { /* or spline, area, series, areaspline etc.*/
-                      marker: {
-                         enabled: false
-                      }
-                  }
-              },
-
-              series: [{
-                  //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
-                  name: '일주 전 기타 사용 패턴',
-                  data: comparingDay_etc,
-                  // data: vsData,
-                  color: '#848174',
-                  lineWidth: 1,
-                  // linkedTo: ':previous',
-                  zIndex: 0
-              },{
-                  //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
-                  name: '일주 전 이 시간: ' + limitedArraySum(comparingDay_etc, today_queryReturn.length).toFixed(1) + ' kW/h',
-                  data: comparingDay_etc.slice(0,today_plotData.length),
                   type: 'area',
-                  lineWidth: 0,
-                  color: '#7f8c91',//'#848174',
+                  color: today_breakdownColors[1],
                   fillOpacity: 0.7,
+                  // linkedTo: ':previous',
                   zIndex: 0
-              },
-              // {
-              //     //name: '오늘: ' + (baseDay.getMonth() + 1) + '월 ' +  baseDay.getDate() + '일(' + dayLabel[baseDay.getDay()] + ')',
-              //     name: '오늘 이 시간: ' + todaySum.toFixed(1) + ' kW/h (' + ((todaySum/comparingSum)*100).toFixed(1) +  '%)',
-              //     data: today_plotData,
-              //     type: 'area',
-              //     lineWidth: 0,
-              //     color: stateColors[currentState],
-              //     // color: Highcharts.getOptions().colors[1],
-              //     fillOpacity: 0.5,
-              //     zIndex: 0
-              // }, {
-              //     //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
-              //     data: today_plotData,
-              //     // data: vsData,
-              //     color: stateColors[currentState],
-              //     linkedTo: ':previous',
-              //     zIndex: 0
-              // },
-               {
-                  name: '오늘 이 시간: ' + limitedArraySum(today_etc, today_queryReturn.length).toFixed(1) + ' kW/h',
-                  data: today_etc,
+              }, {
+                  data: today_light.slice(0,today_plotData.length),
                   // data: vsData,
                   // color: stateColors[currentState],
-                  color: Highcharts.getOptions().colors[3],
-                  // linkedTo: ':previous',
+                  color: today_breakdownColors[1],
+                  lineWidth: 1,
+                  linkedTo: ':previous',
                   zIndex: 0
               }]
           });
       }
+      // else {
+      //   counter=1;
+      //   $('#marg_day_breakdown').highcharts({
+      //         chart: {
+      //             backgroundColor: "#f9f3e8"
+      //         },
+      //         title: {
+      //             // text: '어제와 오늘 (' + comparingDay_queryReturn[0].location + '호 - 사용량 전체)'
+      //             // text: '[ 어제와 오늘 ]'
+      //             text: null
+      //         },
+      //         credits: {
+      //             enabled: false
+      //         },
+      //         legend: {
+      //             layout: 'vertical',
+      //             align: 'left',
+      //             verticalAlign: 'top',
+      //             // x: legend_x+(today_queryReturn.length - 1)*24,
+      //             x:745,
+      //             y: 286,
+      //             floating: true,
+      //             borderWidth: 1,
+      //             //backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+      //             backgroundColor: 'rgba(255, 255, 255, .8)',
+      //             borderColor: '#FFFFFF'
+      //         },
+      //         exporting: {
+      //             enabled: false
+      //         },
+      //
+      //         xAxis: {
+      //             categories: xAxis_categories
+      //             // plotBands: [{ // visualize so far
+      //             //     from: -0.5,
+      //             //     to: today_queryReturn.length - 1,
+      //             //     color: 'rgba(68, 170, 213, .1)'
+      //             // }]
+      //         },
+      //         yAxis: {
+      //           maxPadding: 0.1,
+      //             title: {
+      //                 text: '전력 사용량 (kW/h)'
+      //             }
+      //         },
+      //         plotOptions: {
+      //             line: {
+      //                 dataLabels: {
+      //                     enabled: true
+      //                 },
+      //                 enableMouseTracking: false
+      //             },
+      //             area: { /* or spline, area, series, areaspline etc.*/
+      //                 marker: {
+      //                    enabled: false
+      //                 }
+      //             }
+      //         },
+      //
+      //         series: [{
+      //             //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
+      //             name: '일주 전 기타 사용 패턴',
+      //             data: comparingDay_etc,
+      //             // data: vsData,
+      //             color: comparing_breakdownColors[3],
+      //             lineWidth: 1,
+      //             // linkedTo: ':previous',
+      //             zIndex: 0
+      //         },{
+      //             //name: '어제: ' + (comparingDay_queryReturn.getMonth() + 1) + '월 ' +  comparingDay_queryReturn.getDate() + '일(' + dayLabel[comparingDay_queryReturn.getDay()] + ')',
+      //             name: '일주 전 이 시간: ' + limitedArraySum(comparingDay_etc, today_queryReturn.length).toFixed(1) + ' kW/h',
+      //             data: comparingDay_etc.slice(0,today_plotData.length),
+      //             type: 'area',
+      //             lineWidth: 0,
+      //             color: comparing_breakdownColors[3],//'#848174',
+      //             fillOpacity: 0.7,
+      //             zIndex: 0
+      //         },{
+      //             name: '오늘 이 시간: ' + limitedArraySum(today_etc, today_queryReturn.length).toFixed(1) + ' kW/h',
+      //             data: today_etc,
+      //             // data: vsData,
+      //             // color: stateColors[currentState],
+      //             type: 'area',
+      //             color: today_breakdownColors[3],
+      //             fillOpacity: 0.7,
+      //             // linkedTo: ':previous',
+      //             zIndex: 0
+      //         }, {
+      //             data: today_etc.slice(0,today_plotData.length),
+      //             // data: vsData,
+      //             // color: stateColors[currentState],
+      //             color: today_breakdownColors[3],
+      //             lineWidth: 1,
+      //             linkedTo: ':previous',
+      //             zIndex: 0
+      //         }]
+      //     });
+      // }
 
       var day = baseDay.getDay();
       $('#arrow').empty();

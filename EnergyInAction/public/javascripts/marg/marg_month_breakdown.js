@@ -26,6 +26,9 @@ $(function () {
     //
     var savingRate_Month;
 
+    var comparing_breakdownColors = ['#b3d5c8', '#f5e0b3', '#e8c2c1', '#d3bdd1']; //com, light, hvac, etc
+    var today_breakdownColors = ['#7db19f', '#eecf8d', '#f3a3a1', '#a889a5'];
+
     lastMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfLastMonth)) + '&day_to=' + dateFormatter(new Date(lastDayOfLastMonth)) + '&offset=0';
     if(dateFormatter(new Date(firstDayOfLastMonth)) != dateFormatter(baseDay)){
       console.log("The baseDay is NOT the fitst day of the month")
@@ -158,18 +161,19 @@ $(function () {
             }
         },
         series: [{
-            name: '냉난방',
-            data: [arrayMean(lastMonth_hvac), arrayMean(thisMonth_hvac)]
-        }, {
             name: '컴퓨터',
-            data: [arrayMean(lastMonth_com), arrayMean(thisMonth_com)]
+            data: [{y: arrayMean(lastMonth_com), color: comparing_breakdownColors[0]}, {y: arrayMean(thisMonth_com), color: today_breakdownColors[0]}]
         }, {
             name: '전등',
-            data: [arrayMean(lastMonth_light), arrayMean(thisMonth_light)]
+            data: [{y: arrayMean(lastMonth_light), color: comparing_breakdownColors[1]}, {y: arrayMean(thisMonth_light), color: today_breakdownColors[1]}]
+        }, {
+            name: '냉난방',
+            data: [{y: arrayMean(lastMonth_hvac), color: comparing_breakdownColors[2]}, {y: arrayMean(thisMonth_hvac), color: today_breakdownColors[2]}]
         }, {
             name: '기타',
-            data: [arrayMean(lastMonth_etc), arrayMean(thisMonth_etc)]
-        }]
+            data: [{y: arrayMean(lastMonth_etc), color: comparing_breakdownColors[3]}, {y: arrayMean(thisMonth_etc), color: today_breakdownColors[3]}]
+        }],
+        colors: [today_breakdownColors[0], today_breakdownColors[1],today_breakdownColors[2], today_breakdownColors[3]]
     });
   }
 });

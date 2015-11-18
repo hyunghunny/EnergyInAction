@@ -31,6 +31,9 @@ $(function () {
   var thisWeek_light = [];
   var thisWeek_etc   = [];
 
+  var comparing_breakdownColors = ['#b3d5c8', '#f5e0b3', '#e8c2c1', '#d3bdd1']; //com, light, hvac, etc
+  var today_breakdownColors = ['#7db19f', '#eecf8d', '#f3a3a1', '#a889a5'];
+
   lastWeek_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(lastMonday) + '&day_to=' + dateFormatter(lastSunday) + '&offset=0';
   thisWeek_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(thisMonday) + '&day_to=' + dateFormatter(thisSunday) + '&offset=0';
 
@@ -145,49 +148,49 @@ $(function () {
 
         series: [
           {
-              name: '냉난방',
-              data: lastWeek_hvac,
-              stack: 'lastWeek',
-              color: Highcharts.getOptions().colors[0]
-          }, {
               name: '컴퓨터',
               data: lastWeek_com,
               stack: 'lastWeek',
-              color: Highcharts.getOptions().colors[1]
+              color: comparing_breakdownColors[0]
           }, {
               name: '전등',
               data: lastWeek_light,
               stack: 'lastWeek',
-              color: Highcharts.getOptions().colors[2]
+              color: comparing_breakdownColors[1]
+          }, {
+              name: '냉난방',
+              data: lastWeek_hvac,
+              stack: 'lastWeek',
+              color: comparing_breakdownColors[2]
           }, {
               name: '기타',
               data: lastWeek_etc,
               stack: 'lastWeek',
-              color: Highcharts.getOptions().colors[3]
-          }, {
-              name: '냉난방',
-              data: thisWeek_hvac,
-              stack: 'thisWeek',
-              linkedTo: ':previous',
-              color: Highcharts.getOptions().colors[0]
+              color: comparing_breakdownColors[3]
           }, {
               name: '컴퓨터',
               data: thisWeek_com,
               stack: 'thisWeek',
               linkedTo: ':previous',
-              color: Highcharts.getOptions().colors[1]
+              color: today_breakdownColors[0]
           }, {
               name: '전등',
               data: thisWeek_light,
               stack: 'thisWeek',
               linkedTo: ':previous',
-              color: Highcharts.getOptions().colors[2]
+              color: today_breakdownColors[1]
+          }, {
+              name: '냉난방',
+              data: thisWeek_hvac,
+              stack: 'thisWeek',
+              linkedTo: ':previous',
+              color: today_breakdownColors[2]
           }, {
               name: '기타',
               data: thisWeek_etc,
               stack: 'thisWeek',
               linkedTo: ':previous',
-              color: Highcharts.getOptions().colors[3]
+              color: today_breakdownColors[3]
           }
         ],
 
