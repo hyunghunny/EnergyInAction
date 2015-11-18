@@ -89,15 +89,25 @@ $(function () {
         },
 
         title: {
-            text: '일주일 전력 사용 변화'
-        },
-
+           useHTML: true,
+           text: '[ 주간 비교 및 오늘 상세 ]',
+           style: {
+             color: '#FFFFFF',
+             fontWeight: 'bold',
+             'background-color': '#8E8989',
+             'border-radius': '6px',
+             border: '4px solid #8E8989'
+           }
+       },
+       credits: {
+           enabled: false
+       },
         xAxis: {
             categories: xAxis_categories,
             plotBands: [{ // visualize the weekend
                 from: (0.5 * (baseDay.getDay()*2+1)) -2 ,
                 to: (0.5 * (baseDay.getDay()*2+1)) -1,
-                color: 'rgba(68, 170, 213, .2)'
+                color: '#f9f3e8'
             }]
         },
 
@@ -120,17 +130,20 @@ $(function () {
             column: {
                 stacking: 'normal',
                 dataLabels: {
-                    enabled: false,
+                    enabled: true,
                     color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
                     style: {
-                        textShadow: '0 0 3px black'
+                        fontSize: "5px",
+                        textShadow: '0 0 1px black'
                     }
                 }
             }
         },
+        exporting: {
+            enabled: false
+        },
 
         series: [
-
           {
               name: '냉난방',
               data: lastWeek_hvac,
@@ -179,8 +192,18 @@ $(function () {
         ],
 
         legend: {
-            enabled: true
-        }
+            enabled: true,
+            layout: 'horizontal',
+            align: 'right',
+            verticalAlign: 'top',
+            // x: 800,
+            y: 20,
+            floating: true,
+            borderWidth: 1,
+            // backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+            backgroundColor: 'rgba(255, 255, 255, .8)',
+            borderColor: '#FFFFFF'
+        },
 
     });
   }
