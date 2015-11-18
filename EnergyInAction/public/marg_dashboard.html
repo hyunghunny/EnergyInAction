@@ -23,7 +23,7 @@
             myIp = response.ip;
             socket.emit('updated', { 'date': now, 'id': myIp + '/' + pageId, 'state': 'loaded' });
         }, "jsonp");
-        
+
         socket.on('update', function (msg) {
             location.reload();
             var now = new Date();

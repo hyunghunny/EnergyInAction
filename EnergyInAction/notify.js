@@ -45,16 +45,11 @@ exports.start = function (server) {
         socket.on('updated', function (obj) {
             // echoing to clients
             console.log('page updated: ' + obj);
-<<<<<<< HEAD
-            
+
             // skip airport IP
             if ((obj.id).indexOf('147.47.120.217') == -1) {
-                var csvStream = fs.createWriteStream(csvFileName, { 'flags': 'a' }); 
-=======
-
-            if ((obj.id).indexOf('147.47.120.217') == -1) {
                 var csvStream = fs.createWriteStream(csvFileName, { 'flags': 'a' });
->>>>>>> Bobby
+
                 var timestamp = new Date(obj.date).getTime();
                 var id = obj.id;
                 var state = obj.state;
