@@ -67,6 +67,7 @@ function build() {
     }
 
     holder.onPress = getURL;
+    console.log("***********",holder.onPress);
 
     var bg = new createjs.Shape();//E0E0E0
     bg.graphics.beginLinearGradientFill(["#ffffff","#ffffff"], [0, 1], 0, 40, W - 60, 40).drawRoundRect(0, ypos, W, 80, 10, 10, 10, 10).endFill();
@@ -134,11 +135,13 @@ function loadWeatherData() {
 function updateStage() {
     // redraw
 	stage.update();
+  console.log("***********","updateStage()");
 }
 
 // file loaded
 function handleFileLoad(event) {
     jsonData = JSON.parse(event.result);
+    console.log("*******************",jsonData);
 
     var unitSymbol = "C";
     if(metricUnits === false) unitSymbol = "F";
@@ -148,7 +151,7 @@ function handleFileLoad(event) {
 
     var path = "http://openweathermap.org/img/w/"  + jsonData.weather[0].icon + ".png";
     // var path = "http://postfiles15.naver.net/20150916_254/dg89613_1442378795457fKile_PNG/1442396759_weather_icons-01.png?type=w3";
-    console.log(jsonData.weather[0].icon);
+    console.log("*******************",jsonData.weather[0].icon);
     img_preloader.loadFile(path);
 
     updateStage();
@@ -190,9 +193,11 @@ function inputChanged(e) {
 }
 
 function getURL() {
-    if(jsonData.coord) {
-        window.open("http://openweathermap.org/Maps?zoom=7&lat=" + jsonData.coord.lat + "&lon=" + jsonData.coord.lon, '_blank');
-    }
+    // if(jsonData.coord) {
+    //     window.open("http://openweathermap.org/Maps?zoom=7&lat=" + jsonData.coord.lat + "&lon=" + jsonData.coord.lon, '_blank');
+    // }
+    window.open("http://openweathermap.org/Maps?zoom=7&lat=37.24&lon=127.01");
+    // &lat=37.24&lon=127.01 : Suwon
 }
 // >>> start
 window.addEventListener('load', init, false);
