@@ -27,7 +27,13 @@ $(function () {
     var savingRate_Month;
 
     lastMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfLastMonth)) + '&day_to=' + dateFormatter(new Date(lastDayOfLastMonth)) + '&offset=0';
-    thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(shiftDate(baseDay,0)) + '&offset=0';
+    if(dateFormatter(new Date(firstDayOfLastMonth)) != dateFormatter(baseDay)){
+      console.log("The baseDay is NOT the fitst day of the month")
+      thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(shiftDate(baseDay, -1)) + '&offset=0';
+    } else {
+      console.log("The baseDay is the FIRST day of the month")
+      thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(shiftDate(baseDay, 0)) + '&day_to=' + dateFormatter(shiftDate(baseDay, 0)) + '&offset=0';
+    }
 
     invokeOpenAPI(lastMonth_query, lastMonthCB);
     invokeOpenAPI(thisMonth_query, thisMonthCB);
@@ -79,20 +85,42 @@ $(function () {
     function drawChart(){
       savingRate_Month = ((arrayMean(thisMonth_total) / arrayMean(lastMonth_total)));
 
+      var sign="";
+      if (savingRate_Month>=1) {
+        sign="+";
+      }else {
+        sig="-";
+      }
+
       $('#marg_month_breakdown').highcharts({
         chart: {
             type: 'column'
         },
         title: {
-          text: '지난달과 이번달 하루사용량 평균 (' + (savingRate_Month*100 - 100).toFixed(1) + '%)'
+           useHTML: true,
+           text: '[ 지난달과 이번달 (' +sign+ (savingRate_Month*100 - 100).toFixed(1) + '%) ]',
+           style: {
+             color: '#FFFFFF',
+             fontWeight: 'bold',
+             'background-color': '#8E8989',
+             'border-radius': '6px',
+             border: '4px solid #8E8989'
+           }
+       },
+        credits: {
+            enabled: false
+        },
+        exporting: {
+            enabled: false
         },
         xAxis: {
             categories: xAxis_categories
         },
         yAxis: {
             min: 0,
+            opposite: true,
             title: {
-                text: '전력 사용량 (kW/h)'
+                text: '하루 평균 사용량 (kW/h)'
             },
             stackLabels: {
                 enabled: true,

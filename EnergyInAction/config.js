@@ -7,7 +7,7 @@
     },
 
     collection: {
-        quarters: "site73_15min_new",
+        quarters: "site73_15min",
         hours: "site73_hour_new",
         messages: "site73_messages"
     },
