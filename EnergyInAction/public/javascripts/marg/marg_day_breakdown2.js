@@ -1,7 +1,7 @@
 var now = new Date();
 var hours = now.getHours();
 var minutes = now.getMinutes();
-var counter = Math.floor((hours*60 + minutes)/15) % 3;
+var counter = Math.floor((hours*60 + minutes)/15) % 2;
 
 $(function () {
   marg_day_breakdown();
@@ -157,7 +157,7 @@ function marg_day_breakdown() {
       console.log('colorcode: ', stateColors[currentState-1]);
 
       console.log('*************counter:',counter);
-      if (counter==0) {
+      if (counter==2) {
         // counter=1;
         $('#marg_day_breakdown').highcharts({
               chart: {
@@ -176,8 +176,8 @@ function marg_day_breakdown() {
                   align: 'left',
                   verticalAlign: 'top',
                   // x: legend_x+(today_queryReturn.length - 1)*24,
-                  x:745,
-                  y: 286,
+                  x:777,
+                  y: 305,
                   floating: true,
                   borderWidth: 1,
                   //backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
@@ -274,8 +274,8 @@ function marg_day_breakdown() {
                   align: 'left',
                   verticalAlign: 'top',
                   // x: legend_x+(today_queryReturn.length - 1)*24,
-                  x:745,
-                  y: 286,
+                  x:777,
+                  y: 305,
                   floating: true,
                   borderWidth: 1,
                   //backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
@@ -351,7 +351,7 @@ function marg_day_breakdown() {
                   zIndex: 0
               }]
           });
-      } else if (counter==2) {
+      } else if (counter==0) {
         // counter++;
         $('#marg_day_breakdown').highcharts({
               chart: {
