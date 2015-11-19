@@ -3,7 +3,10 @@ var router = express.Router();
 
 // Get controller module.
 var controller = require('../control');
-
+var Client = require('node-rest-client').Client;
+w_client = new Client();
+var weather_baseURL = 'http://api.openweathermap.org/data/2.5/weather?q=Suwon&mode=json&units=metric&APPID=';
+var weather_apikey = "3a0dad724ecd4024df6785e56b2a9760";
 /**
  * @api {get} api Show available APIs
  * @apiName Listing_API
@@ -35,6 +38,14 @@ router.get('/', function (req, res) {
 
 });
 
+router.get('/weather', function (req, res) {
+  var requestURL = weather_baseURL + weather_apikey;
+  res.writeHead(200, w_client.get(requestURL,function (data, response) {
+      var result = JSON.parse(data);
+      console.log(result);
+  }));
+  res.end(result);
+});
 /**
  * @api {get} api/labs Show all laboratories.
  * @apiName Listing_All_Labs
@@ -998,7 +1009,7 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
  *   CAUTION: this day string format translated to local time.
  * @apiParam {String} [day_to=same day of from value]  Query parameter to set the time to be collected.
  *   It should be formated as YYYY-MM-DD. e.g. 2015-4-10.
- *   CAUTION: this day string format translated to local time.  
+ *   CAUTION: this day string format translated to local time.
  * @apiParam {Number} [offset=0] Query parameter to set the offset hour. e.g. offset=9 means each measurements associated from 9 A.M. to next 9 A.M.
  * @apiParam {Number} [limit=100] Query parameter to set the number of items which will be retrieved.
  * @apiParam {Number} [skip=0] Query parameter to set the skipped numbers of items.
@@ -2078,9 +2089,9 @@ router.get('/labs/:labId/energy/total.json', function (req, res) {
  * @apiName Posting_notice
  * @apiGroup Messaging
  * @apiExample {js} Example usage:
- *     POST /labs/marg/actuators/notices 
- *     
- *     { "notice" : 
+ *     POST /labs/marg/actuators/notices
+ *
+ *     { "notice" :
  *       {
  *         "dateFrom": 1428591600000,
  *         "message": "It is a good day to save energy!"
@@ -2095,28 +2106,28 @@ router.get('/labs/:labId/energy/total.json', function (req, res) {
 router.post('/labs/:labId/actuators/notices', function (req, res) {
     try {
         var id = req.params.labId;
-        
+
         // TODO get query parameter
         var notice = req.body.notice;
 
         var labObj = controller.labs.find(id);
-        
+
         if (labObj == null) {
             throw new Error('404');
         }
-        
+
         // validate notice
         if (notice == null || notice.message == null) {
             throw new Error('400');
         }
-        
-        if (labObj.postMessage('notice', notice)) {           
+
+        if (labObj.postMessage('notice', notice)) {
             res.sendStatus('202');
         } else {
             res.sendStatus('500');
         }
 
-        
+
 
     } catch (err) {
         // return error code here
@@ -2129,12 +2140,12 @@ router.post('/labs/:labId/actuators/notices', function (req, res) {
  * @apiName Getting_notice
  * @apiGroup Messaging
  * @apiExample {js} Example usage:
- *     GET /labs/marg/actuators/notices/latest 
- *     
+ *     GET /labs/marg/actuators/notices/latest
+ *
  * @apiHeader {String} Content-Type application/json
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
- *     { "notice" : 
+ *     { "notice" :
  *       {
  *         "datePublished": 1428591600000,
  *         "dateFrom": 1428591600000,
@@ -2145,14 +2156,14 @@ router.post('/labs/:labId/actuators/notices', function (req, res) {
 router.get('/labs/:labId/actuators/notices/latest', function (req, res) {
     try {
         var id = req.params.labId;
-        
-        // TODO get query parameter        
+
+        // TODO get query parameter
         var labObj = controller.labs.find(id);
-        
+
         if (labObj == null) {
             throw new Error('404');
         }
-        
+
         var noticeObj = {};
         labObj.getLatestMessage('notice', function (obj) {
             if (obj) {
@@ -2185,9 +2196,9 @@ router.get('/labs/:labId/actuators/notices/latest', function (req, res) {
  * @apiName Posting_tip
  * @apiGroup Messaging
  * @apiExample {js} Example usage:
- *     POST /labs/marg/actuators/tips 
- *     
- *     { "tip" : 
+ *     POST /labs/marg/actuators/tips
+ *
+ *     { "tip" :
  *       {
  *         "dateFrom": 1428591600000,
  *         "message": "Power off your computer when you leave!"
@@ -2202,26 +2213,26 @@ router.get('/labs/:labId/actuators/notices/latest', function (req, res) {
 router.post('/labs/:labId/actuators/tips', function (req, res) {
     try {
         var id = req.params.labId;
-        
+
         // TODO get query parameter
         var tip = req.body.tip;
-        
+
         var labObj = controller.labs.find(id);
-        
+
         if (labObj == null) {
             throw new Error('404');
         }
-        
+
         // validate notice
         if (tip == null || tip.message == null) {
             throw new Error('400');
         }
-        
+
         if (labObj.postMessage('tip', tip)) {
             res.sendStatus('202');
         } else {
             res.sendStatus('500');
-        }        
+        }
 
     } catch (err) {
         // return error code here
@@ -2234,12 +2245,12 @@ router.post('/labs/:labId/actuators/tips', function (req, res) {
  * @apiName Getting_tip
  * @apiGroup Messaging
  * @apiExample {js} Example usage:
- *     GET /labs/marg/actuators/tips/latest 
- * 
+ *     GET /labs/marg/actuators/tips/latest
+ *
  * @apiHeader {String} Content-Type application/json
  * @apiSuccessExample Success-Response:
  *  HTTP/1.1 200 OK
- *     { "tip" : 
+ *     { "tip" :
  *       {
  *         "datePublished": 1428591600000,
  *         "dateFrom": 1428591600000,
@@ -2250,14 +2261,14 @@ router.post('/labs/:labId/actuators/tips', function (req, res) {
 router.get('/labs/:labId/actuators/tips/latest', function (req, res) {
     try {
         var id = req.params.labId;
-        
-        // TODO get query parameter        
+
+        // TODO get query parameter
         var labObj = controller.labs.find(id);
-        
+
         if (labObj == null) {
             throw new Error('404');
         }
-        
+
         var tipObj = {};
         labObj.getLatestMessage('tip', function (obj) {
             if (obj) {
