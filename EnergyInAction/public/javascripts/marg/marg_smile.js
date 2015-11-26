@@ -41,16 +41,17 @@ $(function () {
           var comparingSum = limitedArraySum(comparingDay_data, today.length);
           var todaySum     = limitedArraySum(today_data, today.length);
 
-          console.log(today.length, comparingSum);
-          console.log(today.length, todaySum);
-
-          // console.log(new Date(today[today.length].dateTo));
-          console.log("today:", today);
-
           savingRate_Day = todaySum / comparingSum;
-          console.log("today sum from smile",todaySum);
-          console.log("comparing sum from smile",comparingSum);
-          console.log(savingRate_Day);
+          // console.log(today.length, comparingSum);
+          // console.log(today.length, todaySum);
+          //
+          // // console.log(new Date(today[today.length].dateTo));
+          // console.log("today:", today);
+
+
+          // console.log("today sum from smile",todaySum);
+          // console.log("comparing sum from smile",comparingSum);
+          // console.log(savingRate_Day);
 
           // if(savingRate_Day > 1.05) {
           //   currentState = 0;
@@ -84,7 +85,7 @@ console.log(baseDay);
 
           if(savingRate_Day > 1.20) {
             // $('#smiley').prepend('<img id="faces" src="./images/marg_red.png" />');
-            $('#smiley').prepend('<img id="faces" src="./images/red_all.png" />');
+            $('#smiley').prepend('<img id="faces" src="./images/red_all.png" style="max-width: 100%; height: auto;"/>');
             $('#axis').prepend('<img src="./images/percent_red.png" />');
             $('#marg_title').css("background-color","#a50a0a");
             currentColor = "#a50a0a";
