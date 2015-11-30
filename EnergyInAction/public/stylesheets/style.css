@@ -136,12 +136,31 @@ a {
   height: 480px;
   padding-left: 10px;
 }
+.class_breakdown_info{
+  float: left;
+  clear: both;
+  width: 230px;
+  height: 420px;
+  padding-left: 0px;
+  background-color: #f9f3e8;
+}
 .class_day {
   float: left;
   clear: both;
   width: 980px;
   height: 420px;
   padding-left: 10px;
+}
+.class_day2 {
+  /*float: left;
+  clear: both;
+  width: 980px;
+  height: 420px;
+  padding-left: 10px;*/
+  float: left;
+  clear: none;
+  width: 740px;
+  height: 420px;
 }
 .arrow_class {
   float: left;
