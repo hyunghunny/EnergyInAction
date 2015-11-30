@@ -402,17 +402,11 @@ router.get('/labs/:labId/energy/secs.json', function (req, res) {
             if (result != null) {
                 for (var i = 0; i < result.length; i++) {
                     var obs = result[i];
-                    var sum = accumulateFeederUsage(obs[id].feeders);
-                    obs.deviceID = obs[id].deviceID;
-                    obs.location = obs[id].location;
-                    obs.feeders = obs[id].feeders;
+                    var sum = accumulateFeederUsage(obs.feeders);
+
                     obs.sum = sum;
                     obs.unit = 'mW/s';
 
-                    // remove all labs
-                    delete obs['marg'];
-                    delete obs['hcc'];
-                    delete obs['ux'];
                 }
                 res.writeHead(200, controller.api.getContentHeader());
                 res.end(JSON.stringify(result));
@@ -803,24 +797,10 @@ router.get('/labs/:labId/energy/quarters.json', function (req, res) {
 
                 for (var i = 0; i < result.length; i++) {
                     var obs = result[i];
-                    if (obs[id]) {
-                        var sum = accumulateFeederUsage(obs[id].feeders, 'kW/15min');
-                        obs.deviceID = obs[id].deviceID;
-                        obs.location = obs[id].location;
-                        obs.feeders = obs[id].feeders;
 
-                        obs.sum = sum;
-                        obs.unit = 'kW/15min';
-
-                        // remove all labs
-                        delete obs['marg'];
-                        delete obs['hcc'];
-                        delete obs['ux'];
-
-                    } else {
-                        console.log('invalid result: ' + JSON.stringify(obs))
-                    }
-
+                    var sum = accumulateFeederUsage(obs.feeders, 'kW/15min');
+                    obs.sum = sum;
+                    obs.unit = 'kW/15min';
                 }
 
                 res.writeHead(200, controller.api.getContentHeader());
@@ -985,18 +965,12 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
                 // result will be translated to kWh
                 for (var i = 0; i < result.length; i++) {
                     var obs = result[i];
-                    var sum = accumulateFeederUsage(obs[id].feeders, 'kWh');
-                    obs.deviceID = obs[id].deviceID;
-                    obs.location = obs[id].location;
-                    obs.feeders = obs[id].feeders;
-
+                    var sum = accumulateFeederUsage(obs.feeders, 'kWh');
+                    
                     obs.sum = sum;
                     obs.unit = 'kW/h';
 
-                    // remove all labs
-                    delete obs['marg'];
-                    delete obs['hcc'];
-                    delete obs['ux'];
+
                 }
                 res.writeHead(200, controller.api.getContentHeader());
                 res.end(JSON.stringify(result));

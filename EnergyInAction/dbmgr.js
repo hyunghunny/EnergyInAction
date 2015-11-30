@@ -163,8 +163,13 @@ MongoDBManager.prototype.find = function (collectionName, queries, callback) {
         dbquery.labId = queries.labId;
     }
     
-    // filter out _id attribute in default;
-    options._id = false;
+    // filter out _id attribute in default; 
+    // FIXME:filtering doesn't work
+    options._id = false;    
+    for (filter in queries.filters) {
+        var value = queries.filters[filter];
+        options[filter] = value;
+    }
     
     this.database.collection(collectionName, function (err, collection) {
         if (err) {

@@ -131,8 +131,7 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
         queries.startDate = new Date(queries.base_time);
         queries.endDate = new Date(queries.to_time - (queries.to_time % 900000)); // truncate quarters only
         //console.log('accumulate data from ' + queries.startDate.toLocaleString() + ' to ' + queries.endDate.toLocaleString());
-
-        // use 15min data to aggregate usage
+        var id = this.id;
         dbmgr.aggregateFeeders(config.collection.hours, self.id, queries, function (results) {
 
             var returnObj = {};
@@ -151,6 +150,8 @@ LabEnergyManager.prototype.accumulateUsages = function (queries, cb) {
                 feeders.push(feeder);
             }
             returnObj["feeders"] = feeders;
+            
+            excludeFeeders(id, returnObj); // XXX:exclude some feeders
 
             cb(returnObj);
 
@@ -324,6 +325,7 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
         queries.startDate = new Date(queries.base_time);
         queries.endDate = new Date(queries.to_time);
         console.log(type + ' data from ' + queries.startDate + ' to ' + queries.endDate);
+        
         // set default filters to disable all
         var filters = {
             "ux" : false,
@@ -331,57 +333,69 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
             "hcc" : false
         }
         delete filters[this.id]; // enable a specific lab information only
+        queries.filters = filters;
 
-        if (!dbmgr.isConnected()) {
-            dbmgr.connect(function (result) {
-                if (result) {
-                    dbmgr.find(collection, queries, function (data) {
-                        excludeFeeders(queries.labId, data);
-                        cb(data);
-                    });
+        var id = this.id;
+            
+        dbmgr.find(collection, queries, function (data) {
+            for (var i = 0; i < data.length; i++) {
+                var obs = data[i];
+                if (obs[id]) {
+                    obs.deviceID = obs[id].deviceID;
+                    obs.location = obs[id].location;
+                    obs.feeders = obs[id].feeders;
+
+                    excludeFeeders(id, obs);
+
+                    // remove all labs
+                    delete obs['marg'];
+                    delete obs['hcc'];
+                    delete obs['ux'];
+
+                } else {
+                    console.log('invalid result: ' + JSON.stringify(obs))
                 }
-            })
-        } else {
-            dbmgr.find(collection, queries, function (data) {
-                excludeFeeders(queries.labId, data);
-                cb(data);
-            });
-        }
+                
+            }
+            
+            cb(data);
+        });
+
     }
 }
 
 LabEnergyManager.prototype.realtimeUsages = function (queries, cb) {
     var encored_loader = require('./encored_data_loader.js');
-    var labId = queries.labId;
-    encored_loader.getLatest(queries.labId, function (data) {
-        excludeFeeders(labId, data);       
-        cb(data);
+    var labId = this.id;
+    encored_loader.getLatest(queries.labId, function (obs) {
+        excludeFeeders(labId, obs);       
+        cb(obs);
     })
 }
 
 // XXX: below function is an alternative implementation to skip some feeders.
 // USE IT UNDER A CAUTION!
-function excludeFeeders(labId, data) {
-    console.log(labId);
+function excludeFeeders(labId, obs) {
+    //console.log(labId);
     if (labId == 'hcc') {
-        var feeders = data.feeders;
-        console.log(JSON.stringify(feeders));
 
-        var validFeeders = [];        
+        var feeders = obs.feeders;
+            
+        var validFeeders = [];
         for (var i = 0; i < feeders.length; i++) {
             var feeder = feeders[i];
             switch (feeder.feederID) {
                 case 6:
                 case 11:
-                    console.log('skip ' + feeder.feederID);
+                    console.log('skipping ' + feeder.feederID + ' feeder of HCC');
                     break;
                 default:
                     validFeeders.push(feeder);
                     break;
             }
         }
-        data.feeders = validFeeders;
-        console.log(JSON.stringify(data.feeders));
+        obs.feeders = validFeeders;
+        //console.log(JSON.stringify(obs.feeders));        
         
     }
 }
