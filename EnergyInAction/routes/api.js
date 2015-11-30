@@ -38,6 +38,18 @@ router.get('/', function (req, res) {
 
 });
 
+/**
+ * @api {get} api/labs Show all laboratories.
+ * @apiName Get_Current_Weather_Info
+ * 
+ * @apiGroup Lab Details
+ * @apiExample {js} Example usage:
+ *     api/weather
+ * @apiHeader {String} Content-Type application/json
+ * @apiSuccessExample Success-Response:
+ *  HTTP/1.1 200 OK
+ *  TODO:JSON body will be updated.
+ */
 router.get('/weather', function (req, res) {
   var requestURL = weather_baseURL + weather_apikey;
   res.writeHead(200, w_client.get(requestURL,function (data, response) {
@@ -588,6 +600,7 @@ function accumulateFeederUsage(feeders, unitType) {
     }
     for (var i = 0; i < feeders.length; i++) {
         var feeder = feeders[i];
+        
         sum = sum + feeder.value; // cummulate value
         // unit transformation
         feeder.value = feeder.value / unit;

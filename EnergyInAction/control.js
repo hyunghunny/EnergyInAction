@@ -335,20 +335,55 @@ LabEnergyManager.prototype.retrieveUsages = function (type, queries, cb) {
         if (!dbmgr.isConnected()) {
             dbmgr.connect(function (result) {
                 if (result) {
-                    dbmgr.find(collection, queries, cb);
+                    dbmgr.find(collection, queries, function (data) {
+                        excludeFeeders(queries.labId, data);
+                        cb(data);
+                    });
                 }
             })
         } else {
-            dbmgr.find(collection, queries, cb);
+            dbmgr.find(collection, queries, function (data) {
+                excludeFeeders(queries.labId, data);
+                cb(data);
+            });
         }
     }
 }
 
 LabEnergyManager.prototype.realtimeUsages = function (queries, cb) {
     var encored_loader = require('./encored_data_loader.js');
+    var labId = queries.labId;
     encored_loader.getLatest(queries.labId, function (data) {
+        excludeFeeders(labId, data);       
         cb(data);
     })
+}
+
+// XXX: below function is an alternative implementation to skip some feeders.
+// USE IT UNDER A CAUTION!
+function excludeFeeders(labId, data) {
+    console.log(labId);
+    if (labId == 'hcc') {
+        var feeders = data.feeders;
+        console.log(JSON.stringify(feeders));
+
+        var validFeeders = [];        
+        for (var i = 0; i < feeders.length; i++) {
+            var feeder = feeders[i];
+            switch (feeder.feederID) {
+                case 6:
+                case 11:
+                    console.log('skip ' + feeder.feederID);
+                    break;
+                default:
+                    validFeeders.push(feeder);
+                    break;
+            }
+        }
+        data.feeders = validFeeders;
+        console.log(JSON.stringify(data.feeders));
+        
+    }
 }
 
 // TODO: add API handlers
