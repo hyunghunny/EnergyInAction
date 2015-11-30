@@ -1,15 +1,18 @@
-var now = new Date();
-var hours = now.getHours();
-var minutes = now.getMinutes();
-var counter = Math.floor((hours*60 + minutes)/15) % 2;
+
 
 $(function () {
-  hcc_day_breakdown();
-  // var timer = setInterval( hcc_day_breakdown, 3000);
+  // hcc_day_breakdown();
+  var timer = setInterval( hcc_day_breakdown, 10000);
   });
 
 
 function hcc_day_breakdown() {
+
+  var now = new Date();
+  var hours = now.getHours();
+  var minutes = now.getMinutes();
+  var seconds = now.getSeconds();
+  var counter = Math.floor((hours*60 + minutes)/15) % 2;
 
     baseDay_query  = '/api/labs/hcc/energy/hours.json?base_time=' + baseTime;
     comparingDay_query = '/api/labs/hcc/energy/hours.json?base_time=' + lastWeekDayTime; // 지난 주 같은 요일로 설정
@@ -157,7 +160,7 @@ function hcc_day_breakdown() {
       console.log('colorcode: ', stateColors[currentState-1]);
 
       console.log('*************counter:',counter);
-      if (counter==2) {
+      if (Math.floor(seconds/10%3) == 1) {
         // counter=1;
         $('#hcc_day_breakdown').highcharts({
               chart: {
@@ -255,7 +258,7 @@ function hcc_day_breakdown() {
                   zIndex: 0
               }]
           });
-      }else if (counter==1) {
+      }else if (Math.floor(seconds/10%3) == 2) { //counter==1
         // counter++;
         $('#hcc_day_breakdown').highcharts({
               chart: {
@@ -351,7 +354,7 @@ function hcc_day_breakdown() {
                   zIndex: 0
               }]
           });
-      } else if (counter==0) {
+      } else {//counter==0
         // counter++;
         $('#hcc_day_breakdown').highcharts({
               chart: {
@@ -565,6 +568,28 @@ function hcc_day_breakdown() {
       }else {
         $('#arrow').prepend('<img id="faces" src="./images/arrow_depth_sat.png" />');
       }
+
+      // var breakdown_info_percent = 0;
+      // var breakdown_info_title;
+      // $('#breakdown_info').empty();
+      // if(Math.floor(seconds/10%3) == 1){
+      //   console.log('#######info:',Math.floor(seconds/10%3));
+      //   breakdown_info_percent = (limitedArraySum(today_hvac, today_queryReturn.length)/limitedArraySum(comparingDay_hvac, today_queryReturn.length)).toFixed(1);
+      //   breakdown_info_title=$("<div>").attr("id","breakdown_info_title").css({"font-size": "19px", "display" : "inline"}).text('냉난방<br />어제 이시간 대비<br>'+breakdown_info_percent+'% 사용중');
+      //   $('#breakdown_info').append('<img id="faces" src="./images/hvac.png" />').append(breakdown_info_title);
+      // }else if (Math.floor(seconds/10%3)==2) {
+      //   console.log('#######info:',Math.floor(seconds/10%3));
+      //   breakdown_info_percent = limitedArraySum(today_com, today_queryReturn.length)/limitedArraySum(comparingDay_com, today_queryReturn.length);
+      //   breakdown_info_percent.toFixed(1);
+      //   breakdown_info_title=$("<div>").attr("id","breakdown_info_title").css({"font-size": "19px", "display" : "inline"}).text('컴퓨터<br />어제 이시간 대비<br>'+breakdown_info_percent+'% 사용중');
+      //   $('#breakdown_info').append('<img id="faces" src="./images/computer.png" />').append(breakdown_info_title);
+      // }else {
+      //   console.log('#######info:',Math.floor(seconds/10%3));
+      //   breakdown_info_percent = limitedArraySum(today_light, today_queryReturn.length)/limitedArraySum(comparingDay_light, today_queryReturn.length);
+      //   breakdown_info_percent.toFixed(1);
+      //   breakdown_info_title=$("<div>").attr("id","breakdown_info_title").css({"font-size": "19px", "display" : "inline"}).text('전등<br /> 어제 이시간 대비'+breakdown_info_percent+'% 사용중');
+      //   $('#breakdown_info').append('<img id="faces" src="./images/light.png" />').append(breakdown_info_title);
+      // }
 
     }//drawChart()
 
