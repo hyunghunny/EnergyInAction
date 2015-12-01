@@ -574,23 +574,18 @@ function ux_day_breakdown() {
       $('#breakdown_info_icon2').empty();
       if(Math.floor(seconds/10%3) == 1){
         console.log('#######info:',Math.floor(seconds/10%3));
-        breakdown_info_percent = (limitedArraySum(today_hvac, today_queryReturn.length)/limitedArraySum(comparingDay_hvac, today_queryReturn.length)).toFixed(1)*100;
-        // breakdown_info_title=$("<div>").attr("id","breakdown_info_title").css({"font-size": "19px", "display" : "inline","word-wrap": "break-word"}).text('냉난방 어제 이시간 대비 '+breakdown_info_percent+'% 사용중');
-        // $('#breakdown_info').append('<img id="breakdown_info_icon" align="middle" src="./images/hvac.png" />').append(breakdown_info_title);
+        breakdown_info_percent = Math.round(limitedArraySum(today_hvac, today_queryReturn.length)/limitedArraySum(comparingDay_hvac, today_queryReturn.length)*100);
         $('#breakdown_info_icon2').append('<img id="icon" align="middle" src="./images/hvac.png" />');
         $('#breakdown_item').text('냉난방');$('#breakdown_item_percentage').text(breakdown_info_percent+'% 사용중');
       }else if (Math.floor(seconds/10%3)==2) {
         console.log('#######info:',Math.floor(seconds/10%3));
-        breakdown_info_percent = (limitedArraySum(today_com, today_queryReturn.length)/limitedArraySum(comparingDay_com, today_queryReturn.length)).toFixed(1)*100;
-        // breakdown_info_title=$("<div>").attr("id","breakdown_info_title").css({"font-size": "19px", "display" : "inline"}).text('<br/>컴퓨터<br/>어제 이시간 대비<br>'+breakdown_info_percent+'% 사용중');
-        // $('#breakdown_info').append('<img id="breakdown_info_icon" align="middle" src="./images/computer.png" />').append(breakdown_info_title);
+        breakdown_info_percent = Math.round(limitedArraySum(today_com, today_queryReturn.length)/limitedArraySum(comparingDay_com, today_queryReturn.length)*100);
+        console.log('#######info:',breakdown_info_percent);
         $('#breakdown_info_icon2').append('<img id="icon" align="middle" src="./images/computer.png" />');
         $('#breakdown_item').text('컴퓨터');$('#breakdown_item_percentage').text(breakdown_info_percent+'% 사용중');
       }else {
         console.log('#######info:',Math.floor(seconds/10%3));
-        breakdown_info_percent = (limitedArraySum(today_light, today_queryReturn.length)/limitedArraySum(comparingDay_light, today_queryReturn.length)).toFixed(1)*100;
-        // breakdown_info_title=$("<div>").attr("id","breakdown_info_title").css({"font-size": "19px", "display" : "inline"}).text('<br/>전등<br/> 어제 이시간 대비'+breakdown_info_percent+'% 사용중');
-        // $('#breakdown_info').append('<img id="breakdown_info_icon" align="middle" src="./images/light.png" />').append(breakdown_info_title);
+        breakdown_info_percent = Math.round(limitedArraySum(today_light, today_queryReturn.length)/limitedArraySum(comparingDay_light, today_queryReturn.length)*100);
         $('#breakdown_info_icon2').append('<img id="icon" align="middle" src="./images/light.png" />');
         $('#breakdown_item').text('전등');$('#breakdown_item_percentage').text(breakdown_info_percent+'% 사용중');
       }
