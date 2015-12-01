@@ -101,7 +101,11 @@ setInterval( function() {
     <div class="center">
       <div id="ux_week_breakdown" class="class_week"></div>
       <div id="arrow" class="arrow_class"></div>
-      <div id="ux_day_breakdown" class="class_day" ></div>
+      <div id="breakdown_info" class="class_breakdown_info"><br><br>
+        <div id="breakdown_info_icon2" align="center"></div>
+        <div id="breakdown_info_title2" align="center"><h2 class="class_breakdown_info_title"><br><span id="breakdown_item" ></span><br><br><span textColor = "#595959">지난주 시간 대비</span><br><span id="breakdown_item_percentage"></span></h3></div>
+      </div>
+      <div id="ux_day_breakdown" class="class_day2" ></div>
     </div>
 
     <div id="ux_widget" class="class_widgets">
@@ -133,7 +137,7 @@ setInterval( function() {
     <!-- canvas -->
     <canvas id='canvas' width='390' height='200'></canvas><p id='helloWorld'></p>
   </div>
-      <div id="ux_notice" class="class_notice"><h2 id = "notice_msg">ddd</h2></div>
+      <div id="ux_notice" class="class_notice"><h2 id = "notice_msg"></h2></div>
       <script type="text/javascript">
           var selectedLab = 'ux';
           var postType = "notice";
@@ -159,7 +163,7 @@ setInterval( function() {
               });
           });
       </script>
-      <div id="ux_month_breakdown" class="class_month"></div>
+      <div id="ux_month_breakdown" class="class_month2">coming soon!</div>
     </div>
 
     <div id="ux_tip" class="class_tip" ><br><h2><span style="margin-left:7em"><marquee id="tip_msg" direction="left" width=1750px >절전형 멀티탭을 사용하여 불필요한 전력 사용을 줄여주세요</marquee></span></h2></div>
@@ -198,7 +202,9 @@ setInterval( function() {
 <!-- <script type="text/javascript" src="./javascripts/ux_realtime.js"></script> -->
 <script type="text/javascript" src="./javascripts/ux/ux_smile.js"></script>
 
-<script type="text/javascript" src="./javascripts/ux/ux_day_breakdown.js"></script>
+<!-- <script type="text/javascript" src="./javascripts/ux/change_day_breakdown.js"></script> -->
+<script type="text/javascript" src="./javascripts/ux/ux_day_breakdown2.js"></script>
+<!-- <script type="text/javascript" src="./javascripts/ux/ux_day_breakdown2.js"></script> -->
 
 <script type="text/javascript" src="./javascripts/ux/ux_week_breakdown.js"></script>
 <script type="text/javascript" src="./javascripts/ux/ux_month_breakdown.js"></script>
