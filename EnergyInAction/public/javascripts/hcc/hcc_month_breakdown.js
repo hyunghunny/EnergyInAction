@@ -30,7 +30,7 @@ $(function () {
     var today_breakdownColors = ['#7db19f', '#eecf8d', '#f3a3a1', '#a889a5'];
 
     lastMonth_query = 'api/labs/hcc/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfLastMonth)) + '&day_to=' + dateFormatter(new Date(lastDayOfLastMonth)) + '&offset=0';
-    if(dateFormatter(new Date(firstDayOfLastMonth)) != dateFormatter(baseDay)){
+    if(dateFormatter(new Date(firstDayOfThisMonth)) != dateFormatter(baseDay)){
       console.log("The baseDay is NOT the fitst day of the month")
       thisMonth_query = 'api/labs/hcc/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(shiftDate(baseDay, -1)) + '&offset=0';
     } else {
