@@ -1,7 +1,7 @@
 
 
 $(function () {
-  // marg_day_breakdown();
+  marg_day_breakdown();
   var timer = setInterval( marg_day_breakdown, 10000);
   });
 
@@ -179,8 +179,8 @@ function marg_day_breakdown() {
                   align: 'left',
                   verticalAlign: 'top',
                   // x: legend_x+(today_queryReturn.length - 1)*24,
-                  x:777,
-                  y: 305,
+                  x:540,
+                  y: 290,
                   floating: true,
                   borderWidth: 1,
                   //backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
@@ -235,7 +235,7 @@ function marg_day_breakdown() {
                   type: 'area',
                   lineWidth: 0,
                   color: comparing_breakdownColors[2],//'#848174',
-                  fillOpacity: 1,
+                  fillOpacity: 0.5,
                   zIndex: 0
               },{
                   name: '오늘 이 시간: ' + limitedArraySum(today_hvac, today_queryReturn.length).toFixed(1) + ' kW/h',
@@ -245,7 +245,7 @@ function marg_day_breakdown() {
                   color: today_breakdownColors[2],
                   type: 'area',
                   lineWidth: 0,
-                  fillOpacity: 0.5,
+                  fillOpacity: 0.7,
                   // linkedTo: ':previous',
                   zIndex: 0
               }, {
@@ -277,8 +277,8 @@ function marg_day_breakdown() {
                   align: 'left',
                   verticalAlign: 'top',
                   // x: legend_x+(today_queryReturn.length - 1)*24,
-                  x:777,
-                  y: 305,
+                  x:540,
+                  y: 290,
                   floating: true,
                   borderWidth: 1,
                   //backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
@@ -373,8 +373,8 @@ function marg_day_breakdown() {
                   align: 'left',
                   verticalAlign: 'top',
                   // x: legend_x+(today_queryReturn.length - 1)*24,
-                  x:770,
-                  y: 305,
+                  x:540,
+                  y: 290,
                   floating: true,
                   borderWidth: 1,
                   //backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
@@ -429,7 +429,7 @@ function marg_day_breakdown() {
                   type: 'area',
                   lineWidth: 0,
                   color: comparing_breakdownColors[1],//'#848174',
-                  fillOpacity: 1,
+                  fillOpacity: 0.6,
                   zIndex: 0
               },{
                   name: '오늘 이 시간: ' + limitedArraySum(today_light, today_queryReturn.length).toFixed(1) + ' kW/h',
@@ -569,27 +569,31 @@ function marg_day_breakdown() {
         $('#arrow').prepend('<img id="faces" src="./images/arrow_depth_sat.png" />');
       }
 
-      // var breakdown_info_percent = 0;
+      var breakdown_info_percent = 0;
       // var breakdown_info_title;
-      // $('#breakdown_info').empty();
-      // if(Math.floor(seconds/10%3) == 1){
-      //   console.log('#######info:',Math.floor(seconds/10%3));
-      //   breakdown_info_percent = (limitedArraySum(today_hvac, today_queryReturn.length)/limitedArraySum(comparingDay_hvac, today_queryReturn.length)).toFixed(1);
-      //   breakdown_info_title=$("<div>").attr("id","breakdown_info_title").css({"font-size": "19px", "display" : "inline"}).text('냉난방<br />어제 이시간 대비<br>'+breakdown_info_percent+'% 사용중');
-      //   $('#breakdown_info').append('<img id="faces" src="./images/hvac.png" />').append(breakdown_info_title);
-      // }else if (Math.floor(seconds/10%3)==2) {
-      //   console.log('#######info:',Math.floor(seconds/10%3));
-      //   breakdown_info_percent = limitedArraySum(today_com, today_queryReturn.length)/limitedArraySum(comparingDay_com, today_queryReturn.length);
-      //   breakdown_info_percent.toFixed(1);
-      //   breakdown_info_title=$("<div>").attr("id","breakdown_info_title").css({"font-size": "19px", "display" : "inline"}).text('컴퓨터<br />어제 이시간 대비<br>'+breakdown_info_percent+'% 사용중');
-      //   $('#breakdown_info').append('<img id="faces" src="./images/computer.png" />').append(breakdown_info_title);
-      // }else {
-      //   console.log('#######info:',Math.floor(seconds/10%3));
-      //   breakdown_info_percent = limitedArraySum(today_light, today_queryReturn.length)/limitedArraySum(comparingDay_light, today_queryReturn.length);
-      //   breakdown_info_percent.toFixed(1);
-      //   breakdown_info_title=$("<div>").attr("id","breakdown_info_title").css({"font-size": "19px", "display" : "inline"}).text('전등<br /> 어제 이시간 대비'+breakdown_info_percent+'% 사용중');
-      //   $('#breakdown_info').append('<img id="faces" src="./images/light.png" />').append(breakdown_info_title);
-      // }
+      $('#breakdown_info_icon2').empty();
+      if(Math.floor(seconds/10%3) == 1){
+        console.log('#######info:',Math.floor(seconds/10%3));
+        breakdown_info_percent = (limitedArraySum(today_hvac, today_queryReturn.length)/limitedArraySum(comparingDay_hvac, today_queryReturn.length)).toFixed(1)*100;
+        // breakdown_info_title=$("<div>").attr("id","breakdown_info_title").css({"font-size": "19px", "display" : "inline","word-wrap": "break-word"}).text('냉난방 어제 이시간 대비 '+breakdown_info_percent+'% 사용중');
+        // $('#breakdown_info').append('<img id="breakdown_info_icon" align="middle" src="./images/hvac.png" />').append(breakdown_info_title);
+        $('#breakdown_info_icon2').append('<img id="icon" align="middle" src="./images/hvac.png" />');
+        $('#breakdown_item').text('냉난방');$('#breakdown_item_percentage').text(breakdown_info_percent+'% 사용중');
+      }else if (Math.floor(seconds/10%3)==2) {
+        console.log('#######info:',Math.floor(seconds/10%3));
+        breakdown_info_percent = (limitedArraySum(today_com, today_queryReturn.length)/limitedArraySum(comparingDay_com, today_queryReturn.length)).toFixed(1)*100;
+        // breakdown_info_title=$("<div>").attr("id","breakdown_info_title").css({"font-size": "19px", "display" : "inline"}).text('<br/>컴퓨터<br/>어제 이시간 대비<br>'+breakdown_info_percent+'% 사용중');
+        // $('#breakdown_info').append('<img id="breakdown_info_icon" align="middle" src="./images/computer.png" />').append(breakdown_info_title);
+        $('#breakdown_info_icon2').append('<img id="icon" align="middle" src="./images/computer.png" />');
+        $('#breakdown_item').text('컴퓨터');$('#breakdown_item_percentage').text(breakdown_info_percent+'% 사용중');
+      }else {
+        console.log('#######info:',Math.floor(seconds/10%3));
+        breakdown_info_percent = (limitedArraySum(today_light, today_queryReturn.length)/limitedArraySum(comparingDay_light, today_queryReturn.length)).toFixed(1)*100;
+        // breakdown_info_title=$("<div>").attr("id","breakdown_info_title").css({"font-size": "19px", "display" : "inline"}).text('<br/>전등<br/> 어제 이시간 대비'+breakdown_info_percent+'% 사용중');
+        // $('#breakdown_info').append('<img id="breakdown_info_icon" align="middle" src="./images/light.png" />').append(breakdown_info_title);
+        $('#breakdown_info_icon2').append('<img id="icon" align="middle" src="./images/light.png" />');
+        $('#breakdown_item').text('전등');$('#breakdown_item_percentage').text(breakdown_info_percent+'% 사용중');
+      }
 
     }//drawChart()
 

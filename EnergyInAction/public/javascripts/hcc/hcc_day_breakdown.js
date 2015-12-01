@@ -1,7 +1,7 @@
 
 
 $(function () {
-  // hcc_day_breakdown();
+  hcc_day_breakdown();
   var timer = setInterval( hcc_day_breakdown, 10000);
   });
 

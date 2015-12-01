@@ -32,7 +32,6 @@ $(function () {
 
   console.log(lastMonth_query);
   console.log(thisMonth_query);
-
   invokeOpenAPI(lastMonth_query, lastMonthCB);
   invokeOpenAPI(thisMonth_query, thisMonthCB);
 
@@ -64,8 +63,6 @@ $(function () {
 
   function drawChart(){
     savingRate_Month = ((arrayMean(thisMonth_total) / arrayMean(lastMonth_total)));
-
-    console.log(thisMonth);
 
     var sign="";
     if (savingRate_Month>=1) {
