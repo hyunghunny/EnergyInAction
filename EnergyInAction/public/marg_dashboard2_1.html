@@ -13,7 +13,7 @@
     <script type="text/javascript" src="javascripts/lib/exporting.js"></script>
   <script type="text/javascript">
       var myIp = '127.0.0.1';
-      var pageId = 'hcc';
+      var pageId = 'MARG';
 
     $(document).ready(function () {
         var socket = io.connect();
@@ -79,12 +79,12 @@ setInterval( function() {
 
 </head>
 <body>
-  <div id="hcc_title" class="title_class"></div>
+  <div id="marg_title" class="title_class"></div>
   <div class="wrapper_class">
     <div class="class_contents_left">
         <div class="traffic_container">
           <div id="traffic_light" class="traffic_light_class">
-            <div id="hcc_smile" class="class_smile">
+            <div id="marg_smile" class="class_smile">
               <h3 class="class_smile_title"><span class="class_smile_title_span">[오늘 누적 전기사용 현황]</span></h3>
             </div>
             <div id="percentage_title" class="percentage_title_class"></div>
@@ -94,21 +94,17 @@ setInterval( function() {
           </div>
         </div>
       <div class="class_realtimePlots">
-        <div id="hcc_meter" class="class_meter"></div>
+        <div id="marg_meter" class="class_meter"></div>
       </div>
     </div>
 
     <div class="center">
-      <div id="hcc_week_breakdown" class="class_week"></div>
+      <div id="marg_week_breakdown" class="class_week"></div>
       <div id="arrow" class="arrow_class"></div>
-      <div id="breakdown_info" class="class_breakdown_info"><br><br>
-        <div id="breakdown_info_icon2" align="center"></div>
-        <div id="breakdown_info_title2" align="center"><h2 class="class_breakdown_info_title"><br><span id="breakdown_item" ></span><br><br><span textColor = "#595959">지난주 시간 대비</span><br><span id="breakdown_item_percentage"></span></h3></div>
-      </div>
-      <div id="hcc_day_breakdown" class="class_day2" ></div>
+      <div id="marg_day_breakdown" class="class_day" ></div>
     </div>
 
-    <div id="hcc_widget" class="class_widgets">
+    <div id="marg_widget" class="class_widgets">
       <!-- <div class="container">
         <div class="clock">
           <div id="Date">Monday 14 January 2013</div>
@@ -137,9 +133,9 @@ setInterval( function() {
     <!-- canvas -->
     <canvas id='canvas' width='390' height='200'></canvas><p id='helloWorld'></p>
   </div>
-      <div id="hcc_notice" class="class_notice"><h2 id = "notice_msg"></h2></div>
+      <div id="marg_notice" class="class_notice"><h2 id = "notice_msg">ddd</h2></div>
       <script type="text/javascript">
-          var selectedLab = 'hcc';
+          var selectedLab = 'marg';
           var postType = "notice";
           var uri_notice = 'api/labs/' + selectedLab + '/actuators/notices/latest';
           var baseUrl = '';
@@ -163,12 +159,12 @@ setInterval( function() {
               });
           });
       </script>
-      <div id="hcc_month_breakdown" class="class_month2">coming soon!</div>
+      <div id="marg_month_breakdown" class="class_month"></div>
     </div>
 
-    <div id="hcc_tip" class="class_tip" ><br><h2><span style="margin-left:7em"><marquee id="tip_msg" direction="left" width=1750px >절전형 멀티탭을 사용하여 불필요한 전력 사용을 줄여주세요</marquee></span></h2></div>
+    <div id="marg_tip" class="class_tip" ><br><h2><span style="margin-left:7em"><marquee id="tip_msg" direction="left" width=1750px >절전형 멀티탭을 사용하여 불필요한 전력 사용을 줄여주세요</marquee></span></h2></div>
     <!-- <script type="text/javascript">
-        var selectedLab = 'hcc';
+        var selectedLab = 'marg';
         var postType = "notice";
         var uri = 'api/labs/' + selectedLab + '/actuators/tips/latest';
         var baseUrl = '';
@@ -198,17 +194,17 @@ setInterval( function() {
 </div>
 
 <script type="text/javascript" src="./javascripts/utiles.js"></script>
-<script type="text/javascript" src="./javascripts/hcc/hcc_title.js"></script>
-<!-- <script type="text/javascript" src="./javascripts/hcc_realtime.js"></script> -->
-<script type="text/javascript" src="./javascripts/hcc/hcc_smile.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_title.js"></script>
+<!-- <script type="text/javascript" src="./javascripts/marg_realtime.js"></script> -->
+<script type="text/javascript" src="./javascripts/marg/marg_smile.js"></script>
 
-<!-- <script type="text/javascript" src="./javascripts/hcc/change_day_breakdown.js"></script> -->
-<script type="text/javascript" src="./javascripts/hcc/hcc_day_breakdown2.js"></script>
-<!-- <script type="text/javascript" src="./javascripts/hcc/hcc_day_breakdown2.js"></script> -->
+<!-- <script type="text/javascript" src="./javascripts/marg/change_day_breakdown.js"></script> -->
+<script type="text/javascript" src="./javascripts/marg/marg_day_breakdown2.js"></script>
+<!-- <script type="text/javascript" src="./javascripts/marg/marg_day_breakdown2.js"></script> -->
 
-<script type="text/javascript" src="./javascripts/hcc/hcc_week_breakdown.js"></script>
-<script type="text/javascript" src="./javascripts/hcc/hcc_month_breakdown.js"></script>
-<script type="text/javascript" src="./javascripts/hcc/hcc_meter.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_week_breakdown.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_month_breakdown.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_meter.js"></script>
 <script type="text/javascript" src="./javascripts/UI_weather_widget.js"></script>
 <script type="text/javascript" src="./javascripts/random_tip.js"></script>
 

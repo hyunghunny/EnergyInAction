@@ -1,7 +1,7 @@
 
 
 $(function () {
-  // ux_day_breakdown();
+  ux_day_breakdown();
   var timer = setInterval( ux_day_breakdown, 10000);
   });
 

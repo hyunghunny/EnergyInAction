@@ -141,15 +141,16 @@ a {
   clear: both;
   width: 230px;
   height: 420px;
-  padding-left: 0px;
+  padding-left: 10px;
   background-color: #f9f3e8;
+  align-content: center;
 }
 .class_day {
   float: left;
   clear: both;
   width: 980px;
   height: 420px;
-  padding-left: 10px;
+  /*padding-left: 10px;*/
 }
 .class_day2 {
   /*float: left;
@@ -161,13 +162,17 @@ a {
   clear: none;
   width: 740px;
   height: 420px;
+  align-content: center;
+}
+.class_breakdown_info_title{
+  color: #595959;
 }
 .arrow_class {
   float: left;
   clear: both;
   width: 980px;
   height: 50px;
-  padding-left: 10px;
+  padding-left: 0px;
 }
 
 .class_tip {
@@ -195,6 +200,17 @@ a {
   position: absolute;
   bottom: 90px;
   right: 10px;
+  /*float: bottom;*/
+}
+.class_month2 {
+  float: left;
+  clear: both;
+  width: 390px;
+  height: 460px;
+  padding-top: 20px;
+  /*position: absolute;
+  bottom: 110px;
+  right: 10px;*/
   /*float: bottom;*/
 }
 .weather_class {
