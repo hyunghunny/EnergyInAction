@@ -160,7 +160,7 @@ function marg_day_breakdown() {
       console.log('colorcode: ', stateColors[currentState-1]);
 
       console.log('*************counter:',counter);
-      if (Math.floor(seconds/10%2) == 2) {
+      if (Math.floor(seconds/10%3) == 2) {
         // counter=1;
         $('#marg_day_breakdown').highcharts({
               chart: {
@@ -258,7 +258,7 @@ function marg_day_breakdown() {
                   zIndex: 0
               }]
           });
-      }else if (Math.floor(seconds/10%2) == 1) { //counter==1
+      }else if (Math.floor(seconds/10%3) == 1) { //counter==1
         // counter++;
         $('#marg_day_breakdown').highcharts({
               chart: {
