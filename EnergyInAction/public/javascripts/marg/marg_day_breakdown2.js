@@ -572,17 +572,17 @@ function marg_day_breakdown() {
       var breakdown_info_percent = 0;
       // var breakdown_info_title;
       $('#breakdown_info_icon2').empty();
-      if(Math.floor(seconds/10%2) == 1){
+      if(Math.floor(seconds/10%3) == 1){
         breakdown_info_percent = Math.round(limitedArraySum(today_com, today_queryReturn.length)/limitedArraySum(comparingDay_com, today_queryReturn.length)*100);
         console.log('#######info:',breakdown_info_percent);
         $('#breakdown_info_icon2').append('<img id="icon" align="middle" src="./images/computer.png" />');
         $('#breakdown_item').text('컴퓨터');$('#breakdown_item_percentage').text(breakdown_info_percent+'% 사용중');
       }
-      // else if (Math.floor(seconds/10%3)==2) {
-      //   breakdown_info_percent = Math.round(limitedArraySum(today_hvac, today_queryReturn.length)/limitedArraySum(comparingDay_hvac, today_queryReturn.length)*100);
-      //   $('#breakdown_info_icon2').append('<img id="icon" align="middle" src="./images/hvac.png" />');
-      //   $('#breakdown_item').text('냉난방');$('#breakdown_item_percentage').text(breakdown_info_percent+'% 사용중');
-      // }
+      else if (Math.floor(seconds/10%3)==2) {
+        breakdown_info_percent = Math.round(limitedArraySum(today_hvac, today_queryReturn.length)/limitedArraySum(comparingDay_hvac, today_queryReturn.length)*100);
+        $('#breakdown_info_icon2').append('<img id="icon" align="middle" src="./images/hvac.png" />');
+        $('#breakdown_item').text('냉난방');$('#breakdown_item_percentage').text(breakdown_info_percent+'% 사용중');
+      }
       else {
         breakdown_info_percent = Math.round(limitedArraySum(today_light, today_queryReturn.length)/limitedArraySum(comparingDay_light, today_queryReturn.length)*100);
         $('#breakdown_info_icon2').append('<img id="icon" align="middle" src="./images/light.png" />');
