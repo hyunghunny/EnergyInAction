@@ -83,7 +83,7 @@ $(function () {
       var points_light = limitedArraySum(lastWinter_light, todayLength) - limitedArraySum(today_light, todayLength);
       var points_hvac  = limitedArraySum(lastWinter_hvac,  todayLength) - limitedArraySum(today_hvac,  todayLength);
 
-      var savingText = points_Com + points_light + points_hvac;
+      var savingText = (points_Com + points_light + points_hvac).toFixed(0);
 
       console.log("savingText", savingText);
 
