@@ -101,7 +101,7 @@ $(function () {
       // console.log(lastWinter_totalSum);
       // console.log(limitedArraySum(lastWinter_total, todayLength));
 
-      $('#marg_comparison_winter').highcharts({
+      $('#marg_comparison_winter_com').highcharts({
         chart: {
             type: 'column'
         },
@@ -195,7 +195,7 @@ $(function () {
         ],
           // colors: ['lightgray', today_breakdownColors[0], today_breakdownColors[1],today_breakdownColors[2], today_breakdownColors[3]]
           // colors: [today_breakdownColors[0], today_breakdownColors[1],today_breakdownColors[2], today_breakdownColors[3]]
-          colors: [today_breakdownColors[0]]
+          // colors: [today_breakdownColors[0]]
     });
   }
 });
