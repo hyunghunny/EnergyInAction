@@ -93,7 +93,8 @@ function dateLabelMaker(input_date){
   //console.log('format date', input_date.getDate());
 
   //result = (input_date.getMonth()+1) + '/' + input_date.getDate() + '(' + dayLabel[input_date.getDay()] + ')';
-  result = (input_date.getMonth()+1) + '/' + input_date.getDate();
+  // result = (input_date.getMonth()+1) + '/' + input_date.getDate();
+  result = input_date.getFullYear() + '-' + (input_date.getMonth()+1) + '-' + input_date.getDate();
   //console.log(result);
   return result;
 }
@@ -111,7 +112,7 @@ function limitedArraySum(input_array, limit){
   for(var i=0; i<limit; i++){
     sum += input_array[i];
   }
-  return sum
+  return Number(sum.toFixed(1));
 }
 
 function dateToString(date) {
