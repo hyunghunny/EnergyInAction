@@ -98,11 +98,12 @@ $(function () {
         signColorCode = "#a50a0a"
       }
 
-      var savingPoints=$("<div>").attr("id","saving_points").css({"font-size": "25px", "display" : "inline"}).text('예상 성적');
+      var savingPoints=$("<div>").attr("id","saving_points").css({"font-size": "25px", "display" : "inline"}).text('예상 성적      ');
       // var percentage_title2=$("<div>").attr("id","percentage_title").css({"font-size": "40px", "font-weight" : "bold", "color": currentColor, "display" : "inline", "text-shadow" : "1px 1px #000000"}).text(percent_smile+'pts ');
-      var savingPoints2=$("<div>").attr("id","saving_points").css({"font-size": "40px", "font-weight" : "bold", "color": signColorCode, "display" : "inline"}).text(sign + savingText+'pts ');
+      var savingPoints2=$("<div>").attr("id","saving_points").css({"font-size": "50px", "font-weight" : "bold", "color": signColorCode, "display" : "inline"}).text(sign + savingText+'pts ');
 
       $('#saving_points').append(savingPoints).append("<br><br>").append(savingPoints2);
+      $('#title_nowText').append(nowText);
 
 
   }

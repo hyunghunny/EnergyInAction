@@ -17,10 +17,10 @@ $(function () {
     //
     // var savingRateComparison;
 
-    var comparing_breakdownColors = ['#b3d5c8', '#f5e0b3', '#e8c2c1', '#d3bdd1']; //com, light, hvac, etc
-    var today_breakdownColors = ['#7db19f', '#eecf8d', '#f3a3a1', '#a889a5'];
+    var comparing_breakdownColors = ['#7dadf2', '#f5a859', '#f09d9d', '#d3bdd1']; //com, light, hvac, etc
+    var today_breakdownColors = ['#497ecb', '#e3801c', '#dc5b5b', '#a889a5'];
 
-    var fontSize_mainTitle = '25px';
+    var fontSize_mainTitle = '20px';
     var fontSize_bar       = '15px';
     var fontSize_xAxis     = '18px';
     var fontSize_xSubTitle = '18px';
@@ -95,7 +95,7 @@ $(function () {
         signColorCode = "#3e721f"
       } else {
         sign="";
-        signColorCode = "#a50a0a"
+        signColorCode = "#c41111"
       }
 
       // console.log(lastWinter_totalSum);
@@ -105,7 +105,7 @@ $(function () {
         chart: {
             type: 'column',
             marginTop: 43,
-            backgroundColor: '#FAFAF9'
+            backgroundColor: '#F5F5F4'
         },
         title: {
            useHTML: true,
@@ -114,7 +114,7 @@ $(function () {
              color: signColorCode,
              fontWeight: 'bold',
              fontSize : fontSize_mainTitle,
-             'background-color': '#FAFAF9',
+             'background-color': '#F5F5F4',
              'border-radius': '6px',
             //  border: '4px solid #8E8989'
            }
@@ -148,7 +148,7 @@ $(function () {
             labels: {
               enabled: false
             },
-            gridLineColor: '#FAFAF9',
+            gridLineColor: '#F5F5F4',
             title: {
                 enabled: false,
                 text: '하루 평균 사용량 (kW/h)'
@@ -202,5 +202,5 @@ $(function () {
           // colors: [today_breakdownColors[1]]
     });
   }
-  $('#icon_light').append('<img src="./images/light2.png" width="45%"/>');
+  $('#icon_light').append('<img src="./images/light2.png" width="50%"/>');
 });
