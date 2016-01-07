@@ -6,31 +6,41 @@ $(function () {
 
   // console.log(dateLabelMaker(new Date(firstDayOfThisMonth)));
 
-  var cumulatedSavingPoints = 0;
+  var LAST_WINTER_WEEKDAY_COM   = 0;
+  var LAST_WINTER_WEEKDAY_LIGHT = 0;
+  var LAST_WINTER_WEEKDAY_HVAC  = 0;
 
-  var weekday_com_sum   = 0;
-  var weekday_light_sum = 0;
-  var weekday_hvac_sum  = 0;
+  var LAST_WINTER_WEEKEND_COM   = 0;
+  var LAST_WINTER_WEEKEND_LIGHT = 0;
+  var LAST_WINTER_WEEKEND_HVAC  = 0;
 
-  var weedend_com_sum   = 0;
-  var weekend_light_sum = 0;
-  var weekend_hvac_sum  = 0;
+  // var weekday_com_sum = 0;
+  // var weekday_light_sum = 0;
+  // var weekday_hvac_sum = 0;
+  //
+  // var weekend_com_sum = 0;
+  // var weekend_light_sum = 0;
+  // var weekend_hvac_sum = 0;
+
+  var points_com = 0;
+  var points_light = 0;
+  var points_hvac = 0;
 
   for(var index = 0; index < LAST_WINTER_WEEKDAY.length; index++){
-    weekday_com_sum   += LAST_WINTER_WEEKDAY[index].computer;
-    weekday_light_sum += LAST_WINTER_WEEKDAY[index].light;
-    weekday_hvac_sum  += LAST_WINTER_WEEKDAY[index].hvac;
+    LAST_WINTER_WEEKDAY_COM   += LAST_WINTER_WEEKDAY[index].computer;
+    LAST_WINTER_WEEKDAY_LIGHT += LAST_WINTER_WEEKDAY[index].light;
+    LAST_WINTER_WEEKDAY_HVAC  += LAST_WINTER_WEEKDAY[index].hvac;
   }
 
   for(var index = 0; index < LAST_WINTER_WEEKEND.length; index++){
-    weedend_com_sum   += LAST_WINTER_WEEKEND[index].computer;
-    weekend_light_sum += LAST_WINTER_WEEKEND[index].light;
-    weekend_hvac_sum  += LAST_WINTER_WEEKEND[index].hvac;
+    LAST_WINTER_WEEKEND_COM   += LAST_WINTER_WEEKEND[index].computer;
+    LAST_WINTER_WEEKEND_LIGHT += LAST_WINTER_WEEKEND[index].light;
+    LAST_WINTER_WEEKEND_HVAC  += LAST_WINTER_WEEKEND[index].hvac;
   }
 
   day_from_manually = '2016-01-11'
-  // thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateLabelMaker(new Date(firstDayOfThisMonth)) + '&day_to=' + dateLabelMaker(new Date(yesterDay)) + '&offset=0';
-  thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + '2015-12-01' + '&day_to=' + '2015-12-31' + '&offset=0';
+  thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
+  // thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + '2015-12-01' + '&day_to=' + '2015-12-31' + '&offset=0';
   // console.log(thisMonth_query);
 
   invokeOpenAPI(thisMonth_query, thisMonthCB);
@@ -39,43 +49,64 @@ $(function () {
 
   function thisMonthCB(thisMonth_) {
     var thisMonth = thisMonth_;
-    // console.log(thisMonth);
+
+    var weekday_com_sum = 0;
+    var weekday_light_sum = 0;
+    var weekday_hvac_sum = 0;
+
+    var weekend_com_sum = 0;
+    var weekend_light_sum = 0;
+    var weekend_hvac_sum = 0;
+    // console.log("#thisMonth",thisMonth);
 
     for(var index = 0; index < thisMonth.length; index++){
-          var total  = thisMonth[index].sum;
-          var savingRate = 0;
+      com  = accumulator(thisMonth[index], 'computer');
+      light = accumulator(thisMonth[index], 'light');
+      hvac = accumulator(thisMonth[index], 'hvac');
 
-          var day = new Date(thisMonth[index].dateFrom).getDay();
-          var isWeekend = (day == 6) || (day == 0);
+      var day = new Date(thisMonth[index].dateFrom).getDay();
+      var isWeekend = (day == 6) || (day == 0);
+      // var theDate = (new Date(thisMonth[index].dateFrom).getMonth() + 1) + (new Date(thisMonth[index].dateFrom).getDate() / 100);
+      // console.log(theDate);
 
-          var theDate = (new Date(thisMonth[index].dateFrom).getMonth() + 1) + (new Date(thisMonth[index].dateFrom).getDate() / 100);
+      // console.log("3 sisters", com, light, hvac, isWeekend);
 
-          // if(isWeekend){
-          //   savingRate = (1 - (total / LASTWINTER_WEEKEND_TOTAL)) * 100;
-          // } else {
-          //   savingRate = (1 - (total / LASTWINTER_WEEKDAY_TOTAL)) * 100;
-          // }
+      if(isWeekend){
+        points_com   += (LAST_WINTER_WEEKEND_COM   - com);
+        points_light += (LAST_WINTER_WEEKEND_LIGHT - light);
+        points_hvac  += (LAST_WINTER_WEEKEND_HVAC  - hvac);
+        // console.log("3 point series", (LAST_WINTER_WEEKEND_COM   - com), (LAST_WINTER_WEEKEND_LIGHT - light), (LAST_WINTER_WEEKEND_HVAC  - hvac));
+      //
+      } else {
+        points_com   += (LAST_WINTER_WEEKDAY_COM   - com);
+        points_light += (LAST_WINTER_WEEKDAY_LIGHT - light);
+        points_hvac  += (LAST_WINTER_WEEKDAY_HVAC  - hvac);
+        // console.log("3 point series", (LAST_WINTER_WEEKDAY_COM   - com), (LAST_WINTER_WEEKDAY_LIGHT - light), (LAST_WINTER_WEEKDAY_HVAC  - hvac));
+      }
+      //
+      // console.log("01",points_com);
+      // console.log("02",points_light);
+      // console.log("03",points_hvac);
 
-          // console.log(theDate);
-          // console.log(isWeekend);
-          // console.log(savingRate);
-
-          // savingPoints_data.push([theDate, Number(savingRate.toFixed(0))]);
-          // thisMonth_total.push(Number(total.toFixed(1)));
       }
       writeText();
   }
 
   function writeText(){
 
-  console.log("1",weekday_com_sum)
-  console.log("2",weekday_light_sum)
-  console.log("3",weekday_hvac_sum)
+    // console.log("1",LAST_WINTER_WEEKDAY_COM)
+    // console.log("2",LAST_WINTER_WEEKDAY_LIGHT)
+    // console.log("3",LAST_WINTER_WEEKDAY_HVAC)
+    //
+    // console.log("4",LAST_WINTER_WEEKEND_COM)
+    // console.log("5",LAST_WINTER_WEEKEND_LIGHT)
+    // console.log("6",LAST_WINTER_WEEKEND_HVAC)
 
-  console.log("4",weedend_com_sum)
-  console.log("5",weekend_light_sum)
-  console.log("6",weekend_hvac_sum)
+    console.log("01",points_com);
+    console.log("02",points_light);
+    console.log("03",points_hvac);
 
+    var cumulatedSavingPoints = points_com + points_light + points_hvac;
 
     // var todayLength = today_com.length;
     //
