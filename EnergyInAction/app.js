@@ -42,6 +42,14 @@ var marg_smile           = require('./routes/marg_smile');
 // 6. meter
 var marg_meter  = require('./routes/marg_meter');
 
+// 7. comparison
+var marg_comparison_winter  = require('./routes/marg_comparison_winter');
+var marg_comparison_winter_breakdown  = require('./routes/marg_comparison_winter_breakdown');
+
+// 8. points
+var marg_saving_points  = require('./routes/marg_saving_points');
+
+
 /////////////
 // HCC set
 /////////////
@@ -116,6 +124,14 @@ app.use('/marg_smile', marg_smile);
 
 // 6. meter
 app.use('/marg_meter', marg_meter);
+
+// 7. comparison
+app.use('/marg_comparison_winter', marg_comparison_winter);
+app.use('/marg_comparison_winter_breakdown', marg_comparison_winter_breakdown);
+
+// 8. points
+app.use('/marg_saving_points', marg_saving_points);
+
 
 /////////////
 // HCC set
