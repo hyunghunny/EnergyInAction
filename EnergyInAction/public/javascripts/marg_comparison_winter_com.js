@@ -20,12 +20,18 @@ $(function () {
     var comparing_breakdownColors = ['#b3d5c8', '#f5e0b3', '#e8c2c1', '#d3bdd1']; //com, light, hvac, etc
     var today_breakdownColors = ['#7db19f', '#eecf8d', '#f3a3a1', '#a889a5'];
 
+    var fontSize_mainTitle = '25px';
+    var fontSize_bar       = '20px';
+    var fontSize_xAxis     = '16px';
+    var fontSize_xSubTitle = '25px';
 
     // 1. Last Winter
     if(weekDay_Indicator == 1){
       TARGET = LAST_WINTER_WEEKDAY;
+      xAxis_categories = ["평소<br>(평일)", "현재"]
     } else {
       TARGET = LAST_WINTER_WEEKEND;
+      xAxis_categories = ["평소<br>(주말)", "현재"]
     }
 
     // console.log(TARGET[0]);
@@ -81,12 +87,15 @@ $(function () {
       // savingRateComparison = ((limitedArraySum(today_total,todayLength) / limitedArraySum(lastWinter_total,todayLength)));
 
       var savingPoints = limitedArraySum(lastWinter_com, todayLength) - limitedArraySum(today_com, todayLength);
+      var signColorCode;
 
       var sign="";
       if (savingPoints > 0) {
         sign="+";
+        signColorCode = "#3e721f"
       }else {
         sign="";
+        signColorCode = "#a50a0a"
       }
 
       // console.log(lastWinter_totalSum);
@@ -100,8 +109,9 @@ $(function () {
            useHTML: true,
            text: sign+ savingPoints.toFixed(0) + 'pts',
            style: {
-             color: '#000000',
+             color: signColorCode,
              fontWeight: 'bold',
+             fontSize : fontSize_mainTitle,
              'background-color': '#FFFFFF',
              'border-radius': '6px',
             //  border: '4px solid #8E8989'
@@ -113,20 +123,36 @@ $(function () {
         exporting: {
             enabled: false
         },
+        legend: {
+            enabled: false
+        },
         xAxis: {
-          categories: ["겨울철 평소<br>(평일)", "현재"]
+          title: {
+              enabled: true,
+              text: '(누적 사용량)',
+              style: {
+                fontSize: fontSize_xSubTitle
+              }
+          },
+          categories: xAxis_categories,
+          labels: {
+            style: {
+              fontSize: fontSize_xAxis
+            }
+          }
         },
         yAxis: {
             min: 0,
             labels: {
               enabled: false
             },
+            gridLineColor: '#FFFFFF',
             title: {
                 enabled: false,
                 text: '하루 평균 사용량 (kW/h)'
             },
             stackLabels: {
-                enabled: true,
+                enabled: false,
                 style: {
                     fontWeight: 'bold',
                     color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
@@ -140,7 +166,7 @@ $(function () {
                     enabled: true,
                     color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
                     style: {
-                        textShadow: '0 0 3px black'
+                        textShadow: '0 0 3px black', fontFamily: '\'Lato\', sans-serif', lineHeight: '18px', fontSize: fontSize_bar
                     }
                 }
             }
