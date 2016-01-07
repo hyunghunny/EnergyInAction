@@ -20,6 +20,7 @@ $(function () {
     // var comparing_breakdownColors = ['#b3d5c8', '#f5e0b3', '#e8c2c1', '#d3bdd1']; //com, light, hvac, etc
     // var today_breakdownColors = ['#7db19f', '#eecf8d', '#f3a3a1', '#a889a5'];
 
+    var nowText = "";
 
     // 1. Last Winter
     if(weekDay_Indicator == 1){
@@ -71,6 +72,8 @@ $(function () {
         today_light.push(Number(light.toFixed(2)));
         // today_etc.push(Number(etc.toFixed(2)));
       }
+
+      nowText = "~ " + (new Date(today[today.length-1].dateTo).getHours()) + ":" + (new Date(today[today.length-1].dateTo).getMinutes()) + " 기준";
       writeText();
     }
 
@@ -85,7 +88,6 @@ $(function () {
 
       var savingText = (points_Com + points_light + points_hvac).toFixed(0);
 
-      console.log("savingText", savingText);
 
       var sign="";
       if (savingText > 0) {
@@ -101,5 +103,7 @@ $(function () {
       var savingPoints2=$("<div>").attr("id","saving_points").css({"font-size": "40px", "font-weight" : "bold", "color": signColorCode, "display" : "inline"}).text(sign + savingText+'pts ');
 
       $('#saving_points').append(savingPoints).append("<br><br>").append(savingPoints2);
+
+
   }
 });

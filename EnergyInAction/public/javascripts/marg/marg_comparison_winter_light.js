@@ -104,7 +104,8 @@ $(function () {
       $('#marg_comparison_winter_light').highcharts({
         chart: {
             type: 'column',
-            marginTop: 43
+            marginTop: 43,
+            backgroundColor: '#FAFAF9'
         },
         title: {
            useHTML: true,
@@ -113,7 +114,7 @@ $(function () {
              color: signColorCode,
              fontWeight: 'bold',
              fontSize : fontSize_mainTitle,
-             'background-color': '#FFFFFF',
+             'background-color': '#FAFAF9',
              'border-radius': '6px',
             //  border: '4px solid #8E8989'
            }
@@ -130,7 +131,7 @@ $(function () {
         xAxis: {
           title: {
               enabled: true,
-              text: '누적 사용량',
+              // text: '누적 사용량',
               style: {
                 fontSize: fontSize_xSubTitle
               }
@@ -147,7 +148,7 @@ $(function () {
             labels: {
               enabled: false
             },
-            gridLineColor: '#FFFFFF',
+            gridLineColor: '#FAFAF9',
             title: {
                 enabled: false,
                 text: '하루 평균 사용량 (kW/h)'
