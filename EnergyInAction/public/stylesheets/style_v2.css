@@ -144,6 +144,11 @@ h3{
   background-color: #ecede7;
   padding-bottom: 20px;
 }
+.saving_points_class {
+  float: center;
+  text-align: center;
+  padding-top: 170px;
+}
 
 /*clock*/
 
