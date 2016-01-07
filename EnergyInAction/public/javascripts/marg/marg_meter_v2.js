@@ -12,11 +12,11 @@ $(function () {
 
         chart: {
             type: 'solidgauge',
-            backgroundColor: "#ecede7"
+            backgroundColor: "#EAEAEA"
         },
         title: {
            useHTML: true,
-           text: '<br>',
+           text: '<br><br>',
            style: {
              color: '#000000',
              fontWeight: 'bold',
@@ -49,7 +49,7 @@ $(function () {
         // the value axis
         yAxis: {
             min: 0,
-            max: 8.5,
+            max: 10.0,
             stops: [
                 [0.1, '#197F00'], // green
                 [0.8, '#DDDF0D'], // yellow
@@ -92,9 +92,9 @@ $(function () {
             name: 'kW',
             data: [8],
             dataLabels: {
-                format: '<div style="text-align:center"><span style="font-size:40px;color:' +
-                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
-                       '<span style="font-size:12px;color:silver">kW</span></div>'
+                format: '<div style="text-align:center"><span style="font-size:30px;color:' +
+                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span>' +
+                       '<span style="font-size:15px;color:gray">kW</span></div>'
             },
             tooltip: {
                 valueSuffix: ' kW'

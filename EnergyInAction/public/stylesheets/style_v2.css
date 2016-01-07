@@ -67,7 +67,7 @@ h3{
 .class_lefttop {
   width: 500px;
   height: 490px;
-  background-color: #ecede7;
+  background-color: #ffffff;
   /*padding-top: 10px;
   padding-right: 10px;*/
 }
@@ -76,7 +76,7 @@ h3{
   text-align: center;
   font-size: 130%;
   padding-top: 10px;
-  background-color: #ecede7;
+  background-color: #ffffff;
 }
 .class_acc_points {
 
@@ -89,15 +89,22 @@ h3{
   clear: both;
   width: 500px;
   height: 470px;
-  background-color: #ecede7;
+  background-color: #EAEAEA;
 }
 .class_meter {
   float: left;
   clear: none;
   width: 500px;
   height: 380px;
-  background-color: #ecede7;
+  background-color: #EAEAEA;
   /*padding-top: 10px;*/
+}
+.class_meter_title {
+  color: black;
+  text-align: center;
+  font-size: 130%;
+  padding-top: 10px;
+  background-color: #EAEAEA;
 }
 .center {
   float: left;
@@ -111,7 +118,7 @@ h3{
   align-items: center;
   width: 1290px;
   height: 450px;
-  background-color: #ecede7;
+  background-color: #ffffff;
 }
 .class_smiley {
   width: 500px;
@@ -129,7 +136,7 @@ h3{
   height: 400px;
   float: left;
   clear: none;
-  background-color: #ecede7;
+  background-color: #ffffff;
   /*position: absolute;
   bottom: 0;*/
 }
@@ -139,10 +146,55 @@ h3{
   padding-top: 170px;
 }
 .nilm_container {
-  width: 1290px;
-  height: 510px;
-  background-color: #ecede7;
-  padding-bottom: 20px;
+  width: 1050px;
+  height: 500px;
+  background-color: #ffffff;
+  padding-top: 30px;
+  padding-left: 240px;
+}
+.com_wrapper {
+  width: 180px;
+  height: 330px;
+  float: left;
+  clear: none;
+}
+.light_wrapper {
+  width: 180px;
+  height: 330px;
+  float: left;
+  clear: none;
+  padding-left: 150px;
+}
+.hvac_wrapper {
+  width: 180px;
+  height: 330px;
+  float: left;
+  clear: none;
+  padding-left: 150px;
+}
+.class_icon {
+  height: auto;
+  clear: both;
+  text-align: center;
+  padding-bottom: 10px;
+}
+.comparison_winter_com {
+  width: 100%;
+  height: 100%;
+  float: left;
+  /*clear: none;*/
+}
+.comparison_winter_light {
+  width: 100%;
+  height: 100%;
+  float: left;
+  /*clear: none;*/
+}
+.comparison_winter_hvac {
+  width: 100%;
+  height: 100%;
+  float: left;
+  /*clear: none;*/
 }
 
 /*clock*/
