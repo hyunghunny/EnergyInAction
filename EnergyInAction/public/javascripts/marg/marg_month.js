@@ -65,6 +65,7 @@ $(function () {
   function drawChart(){
     savingRate_Month = ((arrayMean(thisMonth_total) / arrayMean(lastMonth_total)));
 
+
     console.log(thisMonth);
 
     var sign="";
@@ -73,6 +74,11 @@ $(function () {
     }else {
       sig="-";
     }
+    // new dashboard를 위한
+    // var title=$("<div>").attr("id","acc_point_title").css({"float": "left","clear":"none","font-size": "18px","font-weight": "bolder","text-align": "center", "padding-top": "5px", "padding-left": "900px", "text-shadow":"1px 1px 5px #A0A0A0"}).text("MARG Electricity Usage Monitor").css('color','black');
+    // var titlediv=$("<div>").attr("id","acc_point_title2").css({"float": "right","clear":"none","font-size": "18px","text-align": "right","font-weight": "bolder", "padding-right": "5px", "padding-top": "5px", "text-shadow":"1px 1px 5px #A0A0A0"}).text(year+"."+month+day+dayOfWeek+ampm+hours+":"+minutes+":"+seconds).css('color','black');
+    // $('#acc_points').prepend(acc_point_title2).prepend(acc_point_title);
+    //
 
     var chart_month = $('#marg_month').highcharts({
       legend: {

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Energy Saving Behavior Research</title>
+  <link rel="stylesheet" type="text/css" href="./stylesheets/style_v2.css">
+  <script src="javascripts/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/lib/highcharts.js"></script>
+    <script src="javascripts/lib/highcharts-more.js"></script>
+    <script src="javascripts/lib/solid-gauge.js"></script>
+    <script type="text/javascript" src="javascripts/lib/socket.io.js"></script>
+    <script type="text/javascript" src="javascripts/lib/exporting.js"></script>
+  <script type="text/javascript">
+      var myIp = '127.0.0.1';
+      var pageId = 'MARG';
+
+    $(document).ready(function () {
+        var socket = io.connect();
+        var now = new Date();
+        $.get("http://ipinfo.io", function (response) {
+            console.log(response.ip);
+            myIp = response.ip;
+            socket.emit('updated', { 'date': now, 'id': myIp + '/' + pageId, 'state': 'loaded' });
+        }, "jsonp");
+
+        socket.on('update', function (msg) {
+            location.reload();
+            var now = new Date();
+            socket.emit('updated', { 'date': now, 'id': myIp + '/' + pageId, 'state': 'updated' });
+        })
+    });
+  </script>
+</head>
+
+<body>
+  <div class="wrapper_class">
+    <div class="left">
+      <div class = "class_lefttop">
+        <h3 class="class_box_title">1월</h3>
+        <div id ="acc_points" class ="class_acc_points"></div>
+      </div>
+      <div class="class_left_between"></div>
+      <div class = "class_leftbottom">
+        <h3 class="class_box_title">실시간</h3>
+        <div id="marg_meter" class="class_meter"></div>
+      </div>
+    </div>
+
+    <div class="center">
+      <div class="center_wrapper">
+      <div class="traffic_container">
+        <h3 class="class_box_title">오늘</h3>
+        <div id="today_points" class = "class_today_points">
+          <div id="percentage_title" class="percentage_title_class"></div>
+        </div>
+        <div id="traffic_light" class="traffic_light_class">
+          <div id="marg_smile" class="class_smile"></div>
+          <div id="smiley" class="class_smiley"></div>
+        </div>
+      </div>
+      <div class="nilm_container">
+        <div id="nilm_computer" class="class_nilm_computer"></div>
+        <div id="nilm_light" class="class_nilm_light"></div>
+        <div id="nilm_hvac" class="class_nilm_hvac"></div>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript" src="./javascripts/utiles.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_title.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_smile_v2.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_day_breakdown2.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_week_breakdown.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_month_breakdown.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_meter_v2.js"></script>
+
+</body>
+
+</html>
