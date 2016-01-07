@@ -73,7 +73,18 @@ $(function () {
         // today_etc.push(Number(etc.toFixed(2)));
       }
 
-      nowText = "~ " + (new Date(today[today.length-1].dateTo).getHours()) + ":" + (new Date(today[today.length-1].dateTo).getMinutes()) + " 기준";
+      if(today.length != 0) {
+        nowText = "~ " + (new Date(today[today.length-1].dateTo).getHours()) + ":";
+        nowText_minute = new Date(today[today.length-1].dateTo).getMinutes();
+        // console.log("month length:", nowText_minute));
+        if (nowText_minute < 10) {
+          nowText_minute = '0' + nowText_minute;
+        }
+        nowText = nowText + nowText_minute + " 기준";
+      } else {
+        nowText = "데이터가 충분하지 않습니다";
+      }
+
       writeText();
     }
 
@@ -81,6 +92,8 @@ $(function () {
     // 3. write text
     function writeText(){
       var todayLength = today_com.length;
+
+      console.log("##########",todayLength);
 
       var points_Com   = limitedArraySum(lastWinter_com,   todayLength) - limitedArraySum(today_com,   todayLength);
       var points_light = limitedArraySum(lastWinter_light, todayLength) - limitedArraySum(today_light, todayLength);

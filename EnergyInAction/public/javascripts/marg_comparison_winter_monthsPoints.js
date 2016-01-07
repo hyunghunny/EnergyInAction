@@ -106,31 +106,22 @@ $(function () {
     console.log("02",points_light);
     console.log("03",points_hvac);
 
-    var cumulatedSavingPoints = points_com + points_light + points_hvac;
+    var cumulatedSavingPoints = (points_com + points_light + points_hvac).toFixed(0);
+    var signColorCode;
 
-    // var todayLength = today_com.length;
-    //
-    // var points_Com   = limitedArraySum(lastWinter_com,   todayLength) - limitedArraySum(today_com,   todayLength);
-    // var points_light = limitedArraySum(lastWinter_light, todayLength) - limitedArraySum(today_light, todayLength);
-    // var points_hvac  = limitedArraySum(lastWinter_hvac,  todayLength) - limitedArraySum(today_hvac,  todayLength);
+    var sign="";
+    if (cumulatedSavingPoints > 0) {
+      sign="+";
+      signColorCode = "#3e721f"
+    } else {
+      sign="";
+      signColorCode = "#a50a0a"
+    }
 
-    // var savingText = (points_Com + points_light + points_hvac).toFixed(0);
+    var monthPoints=$("<div>").css({"font-size": "25px", "display" : "inline"}).text('누적 절전 점수');
+    // var percentage_title2=$("<div>").attr("id","percentage_title").css({"font-size": "40px", "font-weight" : "bold", "color": currentColor, "display" : "inline", "text-shadow" : "1px 1px #000000"}).text(percent_smile+'pts ');
+    var monthPoints2=$("<div>").css({"font-size": "50px", "font-weight" : "bold", "color": signColorCode, "display" : "inline"}).text(sign + cumulatedSavingPoints+'pts ');
 
-    // console.log("savingText", savingText);
-
-    // var sign="";
-    // if (savingText > 0) {
-    //   sign="+";
-    //   signColorCode = "#3e721f"
-    // } else {
-    //   sign="";
-    //   signColorCode = "#a50a0a"
-    // }
-
-    // var savingPoints=$("<div>").attr("id","saving_points").css({"font-size": "25px", "display" : "inline"}).text('예상 성적');
-    // // var percentage_title2=$("<div>").attr("id","percentage_title").css({"font-size": "40px", "font-weight" : "bold", "color": currentColor, "display" : "inline", "text-shadow" : "1px 1px #000000"}).text(percent_smile+'pts ');
-    // var savingPoints2=$("<div>").attr("id","saving_points").css({"font-size": "40px", "font-weight" : "bold", "color": signColorCode, "display" : "inline"}).text(sign + savingText+'pts ');
-
-    $('#acc_points').append(cumulatedSavingPoints)
+    $('#acc_points').append(monthPoints).append("<br><br>").append(monthPoints2);
   }
 });

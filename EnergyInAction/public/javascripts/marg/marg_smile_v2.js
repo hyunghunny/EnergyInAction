@@ -89,7 +89,7 @@ console.log(baseDay);
             currentColor = "#a50a0a";
           } else {
             // $('#smiley').prepend('<img id="faces" src="./images/marg_green.png" />');
-            $('#smiley').prepend('<img id="faces" src="./images/green_v2.png" width="70%" align="left"/>');
+            $('#smiley').prepend('<img id="faces" src="./images/green_v2.png" width="100%"/>');
             currentColor = "#3e721f";
           }
 
