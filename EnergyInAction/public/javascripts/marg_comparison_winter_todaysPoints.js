@@ -5,52 +5,46 @@ $(function () {
 
     // var lastWinter_total = [];
     var lastWinter_hvac  = [];
-    // var lastWinter_com   = [];
-    // var lastWinter_light = [];
+    var lastWinter_com   = [];
+    var lastWinter_light = [];
     // var lastWinter_etc   = [];
     //
     // var today_total = [];
     var today_hvac  = [];
-    // var today_com   = [];
-    // var today_light = [];
+    var today_com   = [];
+    var today_light = [];
     // var today_etc   = [];
     //
     // var savingRateComparison;
+    //
+    // var comparing_breakdownColors = ['#b3d5c8', '#f5e0b3', '#e8c2c1', '#d3bdd1']; //com, light, hvac, etc
+    // var today_breakdownColors = ['#7db19f', '#eecf8d', '#f3a3a1', '#a889a5'];
 
-    var comparing_breakdownColors = ['#b3d5c8', '#f5e0b3', '#e8c2c1', '#d3bdd1']; //com, light, hvac, etc
-    var today_breakdownColors = ['#7db19f', '#eecf8d', '#f3a3a1', '#a889a5'];
-
-    var fontSize_mainTitle = '25px';
-    var fontSize_bar       = '20px';
-    var fontSize_xAxis     = '16px';
-    var fontSize_xSubTitle = '25px';
 
     // 1. Last Winter
     if(weekDay_Indicator == 1){
       TARGET = LAST_WINTER_WEEKDAY;
-      xAxis_categories = ["평소<br>(평일)", "현재"]
     } else {
       TARGET = LAST_WINTER_WEEKEND;
-      xAxis_categories = ["평소<br>(주말)", "현재"]
     }
 
-    // console.log(TARGET[0]);
-    // console.log(TARGET.length);
-    // console.log(TARGET[0].computer);
+    console.log(TARGET[0]);
+    console.log(TARGET.length);
+    console.log(TARGET[0].computer);
 
     for(var index = 0; index < TARGET.length; index++){
       // {"new_index_weekDAY":1,"computer":0.4121,"light":0.2318,"hvac":0.5553,"etc":0.0467,"total":1.2458}
 
       // total = TARGET[index].total;
       hvac  = TARGET[index].hvac;
-      // com   = TARGET[index].computer;
-      // light = TARGET[index].light;
+      com   = TARGET[index].computer;
+      light = TARGET[index].light;
       // etc   = TARGET[index].etc;
 
       // lastWinter_total.push(Number(total.toFixed(2)));
       lastWinter_hvac.push(Number(hvac.toFixed(2)));
-      // lastWinter_com.push(Number(com.toFixed(2)));
-      // lastWinter_light.push(Number(light.toFixed(2)));
+      lastWinter_com.push(Number(com.toFixed(2)));
+      lastWinter_light.push(Number(light.toFixed(2)));
       // lastWinter_etc.push(Number(etc.toFixed(2)));
     }
 
@@ -67,137 +61,45 @@ $(function () {
       for(var index = 0; index < today.length; index++){
         // total = today[index].sum;
         hvac = accumulator(today[index], 'hvac');
-        // com  = accumulator(today[index], 'computer');
-        // light = accumulator(today[index], 'light');
+        com  = accumulator(today[index], 'computer');
+        light = accumulator(today[index], 'light');
         // etc = total - (hvac + com + light);
 
         // today_total.push(Number(total.toFixed(2)));
         today_hvac.push(Number(hvac.toFixed(2)));
-        // today_com.push(Number(com.toFixed(2)));
-        // today_light.push(Number(light.toFixed(2)));
+        today_com.push(Number(com.toFixed(2)));
+        today_light.push(Number(light.toFixed(2)));
         // today_etc.push(Number(etc.toFixed(2)));
       }
-      drawChart();
+      writeText();
     }
 
-    // 3. draw chart
-    function drawChart(){
-      todayLength = today_hvac.length;
-      // todayLength = 40;
-      // savingRateComparison = ((limitedArraySum(today_total,todayLength) / limitedArraySum(lastWinter_total,todayLength)));
 
-      var savingPoints = limitedArraySum(lastWinter_hvac, todayLength) - limitedArraySum(today_hvac, todayLength);
-      var signColorCode;
+    // 3. write text
+    function writeText(){
+      var todayLength = today_com.length;
+
+      var points_Com   = limitedArraySum(lastWinter_com,   todayLength) - limitedArraySum(today_com,   todayLength);
+      var points_light = limitedArraySum(lastWinter_light, todayLength) - limitedArraySum(today_light, todayLength);
+      var points_hvac  = limitedArraySum(lastWinter_hvac,  todayLength) - limitedArraySum(today_hvac,  todayLength);
+
+      var savingText = (points_Com + points_light + points_hvac).toFixed(0);
+
+      console.log("savingText", savingText);
 
       var sign="";
-      if (savingPoints > 0) {
+      if (savingText > 0) {
         sign="+";
         signColorCode = "#3e721f"
-      }else {
+      } else {
         sign="";
         signColorCode = "#a50a0a"
       }
 
-      // console.log(lastWinter_totalSum);
-      // console.log(limitedArraySum(lastWinter_total, todayLength));
+      var savingPoints=$("<div>").attr("id","saving_points").css({"font-size": "25px", "display" : "inline"}).text('예상 성적');
+      // var percentage_title2=$("<div>").attr("id","percentage_title").css({"font-size": "40px", "font-weight" : "bold", "color": currentColor, "display" : "inline", "text-shadow" : "1px 1px #000000"}).text(percent_smile+'pts ');
+      var savingPoints2=$("<div>").attr("id","saving_points").css({"font-size": "40px", "font-weight" : "bold", "color": signColorCode, "display" : "inline"}).text(sign + savingText+'pts ');
 
-      $('#marg_comparison_winter_hvac').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-           useHTML: true,
-           text: sign+ savingPoints.toFixed(0) + 'pts',
-           style: {
-             color: signColorCode,
-             fontWeight: 'bold',
-             fontSize : fontSize_mainTitle,
-             'background-color': '#FFFFFF',
-             'border-radius': '6px',
-            //  border: '4px solid #8E8989'
-           }
-       },
-        credits: {
-            enabled: false
-        },
-        exporting: {
-            enabled: false
-        },
-        legend: {
-            enabled: false
-        },
-        xAxis: {
-          title: {
-              enabled: true,
-              text: '(누적 사용량)',
-              style: {
-                fontSize: fontSize_xSubTitle
-              }
-          },
-          categories: xAxis_categories,
-          labels: {
-            style: {
-              fontSize: fontSize_xAxis
-            }
-          }
-        },
-        yAxis: {
-            min: 0,
-            labels: {
-              enabled: false
-            },
-            gridLineColor: '#FFFFFF',
-            title: {
-                enabled: false,
-                text: '하루 평균 사용량 (kW/h)'
-            },
-            stackLabels: {
-                enabled: false,
-                style: {
-                    fontWeight: 'bold',
-                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-                }
-            }
-        },
-        plotOptions: {
-            column: {
-                stacking: 'normal',
-                dataLabels: {
-                    enabled: true,
-                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
-                    style: {
-                        textShadow: '0 0 3px black', fontFamily: '\'Lato\', sans-serif', lineHeight: '18px', fontSize: fontSize_bar
-                    }
-                }
-            }
-        },
-        series: [
-          // {
-          //     name: null, // 작년 겨울 하루 전체 평균 사용량 - 작년 겨울 현 시간 기준 평균 사용량
-          //     data: [{y: null}, {y: Number((lastWinter_totalSum - limitedArraySum(lastWinter_com, todayLength) - limitedArraySum(lastWinter_light, todayLength)
-          //                                                                 - limitedArraySum(lastWinter_hvac, todayLength) - limitedArraySum(lastWinter_etc, todayLength)).toFixed(2))}],
-          //     linkedTo: ':previous'
-          // },
-          // {
-          //     name: '컴퓨터',
-          //     data: [{y: limitedArraySum(lastWinter_com, todayLength), color: comparing_breakdownColors[0]}, {y: limitedArraySum(today_com, todayLength), color: today_breakdownColors[0]}]
-          // }
-          // , {
-          //     name: '전등',
-          //     data: [{y: limitedArraySum(lastWinter_light, todayLength), color: comparing_breakdownColors[1]}, {y: limitedArraySum(today_light, todayLength), color: today_breakdownColors[1]}]
-          // },
-          {
-              name: '난방',
-              data: [{y: limitedArraySum(lastWinter_hvac, todayLength), color: comparing_breakdownColors[2]}, {y: limitedArraySum(today_hvac, todayLength), color: today_breakdownColors[2]}]
-          }
-          // , {
-          //     name: '기타',
-          //     data: [{y: limitedArraySum(lastWinter_etc, todayLength), color: comparing_breakdownColors[3]}, {y: limitedArraySum(today_etc, todayLength), color: today_breakdownColors[3]}]
-          // }
-        ],
-          // colors: ['lightgray', today_breakdownColors[0], today_breakdownColors[1],today_breakdownColors[2], today_breakdownColors[3]]
-          // colors: [today_breakdownColors[0], today_breakdownColors[1],today_breakdownColors[2], today_breakdownColors[3]]
-          // colors: [today_breakdownColors[0]]
-    });
+      $('#saving_points').append(savingPoints).append("<br><br>").append(savingPoints2);
   }
 });

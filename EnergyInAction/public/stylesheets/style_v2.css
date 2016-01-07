@@ -196,6 +196,11 @@ h3{
   float: left;
   /*clear: none;*/
 }
+.saving_points_class {
+  float: center;
+  text-align: center;
+  padding-top: 170px;
+}
 
 /*clock*/
 
