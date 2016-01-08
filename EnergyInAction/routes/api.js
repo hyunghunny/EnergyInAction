@@ -38,6 +38,18 @@ router.get('/', function (req, res) {
 
 });
 
+/**
+ * @api {get} api/labs Show all laboratories.
+ * @apiName Get_Current_Weather_Info
+ * 
+ * @apiGroup Lab Details
+ * @apiExample {js} Example usage:
+ *     api/weather
+ * @apiHeader {String} Content-Type application/json
+ * @apiSuccessExample Success-Response:
+ *  HTTP/1.1 200 OK
+ *  TODO:JSON body will be updated.
+ */
 router.get('/weather', function (req, res) {
   var requestURL = weather_baseURL + weather_apikey;
   res.writeHead(200, w_client.get(requestURL,function (data, response) {
@@ -390,17 +402,11 @@ router.get('/labs/:labId/energy/secs.json', function (req, res) {
             if (result != null) {
                 for (var i = 0; i < result.length; i++) {
                     var obs = result[i];
-                    var sum = accumulateFeederUsage(obs[id].feeders);
-                    obs.deviceID = obs[id].deviceID;
-                    obs.location = obs[id].location;
-                    obs.feeders = obs[id].feeders;
+                    var sum = accumulateFeederUsage(obs.feeders);
+
                     obs.sum = sum;
                     obs.unit = 'mW/s';
 
-                    // remove all labs
-                    delete obs['marg'];
-                    delete obs['hcc'];
-                    delete obs['ux'];
                 }
                 res.writeHead(200, controller.api.getContentHeader());
                 res.end(JSON.stringify(result));
@@ -588,6 +594,7 @@ function accumulateFeederUsage(feeders, unitType) {
     }
     for (var i = 0; i < feeders.length; i++) {
         var feeder = feeders[i];
+        
         sum = sum + feeder.value; // cummulate value
         // unit transformation
         feeder.value = feeder.value / unit;
@@ -790,24 +797,10 @@ router.get('/labs/:labId/energy/quarters.json', function (req, res) {
 
                 for (var i = 0; i < result.length; i++) {
                     var obs = result[i];
-                    if (obs[id]) {
-                        var sum = accumulateFeederUsage(obs[id].feeders, 'kW/15min');
-                        obs.deviceID = obs[id].deviceID;
-                        obs.location = obs[id].location;
-                        obs.feeders = obs[id].feeders;
 
-                        obs.sum = sum;
-                        obs.unit = 'kW/15min';
-
-                        // remove all labs
-                        delete obs['marg'];
-                        delete obs['hcc'];
-                        delete obs['ux'];
-
-                    } else {
-                        console.log('invalid result: ' + JSON.stringify(obs))
-                    }
-
+                    var sum = accumulateFeederUsage(obs.feeders, 'kW/15min');
+                    obs.sum = sum;
+                    obs.unit = 'kW/15min';
                 }
 
                 res.writeHead(200, controller.api.getContentHeader());
@@ -972,18 +965,12 @@ router.get('/labs/:labId/energy/hours.json', function (req, res) {
                 // result will be translated to kWh
                 for (var i = 0; i < result.length; i++) {
                     var obs = result[i];
-                    var sum = accumulateFeederUsage(obs[id].feeders, 'kWh');
-                    obs.deviceID = obs[id].deviceID;
-                    obs.location = obs[id].location;
-                    obs.feeders = obs[id].feeders;
-
+                    var sum = accumulateFeederUsage(obs.feeders, 'kWh');
+                    
                     obs.sum = sum;
                     obs.unit = 'kW/h';
 
-                    // remove all labs
-                    delete obs['marg'];
-                    delete obs['hcc'];
-                    delete obs['ux'];
+
                 }
                 res.writeHead(200, controller.api.getContentHeader());
                 res.end(JSON.stringify(result));
@@ -1884,6 +1871,11 @@ router.get('/labs/:labId/energy/daily.json', function (req, res) {
         // XXX: add below to change GMT to local time
         queries.day_from = queries.day_from + " 00:00:00";
         queries.day_to = queries.day_to + " 00:00:00";
+        
+        // validate query parameter
+        if (Date.parse(queries.day_from) > Date.parse(queries.day_to)) {
+            throw new Error('400');
+        }        
 
         labObj.retrieveDailyUsages(queries, function (result) {
             if (result != null) {

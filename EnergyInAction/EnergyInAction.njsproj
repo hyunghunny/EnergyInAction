@@ -200,6 +200,7 @@
     <Content Include="public\weather.html" />
     <Content Include="README.md" />
     <Content Include="views\daily.jade" />
+    <Content Include="views\error.jade" />
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
   </ItemGroup>
