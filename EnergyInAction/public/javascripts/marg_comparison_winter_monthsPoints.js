@@ -38,8 +38,9 @@ $(function () {
     LAST_WINTER_WEEKEND_HVAC  += LAST_WINTER_WEEKEND[index].hvac;
   }
 
-  day_from_manually = '2016-01-11'
-  thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
+  day_from_manually = '2016-01-08'
+  thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + day_from_manually + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
+  // thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
   // thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + '2015-12-01' + '&day_to=' + '2015-12-31' + '&offset=0';
   // console.log(thisMonth_query);
 
