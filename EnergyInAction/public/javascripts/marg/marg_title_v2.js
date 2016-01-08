@@ -64,10 +64,10 @@ function title(){
     // $('#marg_clock').empty();
     // var title=$("<div>").attr("id","title").css({"font-size": "40px","font-weight": "bolder","text-align": "center","background-color": "green"}).text("MARG Electricity Usage Monitor").css('color','white');
     // var titlediv=$("<div>").attr("id","titlediv").css({"font-size": "20px","text-align": "right", "background-color": "green"}).text(month+day+ampm+hours+":"+minutes).css('color','white');
-    var title=$("<div>").attr("id","title").css({"float": "left","clear":"none","font-size": "18px","font-weight": "bolder","text-align": "center", "padding-top": "5px", "padding-left": "900px", "text-shadow":"1px 1px 5px #A0A0A0"}).text("MARG Electricity Usage Monitor").css('color','white');
-    var titlediv=$("<div>").attr("id","titlediv").css({"float": "right","clear":"none","font-size": "18px","text-align": "right","font-weight": "bolder", "padding-right": "5px", "padding-top": "5px", "text-shadow":"1px 1px 5px #A0A0A0"}).text(year+"."+month+day+dayOfWeek+ampm+hours+":"+minutes+":"+seconds).css('color','white');
+    var title=$("<div>").attr("id","title").css({"width" : "1810", "float": "left","clear":"none","font-size": "40px","font-weight": "bolder","text-align": "center", "padding-top" : "7px"}).text("MARG 전력 사용 현황").css('color','rgba(256,256,256,0.5)');
+    // var titlediv=$("<div>").attr("id","titlediv").css({"float": "right","clear":"none","font-size": "18px","text-align": "right","font-weight": "bolder", "padding-right": "5px", "padding-top": "5px", "text-shadow":"1px 1px 5px #A0A0A0"}).text(year+"."+month+day+dayOfWeek+ampm+hours+":"+minutes+":"+seconds).css('color','white');
     // $('#marg_title').append(title).append(titlediv);
-    $('#marg_title').prepand(titlediv).prepend(title);
+    $('#marg_title').append(title);
     // $('#marg_title').prepend(title);
     // $('#marg_clock').append(titlediv);
 }
