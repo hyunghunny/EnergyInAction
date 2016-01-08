@@ -20,18 +20,18 @@ $(function () {
     var comparing_breakdownColors = ['#7dadf2', '#f5a859', '#f09d9d', '#d3bdd1']; //com, light, hvac, etc
     var today_breakdownColors = ['#497ecb', '#e3801c', '#dc5b5b', '#a889a5'];
 
-    var fontSize_mainTitle = '20px';
+    var fontSize_mainTitle = '25px';
     var fontSize_bar       = '15px';
-    var fontSize_xAxis     = '18px';
+    var fontSize_xAxis     = '15px';
     var fontSize_xSubTitle = '18px';
 
     // 1. Last Winter
     if(weekDay_Indicator == 1){
       TARGET = LAST_WINTER_WEEKDAY;
-      xAxis_categories = ["겨울<br>주중", "현재"]
+      xAxis_categories = ["평소", "오늘"]
     } else {
       TARGET = LAST_WINTER_WEEKEND;
-      xAxis_categories = ["겨울<br>주말", "현재"]
+      xAxis_categories = ["평소", "오늘"]
     }
 
     // console.log(TARGET[0]);
@@ -145,7 +145,9 @@ $(function () {
             style: {
               fontSize: fontSize_xAxis
             }
-          }
+          },
+          // lineColor: 'rgba(0, 0, 0, 0)',
+          tickColor: 'rgba(0, 0, 0, 0)'
         },
         yAxis: {
             min: 0,
