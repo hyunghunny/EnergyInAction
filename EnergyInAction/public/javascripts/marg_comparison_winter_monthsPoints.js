@@ -38,11 +38,11 @@ $(function () {
     LAST_WINTER_WEEKEND_HVAC  += LAST_WINTER_WEEKEND[index].hvac;
   }
 
-  day_from_manually = '2016-01-08'
+  day_from_manually = '2016-1-7'
   thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + day_from_manually + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
   // thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
   // thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + '2015-12-01' + '&day_to=' + '2015-12-31' + '&offset=0';
-  // console.log(thisMonth_query);
+  console.log(thisMonth_query);
 
   invokeOpenAPI(thisMonth_query, thisMonthCB);
 
@@ -107,8 +107,9 @@ $(function () {
     // console.log("02",points_light);
     // console.log("03",points_hvac);
 
-    var cumulatedSavingPoints = (points_com + points_light + points_hvac).toFixed(0);
     var signColorCode;
+    var cumulatedSavingPoints = (points_com + points_light + points_hvac).toFixed(0);
+    console.log(cumulatedSavingPoints);
 
     var sign="";
     if (cumulatedSavingPoints > 0) {
