@@ -89,7 +89,7 @@ console.log(baseDay);
             currentColor = "#a50a0a";
           } else {
             // $('#smiley').prepend('<img id="faces" src="./images/marg_green.png" />');
-            $('#smiley').prepend('<img id="faces" src="./images/green_v2.png" width="100%"/>');
+            $('#smiley').prepend('<img id="faces" src="./images/green_v2.png" width="110%"/>');
             currentColor = "#3e721f";
           }
 
@@ -109,11 +109,13 @@ console.log(baseDay);
 
           console.log(percent_smile);
 
-          var percentage_title=$("<div>").attr("id","percentage_title").css({"font-size": "25px", "display" : "inline"}).text(percentage_text);
-          // var percentage_title2=$("<div>").attr("id","percentage_title").css({"font-size": "40px", "font-weight" : "bold", "color": currentColor, "display" : "inline", "text-shadow" : "1px 1px #000000"}).text(percent_smile+'pts ');
-          var percentage_title2=$("<div>").attr("id","percentage_title").css({"font-size": "40px", "font-weight" : "bold", "color": currentColor, "display" : "inline"}).text(percent_smile+'pts ');
+          // var percentage_title=$("<div>").attr("id","percentage_title").css({"font-size": "25px", "display" : "inline"}).text(percentage_text);
+          // // var percentage_title2=$("<div>").attr("id","percentage_title").css({"font-size": "40px", "font-weight" : "bold", "color": currentColor, "display" : "inline", "text-shadow" : "1px 1px #000000"}).text(percent_smile+'pts ');
+          // var percentage_title2=$("<div>").attr("id","percentage_title").css({"font-size": "40px", "font-weight" : "bold", "color": currentColor, "display" : "inline"}).text(percent_smile+'pts ');
+          //
+          // $('#percentage_title').append(percentage_title).append("<br><br>").append(percentage_title2);
 
-          $('#percentage_title').append(percentage_title).append("<br><br>").append(percentage_title2);
+          $('#triangle').prepend('<img src="./images/triangle.png" height: auto;"/>');
         });
     });
 });

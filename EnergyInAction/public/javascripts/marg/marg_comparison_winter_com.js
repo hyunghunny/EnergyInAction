@@ -107,7 +107,7 @@ $(function () {
         chart: {
             type: 'column',
             marginTop: 43,
-            backgroundColor: '#F5F5F4'
+            backgroundColor: 'rgba(0, 0, 0, 0)'
         },
         title: {
            useHTML: true,
@@ -116,7 +116,7 @@ $(function () {
              color: signColorCode,
              fontWeight: 'bold',
              fontSize : fontSize_mainTitle,
-             'background-color': '#F5F5F4',
+            //  'background-color': 'rgba(0, 0, 0, 0)',
              'border-radius': '6px',
             //  border: '4px solid #8E8989'
            }
@@ -150,7 +150,7 @@ $(function () {
             labels: {
               enabled: false
             },
-            gridLineColor: '#F5F5F4',
+            gridLineColor: 'rgba(0, 0, 0, 0)',
             title: {
                 enabled: false,
                 text: '하루 평균 사용량 (kW/h)'

@@ -74,7 +74,7 @@ h3{
 .class_lefttop {
   width: 500px;
   height: 490px;
-  background-color: #F5F5F4;
+  background-color: #F4F9FF;
   text-align: center;
   /*padding-top: 10px;
   padding-right: 10px;*/
@@ -84,7 +84,7 @@ h3{
   text-align: center;
   font-size: 130%;
   padding-top: 10px;
-  background-color: #F5F5F4;
+  background-color: #F4F9FF;
 }
 .class_box_title_span {
   /*background-color: #8E8989;
@@ -107,14 +107,14 @@ h3{
   clear: both;
   width: 500px;
   height: 470px;
-  background-color: #EAEAEA;
+  background-color: #F4F9FF;
 }
 .class_meter {
   float: left;
   clear: none;
   width: 500px;
   height: 380px;
-  background-color: #EAEAEA;
+  /*background-color: #EAEAEA;*/
   /*padding-top: 10px;*/
 }
 .class_meter_title {
@@ -122,7 +122,8 @@ h3{
   text-align: center;
   font-size: 130%;
   padding-top: 10px;
-  background-color: #EAEAEA;
+  /*background-color: #E3ECF1;*/
+  /*#EAEAEA*/
 }
 .center {
   float: left;
@@ -132,12 +133,22 @@ h3{
   padding-left : 20px;
   padding-right: 40px;
 }
+.center_wrapper {
+  /*background-color: #F4F9FF;*/
+}
 .traffic_container {
   /*align-items: center;*/
   width: 1290px;
-  height: 450px;
-  background-color: #F5F5F4;
+  height: 500px;
+  background-color: #F4F9FF;
+  /*#F4F9FF;*/
+
+  position: relative;
+  /*-webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);*/
+  /*box-shadow:0 2px 50px rgba(0, 0, 0, 0.5);*/
 }
+
 .class_smiley {
   width: auto;
   float: left;
@@ -155,7 +166,11 @@ h3{
   height: 400px;
   float: left;
   clear: none;
-  background-color: ##F5F5F4;
+  background-color: #F4F9FF;
+}
+.class_triangle {
+  position: absolute;
+  bottom: 0px;
 }
 /*.percentage_title_class {
   float: center;
@@ -170,9 +185,10 @@ h3{
 }
 .nilm_container {
   width: 1040px;
-  height: 414px;
-  background-color: #F5F5F4;
-  padding-top: 90px;
+  height: 440px;
+  background-color: #E6EAEF;
+  /*#F4F9FF;*/
+  padding-top: 40px;
   padding-left: 250px;
 }
 .com_wrapper {
@@ -220,9 +236,11 @@ h3{
   /*clear: none;*/
 }
 .class_title_nowText {
-  background-color: #F5F5F4;
+  /*background-color: #E6E9EE;*/
+  /*#F4F9FF;*/
   text-align: right;
-  padding-bottom: 10px;
+  /*padding-bottom: 10px;*/
+  padding-top:410px;
   padding-right: 10px;
 }
 /*clock*/
