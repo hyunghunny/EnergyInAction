@@ -29,9 +29,9 @@ $(function () {
       TARGET = LAST_WINTER_WEEKEND;
     }
 
-    console.log(TARGET[0]);
-    console.log(TARGET.length);
-    console.log(TARGET[0].computer);
+    // console.log(TARGET[0]);
+    // console.log(TARGET.length);
+    // console.log(TARGET[0].computer);
 
     for(var index = 0; index < TARGET.length; index++){
       // {"new_index_weekDAY":1,"computer":0.4121,"light":0.2318,"hvac":0.5553,"etc":0.0467,"total":1.2458}
@@ -93,7 +93,7 @@ $(function () {
     function writeText(){
       var todayLength = today_com.length;
 
-      console.log("##########",todayLength);
+      // console.log("##########",todayLength);
 
       var points_Com   = limitedArraySum(lastWinter_com,   todayLength) - limitedArraySum(today_com,   todayLength);
       var points_light = limitedArraySum(lastWinter_light, todayLength) - limitedArraySum(today_light, todayLength);

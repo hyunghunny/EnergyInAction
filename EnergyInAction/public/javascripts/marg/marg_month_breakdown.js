@@ -31,10 +31,10 @@ $(function () {
 
     lastMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfLastMonth)) + '&day_to=' + dateFormatter(new Date(lastDayOfLastMonth)) + '&offset=0';
     if(dateFormatter(new Date(firstDayOfThisMonth)) != dateFormatter(baseDay)){
-      console.log("The baseDay is NOT the fitst day of the month")
+      // console.log("The baseDay is NOT the fitst day of the month")
       thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(shiftDate(baseDay, -1)) + '&offset=0';
     } else {
-      console.log("The baseDay is the FIRST day of the month")
+      // console.log("The baseDay is the FIRST day of the month")
       thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(shiftDate(baseDay, 0)) + '&day_to=' + dateFormatter(shiftDate(baseDay, 0)) + '&offset=0';
     }
 

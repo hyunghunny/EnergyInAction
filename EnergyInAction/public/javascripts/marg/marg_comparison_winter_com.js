@@ -64,7 +64,7 @@ $(function () {
     function todayCB(today_) {
       today = today_;
 
-      console.log("**today::", today);
+      // console.log("**today::", today);
 
       for(var index = 0; index < today.length; index++){
         // total = today[index].sum;

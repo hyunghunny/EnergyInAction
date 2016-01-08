@@ -103,9 +103,9 @@ $(function () {
     // console.log("5",LAST_WINTER_WEEKEND_LIGHT)
     // console.log("6",LAST_WINTER_WEEKEND_HVAC)
 
-    console.log("01",points_com);
-    console.log("02",points_light);
-    console.log("03",points_hvac);
+    // console.log("01",points_com);
+    // console.log("02",points_light);
+    // console.log("03",points_hvac);
 
     var cumulatedSavingPoints = (points_com + points_light + points_hvac).toFixed(0);
     var signColorCode;

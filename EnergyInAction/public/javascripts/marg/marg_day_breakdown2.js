@@ -17,8 +17,8 @@ function marg_day_breakdown() {
     baseDay_query  = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
     comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + lastWeekDayTime; // 지난 주 같은 요일로 설정
 
-    console.log(baseDay_query);
-    console.log(comparingDay_query);
+    // console.log(baseDay_query);
+    // console.log(comparingDay_query);
 
     var comparingDay_queryReturn = [];
     var today_queryReturn = [];
@@ -125,8 +125,8 @@ function marg_day_breakdown() {
 
 
     function drawChart() {
-      console.log(comparingDay_queryReturn);
-      console.log(today_queryReturn);
+      // console.log(comparingDay_queryReturn);
+      // console.log(today_queryReturn);
 
       // weekDay_hourlyMean = hourlyMean(lastMonthWeekDay_data);
       // weekEnd_hourlyMean = hourlyMean(lastMonthWeekEnd_data);
@@ -156,10 +156,10 @@ function marg_day_breakdown() {
       var legend_x = 50;
       var legend_y = 47;
 
-      console.log('currentState: ', currentState);
-      console.log('colorcode: ', stateColors[currentState-1]);
+      // console.log('currentState: ', currentState);
+      // console.log('colorcode: ', stateColors[currentState-1]);
 
-      console.log('*************counter:',counter);
+      // console.log('*************counter:',counter);
       if (Math.floor(seconds/10%3) == 2) {
         // counter=1;
         $('#marg_day_breakdown').highcharts({
@@ -574,7 +574,7 @@ function marg_day_breakdown() {
       $('#breakdown_info_icon2').empty();
       if(Math.floor(seconds/10%3) == 1){
         breakdown_info_percent = Math.round(limitedArraySum(today_com, today_queryReturn.length)/limitedArraySum(comparingDay_com, today_queryReturn.length)*100);
-        console.log('#######info:',breakdown_info_percent);
+        // console.log('#######info:',breakdown_info_percent);
         $('#breakdown_info_icon2').append('<img id="icon" align="middle" src="./images/computer.png" />');
         $('#breakdown_item').text('컴퓨터');$('#breakdown_item_percentage').text(breakdown_info_percent+'% 사용중');
       }
