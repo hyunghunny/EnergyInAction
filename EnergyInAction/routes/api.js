@@ -1871,6 +1871,11 @@ router.get('/labs/:labId/energy/daily.json', function (req, res) {
         // XXX: add below to change GMT to local time
         queries.day_from = queries.day_from + " 00:00:00";
         queries.day_to = queries.day_to + " 00:00:00";
+        
+        // validate query parameter
+        if (Date.parse(queries.day_from) > Date.parse(queries.day_to)) {
+            throw new Error('400');
+        }        
 
         labObj.retrieveDailyUsages(queries, function (result) {
             if (result != null) {
