@@ -5,14 +5,14 @@ $(function () {
 
     // var lastWinter_total = [];
     var lastWinter_hvac  = [];
-    // var lastWinter_com   = [];
-    // var lastWinter_light = [];
+    var lastWinter_com   = [];
+    var lastWinter_light = [];
     // var lastWinter_etc   = [];
     //
     // var today_total = [];
     var today_hvac  = [];
-    // var today_com   = [];
-    // var today_light = [];
+    var today_com   = [];
+    var today_light = [];
     // var today_etc   = [];
     //
     // var savingRateComparison;
@@ -20,18 +20,18 @@ $(function () {
     var comparing_breakdownColors = ['#7dadf2', '#f5a859', '#f09d9d', '#d3bdd1']; //com, light, hvac, etc
     var today_breakdownColors = ['#497ecb', '#e3801c', '#dc5b5b', '#a889a5'];
 
-    var fontSize_mainTitle = '20px';
+    var fontSize_mainTitle = '25px';
     var fontSize_bar       = '15px';
-    var fontSize_xAxis     = '18px';
+    var fontSize_xAxis     = '15px';
     var fontSize_xSubTitle = '18px';
 
     // 1. Last Winter
     if(weekDay_Indicator == 1){
       TARGET = LAST_WINTER_WEEKDAY;
-      xAxis_categories = ["평소<br>(평일)", "현재"]
+      xAxis_categories = ["평소", "오늘"]
     } else {
       TARGET = LAST_WINTER_WEEKEND;
-      xAxis_categories = ["평소<br>(주말)", "현재"]
+      xAxis_categories = ["평소", "오늘"]
     }
 
     // console.log(TARGET[0]);
@@ -43,14 +43,14 @@ $(function () {
 
       // total = TARGET[index].total;
       hvac  = TARGET[index].hvac;
-      // com   = TARGET[index].computer;
-      // light = TARGET[index].light;
+      com   = TARGET[index].computer;
+      light = TARGET[index].light;
       // etc   = TARGET[index].etc;
 
       // lastWinter_total.push(Number(total.toFixed(2)));
       lastWinter_hvac.push(Number(hvac.toFixed(2)));
-      // lastWinter_com.push(Number(com.toFixed(2)));
-      // lastWinter_light.push(Number(light.toFixed(2)));
+      lastWinter_com.push(Number(com.toFixed(2)));
+      lastWinter_light.push(Number(light.toFixed(2)));
       // lastWinter_etc.push(Number(etc.toFixed(2)));
     }
 
@@ -67,14 +67,14 @@ $(function () {
       for(var index = 0; index < today.length; index++){
         // total = today[index].sum;
         hvac = accumulator(today[index], 'hvac');
-        // com  = accumulator(today[index], 'computer');
-        // light = accumulator(today[index], 'light');
+        com  = accumulator(today[index], 'computer');
+        light = accumulator(today[index], 'light');
         // etc = total - (hvac + com + light);
 
         // today_total.push(Number(total.toFixed(2)));
         today_hvac.push(Number(hvac.toFixed(2)));
-        // today_com.push(Number(com.toFixed(2)));
-        // today_light.push(Number(light.toFixed(2)));
+        today_com.push(Number(com.toFixed(2)));
+        today_light.push(Number(light.toFixed(2)));
         // today_etc.push(Number(etc.toFixed(2)));
       }
       drawChart();
@@ -85,6 +85,10 @@ $(function () {
       todayLength = today_hvac.length;
       // todayLength = 40;
       // savingRateComparison = ((limitedArraySum(today_total,todayLength) / limitedArraySum(lastWinter_total,todayLength)));
+
+      var lastWinter_maxFeederValue = Math.max(limitedArraySum(lastWinter_com, todayLength), limitedArraySum(lastWinter_light, todayLength), limitedArraySum(lastWinter_hvac, todayLength));
+      var      today_maxFeederValue = Math.max(limitedArraySum(today_com, todayLength), limitedArraySum(today_light, todayLength), limitedArraySum(today_hvac, todayLength));
+      var yMax = Math.max(lastWinter_maxFeederValue, today_maxFeederValue);
 
       var savingPoints = limitedArraySum(lastWinter_hvac, todayLength) - limitedArraySum(today_hvac, todayLength);
       var signColorCode;
@@ -105,7 +109,7 @@ $(function () {
         chart: {
             type: 'column',
             marginTop: 43,
-            backgroundColor: '#F5F5F4'
+            backgroundColor: 'rgba(0, 0, 0, 0)'
         },
         title: {
            useHTML: true,
@@ -114,7 +118,7 @@ $(function () {
              color: signColorCode,
              fontWeight: 'bold',
              fontSize : fontSize_mainTitle,
-             'background-color': '#F5F5F4',
+            //  'background-color': '#F5F5F4',
              'border-radius': '6px',
             //  border: '4px solid #8E8989'
            }
@@ -141,14 +145,17 @@ $(function () {
             style: {
               fontSize: fontSize_xAxis
             }
-          }
+          },
+          // lineColor: 'rgba(0, 0, 0, 0)',
+          tickColor: 'rgba(0, 0, 0, 0)'
         },
         yAxis: {
             min: 0,
+            max: yMax,
             labels: {
               enabled: false
             },
-            gridLineColor: '#F5F5F4',
+            gridLineColor: 'rgba(0, 0, 0, 0)',
             title: {
                 enabled: false,
                 text: '하루 평균 사용량 (kW/h)'

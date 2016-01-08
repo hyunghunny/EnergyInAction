@@ -38,8 +38,9 @@ $(function () {
     LAST_WINTER_WEEKEND_HVAC  += LAST_WINTER_WEEKEND[index].hvac;
   }
 
-  day_from_manually = '2016-01-11'
-  thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
+  day_from_manually = '2016-01-08'
+  thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + day_from_manually + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
+  // thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
   // thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + '2015-12-01' + '&day_to=' + '2015-12-31' + '&offset=0';
   // console.log(thisMonth_query);
 
@@ -102,9 +103,9 @@ $(function () {
     // console.log("5",LAST_WINTER_WEEKEND_LIGHT)
     // console.log("6",LAST_WINTER_WEEKEND_HVAC)
 
-    console.log("01",points_com);
-    console.log("02",points_light);
-    console.log("03",points_hvac);
+    // console.log("01",points_com);
+    // console.log("02",points_light);
+    // console.log("03",points_hvac);
 
     var cumulatedSavingPoints = (points_com + points_light + points_hvac).toFixed(0);
     var signColorCode;
@@ -118,10 +119,10 @@ $(function () {
       signColorCode = "#a50a0a"
     }
 
-    var monthPoints=$("<div>").css({"font-size": "25px", "display" : "inline"}).text('누적 절전 점수');
+    var monthPoints=$("<div>").css({"font-size": "20px", "display" : "inline", "color": "gray"}).text('절전 점수');
     // var percentage_title2=$("<div>").attr("id","percentage_title").css({"font-size": "40px", "font-weight" : "bold", "color": currentColor, "display" : "inline", "text-shadow" : "1px 1px #000000"}).text(percent_smile+'pts ');
-    var monthPoints2=$("<div>").css({"font-size": "50px", "font-weight" : "bold", "color": signColorCode, "display" : "inline"}).text(sign + cumulatedSavingPoints+'pts ');
+    var monthPoints2=$("<div>").css({"font-size": "70px", "font-weight" : "bold", "color": signColorCode, "display" : "inline"}).text(sign + cumulatedSavingPoints+'pts ');
 
-    $('#acc_points').append(monthPoints).append("<br><br>").append(monthPoints2);
+    $('#acc_points').append(monthPoints2).append("<br><br>").append(monthPoints);
   }
 });
