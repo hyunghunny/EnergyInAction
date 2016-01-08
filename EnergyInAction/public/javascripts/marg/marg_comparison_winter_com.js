@@ -4,15 +4,15 @@ $(function () {
     var LAST_WINTER_WEEKEND = [{"new_index_weekEND":1,"computer":0.3169,"light":0.1473,"hvac":0.3769,"etc":0.0442,"total":0.8853},{"new_index_weekEND":2,"computer":0.3107,"light":0.1469,"hvac":0.378,"etc":0.0436,"total":0.8791},{"new_index_weekEND":3,"computer":0.3083,"light":0.1444,"hvac":0.3338,"etc":0.0443,"total":0.8309},{"new_index_weekEND":4,"computer":0.3065,"light":0.1319,"hvac":0.4362,"etc":0.0462,"total":0.9208},{"new_index_weekEND":5,"computer":0.3037,"light":0.1278,"hvac":0.4183,"etc":0.048,"total":0.8977},{"new_index_weekEND":6,"computer":0.3009,"light":0.1086,"hvac":0.5205,"etc":0.0452,"total":0.9753},{"new_index_weekEND":7,"computer":0.3007,"light":0.1086,"hvac":0.5198,"etc":0.0493,"total":0.9783},{"new_index_weekEND":8,"computer":0.2999,"light":0.1083,"hvac":0.5196,"etc":0.0452,"total":0.973},{"new_index_weekEND":9,"computer":0.3013,"light":0.1064,"hvac":0.5198,"etc":0.0458,"total":0.9734},{"new_index_weekEND":10,"computer":0.2989,"light":0.1059,"hvac":0.5149,"etc":0.0439,"total":0.9637},{"new_index_weekEND":11,"computer":0.2974,"light":0.1008,"hvac":0.4674,"etc":0.0452,"total":0.9106},{"new_index_weekEND":12,"computer":0.296,"light":0.1008,"hvac":0.4476,"etc":0.0458,"total":0.8904},{"new_index_weekEND":13,"computer":0.2991,"light":0.0964,"hvac":0.3503,"etc":0.043,"total":0.7888},{"new_index_weekEND":14,"computer":0.2967,"light":0.0844,"hvac":0.2022,"etc":0.0463,"total":0.6295},{"new_index_weekEND":15,"computer":0.2995,"light":0.0678,"hvac":0.1309,"etc":0.0481,"total":0.5462},{"new_index_weekEND":16,"computer":0.294,"light":0.0679,"hvac":0.158,"etc":0.0479,"total":0.5678},{"new_index_weekEND":17,"computer":0.2907,"light":0.0595,"hvac":0.2816,"etc":0.0436,"total":0.6754},{"new_index_weekEND":18,"computer":0.2917,"light":0.0593,"hvac":0.289,"etc":0.0439,"total":0.6839},{"new_index_weekEND":19,"computer":0.2927,"light":0.0593,"hvac":0.2889,"etc":0.0423,"total":0.6832},{"new_index_weekEND":20,"computer":0.2899,"light":0.0593,"hvac":0.2891,"etc":0.0447,"total":0.683},{"new_index_weekEND":21,"computer":0.2864,"light":0.0496,"hvac":0.2518,"etc":0.0428,"total":0.6307},{"new_index_weekEND":22,"computer":0.2858,"light":0.0422,"hvac":0.2511,"etc":0.0443,"total":0.6234},{"new_index_weekEND":23,"computer":0.2872,"light":0.0411,"hvac":0.251,"etc":0.0462,"total":0.6255},{"new_index_weekEND":24,"computer":0.2875,"light":0.0412,"hvac":0.2087,"etc":0.0445,"total":0.5819},{"new_index_weekEND":25,"computer":0.2863,"light":0.0278,"hvac":0.0438,"etc":0.0439,"total":0.4017},{"new_index_weekEND":26,"computer":0.2844,"light":0.0238,"hvac":0.0097,"etc":0.045,"total":0.3629},{"new_index_weekEND":27,"computer":0.2813,"light":0.0238,"hvac":0.0097,"etc":0.0411,"total":0.3559},{"new_index_weekEND":28,"computer":0.2795,"light":0.0238,"hvac":0.0097,"etc":0.0431,"total":0.3561},{"new_index_weekEND":29,"computer":0.2797,"light":0.0238,"hvac":0.0096,"etc":0.0397,"total":0.3528},{"new_index_weekEND":30,"computer":0.2793,"light":0.0238,"hvac":0.0097,"etc":0.0434,"total":0.3562},{"new_index_weekEND":31,"computer":0.2803,"light":0.0222,"hvac":0.0096,"etc":0.0446,"total":0.3568},{"new_index_weekEND":32,"computer":0.2816,"light":0.0198,"hvac":0.0096,"etc":0.0442,"total":0.3552},{"new_index_weekEND":33,"computer":0.283,"light":0.0198,"hvac":0.0096,"etc":0.0448,"total":0.3573},{"new_index_weekEND":34,"computer":0.2826,"light":0.0197,"hvac":0.0096,"etc":0.0434,"total":0.3553},{"new_index_weekEND":35,"computer":0.2823,"light":0.0197,"hvac":0.0096,"etc":0.0415,"total":0.3531},{"new_index_weekEND":36,"computer":0.2825,"light":0.0197,"hvac":0.0096,"etc":0.0433,"total":0.3551},{"new_index_weekEND":37,"computer":0.2819,"light":0.0196,"hvac":0.0096,"etc":0.0418,"total":0.3529},{"new_index_weekEND":38,"computer":0.2806,"light":0.0196,"hvac":0.0095,"etc":0.0382,"total":0.348},{"new_index_weekEND":39,"computer":0.2814,"light":0.0195,"hvac":0.0095,"etc":0.0385,"total":0.3489},{"new_index_weekEND":40,"computer":0.2821,"light":0.0211,"hvac":0.0095,"etc":0.0427,"total":0.3554},{"new_index_weekEND":41,"computer":0.2837,"light":0.021,"hvac":0.0095,"etc":0.0452,"total":0.3593},{"new_index_weekEND":42,"computer":0.2864,"light":0.0195,"hvac":0.0095,"etc":0.0451,"total":0.3606},{"new_index_weekEND":43,"computer":0.2862,"light":0.0195,"hvac":0.0095,"etc":0.0438,"total":0.359},{"new_index_weekEND":44,"computer":0.2864,"light":0.0219,"hvac":0.0095,"etc":0.0425,"total":0.3603},{"new_index_weekEND":45,"computer":0.2782,"light":0.0258,"hvac":0.0091,"etc":0.0383,"total":0.3514},{"new_index_weekEND":46,"computer":0.2895,"light":0.0273,"hvac":0.0095,"etc":0.0412,"total":0.3676},{"new_index_weekEND":47,"computer":0.2961,"light":0.0273,"hvac":0.0095,"etc":0.0389,"total":0.3719},{"new_index_weekEND":48,"computer":0.2966,"light":0.0254,"hvac":0.0095,"etc":0.04,"total":0.3715},{"new_index_weekEND":49,"computer":0.2925,"light":0.0211,"hvac":0.0095,"etc":0.0398,"total":0.363},{"new_index_weekEND":50,"computer":0.2914,"light":0.0211,"hvac":0.0095,"etc":0.0426,"total":0.3645},{"new_index_weekEND":51,"computer":0.2931,"light":0.0211,"hvac":0.0095,"etc":0.0421,"total":0.3658},{"new_index_weekEND":52,"computer":0.2961,"light":0.021,"hvac":0.0095,"etc":0.0452,"total":0.3719},{"new_index_weekEND":53,"computer":0.2952,"light":0.0245,"hvac":0.0095,"etc":0.0428,"total":0.372},{"new_index_weekEND":54,"computer":0.2978,"light":0.0285,"hvac":0.0095,"etc":0.0415,"total":0.3774},{"new_index_weekEND":55,"computer":0.3012,"light":0.0347,"hvac":0.0095,"etc":0.0426,"total":0.388},{"new_index_weekEND":56,"computer":0.2983,"light":0.0378,"hvac":0.0095,"etc":0.0434,"total":0.3891},{"new_index_weekEND":57,"computer":0.299,"light":0.0443,"hvac":0.0095,"etc":0.0423,"total":0.3952},{"new_index_weekEND":58,"computer":0.3014,"light":0.0552,"hvac":0.12,"etc":0.0444,"total":0.5209},{"new_index_weekEND":59,"computer":0.3042,"light":0.0656,"hvac":0.1239,"etc":0.0458,"total":0.5395},{"new_index_weekEND":60,"computer":0.3112,"light":0.0786,"hvac":0.0888,"etc":0.0444,"total":0.5229},{"new_index_weekEND":61,"computer":0.3112,"light":0.099,"hvac":0.0441,"etc":0.0467,"total":0.5009},{"new_index_weekEND":62,"computer":0.3098,"light":0.0998,"hvac":0.0468,"etc":0.0473,"total":0.5036},{"new_index_weekEND":63,"computer":0.3137,"light":0.102,"hvac":0.0671,"etc":0.0451,"total":0.5279},{"new_index_weekEND":64,"computer":0.3124,"light":0.1095,"hvac":0.2852,"etc":0.0431,"total":0.7502},{"new_index_weekEND":65,"computer":0.3118,"light":0.1161,"hvac":0.3818,"etc":0.0428,"total":0.8526},{"new_index_weekEND":66,"computer":0.3139,"light":0.1155,"hvac":0.3137,"etc":0.0398,"total":0.783},{"new_index_weekEND":67,"computer":0.317,"light":0.1243,"hvac":0.5818,"etc":0.0404,"total":1.0635},{"new_index_weekEND":68,"computer":0.3204,"light":0.1289,"hvac":0.6317,"etc":0.0366,"total":1.1177},{"new_index_weekEND":69,"computer":0.3189,"light":0.1381,"hvac":0.6329,"etc":0.0416,"total":1.1314},{"new_index_weekEND":70,"computer":0.3151,"light":0.1378,"hvac":0.5295,"etc":0.0391,"total":1.0216},{"new_index_weekEND":71,"computer":0.3203,"light":0.1352,"hvac":0.56,"etc":0.0429,"total":1.0584},{"new_index_weekEND":72,"computer":0.3176,"light":0.1273,"hvac":0.5573,"etc":0.0452,"total":1.0475},{"new_index_weekEND":73,"computer":0.3157,"light":0.1198,"hvac":0.4617,"etc":0.0447,"total":0.9419},{"new_index_weekEND":74,"computer":0.3154,"light":0.1235,"hvac":0.3892,"etc":0.0444,"total":0.8725},{"new_index_weekEND":75,"computer":0.3143,"light":0.1271,"hvac":0.2855,"etc":0.0452,"total":0.7721},{"new_index_weekEND":76,"computer":0.3167,"light":0.1225,"hvac":0.2315,"etc":0.0425,"total":0.7132},{"new_index_weekEND":77,"computer":0.3194,"light":0.1226,"hvac":0.3864,"etc":0.0435,"total":0.8718},{"new_index_weekEND":78,"computer":0.3192,"light":0.1294,"hvac":0.6256,"etc":0.0425,"total":1.1167},{"new_index_weekEND":79,"computer":0.316,"light":0.1315,"hvac":0.5161,"etc":0.0418,"total":1.0054},{"new_index_weekEND":80,"computer":0.3159,"light":0.1426,"hvac":0.7418,"etc":0.0433,"total":1.2436},{"new_index_weekEND":81,"computer":0.3189,"light":0.1517,"hvac":0.7437,"etc":0.04,"total":1.2543},{"new_index_weekEND":82,"computer":0.3171,"light":0.1633,"hvac":0.7666,"etc":0.0433,"total":1.2903},{"new_index_weekEND":83,"computer":0.3152,"light":0.15,"hvac":0.776,"etc":0.0412,"total":1.2824},{"new_index_weekEND":84,"computer":0.3175,"light":0.1549,"hvac":0.7955,"etc":0.0448,"total":1.3127},{"new_index_weekEND":85,"computer":0.3165,"light":0.1464,"hvac":0.7881,"etc":0.0408,"total":1.2917},{"new_index_weekEND":86,"computer":0.318,"light":0.1447,"hvac":0.7353,"etc":0.0419,"total":1.2399},{"new_index_weekEND":87,"computer":0.3185,"light":0.1455,"hvac":0.6723,"etc":0.0397,"total":1.1761},{"new_index_weekEND":88,"computer":0.3207,"light":0.1456,"hvac":0.6447,"etc":0.0414,"total":1.1525},{"new_index_weekEND":89,"computer":0.3244,"light":0.1439,"hvac":0.6707,"etc":0.0387,"total":1.1777},{"new_index_weekEND":90,"computer":0.3236,"light":0.1431,"hvac":0.7723,"etc":0.0461,"total":1.2851},{"new_index_weekEND":91,"computer":0.3222,"light":0.1427,"hvac":0.9319,"etc":0.0444,"total":1.4412},{"new_index_weekEND":92,"computer":0.3202,"light":0.1505,"hvac":0.8165,"etc":0.045,"total":1.3323},{"new_index_weekEND":93,"computer":0.3219,"light":0.1478,"hvac":0.4765,"etc":0.0418,"total":0.9879},{"new_index_weekEND":94,"computer":0.3233,"light":0.1518,"hvac":0.4677,"etc":0.0482,"total":0.991},{"new_index_weekEND":95,"computer":0.3257,"light":0.1484,"hvac":0.3727,"etc":0.0438,"total":0.8906},{"new_index_weekEND":96,"computer":0.3274,"light":0.1448,"hvac":0.3891,"etc":0.0456,"total":0.9071}];
 
     // var lastWinter_total = [];
-    // var lastWinter_hvac  = [];
+    var lastWinter_hvac  = [];
     var lastWinter_com   = [];
-    // var lastWinter_light = [];
+    var lastWinter_light = [];
     // var lastWinter_etc   = [];
     //
     // var today_total = [];
-    // var today_hvac  = [];
+    var today_hvac  = [];
     var today_com   = [];
-    // var today_light = [];
+    var today_light = [];
     // var today_etc   = [];
     //
     // var savingRateComparison;
@@ -28,10 +28,10 @@ $(function () {
     // 1. Last Winter
     if(weekDay_Indicator == 1){
       TARGET = LAST_WINTER_WEEKDAY;
-      xAxis_categories = ["평소<br>(평일)", "현재"]
+      xAxis_categories = ["겨울<br>주중", "현재"]
     } else {
       TARGET = LAST_WINTER_WEEKEND;
-      xAxis_categories = ["평소<br>(주말)", "현재"]
+      xAxis_categories = ["겨울<br>주말", "현재"]
     }
 
     // console.log(TARGET[0]);
@@ -42,15 +42,15 @@ $(function () {
       // {"new_index_weekDAY":1,"computer":0.4121,"light":0.2318,"hvac":0.5553,"etc":0.0467,"total":1.2458}
 
       // total = TARGET[index].total;
-      // hvac  = TARGET[index].hvac;
+      hvac  = TARGET[index].hvac;
       com   = TARGET[index].computer;
-      // light = TARGET[index].light;
+      light = TARGET[index].light;
       // etc   = TARGET[index].etc;
 
       // lastWinter_total.push(Number(total.toFixed(2)));
-      // lastWinter_hvac.push(Number(hvac.toFixed(2)));
+      lastWinter_hvac.push(Number(hvac.toFixed(2)));
       lastWinter_com.push(Number(com.toFixed(2)));
-      // lastWinter_light.push(Number(light.toFixed(2)));
+      lastWinter_light.push(Number(light.toFixed(2)));
       // lastWinter_etc.push(Number(etc.toFixed(2)));
     }
 
@@ -68,15 +68,15 @@ $(function () {
 
       for(var index = 0; index < today.length; index++){
         // total = today[index].sum;
-        // hvac = accumulator(today[index], 'hvac');
+        hvac = accumulator(today[index], 'hvac');
         com  = accumulator(today[index], 'computer');
-        // light = accumulator(today[index], 'light');
+        light = accumulator(today[index], 'light');
         // etc = total - (hvac + com + light);
 
         // today_total.push(Number(total.toFixed(2)));
-        // today_hvac.push(Number(hvac.toFixed(2)));
+        today_hvac.push(Number(hvac.toFixed(2)));
         today_com.push(Number(com.toFixed(2)));
-        // today_light.push(Number(light.toFixed(2)));
+        today_light.push(Number(light.toFixed(2)));
         // today_etc.push(Number(etc.toFixed(2)));
       }
       drawChart();
@@ -87,6 +87,14 @@ $(function () {
       todayLength = today_com.length;
       // todayLength = 40;
       // savingRateComparison = ((limitedArraySum(today_total,todayLength) / limitedArraySum(lastWinter_total,todayLength)));
+
+      var lastWinter_maxFeederValue = Math.max(limitedArraySum(lastWinter_com, todayLength), limitedArraySum(lastWinter_light, todayLength), limitedArraySum(lastWinter_hvac, todayLength));
+      var      today_maxFeederValue = Math.max(limitedArraySum(today_com, todayLength), limitedArraySum(today_light, todayLength), limitedArraySum(today_hvac, todayLength));
+      var yMax = Math.max(lastWinter_maxFeederValue, today_maxFeederValue);
+
+      // console.log("**Last Winter Max:", lastWinter_maxFeederValue);
+      // console.log("**Today Max:", today_maxFeederValue);
+      // console.log("**Y Max:", yMax);
 
       var savingPoints = limitedArraySum(lastWinter_com, todayLength) - limitedArraySum(today_com, todayLength);
       var signColorCode;
@@ -147,6 +155,7 @@ $(function () {
         },
         yAxis: {
             min: 0,
+            max: yMax,
             labels: {
               enabled: false
             },

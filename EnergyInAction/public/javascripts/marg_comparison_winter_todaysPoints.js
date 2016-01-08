@@ -74,7 +74,7 @@ $(function () {
       }
 
       if(today.length != 0) {
-        nowText = "~ " + (new Date(today[today.length-1].dateTo).getHours()) + ":";
+        nowText = "MARG " + (new Date(today[today.length-1].dateTo).getHours()) + ":";
         nowText_minute = new Date(today[today.length-1].dateTo).getMinutes();
         // console.log("month length:", nowText_minute));
         if (nowText_minute < 10) {
