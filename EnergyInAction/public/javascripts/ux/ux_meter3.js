@@ -57,7 +57,7 @@ $(function () {
             ],
             lineWidth: 0,
             minorTickInterval: null,
-            tickPixelInterval: 200,
+            tickPixelInterval: 400,
             tickWidth: 0,
             title: {
                 y: -60
