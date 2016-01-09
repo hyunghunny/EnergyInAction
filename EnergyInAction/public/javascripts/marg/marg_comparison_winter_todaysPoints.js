@@ -101,15 +101,20 @@ $(function () {
 
       var savingText = (points_Com + points_light + points_hvac).toFixed(0);
 
+      // savingText = 0;
 
       var sign="";
       if (savingText > 0) {
         sign="+";
-        signColorCode = "#3e721f"
+        signColorCode = "#3e721f";
+      } else if(savingText == 0) {
+        sign="";
+        signColorCode = "gray";
       } else {
         sign="";
-        signColorCode = "#a50a0a"
+        signColorCode = "#a50a0a";
       }
+
 
       var savingPoints=$("<div>").css({"font-size": "20px", "display" : "inline", "color": "gray", "padding-right" : "40px"}).text('절전 점수');
       // var percentage_title2=$("<div>").attr("id","percentage_title").css({"font-size": "40px", "font-weight" : "bold", "color": currentColor, "display" : "inline", "text-shadow" : "1px 1px #000000"}).text(percent_smile+'pts ');

@@ -90,20 +90,21 @@ $(function () {
       var      today_maxFeederValue = Math.max(limitedArraySum(today_com, todayLength), limitedArraySum(today_light, todayLength), limitedArraySum(today_hvac, todayLength));
       var yMax = Math.max(lastWinter_maxFeederValue, today_maxFeederValue);
 
-      var savingPoints = limitedArraySum(lastWinter_light, todayLength) - limitedArraySum(today_light, todayLength);
+      var savingPoints_light = limitedArraySum(lastWinter_light, todayLength) - limitedArraySum(today_light, todayLength);
       var signColorCode;
 
+      // savingPoints_light = 0
       var sign="";
-      if (savingPoints > 0) {
+      if (savingPoints_light > 0) {
         sign="+";
-        signColorCode = "#3e721f"
+        signColorCode = "#3e721f";
+      } else if(savingPoints_light == 0) {
+        sign="";
+        signColorCode = "gray";
       } else {
         sign="";
-        signColorCode = "#c41111"
+        signColorCode = "#a50a0a";
       }
-
-      // console.log(lastWinter_totalSum);
-      // console.log(limitedArraySum(lastWinter_total, todayLength));
 
       $('#marg_comparison_winter_light').highcharts({
         chart: {
@@ -113,7 +114,7 @@ $(function () {
         },
         title: {
            useHTML: true,
-           text: sign+ savingPoints.toFixed(0) + '점',
+           text: sign+ savingPoints_light.toFixed(0) + '점',
            style: {
              color: signColorCode,
              fontWeight: 'bold',

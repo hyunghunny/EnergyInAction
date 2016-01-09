@@ -119,13 +119,17 @@ $(function () {
     var cumulatedSavingPoints = (points_com + points_light + points_hvac).toFixed(0);
     // console.log(cumulatedSavingPoints);
 
+    // cumulatedSavingPoints = 0;
     var sign="";
     if (cumulatedSavingPoints > 0) {
       sign="+";
-      signColorCode = "#3e721f"
+      signColorCode = "#3e721f";
+    } else if(cumulatedSavingPoints == 0) {
+      sign="";
+      signColorCode = "gray";
     } else {
       sign="";
-      signColorCode = "#a50a0a"
+      signColorCode = "#a50a0a";
     }
 
     var monthPoints=$("<div>").css({"font-size": "20px", "display" : "inline", "color": "gray"}).text('절전 점수');
