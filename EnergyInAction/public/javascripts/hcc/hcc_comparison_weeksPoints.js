@@ -42,12 +42,12 @@ $(function () {
   }
 
   // var DAY_FROM_MANUALLY = '2016-1-7'
-  thisMonth_query = 'api/labs/hcc/energy/daily.json?day_from=' + DAY_FROM_MANUALLY + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
-  // thisMonth_query = 'api/labs/hcc/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
-  // thisMonth_query = 'api/labs/hcc/energy/daily.json?day_from=' + '2015-12-01' + '&day_to=' + '2015-12-31' + '&offset=0';
-  // console.log(thisMonth_query);
+  thisWeek_query = 'api/labs/hcc/energy/daily.json?day_from=' + DAY_FROM_MANUALLY + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
+  // thisWeek_query = 'api/labs/hcc/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
+  // thisWeek_query = 'api/labs/hcc/energy/daily.json?day_from=' + '2015-12-01' + '&day_to=' + '2015-12-31' + '&offset=0';
+  // console.log(thisWeek_query);
 
-  invokeOpenAPI(thisMonth_query, thisMonthCB, errorCB);
+  invokeOpenAPI(thisWeek_query, thisWeekCB, errorCB);
 
   function errorCB(response) {
     // console.log(response);
@@ -59,8 +59,8 @@ $(function () {
   }
   // drawChart();
 
-  function thisMonthCB(thisMonth_) {
-    var thisMonth = thisMonth_;
+  function thisWeekCB(thisWeek_) {
+    var thisWeek = thisWeek_;
 
     var weekday_com_sum = 0;
     var weekday_light_sum = 0;
@@ -69,16 +69,16 @@ $(function () {
     var weekend_com_sum = 0;
     var weekend_light_sum = 0;
     var weekend_hvac_sum = 0;
-    // console.log("#thisMonth",thisMonth);
+    // console.log("#thisWeek",thisWeek);
 
-    for(var index = 0; index < thisMonth.length; index++){
-      com  = accumulator(thisMonth[index], 'computer');
-      light = accumulator(thisMonth[index], 'light');
-      hvac = accumulator(thisMonth[index], 'hvac');
+    for(var index = 0; index < thisWeek.length; index++){
+      com  = accumulator(thisWeek[index], 'computer');
+      light = accumulator(thisWeek[index], 'light');
+      hvac = accumulator(thisWeek[index], 'hvac');
 
-      var day = new Date(thisMonth[index].dateFrom).getDay();
+      var day = new Date(thisWeek[index].dateFrom).getDay();
       var isWeekend = (day == 6) || (day == 0);
-      // var theDate = (new Date(thisMonth[index].dateFrom).getMonth() + 1) + (new Date(thisMonth[index].dateFrom).getDate() / 100);
+      // var theDate = (new Date(thisWeek[index].dateFrom).getMonth() + 1) + (new Date(thisWeek[index].dateFrom).getDate() / 100);
       // console.log(theDate);
 
       // console.log("3 sisters", com, light, hvac, isWeekend);
