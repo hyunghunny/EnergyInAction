@@ -3,8 +3,6 @@
 var dayLabel = new Array('일', '월', '화', '수', '목', '금', '토');
 var baseDay     = new Date();
 
-var day_from_manually = '2016-1-7'
-
 if (baseDay.getHours() == 0) {
   baseDay = shiftDate(baseDay, -1)
   baseDay.setHours(0,0,0,0); // today 날짜만 깔끔히 잡도록 시간 초기화

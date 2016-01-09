@@ -38,7 +38,7 @@ $(function () {
     LAST_WINTER_WEEKEND_HVAC  += LAST_WINTER_WEEKEND[index].hvac;
   }
 
-  // day_from_manually = '2016-1-8' // --> imported from utiles
+  var DAY_FROM_MANUALLY = '2016-1-7'
   thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + DAY_FROM_MANUALLY + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
   // thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
   // thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + '2015-12-01' + '&day_to=' + '2015-12-31' + '&offset=0';
