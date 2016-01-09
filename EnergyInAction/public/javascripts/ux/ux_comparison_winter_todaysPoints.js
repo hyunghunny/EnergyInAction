@@ -111,7 +111,7 @@ $(function () {
         signColorCode = "#a50a0a"
       }
 
-      var savingPoints=$("<div>").css({"font-size": "20px", "display" : "inline", "color": "gray", "padding-right" : "40px"}).text('절전 점수');
+      var savingPoints=$("<div>").css({"font-size": "20px", "display" : "inline", "color": "gray"}).text('절전 점수');
       // var percentage_title2=$("<div>").attr("id","percentage_title").css({"font-size": "40px", "font-weight" : "bold", "color": currentColor, "display" : "inline", "text-shadow" : "1px 1px #000000"}).text(percent_smile+'pts ');
       var savingPoints2=$("<div>").css({"font-size": "100px", "font-weight" : "bold", "color": signColorCode, "display" : "inline"}).text(sign + savingText);
       var savingPoints3=$("<div>").css({"font-size": "30px", "font-weight" : "bold", "color": signColorCode, "display" : "inline"}).text(' 점');
