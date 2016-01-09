@@ -119,7 +119,7 @@ $(function () {
         },
         title: {
            useHTML: true,
-           text: sign+ savingPoints.toFixed(0) + 'pts',
+           text: sign+ savingPoints.toFixed(0) + '점',
            style: {
              color: signColorCode,
              fontWeight: 'bold',
