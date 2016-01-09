@@ -214,5 +214,5 @@ $(function () {
     });
   }
 
-  $('#icon_com').append('<img src="./images/computer2.png" width="50%"/>');
+  $('#icon_com').append('<img src="./images/computer2.png" width="60%"/>');
 });

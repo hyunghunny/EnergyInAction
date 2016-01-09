@@ -209,5 +209,5 @@ $(function () {
           // colors: [today_breakdownColors[0]]
     });
   }
-  $('#icon_hvac').append('<img src="./images/hvac2.png" width="50%"/>');
+  $('#icon_hvac').append('<img src="./images/hvac2.png" width="60%"/>');
 });

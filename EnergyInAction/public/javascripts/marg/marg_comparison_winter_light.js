@@ -209,5 +209,5 @@ $(function () {
           // colors: [today_breakdownColors[1]]
     });
   }
-  $('#icon_light').append('<img src="./images/light2.png" width="50%"/>');
+  $('#icon_light').append('<img src="./images/light2.png" width="60%"/>');
 });
