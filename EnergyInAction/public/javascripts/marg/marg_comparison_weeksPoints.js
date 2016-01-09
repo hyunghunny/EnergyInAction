@@ -87,19 +87,23 @@ $(function () {
         points_com   += (LAST_SEASON_WEEKEND_COM   - com);
         points_light += (LAST_SEASON_WEEKEND_LIGHT - light);
         points_hvac  += (LAST_SEASON_WEEKEND_HVAC  - hvac);
+        console.log(new Date(thisWeek[index].dateFrom).toLocaleString(), "(주말):", ((LAST_SEASON_WEEKEND_COM-com)+(LAST_SEASON_WEEKEND_LIGHT-light)+(LAST_SEASON_WEEKEND_HVAC-hvac)).toFixed(0),
+                    "(", (LAST_SEASON_WEEKEND_COM-com).toFixed(0), (LAST_SEASON_WEEKEND_LIGHT-light).toFixed(0), (LAST_SEASON_WEEKEND_HVAC-hvac).toFixed(0), ")");
+        // console.log(new Date(thisWeek[index].dateFrom).toLocaleString(), "(주말):", ((LAST_SEASON_WEEKEND_COM-com)+(LAST_SEASON_WEEKEND_LIGHT-light)+(LAST_SEASON_WEEKEND_HVAC-hvac)).toFixed(0),
+        //             "(", (LAST_SEASON_WEEKEND_COM-com), (LAST_SEASON_WEEKEND_LIGHT-light), (LAST_SEASON_WEEKEND_HVAC-hvac), ")");
         // console.log("3 point series", (LAST_SEASON_WEEKEND_COM   - com), (LAST_SEASON_WEEKEND_LIGHT - light), (LAST_SEASON_WEEKEND_HVAC  - hvac));
       //
       } else {
         points_com   += (LAST_SEASON_WEEKDAY_COM   - com);
         points_light += (LAST_SEASON_WEEKDAY_LIGHT - light);
         points_hvac  += (LAST_SEASON_WEEKDAY_HVAC  - hvac);
+        console.log(new Date(thisWeek[index].dateFrom).toLocaleString(), "(주중):", ((LAST_SEASON_WEEKDAY_COM-com)+(LAST_SEASON_WEEKDAY_LIGHT-light)+(LAST_SEASON_WEEKDAY_HVAC-hvac)).toFixed(0),
+                    "(", (LAST_SEASON_WEEKDAY_COM-com).toFixed(0), (LAST_SEASON_WEEKDAY_LIGHT-light).toFixed(0), (LAST_SEASON_WEEKDAY_HVAC-hvac).toFixed(0), ")");
+        // console.log(new Date(thisWeek[index].dateFrom).toLocaleString(), "(주중):", ((LAST_SEASON_WEEKDAY_COM-com)+(LAST_SEASON_WEEKDAY_LIGHT-light)\+(LAST_SEASON_WEEKDAY_HVAC-hvac)).toFixed(0),
+        //             "(", (LAST_SEASON_WEEKDAY_COM-com), (LAST_SEASON_WEEKDAY_LIGHT-light), (LAST_SEASON_WEEKDAY_HVAC-hvac), ")");
         // console.log("3 point series", (LAST_SEASON_WEEKDAY_COM   - com), (LAST_SEASON_WEEKDAY_LIGHT - light), (LAST_SEASON_WEEKDAY_HVAC  - hvac));
       }
-      //
-      // console.log("01",points_com);
-      // console.log("02",points_light);
-      // console.log("03",points_hvac);
-
+      console.log("Each cumulated points :               ", points_com.toFixed(0), points_light.toFixed(0), points_hvac.toFixed(0));
       }
       writeText();
   }
