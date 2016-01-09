@@ -49,7 +49,7 @@ $(function () {
         // the value axis
         yAxis: {
             min: 0,
-            max: 7,
+            max: 6.8,
             stops: [
                 [0.1, '#197F00'], // green
                 [0.8, '#DDDF0D'], // yellow
