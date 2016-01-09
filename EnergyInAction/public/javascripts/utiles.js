@@ -40,7 +40,7 @@ function shiftDate(date, offset) {
 }
 
 
-function invokeOpenAPI(url, scb) {
+function invokeOpenAPI(url, scb, ecb) {
     $.ajax({
         url : url,
         type : "get",
@@ -49,8 +49,11 @@ function invokeOpenAPI(url, scb) {
             //console.log('retrieve success:' + data);
             scb(data)
         },
-        error : function (request) {
-            console.log("failed to retrieve:" + request);
+        error : function (response) {
+            console.log("failed to retrieve:" + response);
+            if (ecb) {
+              ecb(response);
+            }
         }
     });
 }

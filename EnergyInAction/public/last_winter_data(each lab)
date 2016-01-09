@@ -19,4 +19,4 @@ quantile(lastYear_winter_hcc_hours$total, .95) * 1.1    # 5.452001 --> 5.5
 quantile(thisYear_winter_hcc_hours$total, .95)          # 4.41065
 
 quantile(lastYear_winter_ux_hours$total, .95) * 1.1     # 2.633891 --> 2.6
-quantile(thisYear_winter_ux_hours$total, .95)           # 2.6078 
+quantile(thisYear_winter_ux_hours$total, .95)           # 2.6078

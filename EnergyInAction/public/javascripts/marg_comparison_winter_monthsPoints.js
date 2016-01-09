@@ -38,14 +38,22 @@ $(function () {
     LAST_WINTER_WEEKEND_HVAC  += LAST_WINTER_WEEKEND[index].hvac;
   }
 
-  day_from_manually = '2016-1-7'
+  day_from_manually = '2016-1-8'
   thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + day_from_manually + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
   // thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
   // thisMonth_query = 'api/labs/marg/energy/daily.json?day_from=' + '2015-12-01' + '&day_to=' + '2015-12-31' + '&offset=0';
-  console.log(thisMonth_query);
+  // console.log(thisMonth_query);
 
-  invokeOpenAPI(thisMonth_query, thisMonthCB);
+  invokeOpenAPI(thisMonth_query, thisMonthCB, errorCB);
 
+function errorCB(response) {
+  // console.log(response);
+  var monthPoints=$("<div>").css({"font-size": "20px", "display" : "inline", "color": "gray"}).text('절전 점수');
+  var monthPoints2=$("<div>").css({"font-size": "70px", "font-weight" : "bold", "color": "gray", "display" : "inline"}).text('0 pts ');
+
+  $('#acc_points').append(monthPoints2).append("<br><br>").append(monthPoints);
+  // DO SOMETHING
+}
   // drawChart();
 
   function thisMonthCB(thisMonth_) {
@@ -109,7 +117,7 @@ $(function () {
 
     var signColorCode;
     var cumulatedSavingPoints = (points_com + points_light + points_hvac).toFixed(0);
-    console.log(cumulatedSavingPoints);
+    // console.log(cumulatedSavingPoints);
 
     var sign="";
     if (cumulatedSavingPoints > 0) {
