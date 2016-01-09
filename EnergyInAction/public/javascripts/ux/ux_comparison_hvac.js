@@ -113,7 +113,7 @@ $(function () {
       // console.log(lastWinter_totalSum);
       // console.log(limitedArraySum(lastWinter_total, todayLength));
 
-      $('#ux_comparison_winter_hvac').highcharts({
+      $('#ux_comparison_hvac').highcharts({
         chart: {
             type: 'column',
             uxinTop: 43,

@@ -110,7 +110,7 @@ $(function () {
         signColorCode = "#a50a0a";
       }
 
-      $('#marg_comparison_winter_hvac').highcharts({
+      $('#marg_comparison_hvac').highcharts({
         chart: {
             type: 'column',
             marginTop: 43,
