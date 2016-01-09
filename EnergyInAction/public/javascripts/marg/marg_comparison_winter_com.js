@@ -17,7 +17,7 @@ $(function () {
     //
     // var savingRateComparison;
 
-    var comparing_breakdownColors = ['#7dadf2', '#f5a859', '#f09d9d', '#d3bdd1']; //com, light, hvac, etc
+    var comparing_breakdownColors = ['#C4D5ED', '#F5C493', '#F4B8B8', '#d3bdd1']; //com, light, hvac, etc
     var today_breakdownColors = ['#497ecb', '#e3801c', '#dc5b5b', '#a889a5'];
 
     var fontSize_mainTitle = '25px';

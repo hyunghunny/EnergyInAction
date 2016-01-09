@@ -59,7 +59,7 @@ $(function () {
     // console.log("lastWinter_total",lastWinter_total);
 
     // 2. Today
-    invokeOpenAPI('api/labs/marg/energy/quarters.json', todayCB);
+    invokeOpenAPI('api/labs/ux/energy/quarters.json', todayCB);
 
     function todayCB(today_) {
       today = today_;
@@ -105,10 +105,10 @@ $(function () {
       // console.log(lastWinter_totalSum);
       // console.log(limitedArraySum(lastWinter_total, todayLength));
 
-      $('#marg_comparison_winter_hvac').highcharts({
+      $('#ux_comparison_winter_hvac').highcharts({
         chart: {
             type: 'column',
-            marginTop: 43,
+            uxinTop: 43,
             backgroundColor: 'rgba(0, 0, 0, 0)'
         },
         title: {

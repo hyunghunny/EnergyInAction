@@ -59,10 +59,12 @@ $(function () {
     // console.log("lastWinter_total",lastWinter_total);
 
     // 2. Today
-    invokeOpenAPI('api/labs/marg/energy/quarters.json', todayCB);
+    invokeOpenAPI('api/labs/hcc/energy/quarters.json', todayCB);
 
     function todayCB(today_) {
       today = today_;
+
+      // console.log("**today::", today);
 
       for(var index = 0; index < today.length; index++){
         // total = today[index].sum;
@@ -82,7 +84,7 @@ $(function () {
 
     // 3. draw chart
     function drawChart(){
-      todayLength = today_hvac.length;
+      todayLength = today_com.length;
       // todayLength = 40;
       // savingRateComparison = ((limitedArraySum(today_total,todayLength) / limitedArraySum(lastWinter_total,todayLength)));
 
@@ -90,7 +92,11 @@ $(function () {
       var      today_maxFeederValue = Math.max(limitedArraySum(today_com, todayLength), limitedArraySum(today_light, todayLength), limitedArraySum(today_hvac, todayLength));
       var yMax = Math.max(lastWinter_maxFeederValue, today_maxFeederValue);
 
-      var savingPoints = limitedArraySum(lastWinter_hvac, todayLength) - limitedArraySum(today_hvac, todayLength);
+      // console.log("**Last Winter Max:", lastWinter_maxFeederValue);
+      // console.log("**Today Max:", today_maxFeederValue);
+      // console.log("**Y Max:", yMax);
+
+      var savingPoints = limitedArraySum(lastWinter_com, todayLength) - limitedArraySum(today_com, todayLength);
       var signColorCode;
 
       var sign="";
@@ -105,10 +111,10 @@ $(function () {
       // console.log(lastWinter_totalSum);
       // console.log(limitedArraySum(lastWinter_total, todayLength));
 
-      $('#marg_comparison_winter_hvac').highcharts({
+      $('#hcc_comparison_winter_com').highcharts({
         chart: {
             type: 'column',
-            marginTop: 43,
+            hccinTop: 43,
             backgroundColor: 'rgba(0, 0, 0, 0)'
         },
         title: {
@@ -118,7 +124,7 @@ $(function () {
              color: signColorCode,
              fontWeight: 'bold',
              fontSize : fontSize_mainTitle,
-            //  'background-color': '#F5F5F4',
+            //  'background-color': 'rgba(0, 0, 0, 0)',
              'border-radius': '6px',
             //  border: '4px solid #8E8989'
            }
@@ -135,7 +141,7 @@ $(function () {
         xAxis: {
           title: {
               enabled: true,
-              // text: '누적 사용량',
+              text: '',
               style: {
                 fontSize: fontSize_xSubTitle
               }
@@ -187,19 +193,17 @@ $(function () {
           //                                                                 - limitedArraySum(lastWinter_hvac, todayLength) - limitedArraySum(lastWinter_etc, todayLength)).toFixed(2))}],
           //     linkedTo: ':previous'
           // },
-          // {
-          //     name: '컴퓨터',
-          //     data: [{y: limitedArraySum(lastWinter_com, todayLength), color: comparing_breakdownColors[0]}, {y: limitedArraySum(today_com, todayLength), color: today_breakdownColors[0]}]
-          // }
+          {
+              name: '컴퓨터',
+              data: [{y: limitedArraySum(lastWinter_com, todayLength), color: comparing_breakdownColors[0]}, {y: limitedArraySum(today_com, todayLength), color: today_breakdownColors[0]}]
+          }
           // , {
           //     name: '전등',
           //     data: [{y: limitedArraySum(lastWinter_light, todayLength), color: comparing_breakdownColors[1]}, {y: limitedArraySum(today_light, todayLength), color: today_breakdownColors[1]}]
-          // },
-          {
-              name: '난방',
-              data: [{y: limitedArraySum(lastWinter_hvac, todayLength), color: comparing_breakdownColors[2]}, {y: limitedArraySum(today_hvac, todayLength), color: today_breakdownColors[2]}]
-          }
-          // , {
+          // }, {
+          //     name: '난방',
+          //     data: [{y: limitedArraySum(lastWinter_hvac, todayLength), color: comparing_breakdownColors[2]}, {y: limitedArraySum(today_hvac, todayLength), color: today_breakdownColors[2]}]
+          // }, {
           //     name: '기타',
           //     data: [{y: limitedArraySum(lastWinter_etc, todayLength), color: comparing_breakdownColors[3]}, {y: limitedArraySum(today_etc, todayLength), color: today_breakdownColors[3]}]
           // }
@@ -209,5 +213,6 @@ $(function () {
           // colors: [today_breakdownColors[0]]
     });
   }
-  $('#icon_hvac').append('<img src="./images/hvac2.png" width="60%"/>');
+
+  $('#icon_com').append('<img src="./images/computer2.png" width="60%"/>');
 });

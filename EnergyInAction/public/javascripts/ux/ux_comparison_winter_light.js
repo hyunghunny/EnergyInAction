@@ -59,7 +59,7 @@ $(function () {
     // console.log("lastWinter_total",lastWinter_total);
 
     // 2. Today
-    invokeOpenAPI('api/labs/marg/energy/quarters.json', todayCB);
+    invokeOpenAPI('api/labs/ux/energy/quarters.json', todayCB);
 
     function todayCB(today_) {
       today = today_;
@@ -82,7 +82,7 @@ $(function () {
 
     // 3. draw chart
     function drawChart(){
-      todayLength = today_hvac.length;
+      todayLength = today_light.length;
       // todayLength = 40;
       // savingRateComparison = ((limitedArraySum(today_total,todayLength) / limitedArraySum(lastWinter_total,todayLength)));
 
@@ -90,14 +90,14 @@ $(function () {
       var      today_maxFeederValue = Math.max(limitedArraySum(today_com, todayLength), limitedArraySum(today_light, todayLength), limitedArraySum(today_hvac, todayLength));
       var yMax = Math.max(lastWinter_maxFeederValue, today_maxFeederValue);
 
-      var savingPoints = limitedArraySum(lastWinter_hvac, todayLength) - limitedArraySum(today_hvac, todayLength);
+      var savingPoints = limitedArraySum(lastWinter_light, todayLength) - limitedArraySum(today_light, todayLength);
       var signColorCode;
 
       var sign="";
       if (savingPoints > 0) {
         sign="+";
         signColorCode = "#3e721f"
-      }else {
+      } else {
         sign="";
         signColorCode = "#c41111"
       }
@@ -105,10 +105,10 @@ $(function () {
       // console.log(lastWinter_totalSum);
       // console.log(limitedArraySum(lastWinter_total, todayLength));
 
-      $('#marg_comparison_winter_hvac').highcharts({
+      $('#ux_comparison_winter_light').highcharts({
         chart: {
             type: 'column',
-            marginTop: 43,
+            uxinTop: 43,
             backgroundColor: 'rgba(0, 0, 0, 0)'
         },
         title: {
@@ -190,24 +190,24 @@ $(function () {
           // {
           //     name: '컴퓨터',
           //     data: [{y: limitedArraySum(lastWinter_com, todayLength), color: comparing_breakdownColors[0]}, {y: limitedArraySum(today_com, todayLength), color: today_breakdownColors[0]}]
-          // }
-          // , {
-          //     name: '전등',
-          //     data: [{y: limitedArraySum(lastWinter_light, todayLength), color: comparing_breakdownColors[1]}, {y: limitedArraySum(today_light, todayLength), color: today_breakdownColors[1]}]
           // },
           {
-              name: '난방',
-              data: [{y: limitedArraySum(lastWinter_hvac, todayLength), color: comparing_breakdownColors[2]}, {y: limitedArraySum(today_hvac, todayLength), color: today_breakdownColors[2]}]
+              name: '전등',
+              data: [{y: limitedArraySum(lastWinter_light, todayLength), color: comparing_breakdownColors[1]}, {y: limitedArraySum(today_light, todayLength), color: today_breakdownColors[1]}]
           }
-          // , {
+          // {
+          //     name: '난방',
+          //     data: [{y: limitedArraySum(lastWinter_hvac, todayLength), color: comparing_breakdownColors[2]}, {y: limitedArraySum(today_hvac, todayLength), color: today_breakdownColors[2]}]
+          // },
+          // {
           //     name: '기타',
           //     data: [{y: limitedArraySum(lastWinter_etc, todayLength), color: comparing_breakdownColors[3]}, {y: limitedArraySum(today_etc, todayLength), color: today_breakdownColors[3]}]
           // }
         ],
           // colors: ['lightgray', today_breakdownColors[0], today_breakdownColors[1],today_breakdownColors[2], today_breakdownColors[3]]
           // colors: [today_breakdownColors[0], today_breakdownColors[1],today_breakdownColors[2], today_breakdownColors[3]]
-          // colors: [today_breakdownColors[0]]
+          // colors: [today_breakdownColors[1]]
     });
   }
-  $('#icon_hvac').append('<img src="./images/hvac2.png" width="60%"/>');
+  $('#icon_light').append('<img src="./images/light2.png" width="60%"/>');
 });

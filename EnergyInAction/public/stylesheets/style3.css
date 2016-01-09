@@ -10,15 +10,16 @@ a {
 }
 
 .box_title {
-  border-bottom: solid 2px #000000;
+  /*border-bottom: solid 2px #000000;
   display: inline;
-  padding-bottom: 5px;
+  padding-bottom: 5px;*/
 }
 
-h3{
+h3 {
     padding: 0px;
     margin: 0px;
-    padding-bottom: 10px;
+    /*padding-bottom: 10px;*/
+    /*color: #555555;*/
 }
 
 .jumbotron {
@@ -57,24 +58,34 @@ h3{
     overflow:hidden;
     vertical-align:middle;
 }
-
+.wrapper {
+  /*box-shadow:0px 0px 30px rgba(0, 0, 0, 0.8);*/
+}
+.title_class {
+  /*width: 1920px;*/
+  width: 1860px;
+  height: 70px;
+  /*background-color: #FFFFFF;*/
+  padding-left: 40px;
+  padding-top: 10px;
+}
 .wrapper_class {
   width: 1900px;
-  height: 1000px;
-  padding-top: 40px;
+  height: 920px;
+  padding-top: 20px;
   float: left;
 }
 .left {
   float: left;
   clear: none;
   width: 500px;
-  height: 1000px;
+  height: 920px;
   padding-left : 40px;
 }
 .class_lefttop {
   width: 500px;
-  height: 490px;
-  background-color: #F5F5F4;
+  height: 460px;
+  background-color: #F4F9FF;
   text-align: center;
   /*padding-top: 10px;
   padding-right: 10px;*/
@@ -84,7 +95,7 @@ h3{
   text-align: center;
   font-size: 130%;
   padding-top: 10px;
-  background-color: #F5F5F4;
+  background-color: #F4F9FF;
 }
 .class_box_title_span {
   /*background-color: #8E8989;
@@ -92,12 +103,14 @@ h3{
   border: 4px solid #8E8989;
   padding-top: 3px;
   padding-bottom: 3px;*/
-  border-bottom: solid 2px #333333;
-  display: inline;
-  padding-bottom: 5px;
+  /*border-bottom: ridge 3px #333333;*/
+  width: 200px;
+  /*display: inline;*/
+  /*padding-bottom: 20px;*/
+  font-size: 2.3em;
 }
 .class_acc_points {
-  padding-top: 160px;
+  padding-top: 120px;
 }
 .class_left_between {
   height: 20px;
@@ -106,15 +119,16 @@ h3{
   float: left;
   clear: both;
   width: 500px;
-  height: 470px;
-  background-color: #E5E5E5;
+  height: 460px;
+  background-color: #F4F9FF;
+  /*box-shadow:0px 0px 30px rgba(0, 0, 0, 0.8);*/
 }
 .class_meter {
   float: left;
   clear: none;
   width: 500px;
   height: 380px;
-  background-color: #EAEAEA;
+  /*background-color: #EAEAEA;*/
   /*padding-top: 10px;*/
 }
 .class_meter_title {
@@ -122,22 +136,33 @@ h3{
   text-align: center;
   font-size: 130%;
   padding-top: 10px;
-  background-color: #EAEAEA;
+  /*background-color: #E3ECF1;*/
+  /*#EAEAEA*/
 }
 .center {
   float: left;
   clear: none;
   width: 1290px;
-  height: 1000px;
+  height: 920px;
   padding-left : 20px;
   padding-right: 40px;
+}
+.center_wrapper {
+  /*background-color: #F4F9FF;*/
+  /*box-shadow:0px 0px 30px rgba(0, 0, 0, 0.8);*/
 }
 .traffic_container {
   /*align-items: center;*/
   width: 1290px;
-  height: 450px;
-  background-color: #F5F5F4;
+  height: 470px;
+  background-color: #F4F9FF;
+  /*#F4F9FF;*/
+  position: relative;
+  /*-webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);*/
+  /*box-shadow:0 2px 50px rgba(0, 0, 0, 0.5);*/
 }
+
 .class_smiley {
   width: auto;
   float: left;
@@ -152,10 +177,15 @@ h3{
 }
 .traffic_light_class {
   width: 500px;
-  height: 400px;
+  height: 390px;
   float: left;
   clear: none;
-  background-color: ##F5F5F4;
+  background-color: #F4F9FF;
+}
+.class_triangle {
+  position: absolute;
+  bottom: 0px;
+  margin-bottom: -5px;
 }
 /*.percentage_title_class {
   float: center;
@@ -165,15 +195,24 @@ h3{
 .saving_points_class {
   float: center;
   text-align: right;
-  padding-top: 170px;
+  padding-top: 120px;
   padding-right: 50px;
 }
 .nilm_container {
-  width: 1040px;
-  height: 414px;
-  background-color: #F5F5F4;
-  padding-top: 90px;
-  padding-left: 250px;
+  width: 1045px;
+  height: 430px;
+  background-color: #E6EAEF;
+  /*#F4F9FF;*/
+  padding-top: 40px;
+  padding-left: 245px;
+}
+.nilm_container2 {
+  width: 900px;
+  height: 430px;
+  background-color: #E6EAEF;
+  /*#F4F9FF;*/
+  padding-top: 40px;
+  padding-left: 390px;
 }
 .com_wrapper {
   width: 180px;
@@ -220,9 +259,11 @@ h3{
   /*clear: none;*/
 }
 .class_title_nowText {
-  background-color: #F5F5F4;
+  /*background-color: #E6E9EE;*/
+  /*#F4F9FF;*/
   text-align: right;
-  padding-bottom: 10px;
+  /*padding-bottom: 10px;*/
+  padding-top:405px;
   padding-right: 10px;
 }
 /*clock*/
