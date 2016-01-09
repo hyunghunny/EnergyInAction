@@ -96,20 +96,21 @@ $(function () {
       // console.log("**Today Max:", today_maxFeederValue);
       // console.log("**Y Max:", yMax);
 
-      var savingPoints = limitedArraySum(lastWinter_com, todayLength) - limitedArraySum(today_com, todayLength);
+      var savingPoints_com = limitedArraySum(lastWinter_com, todayLength) - limitedArraySum(today_com, todayLength);
       var signColorCode;
 
+      // savingPoints_com = 0
       var sign="";
-      if (savingPoints > 0) {
+      if (savingPoints_com > 0) {
         sign="+";
-        signColorCode = "#3e721f"
-      }else {
+        signColorCode = "#3e721f";
+      } else if(savingPoints_com == 0) {
         sign="";
-        signColorCode = "#c41111"
+        signColorCode = "gray";
+      } else {
+        sign="";
+        signColorCode = "#a50a0a";
       }
-
-      // console.log(lastWinter_totalSum);
-      // console.log(limitedArraySum(lastWinter_total, todayLength));
 
       $('#marg_comparison_winter_com').highcharts({
         chart: {
@@ -119,7 +120,7 @@ $(function () {
         },
         title: {
            useHTML: true,
-           text: sign+ savingPoints.toFixed(0) + '점',
+           text: sign+ savingPoints_com.toFixed(0) + '점',
            style: {
              color: signColorCode,
              fontWeight: 'bold',
