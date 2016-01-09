@@ -129,7 +129,7 @@ $(function () {
     // console.log("03",points_hvac);
 
     var signColorCode;
-    var cumulatedSavingPoints = (points_com + points_light + points_hvac).toFixed(0);
+    var cumulatedSavingPoints = (points_com + points_light).toFixed(0);
     // console.log(cumulatedSavingPoints);
 
     // cumulatedSavingPoints = 0;
