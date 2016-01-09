@@ -111,11 +111,12 @@ $(function () {
         signColorCode = "#a50a0a"
       }
 
-      var savingPoints=$("<div>").attr("id","saving_points").css({"font-size": "20px", "display" : "inline", "color": "gray", "padding-right" : "70px"}).text('절전 점수');
+      var savingPoints=$("<div>").css({"font-size": "20px", "display" : "inline", "color": "gray", "padding-right" : "10px"}).text('절전 점수');
       // var percentage_title2=$("<div>").attr("id","percentage_title").css({"font-size": "40px", "font-weight" : "bold", "color": currentColor, "display" : "inline", "text-shadow" : "1px 1px #000000"}).text(percent_smile+'pts ');
-      var savingPoints2=$("<div>").attr("id","saving_points").css({"font-size": "70px", "font-weight" : "bold", "color": signColorCode, "display" : "inline"}).text(sign + savingText+'pts ');
+      var savingPoints2=$("<div>").css({"font-size": "70px", "font-weight" : "bold", "color": signColorCode, "display" : "inline"}).text(sign + savingText);
+      var savingPoints3=$("<div>").css({"font-size": "20px", "font-weight" : "bold", "color": signColorCode, "display" : "inline"}).text('점');
 
-      $('#saving_points').append(savingPoints2).append("<br><br>").append(savingPoints);
+      $('#saving_points').append(savingPoints2).append(savingPoints3).append("<br><br>").append(savingPoints);
       $('#title_nowText').append(nowText);
 
 
