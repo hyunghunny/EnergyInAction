@@ -11,11 +11,11 @@ $(function () {
 
   var LAST_SEASON_WEEKDAY_COM   = 0;
   var LAST_SEASON_WEEKDAY_LIGHT = 0;
-  var LAST_SEASON_WEEKDAY_HVAC  = 0;
+  // var LAST_SEASON_WEEKDAY_HVAC  = 0;
 
   var LAST_SEASON_WEEKEND_COM   = 0;
   var LAST_SEASON_WEEKEND_LIGHT = 0;
-  var LAST_SEASON_WEEKEND_HVAC  = 0;
+  // var LAST_SEASON_WEEKEND_HVAC  = 0;
 
   // var weekday_com_sum = 0;
   // var weekday_light_sum = 0;
@@ -32,13 +32,13 @@ $(function () {
   for(var index = 0; index < HCC_LAST_SEASON_WEEKDAY.length; index++){
     LAST_SEASON_WEEKDAY_COM   += HCC_LAST_SEASON_WEEKDAY[index].computer;
     LAST_SEASON_WEEKDAY_LIGHT += HCC_LAST_SEASON_WEEKDAY[index].light;
-    LAST_SEASON_WEEKDAY_HVAC  += HCC_LAST_SEASON_WEEKDAY[index].hvac;
+    // LAST_SEASON_WEEKDAY_HVAC  += HCC_LAST_SEASON_WEEKDAY[index].hvac;
   }
 
   for(var index = 0; index < HCC_LAST_SEASON_WEEKEND.length; index++){
     LAST_SEASON_WEEKEND_COM   += HCC_LAST_SEASON_WEEKEND[index].computer;
     LAST_SEASON_WEEKEND_LIGHT += HCC_LAST_SEASON_WEEKEND[index].light;
-    LAST_SEASON_WEEKEND_HVAC  += HCC_LAST_SEASON_WEEKEND[index].hvac;
+    // LAST_SEASON_WEEKEND_HVAC  += HCC_LAST_SEASON_WEEKEND[index].hvac;
   }
 
   // var DAY_FROM_MANUALLY = '2016-1-7'
@@ -64,17 +64,17 @@ $(function () {
 
     var weekday_com_sum = 0;
     var weekday_light_sum = 0;
-    var weekday_hvac_sum = 0;
+    // var weekday_hvac_sum = 0;
 
     var weekend_com_sum = 0;
     var weekend_light_sum = 0;
-    var weekend_hvac_sum = 0;
+    // var weekend_hvac_sum = 0;
     // console.log("#thisWeek",thisWeek);
 
     for(var index = 0; index < thisWeek.length; index++){
       com  = accumulator(thisWeek[index], 'computer');
       light = accumulator(thisWeek[index], 'light');
-      hvac = accumulator(thisWeek[index], 'hvac');
+      // hvac = accumulator(thisWeek[index], 'hvac');
 
       var day = new Date(thisWeek[index].dateFrom).getDay();
       var isWeekend = (day == 6) || (day == 0);
@@ -86,15 +86,25 @@ $(function () {
       if(isWeekend){
         points_com   += (LAST_SEASON_WEEKEND_COM   - com);
         points_light += (LAST_SEASON_WEEKEND_LIGHT - light);
-        points_hvac  += (LAST_SEASON_WEEKEND_HVAC  - hvac);
+        // points_hvac  += (LAST_SEASON_WEEKEND_HVAC  - hvac);
+        console.log(new Date(thisWeek[index].dateFrom).toLocaleString(), "(주말):", ((LAST_SEASON_WEEKEND_COM-com)+(LAST_SEASON_WEEKEND_LIGHT-light)).toFixed(0),
+                    "(", (LAST_SEASON_WEEKEND_COM-com).toFixed(0), (LAST_SEASON_WEEKEND_LIGHT-light).toFixed(0), ")");
+        // console.log(new Date(thisWeek[index].dateFrom).toLocaleString(), "(주말):", ((LAST_SEASON_WEEKEND_COM-com)+(LAST_SEASON_WEEKEND_LIGHT-light)+(LAST_SEASON_WEEKEND_HVAC-hvac)).toFixed(0),
+        //             "(", (LAST_SEASON_WEEKEND_COM-com), (LAST_SEASON_WEEKEND_LIGHT-light), (LAST_SEASON_WEEKEND_HVAC-hvac), ")");
         // console.log("3 point series", (LAST_SEASON_WEEKEND_COM   - com), (LAST_SEASON_WEEKEND_LIGHT - light), (LAST_SEASON_WEEKEND_HVAC  - hvac));
       //
       } else {
         points_com   += (LAST_SEASON_WEEKDAY_COM   - com);
         points_light += (LAST_SEASON_WEEKDAY_LIGHT - light);
-        points_hvac  += (LAST_SEASON_WEEKDAY_HVAC  - hvac);
+        // points_hvac  += (LAST_SEASON_WEEKDAY_HVAC  - hvac);
+        console.log(new Date(thisWeek[index].dateFrom).toLocaleString(), "(주중):", ((LAST_SEASON_WEEKDAY_COM-com)+(LAST_SEASON_WEEKDAY_LIGHT-light)).toFixed(0),
+                    "(", (LAST_SEASON_WEEKDAY_COM-com).toFixed(0), (LAST_SEASON_WEEKDAY_LIGHT-light).toFixed(0), ")");
+        // console.log(new Date(thisWeek[index].dateFrom).toLocaleString(), "(주중):", ((LAST_SEASON_WEEKDAY_COM-com)+(LAST_SEASON_WEEKDAY_LIGHT-light)\+(LAST_SEASON_WEEKDAY_HVAC-hvac)).toFixed(0),
+        //             "(", (LAST_SEASON_WEEKDAY_COM-com), (LAST_SEASON_WEEKDAY_LIGHT-light), (LAST_SEASON_WEEKDAY_HVAC-hvac), ")");
         // console.log("3 point series", (LAST_SEASON_WEEKDAY_COM   - com), (LAST_SEASON_WEEKDAY_LIGHT - light), (LAST_SEASON_WEEKDAY_HVAC  - hvac));
       }
+      console.log("Each cumulated points :              ", points_com.toFixed(0), points_light.toFixed(0));
+
       //
       // console.log("01",points_com);
       // console.log("02",points_light);
@@ -119,7 +129,7 @@ $(function () {
     // console.log("03",points_hvac);
 
     var signColorCode;
-    var cumulatedSavingPoints = (points_com + points_light + points_hvac).toFixed(0);
+    var cumulatedSavingPoints = (points_com + points_light).toFixed(0);
     // console.log(cumulatedSavingPoints);
 
     // cumulatedSavingPoints = 0;
