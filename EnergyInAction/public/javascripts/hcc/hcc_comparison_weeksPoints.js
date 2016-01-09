@@ -41,8 +41,9 @@ $(function () {
     // LAST_SEASON_WEEKEND_HVAC  += HCC_LAST_SEASON_WEEKEND[index].hvac;
   }
 
-  // var DAY_FROM_MANUALLY = '2016-1-7'
-  thisWeek_query = 'api/labs/hcc/energy/daily.json?day_from=' + DAY_FROM_MANUALLY + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
+  query_today = new Date();
+  query_yesterday = shiftDate(query_today, -1)
+  thisWeek_query = 'api/labs/hcc/energy/daily.json?day_from=' + DAY_FROM_MANUALLY + '&day_to=' + dateFormatter(new Date(query_yesterday)) + '&offset=0';
   // thisWeek_query = 'api/labs/hcc/energy/daily.json?day_from=' + dateFormatter(new Date(firstDayOfThisMonth)) + '&day_to=' + dateFormatter(new Date(yesterDay)) + '&offset=0';
   // thisWeek_query = 'api/labs/hcc/energy/daily.json?day_from=' + '2015-12-01' + '&day_to=' + '2015-12-31' + '&offset=0';
   // console.log(thisWeek_query);
