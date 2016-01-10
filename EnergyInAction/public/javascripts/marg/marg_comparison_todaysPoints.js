@@ -110,12 +110,16 @@ $(function () {
       if (savingText > 0) {
         sign="+";
         signColorCode = "#3e721f";
+        $('#smiley').prepend('<img id="faces" src="./images/green_v2.png" width="110%"/>');
       } else if(savingText == 0) {
         sign="";
         signColorCode = "gray";
+        // $('#smiley').prepend('<img id="faces" src="./images/red_v2.png" style="max-width: 100%; height: auto;"/>');
+        $('#smiley').prepend('<img id="faces" src="./images/green_v2.png" width="110%"/>');
       } else {
         sign="";
         signColorCode = "#a50a0a";
+        $('#smiley').prepend('<img id="faces" src="./images/red_v2.png" width="110%"/>');
       }
 
       var savingPoints=$("<div>").css({"font-size": "20px", "display" : "inline", "color": "gray"}).text('절전 점수');
@@ -126,6 +130,6 @@ $(function () {
       $('#saving_points').append(savingPoints2).append(savingPoints3).append("<br><br>").append(savingPoints);
       $('#title_nowText').append(nowText);
 
-
+      $('#triangle').prepend('<img src="./images/triangle.png" height: auto;"/>');
   }
 });
