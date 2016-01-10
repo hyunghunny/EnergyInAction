@@ -85,11 +85,11 @@ $(function () {
 
           if(savingRate_Day > 1.0) {
             // $('#smiley').prepend('<img id="faces" src="./images/marg_red.png" />');
-            $('#smiley').prepend('<img id="faces" src="./images/red_v2.png" style="max-width: 100%; height: auto;"/>');
+            // $('#smiley').prepend('<img id="faces" src="./images/red_v2.png" style="max-width: 100%; height: auto;"/>');
             currentColor = "#a50a0a";
           } else {
             // $('#smiley').prepend('<img id="faces" src="./images/marg_green.png" />');
-            $('#smiley').prepend('<img id="faces" src="./images/green_v2.png" width="110%"/>');
+            // $('#smiley').prepend('<img id="faces" src="./images/green_v2.png" width="110%"/>');
             currentColor = "#3e721f";
           }
 
