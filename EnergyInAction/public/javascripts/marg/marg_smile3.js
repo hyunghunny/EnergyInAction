@@ -115,7 +115,7 @@ $(function () {
           //
           // $('#percentage_title').append(percentage_title).append("<br><br>").append(percentage_title2);
 
-          $('#triangle').prepend('<img src="./images/triangle.png" height: auto;"/>');
+          // $('#triangle').prepend('<img src="./images/triangle.png" height: auto;"/>');
         });
     });
 });

@@ -102,11 +102,12 @@ $(function () {
       var savingText = (points_Com + points_light + points_hvac).toFixed(0);
 
       // savingText = 0;
-
+      console.log("savingText",typeof(savingText),savingText);
       var sign="";
       if (savingText > 0) {
         sign="+";
         signColorCode = "#3e721f";
+
         $('#smiley').prepend('<img id="faces" src="./images/green_v2.png" width="110%"/>');
       } else if(savingText == 0) {
         sign="";
