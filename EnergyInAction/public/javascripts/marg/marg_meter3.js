@@ -1,10 +1,7 @@
+// import data file
+document.writeln("<script type='text/javascript' src='/javascripts/lib/environ.js'></script>");
+
 $(function () {
-// 2014년 9월
-//     10%      20%      30%      40%      50%      60%      70%      80%      90%     100%
-// 1.456493 1.599573 1.700639 2.158003 2.595834 2.962424 3.333164 4.173286 5.741409 7.346176
-    var yMax = 8;
-    // var firstSeg = 4;
-    // var secondSeg = 6;
 
     var margTotal = 0;
 
@@ -49,7 +46,7 @@ $(function () {
         // the value axis
         yAxis: {
             min: 0,
-            max: 7,
+            max: MARG_REALTIME_MAX,
             stops: [
                 [0.1, '#197F00'], // green
                 [0.8, '#DDDF0D'], // yellow
@@ -117,7 +114,7 @@ $(function () {
 
           var point = chart.series[0].points[0];
 
-          if(margTotal > yMax) margTotal = 8;
+          // if(margTotal > yMax) margTotal = 8;
           point.update(margTotal);
 
         }
