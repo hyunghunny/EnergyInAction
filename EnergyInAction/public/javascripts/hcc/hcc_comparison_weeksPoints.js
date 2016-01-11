@@ -53,12 +53,11 @@ $(function () {
   function errorCB(response) {
     // console.log(response);
     var monthPoints=$("<div>").css({"font-size": "20px", "display" : "inline", "color": "gray"}).text('절전 점수');
-    var monthPoints2=$("<div>").css({"font-size": "70px", "font-weight" : "bold", "color": "gray", "display" : "inline"}).text('0 점');
+    var monthPoints2=$("<div>").css({"font-size": "100px", "font-weight" : "bold", "color": "gray", "display" : "inline"}).text("0");
+    var monthPoints3=$("<div>").css({"font-size": "30px", "font-weight" : "bold", "color": "gray", "display" : "inline"}).text(' 점');
 
-    $('#acc_points').append(monthPoints2).append("<br><br>").append(monthPoints);
-    // DO SOMETHING
+    $('#acc_points').append(monthPoints2).append(monthPoints3).append("<br><br>").append(monthPoints);
   }
-  // drawChart();
 
   function thisWeekCB(thisWeek_) {
     var thisWeek = thisWeek_;
