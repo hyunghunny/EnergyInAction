@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 var DAY_FROM_MANUALLY = '2016-1-11';
-=======
-var DAY_FROM_MANUALLY = '2016-1-4';
->>>>>>> origin/master
 
 var TOTAL_WEIGHT = 1.157878;
 
