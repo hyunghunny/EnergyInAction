@@ -100,7 +100,9 @@ $(function () {
 
       var points_Com   = (limitedArraySum(lastSesaon_com,   todayLength) - limitedArraySum(today_com,   todayLength)).toFixed(0);
       var points_light = (limitedArraySum(lastSesaon_light, todayLength) - limitedArraySum(today_light, todayLength)).toFixed(0);
-      // var points_hvac  = limitedArraySum(lastSesaon_hvac,  todayLength) - limitedArraySum(today_hvac,  todayLength);
+      // var points_hvac  = (limitedArraySum(lastSesaon_hvac,  todayLength)*TOTAL_WEIGHT - limitedArraySum(today_hvac,  todayLength)).toFixed(0);
+
+      console.log(Number(points_Com), Number(points_light));
 
       var savingText = (Number(points_Com) + Number(points_light));
 
