@@ -96,11 +96,13 @@ $(function () {
     function writeText(){
       var todayLength = today_com.length;
 
-      // console.log("##########",todayLength);
+      //console.log("##########",limitedArraySum(lastSesaon_com,   todayLength)*COM_WEIGHT);
 
       var points_Com   = (limitedArraySum(lastSesaon_com,   todayLength) - limitedArraySum(today_com,   todayLength)).toFixed(0);
       var points_light = (limitedArraySum(lastSesaon_light, todayLength) - limitedArraySum(today_light, todayLength)).toFixed(0);
       var points_hvac  = (limitedArraySum(lastSesaon_hvac,  todayLength) - limitedArraySum(today_hvac,  todayLength)).toFixed(0);
+
+      console.log(Number(points_Com), Number(points_light), Number(points_hvac));
 
       var savingText = (Number(points_Com) + Number(points_light) + Number(points_hvac));
 
