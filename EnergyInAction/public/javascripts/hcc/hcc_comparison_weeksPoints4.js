@@ -152,14 +152,8 @@ $(function () {
 
     $('#acc_points').append(monthPoints2).append(monthPoints3).append("<br><br>").append(monthPoints);
 
-    temptext="-3"
-    temptext2="-5"
-    temptext3="-7"
-    var firstPoints=$("<div>").css({"font-size": "40px", "font-weight" : "bold", "color": signColorCode, "background-color" : "#90a5b7" ,"position" : "absolute", "top" : "345px", "left" : "125px"}).text(first_points);
-    var secondPoints=$("<div>").css({"font-size": "40px", "font-weight" : "bold", "color": signColorCode, "background-color" : "#90a5b7" ,"position" : "absolute", "top" : "415px", "left" : "275px"}).text(second_points);
-    var thirdPoints=$("<div>").css({"font-size": "40px", "font-weight" : "bold", "color": signColorCode, "background-color" : "#90a5b7" ,"position" : "absolute", "top" : "485px", "left" : "425px"}).text(third_points);
-
-    $('#ranking').append(firstPoints).append(secondPoints).append(thirdPoints);
-    $('#ranking').append('<img src="./images/hcc_marg_ux.png" width="95%"/>');
+    // 
+    // $('#ranking').append(firstPoints).append(secondPoints).append(thirdPoints);
+    // $('#ranking').append('<img src="./images/hcc_marg_ux.png" width="95%"/>');
   }
 });

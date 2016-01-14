@@ -174,9 +174,12 @@ $(function () {
       // $('#first').append(first_text);
       // $('#second').append(second_text);
       // $('#third').append(third_text);
-
+      // var img = $("<img>").src("./images/hcc_marg_ux.png").css({"width" : "95%"});
       $('#ranking').append(first_text).append(second_text).append(third_text);
-      $('#ranking').append('<img src="./images/hcc_marg_ux.png" width="95%"/>');
+      // $('#ranking').append('<img src="./images/hcc_marg_ux.png" width="95%"/>');
+      // $('#ranking').append(img);
+      document.getElementById("rankingImg").src="./images/hcc_marg_ux.png";
+      document.getElementById("rankingImg").style.width="95%";
       // console.log("first:", first_text, "second:", second_text, "third:", third_text);
 
       function compareNumbers(a, b) {
