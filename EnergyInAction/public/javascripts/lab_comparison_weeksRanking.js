@@ -156,16 +156,21 @@ $(function () {
 
     if(marg_week_points != null && hcc_week_points != null && ux_week_points != null) {
 
-      var lab_points = [Number(marg_week_points), Number(hcc_week_points), Number(ux_week_points)];
-      // console.log(lab_points);
+      var lab_names = ["marg", "hcc", "ux"];
+      var lab_records = [Number(marg_week_points), Number(hcc_week_points), Number(ux_week_points)];
+      var lab_points  = [Number(marg_week_points), Number(hcc_week_points), Number(ux_week_points)];
+
+      console.log("original:", lab_points);
       lab_points.sort(compareNumbers);
-      console.log(lab_points);
+      console.log("sorted:", lab_points);
 
       var first_points  = lab_points[0];
-      var third_points  = lab_points[1];
-      var second_points = lab_points[2];
-
+      var second_points = lab_points[1];
+      var third_points  = lab_points[2];
       console.log("first:", first_points, "second:", second_points, "third:", third_points);
+
+      image_source_text = lab_names[getLabNameIndex(lab_records, first_points)] + "_" + lab_names[getLabNameIndex(lab_records, second_points)] + "_" + lab_names[getLabNameIndex(lab_records, third_points)] + ".png";
+      console.log(image_source_text);
 
       var first_text  = $("<div>").css({"font-size": "100px", "font-weight" : "bold", "color": getColor(first_points), "display" : "inline"}).text(getSign(first_points) + first_points);
       var second_text = $("<div>").css({"font-size": "100px", "font-weight" : "bold", "color": getColor(second_points), "display" : "inline"}).text(getSign(second_points) + second_points);
@@ -175,7 +180,11 @@ $(function () {
       $('#second').append(second_text);
       $('#third').append(third_text);
 
-      // console.log("first:", first_text, "second:", second_text, "third:", third_text);
+      function getLabNameIndex(arr, value){
+        for(var i=0; i < arr.length; i++){
+          if(arr[i] == value) { return i; }
+        }
+      }
 
       function compareNumbers(a, b) {
         return b - a;
