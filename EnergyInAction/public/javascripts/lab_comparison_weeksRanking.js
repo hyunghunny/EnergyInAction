@@ -155,14 +155,9 @@ $(function () {
   function writeText(){
 
     if(marg_week_points != null && hcc_week_points != null && ux_week_points != null) {
+
       var lab_points = [Number(marg_week_points), Number(hcc_week_points), Number(ux_week_points)];
-
-      function compareNumbers(a, b)
-      {
-          return b - a;
-      }
-
-      console.log(lab_points);
+      // console.log(lab_points);
       lab_points.sort(compareNumbers);
       console.log(lab_points);
 
@@ -172,9 +167,37 @@ $(function () {
 
       console.log("first:", first_points, "second:", second_points, "third:", third_points);
 
-      $('#first').append(first_points);
-      $('#second').append(second_points);
-      $('#third').append(third_points);
+      var first_text  = $("<div>").css({"font-size": "100px", "font-weight" : "bold", "color": getColor(first_points), "display" : "inline"}).text(getSign(first_points) + first_points);
+      var second_text = $("<div>").css({"font-size": "100px", "font-weight" : "bold", "color": getColor(second_points), "display" : "inline"}).text(getSign(second_points) + second_points);
+      var third_text  = $("<div>").css({"font-size": "100px", "font-weight" : "bold", "color": getColor(third_points), "display" : "inline"}).text(getSign(third_points) + third_points);
+
+      $('#first').append(first_text);
+      $('#second').append(second_text);
+      $('#third').append(third_text);
+
+      // console.log("first:", first_text, "second:", second_text, "third:", third_text);
+
+      function compareNumbers(a, b) {
+        return b - a;
+      }
+
+      function getSign(value){
+        if (value > 0) {
+          return "+";
+        } else {
+          return "";
+        }
+      }
+      //
+      function getColor(value){
+        if (value > 0) {
+          return "#3e721f";
+        } else if(value == 0) {
+          return "gray";
+        } else {
+          return "#a50a0a";
+        }
+      }
     }
   }
 });
