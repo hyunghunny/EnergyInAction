@@ -21,9 +21,10 @@ $(function () {
   invokeOpenAPI(  ux_ThisWeek_query,   uxThisWeekCB, errorCB);
 
   function errorCB(response) {
-    $('#first').append("데이터가 충분하지 않습니다");
-    $('#second').append("데이터가 충분하지 않습니다");
-    $('#third').append("데이터가 충분하지 않습니다");
+    $('#ranking').empty();
+    $('#rankingImg').empty();
+    var error_text  = $("<div>").css({"font-size": "25px", "position" : "absolute", "top" : "345px", "left" : "150px"}).text("데이터가 충분하지 않습니다");
+    $('#ranking').append(error_text);
   }
 
   // 1. MARG
@@ -169,12 +170,12 @@ $(function () {
       var third_points  = lab_points[2];
       console.log("first:", first_points, "second:", second_points, "third:", third_points);
 
-      image_source_text = lab_names[getLabNameIndex(lab_records, first_points)] + "_" + lab_names[getLabNameIndex(lab_records, second_points)] + "_" + lab_names[getLabNameIndex(lab_records, third_points)] + ".png";
+      image_source_text = "./images/" + lab_names[getLabNameIndex(lab_records, first_points)] + "_" + lab_names[getLabNameIndex(lab_records, second_points)] + "_" + lab_names[getLabNameIndex(lab_records, third_points)] + ".png";
       console.log(image_source_text);
 
       var first_text  = $("<div>").css({"font-size": "40px", "font-weight" : "bold", "color": getColor(first_points), "background-color" : "#90a5b7" ,"position" : "absolute", "top" : "345px", "left" : "125px"}).text(getSign(first_points) + first_points);
-      var second_text = $("<div>").css({"font-size": "40px", "font-weight" : "bold", "color": getColor(second_points), "background-color" : "#90a5b7" ,"position" : "absolute", "top" : "415px", "left" : "275px"}).text(getSign(second_points) + second_points);
-      var third_text  = $("<div>").css({"font-size": "40px", "font-weight" : "bold", "color": getColor(third_points), "background-color" : "#90a5b7" ,"position" : "absolute", "top" : "485px", "left" : "425px"}).text(getSign(third_points) + third_points);
+      var second_text = $("<div>").css({"font-size": "40px", "font-weight" : "bold", "color": getColor(second_points), "background-color" : "#90a5b7" ,"position" : "absolute", "top" : "415px", "left" : "265px"}).text(getSign(second_points) + second_points);
+      var third_text  = $("<div>").css({"font-size": "40px", "font-weight" : "bold", "color": getColor(third_points), "background-color" : "#90a5b7" ,"position" : "absolute", "top" : "485px", "left" : "415px"}).text(getSign(third_points) + third_points);
 
       // $('#first').append(first_text);
       // $('#second').append(second_text);
