@@ -151,9 +151,9 @@ $(function () {
     var monthPoints3=$("<div>").css({"font-size": "30px", "font-weight" : "bold", "color": signColorCode, "display" : "inline"}).text(' 점');
 
     $('#acc_points').append(monthPoints2).append(monthPoints3).append("<br><br>").append(monthPoints);
-    $('#ranking').prepend('<img src="./images/hcc_marg_ux.png" width="95%"/>');
-    temptext="-3"
-    var firstPoints=$("<h1>").css({"font-size": "40px", "font-weight" : "bold", "color": signColorCode, "position" : "absolute", "top" : "320px", "left" : "125px"}).text(temptext);
-    $('#ranking').prepend(firstPoints);
+
+    // 
+    // $('#ranking').append(firstPoints).append(secondPoints).append(thirdPoints);
+    // $('#ranking').append('<img src="./images/hcc_marg_ux.png" width="95%"/>');
   }
 });
