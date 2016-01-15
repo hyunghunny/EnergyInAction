@@ -174,8 +174,8 @@ $(function () {
       console.log(image_source_text);
 
       var first_text  = $("<div>").css({"font-size": "40px", "font-weight" : "bold", "color": getColor(first_points), "background-color" : "#90a5b7" ,"position" : "absolute", "top" : "345px", "left" : "125px"}).text(getSign(first_points) + first_points);
-      var second_text = $("<div>").css({"font-size": "40px", "font-weight" : "bold", "color": getColor(second_points), "background-color" : "#90a5b7" ,"position" : "absolute", "top" : "415px", "left" : "265px"}).text(getSign(second_points) + second_points);
-      var third_text  = $("<div>").css({"font-size": "40px", "font-weight" : "bold", "color": getColor(third_points), "background-color" : "#90a5b7" ,"position" : "absolute", "top" : "485px", "left" : "415px"}).text(getSign(third_points) + third_points);
+      var second_text = $("<div>").css({"font-size": "40px", "font-weight" : "bold", "color": getColor(second_points), "background-color" : "#90a5b7" ,"position" : "absolute", "top" : "415px", "left" : "267px"}).text(getSign(second_points) + second_points);
+      var third_text  = $("<div>").css({"font-size": "40px", "font-weight" : "bold", "color": getColor(third_points), "background-color" : "#90a5b7" ,"position" : "absolute", "top" : "485px", "left" : "417px"}).text(getSign(third_points) + third_points);
 
       // $('#first').append(first_text);
       // $('#second').append(second_text);
