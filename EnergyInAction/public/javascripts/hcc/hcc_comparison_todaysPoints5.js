@@ -130,33 +130,30 @@ $(function () {
       $('#saving_points').append(savingPoints2).append(savingPoints3).append("<br><br>").append(savingPoints);
       $('#title_nowText').append(nowText);
 
-      if (savingText == 0) {
-        sign="+"
-      }
-      document.getElementById("todayPoints").innerHTML =sign + savingText;
-      document.getElementById("todayPoints").style.color=signColorCode;
-      document.getElementById("todayPoints").style.fontSize="50px";
-      // document.getElementById("todayPoints").style.position="absolute";
-      // document.getElementById("todayPoints").style.left="420px";
-
-      savingPoints_week= document.getElementById("weekPoints").innerHTML;
-      expectedSavingPoints = savingText;
-      expectedSavingPoints_color = "";
-
-      if(savingPoints_week.substring(0,1) == '-') {
-        expectedSavingPoints = expectedSavingPoints - Number(savingPoints_week.substring(1));
-      }else {
-        expectedSavingPoints = expectedSavingPoints + Number(savingPoints_week.substring(1));
-      }
-      if(expectedSavingPoints > 0) {
-        expectedSavingPoints_color = "#3e721f";
-      } else if(expectedSavingPoints == 0) {
-        expectedSavingPoints_color = "gray";
-      } else {
-        expectedSavingPoints_color = "#a50a0a";
-      }
-      document.getElementById("expectedPoints").innerHTML = expectedSavingPoints;
-      document.getElementById("expectedPoints").style.color=expectedSavingPoints_color;
+      // if (savingText == 0) {
+      //   sign="+"
+      // }
+      // document.getElementById("todayPoints").innerHTML =sign + savingText;
+      // document.getElementById("todayPoints").style.color=signColorCode;
+      //
+      // savingPoints_week= document.getElementById("weekPoints").innerHTML;
+      // expectedSavingPoints = savingText;
+      // expectedSavingPoints_color = "";
+      //
+      // if(savingPoints_week.substring(0,1) == '-') {
+      //   expectedSavingPoints = Number(savingPoints_week) + expectedSavingPoints;
+      // }else {
+      //   expectedSavingPoints = Number(savingPoints_week.substring(1)) + expectedSavingPoints;
+      // }
+      // if(expectedSavingPoints > 0) {
+      //   expectedSavingPoints_color = "#3e721f";
+      //   document.getElementById("expectedPoints").innerHTML = '+'+expectedSavingPoints;
+      //   document.getElementById("expectedPoints").style.color=expectedSavingPoints_color;
+      // } else {
+      //   expectedSavingPoints_color = "gray";
+      //   document.getElementById("expectedPoints").innerHTML = "0";
+      //   document.getElementById("expectedPoints").style.color=expectedSavingPoints_color;
+      // }
 
       $('#triangle').prepend('<img src="./images/triangle.png" height: auto;"/>');
 

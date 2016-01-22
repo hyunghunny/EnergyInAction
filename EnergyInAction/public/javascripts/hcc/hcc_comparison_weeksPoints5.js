@@ -147,8 +147,21 @@ $(function () {
 
     document.getElementById("coffeeImg").src="././images/coffeeCapsule.png";
 
-    document.getElementById("weekPoints").innerHTML =sign + cumulatedSavingPoints+ ' ';
+    document.getElementById("weekPoints").innerHTML =sign + cumulatedSavingPoints;
     document.getElementById("weekPoints").style.color=signColorCode;
+
+    expectedSavingPoints = 50 + Number(cumulatedSavingPoints);
+    expectedSavingPoints_color = "";
+
+    if(expectedSavingPoints > 0) {
+      document.getElementById("expectedPoints").innerHTML = '+'+expectedSavingPoints;
+      document.getElementById("expectedPoints").style.color="#3e721f";
+    } else {
+      expectedSavingPoints_color = "gray";
+      document.getElementById("expectedPoints").innerHTML = "0";
+      document.getElementById("expectedPoints").style.color=expectedSavingPoints_color;
+    }
+
     // document.getElementById("weekPoints").style.position="absolute";
     // document.getElementById("weekPoints").style.left="350px";
     //
