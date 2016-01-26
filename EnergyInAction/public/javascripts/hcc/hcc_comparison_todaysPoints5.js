@@ -91,7 +91,6 @@ $(function () {
       writeText();
     }
 
-
     // 3. write text
     function writeText(){
       var todayLength = today_com.length;
