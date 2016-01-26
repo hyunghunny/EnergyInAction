@@ -142,7 +142,10 @@ $(function () {
       signColorCode = "#a50a0a";
     }
 
-    document.getElementById("coffeeImg").src="././images/coffeeCapsule.png";
+    if (document.getElementById("coffeeImg2")) {
+      document.getElementById("coffeeImg2").src="././images/coffeeCapsules2.png";
+    } else {
+      document.getElementById("coffeeImg").src="././images/coffeeCapsule.png";
 
     // document.getElementById("weekPoints").innerHTML =sign + cumulatedSavingPoints;
     document.getElementById("weekPoints").innerHTML =sign + cumulatedSavingPoints;
@@ -162,5 +165,6 @@ $(function () {
     }
     document.getElementById("measure_expectedPoints").innerHTML = '개';
     document.getElementById("measure_expectedPoints").style.color="#3e721f";
+    }
   }
 });
