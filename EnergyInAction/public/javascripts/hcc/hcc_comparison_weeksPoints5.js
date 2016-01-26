@@ -56,7 +56,11 @@ $(function () {
     var monthPoints2=$("<div>").css({"font-size": "100px", "font-weight" : "bold", "color": "gray", "display" : "inline"}).text("0");
     var monthPoints3=$("<div>").css({"font-size": "30px", "font-weight" : "bold", "color": "gray", "display" : "inline"}).text(' 점');
 
-    $('#acc_points').append(monthPoints2).append(monthPoints3).append("<br><br>").append(monthPoints);
+    document.getElementById("coffeeImg").src="././images/coffeeCapsule.png";
+    document.getElementById("expectedPoints").innerHTML = '+'+30;
+    document.getElementById("expectedPoints").style.color="#3e721f";
+    document.getElementById("weekPoints").innerHTML = '- 0';
+    document.getElementById("weekPoints").style.color= 'gray';
   }
 
   function thisWeekCB(thisWeek_) {
@@ -147,10 +151,11 @@ $(function () {
 
     document.getElementById("coffeeImg").src="././images/coffeeCapsule.png";
 
+    // document.getElementById("weekPoints").innerHTML =sign + cumulatedSavingPoints;
     document.getElementById("weekPoints").innerHTML =sign + cumulatedSavingPoints;
     document.getElementById("weekPoints").style.color=signColorCode;
 
-    expectedSavingPoints = 50 + Number(cumulatedSavingPoints);
+    expectedSavingPoints = 30 + Number(cumulatedSavingPoints);
     expectedSavingPoints_color = "";
 
     if(expectedSavingPoints > 0) {
@@ -161,23 +166,5 @@ $(function () {
       document.getElementById("expectedPoints").innerHTML = "0";
       document.getElementById("expectedPoints").style.color=expectedSavingPoints_color;
     }
-
-    // document.getElementById("weekPoints").style.position="absolute";
-    // document.getElementById("weekPoints").style.left="350px";
-    //
-    // document.getElementById("text1").style.position="absolute";
-    // document.getElementById("text1").style.left="300px";
-    // document.getElementById("text2").style.position="re";
-    // document.getElementById("text2").style.left="510px";
-
-
-
-    // var monthPoints=$("<div>").css({"font-size": "20px", "display" : "inline", "color": "gray"}).text('절전 점수');
-    // var percentage_title2=$("<div>").attr("id","percentage_title").css({"font-size": "40px", "font-weight" : "bold", "color": currentColor, "display" : "inline", "text-shadow" : "1px 1px #000000"}).text(percent_smile+'pts ');
-    // var monthPoints1=$("<div>").css({"font-size": "100px", "font-weight" : "bold", "color": "black", "display" : "inline"}).text('X ('sign + cumulatedSavingPoints + 20);
-    // var monthPoints2=$("<div>").css({"font-size": "100px", "font-weight" : "bold", "color": "black", "display" : "inline"}).text('X ('sign + cumulatedSavingPoints + 20);
-    // var monthPoints3=$("<div>").css({"font-size": "30px", "font-weight" : "bold", "color": signColorCode, "display" : "inline"}).text(' 점');
-
-    // $('#acc_points').append(monthPoints2).append(monthPoints3).append("<br><br>").append(monthPoints);
   }
 });
