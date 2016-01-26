@@ -133,7 +133,7 @@ $(function () {
     // console.log("03",points_hvac);
 
     var signColorCode;
-    var cumulatedSavingPoints = (points_com + points_light+20).toFixed(0);
+    var cumulatedSavingPoints = (points_com + points_light).toFixed(0);
     // console.log(cumulatedSavingPoints);
 
     // cumulatedSavingPoints = 0;
@@ -159,12 +159,15 @@ $(function () {
     expectedSavingPoints_color = "";
 
     if(expectedSavingPoints > 0) {
+      expectedSavingPoints_color = "#3e721f";
       document.getElementById("expectedPoints").innerHTML = '+'+expectedSavingPoints;
-      document.getElementById("expectedPoints").style.color="#3e721f";
+      document.getElementById("expectedPoints").style.color=expectedSavingPoints_color;
     } else {
       expectedSavingPoints_color = "gray";
       document.getElementById("expectedPoints").innerHTML = "0";
       document.getElementById("expectedPoints").style.color=expectedSavingPoints_color;
     }
+    document.getElementById("measure_expectedPoints").innerHTML = '개';
+    document.getElementById("measure_expectedPoints").style.color="#3e721f";
   }
 });
