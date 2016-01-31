@@ -133,7 +133,7 @@ $(function () {
     // console.log("03",points_hvac);
 
     var signColorCode;
-    var cumulatedSavingPoints = (points_com + points_light+20).toFixed(0);
+    var cumulatedSavingPoints = (points_com + points_light).toFixed(0);
     // console.log(cumulatedSavingPoints);
 
     // cumulatedSavingPoints = 0;
@@ -149,7 +149,10 @@ $(function () {
       signColorCode = "#a50a0a";
     }
 
-    document.getElementById("coffeeImg").src="././images/coffeeCapsule.png";
+    if (document.getElementById("coffeeImg2")) {
+      document.getElementById("coffeeImg2").src="././images/coffeeCapsules2.png";
+    } else {
+      document.getElementById("coffeeImg").src="././images/coffeeCapsule.png";
 
     // document.getElementById("weekPoints").innerHTML =sign + cumulatedSavingPoints;
     document.getElementById("weekPoints").innerHTML =sign + cumulatedSavingPoints;
@@ -159,12 +162,16 @@ $(function () {
     expectedSavingPoints_color = "";
 
     if(expectedSavingPoints > 0) {
+      expectedSavingPoints_color = "#3e721f";
       document.getElementById("expectedPoints").innerHTML = '+'+expectedSavingPoints;
-      document.getElementById("expectedPoints").style.color="#3e721f";
+      document.getElementById("expectedPoints").style.color=expectedSavingPoints_color;
     } else {
       expectedSavingPoints_color = "gray";
       document.getElementById("expectedPoints").innerHTML = "0";
       document.getElementById("expectedPoints").style.color=expectedSavingPoints_color;
+    }
+    document.getElementById("measure_expectedPoints").innerHTML = '개';
+    document.getElementById("measure_expectedPoints").style.color="#3e721f";
     }
   }
 });
