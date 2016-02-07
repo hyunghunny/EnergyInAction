@@ -6,11 +6,11 @@ $(function () {
 
     var savingRate_Day;
 
-    var baseDay_query  = '/api/labs/marg/energy/hours.json?base_time=' + baseTime;
-    var comparingDay_query = '/api/labs/marg/energy/hours.json?base_time=' + lastWeekDayTime;
+    var baseDay_query  = '/api/labs/ux/energy/hours.json?base_time=' + baseTime;
+    var comparingDay_query = '/api/labs/ux/energy/hours.json?base_time=' + lastWeekDayTime;
 
-    // var baseDay_query  = '/api/labs/marg/energy/quarters.json?base_time=' + baseTime;
-    // var comparingDay_query = '/api/labs/marg/energy/quarters.json?base_time=' + lastWeekDayTime;
+    // var baseDay_query  = '/api/labs/ux/energy/quarters.json?base_time=' + baseTime;
+    // var comparingDay_query = '/api/labs/ux/energy/quarters.json?base_time=' + lastWeekDayTime;
 
     // console.log(baseDay_query);
     // console.log(comparingDay_query);
@@ -73,23 +73,23 @@ $(function () {
           var s_minutes = smile_date.getMinutes();
 
 // console.log(baseDay);
-          // marg_smile.innerHTML = s_month+'월'+s_day+'일 '+s_hours+':'+s_minutes + ' 기준<br>어제 대비 ' + (savingRate_Day*100).toFixed(1) + '% 사용중';
-          // marg_smile.innerHTML = (new Date(today[today.length-1].dateTo)) + '기준<br>어제 대비 ' + (savingRate_Day*100).toFixed(1) + '% 사용중';
+          // ux_smile.innerHTML = s_month+'월'+s_day+'일 '+s_hours+':'+s_minutes + ' 기준<br>어제 대비 ' + (savingRate_Day*100).toFixed(1) + '% 사용중';
+          // ux_smile.innerHTML = (new Date(today[today.length-1].dateTo)) + '기준<br>어제 대비 ' + (savingRate_Day*100).toFixed(1) + '% 사용중';
           // var traffic_title=$("<div>").attr("id","title").css({"font-size": "17px","text-align": "center"}).text('[ 오늘 누적 전기사용 현황 ]').css('color','black','align-text','center');
 
-          // $('#marg_smile').append(traffic_title);
+          // $('#ux_smile').append(traffic_title);
 
           // console.log("savingRate_Day", savingRate_Day);
 
           var currentColor = "";
 
           if(savingRate_Day > 1.0) {
-            // $('#smiley').prepend('<img id="faces" src="./images/marg_red.png" />');
-            $('#smiley').prepend('<img id="faces" src="./images/red_v2.png" style="max-width: 100%; height: auto;"/>');
+            // $('#smiley').prepend('<img id="faces" src="./images/ux_red.png" />');
+            // $('#smiley').prepend('<img id="faces" src="./images/red_v2.png" style="max-width: 100%; height: auto;"/>');
             currentColor = "#a50a0a";
           } else {
-            // $('#smiley').prepend('<img id="faces" src="./images/marg_green.png" />');
-            $('#smiley').prepend('<img id="faces" src="./images/green_v2.png" width="110%"/>');
+            // $('#smiley').prepend('<img id="faces" src="./images/ux_green.png" />');
+            // $('#smiley').prepend('<img id="faces" src="./images/green_v2.png" width="110%"/>');
             currentColor = "#3e721f";
           }
 
@@ -115,7 +115,7 @@ $(function () {
           //
           // $('#percentage_title').append(percentage_title).append("<br><br>").append(percentage_title2);
 
-          $('#triangle').prepend('<img src="./images/triangle.png" height: auto;"/>');
+          // $('#triangle').prepend('<img src="./images/triangle.png" height: auto;"/>');
         });
     });
 });

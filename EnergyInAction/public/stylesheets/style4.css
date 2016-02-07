@@ -107,11 +107,21 @@ h3 {
   width: 200px;
   /*display: inline;*/
   /*padding-bottom: 20px;*/
-  font-size: 2.5em;
+  font-size: 2.3em;
 }
-.class_acc_points {
-  padding-top: 140px;
+.class_ranking {
+  /*padding-top: -20px;*/
+  position: absolute;
 }
+/*.text_coffeePoints {
+  color: #333333;
+  display: inline;
+}*/
+/*.class_first {
+  position: absolute;
+  top: 500px;
+  left: 60px;
+}*/
 .class_left_between {
   height: 20px;
 }
@@ -194,17 +204,27 @@ h3 {
 }*/
 .saving_points_class {
   float: center;
-  text-align: right;
-  padding-top: 150px;
+  text-align: center;
+  width: 200px;
+  padding-left: 250px;
+  padding-top: 120px;
   padding-right: 50px;
 }
 .nilm_container {
-  width: 1040px;
-  height: 430px;
+  width: 1045px;
+  height: 440px;
   background-color: #E6EAEF;
   /*#F4F9FF;*/
-  padding-top: 40px;
-  padding-left: 250px;
+  padding-top: 30px;
+  padding-left: 245px;
+}
+.nilm_container2 {
+  width: 900px;
+  height: 440px;
+  background-color: #E6EAEF;
+  /*#F4F9FF;*/
+  padding-top: 30px;
+  padding-left: 390px;
 }
 .com_wrapper {
   width: 180px;
@@ -232,21 +252,21 @@ h3 {
   text-align: center;
   padding-bottom: 10px;
 }
-.comparison_winter_com {
+.comparison_com {
   width: 100%;
-  height: 100%;
+  height: 95%;
   float: left;
   /*clear: none;*/
 }
-.comparison_winter_light {
+.comparison_light {
   width: 100%;
-  height: 100%;
+  height: 95%;
   float: left;
   /*clear: none;*/
 }
-.comparison_winter_hvac {
+.comparison_hvac {
   width: 100%;
-  height: 100%;
+  height: 95%;
   float: left;
   /*clear: none;*/
 }
@@ -255,7 +275,7 @@ h3 {
   /*#F4F9FF;*/
   text-align: right;
   /*padding-bottom: 10px;*/
-  padding-top:405px;
+  padding-top:415px;
   padding-right: 10px;
 }
 /*clock*/
