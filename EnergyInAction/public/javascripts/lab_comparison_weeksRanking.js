@@ -173,7 +173,7 @@ $(function () {
       image_source_text = "./images/" + lab_names[getLabNameIndex(lab_records, first_points)] + "_" + lab_names[getLabNameIndex(lab_records, second_points)] + "_" + lab_names[getLabNameIndex(lab_records, third_points)] + ".png";
       console.log(image_source_text);
 
-      var first_text  = $("<div>").css({"font-size": "40px", "font-weight" : "bold", "color": getColor(first_points), "background-color" : "#90a5b7" ,"position" : "absolute", "top" : "345px", "left" : "125px"}).text(getSign(first_points) + first_points);
+      var first_text  = $("<div>").css({"font-size": "40px", "font-weight" : "bold", "color": getColor(first_points), "background-color" : "#90a5b7" ,"position" : "absolute", "top" : "345px", "left" : "138px"}).text(getSign(first_points) + first_points);
       var second_text = $("<div>").css({"font-size": "40px", "font-weight" : "bold", "color": getColor(second_points), "background-color" : "#90a5b7" ,"position" : "absolute", "top" : "415px", "left" : "267px"}).text(getSign(second_points) + second_points);
       var third_text  = $("<div>").css({"font-size": "40px", "font-weight" : "bold", "color": getColor(third_points), "background-color" : "#90a5b7" ,"position" : "absolute", "top" : "485px", "left" : "417px"}).text(getSign(third_points) + third_points);
 
