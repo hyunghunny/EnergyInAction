@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 var DAY_FROM_MANUALLY = '2016-2-1';
-=======
-var DAY_FROM_MANUALLY = '2016-1-25';
->>>>>>> origin/Bobby
 
 var TOTAL_WEIGHT = 1.134323;
 // 1.172487 ==> 최근 1개월(2015-12-09 ~ 2016-1-10) vs 지난겨울(3개월 : 2014-12, 2015-1,2)
