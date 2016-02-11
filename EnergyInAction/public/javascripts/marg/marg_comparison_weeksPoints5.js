@@ -108,7 +108,7 @@ $(function () {
       }
       console.log("Each cumulated points :               ", points_com.toFixed(0), points_light.toFixed(0), points_hvac.toFixed(0));
       }
-      writeText();
+      // writeText();
   }
 
   function writeText(){
