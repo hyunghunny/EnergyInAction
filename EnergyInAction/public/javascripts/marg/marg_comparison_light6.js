@@ -155,7 +155,7 @@ $(function () {
         series: [
           {
               name: '전등',
-              data: [{y: lastRef, color: comparing_breakdownColors[0]}, {y: thisUse, color: today_breakdownColors[0]}]
+              data: [{y: lastRef, color: comparing_breakdownColors[1]}, {y: thisUse, color: today_breakdownColors[1]}]
           }
         ]
     });

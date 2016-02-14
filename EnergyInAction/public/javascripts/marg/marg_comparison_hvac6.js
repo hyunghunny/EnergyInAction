@@ -153,7 +153,7 @@ $(function () {
         series: [
           {
               name: '난방',
-              data: [{y: lastRef, color: comparing_breakdownColors[0]}, {y: thisUse, color: today_breakdownColors[0]}]
+              data: [{y: lastRef, color: comparing_breakdownColors[2]}, {y: thisUse, color: today_breakdownColors[2]}]
           }
         ],
     });
