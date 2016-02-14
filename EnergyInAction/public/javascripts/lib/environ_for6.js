@@ -1,4 +1,4 @@
-var DAY_FROM_MANUALLY = '2016-2-8';
+var DAY_FROM_MANUALLY = '2016-2-15';
 
 // realtime max : 지난 겨울 hours total의 90th percentile X 110%
 var MARG_REALTIME_MAX = 6.8;
