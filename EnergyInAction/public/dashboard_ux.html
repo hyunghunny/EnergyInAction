@@ -11,7 +11,7 @@
   <script type="text/javascript" src="javascripts/lib/exporting.js"></script>
   <script type="text/javascript">
       var myIp = '127.0.0.1';
-      var pageId = 'MARG';
+      var pageId = 'UX';
 
     $(document).ready(function () {
         var socket = io.connect();
@@ -38,16 +38,22 @@
     <div class="left">
       <div class="wrapper">
       <div class = "class_lefttop">
-        <h3 class="class_box_title"><span class="class_box_title_span"></span></h3>
+        <h3 class="class_box_title"><span class="class_box_title_span">다음주 획득 캡슐</span></h3>
         <!-- <div id="bottom_line"></div> -->
         <!-- <div id ="acc_points" class ="class_acc_points"></div> -->
         <!-- <div class="class_coffeeImg"><img id="coffeeImg"/></div> -->
         <br><br>
-        <!-- <p style="position:absolute;left:110px;top:280px;font-size:25px">지난 주 획득하신 커피 캡슐은<br>2/12(금)에 전달하도록 하겠습니다</p>
-        <p style="position:absolute;left:160px;top:370px;font-size:25px">UX 성적 : 30 + 7 = 37개</p> -->
-        <p style="position:absolute;left:70px;top:220px;font-size:25px">지난 주 획득한 커피 캡슐이 전달되었습니다.</p>
-        <p style="position:absolute;left:160px;top:300px;font-size:25px">UX 기록 : 30 + 7 = 37개</p>
-        <p style="position:absolute;left:110px;top:380px;font-size:25px">다음주(2/15 ~ 21)에도<br>절전 점수에 따라 캡슐이 제공됩니다.</p>
+        <img id="coffeeImg" style="position:absolute;left:110px;top:260px"/>
+
+        <div style="position:absolute;left:290px;top:285px;">
+          <p id="expectedPoints" style="display:inline;font-size:100px;font-weight:bold"> </p><p id="measure_expectedPoints" style="display:inline;font-size:30px;font-weight:bold"> </p>
+        </div>
+        <div style="position:absolute;left:355px;top:400px;font-size:30px;color:gray">
+          <p style="display:inline">( 30<p style="display:inline"> </p><p id="weekPoints" style="display:inline;font-weight:bold"> </p><p id="text2" style="display:inline"> )</p>
+        </div>
+        <div style="position:absolute;left:355px;top:440px;font-size:13px;color:gray;text-align:left">
+          <p style="display:inline">기본 제공&nbsp&nbsp&nbsp&nbsp이번주 누적</p>
+        </div>
 
       </div>
     </div>
@@ -86,18 +92,18 @@
 <script type="text/javascript" src="./javascripts/utiles.js"></script>
 <script type="text/javascript" src="./javascripts/ux/ux_title3.js"></script>
 <!-- <script type="text/javascript" src="./javascripts/ux/ux_smile3.js"></script> -->
-<script type="text/javascript" src="./javascripts/ux/ux_comparison_com.js"></script>
-<script type="text/javascript" src="./javascripts/ux/ux_comparison_light.js"></script>
-<script type="text/javascript" src="./javascripts/ux/ux_comparison_hvac.js"></script>
+<script type="text/javascript" src="./javascripts/ux/ux_comparison_com6.js"></script>
+<script type="text/javascript" src="./javascripts/ux/ux_comparison_light6.js"></script>
+<!-- <script type="text/javascript" src="./javascripts/ux/ux_comparison_hvac6.js"></script> -->
 
 <!-- <script type="text/javascript" src="./javascripts/ux/ux_day_breakdown2.js"></script>
 <script type="text/javascript" src="./javascripts/ux/ux_week_breakdown.js"></script>
 <script type="text/javascript" src="./javascripts/ux/ux_month_breakdown.js"></script> -->
 
 <script type="text/javascript" src="./javascripts/ux/ux_meter3.js"></script>
-<script type="text/javascript" src="./javascripts/ux/ux_comparison_todaysPoints.js"></script>
+<script type="text/javascript" src="./javascripts/ux/ux_comparison_todaysPoints6.js"></script>
 <!-- <script type="text/javascript" src="./javascripts/lab_comparison_weeksRanking.js"></script> -->
-<script type="text/javascript" src="./javascripts/ux/ux_comparison_weeksPoints5.js"></script>
+<script type="text/javascript" src="./javascripts/ux/ux_comparison_weeksPoints6.js"></script>
 
 </body>
 
