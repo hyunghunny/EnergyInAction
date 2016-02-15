@@ -48,7 +48,8 @@ $(function () {
         if (nowText_minute < 10) {
           nowText_minute = '0' + nowText_minute;
         }
-        nowText = weekDay_label + ' ' + nowText + nowText_minute + " 기준";
+        // nowText = weekDay_label + ' ' + nowText + nowText_minute + " 기준";
+        nowText = nowText + nowText_minute + " 기준";
       } else {
         nowText = "데이터가 충분하지 않습니다";
       }
