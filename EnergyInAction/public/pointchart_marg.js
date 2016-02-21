@@ -3,9 +3,9 @@ document.writeln("<script type='text/javascript' src='/javascripts/lib/environ.j
 
 $(function () {
 
-  var DAY_FROM = '2016-1-11';
-  var DAY_TO   = null;
-  // var DAY_TO   = '2016-2-7';
+  var DAY_FROM = '2016-2-1';
+  // var DAY_TO   = null;
+  var DAY_TO   = '2016-2-18';
 
   var LAST_SEASON_WEEKDAY_COM   = 0;
   var LAST_SEASON_WEEKDAY_LIGHT = 0;
@@ -24,9 +24,10 @@ $(function () {
   var points_light_array = new Array();
   var points_hvac_array  = new Array();
   var points_total_array = new Array();
-  var temperature_array  = [-2.0, -3.8, -2.9, -3.5, -0.3, 1.7, 2.5, -4.7, -10.5, -9.0, -5.8, -5.8, -9.5, -12.6, -8.2, -2.8, -0.7, 0.2, 2.0, 0.6, -2.6, -4.9, -4.7, -2.7, 0, -1.7, -2.3, -2.9, 2.0, 1.2, 2.4, 8.5]
+  // var temperature_array  = [-2.0, -3.8, -2.9, -3.5, -0.3, 1.7, 2.5, -4.7, -10.5, -9.0, -5.8, -5.8, -9.5, -12.6, -8.2, -2.8, -0.7, 0.2, 2.0, 0.6, -2.6, -4.9, -4.7, -2.7, 0, -1.7, -2.3, -2.9, 2.0, 1.2, 2.4, 8.5]
 
   for(var index = 0; index < MARG_LAST_SEASON_WEEKDAY.length; index++){
+    // console.log("Computer ref 15min", index, MARG_LAST_SEASON_WEEKDAY[index].computer);
     LAST_SEASON_WEEKDAY_COM   += MARG_LAST_SEASON_WEEKDAY[index].computer;
     LAST_SEASON_WEEKDAY_LIGHT += MARG_LAST_SEASON_WEEKDAY[index].light;
     LAST_SEASON_WEEKDAY_HVAC  += MARG_LAST_SEASON_WEEKDAY[index].hvac;
@@ -87,6 +88,9 @@ $(function () {
       // console.log("3 sisters", com, light, hvac, isWeekend);
 
       if(isWeekend){
+        console.log("<<WeekEND>>");
+        console.log("## Ref:", LAST_SEASON_WEEKEND_COM, LAST_SEASON_WEEKEND_LIGHT, LAST_SEASON_WEEKEND_HVAC);
+        console.log("# Usage:", com, light, hvac);
         points_com   += (LAST_SEASON_WEEKEND_COM   - com);
         points_light += (LAST_SEASON_WEEKEND_LIGHT - light);
         points_hvac  += (LAST_SEASON_WEEKEND_HVAC  - hvac);
@@ -102,6 +106,9 @@ $(function () {
         points_total_array.push(Number(((LAST_SEASON_WEEKEND_COM-com)+(LAST_SEASON_WEEKEND_LIGHT-light)+(LAST_SEASON_WEEKEND_HVAC-hvac)).toFixed(0)))
 
       } else {
+        console.log("<<WeekDAY>>");
+        console.log("## Ref:", LAST_SEASON_WEEKDAY_COM, LAST_SEASON_WEEKDAY_LIGHT, LAST_SEASON_WEEKDAY_HVAC);
+        console.log("# Usage:", com, light, hvac);
         points_com   += (LAST_SEASON_WEEKDAY_COM   - com);
         points_light += (LAST_SEASON_WEEKDAY_LIGHT - light);
         points_hvac  += (LAST_SEASON_WEEKDAY_HVAC  - hvac);
@@ -141,31 +148,31 @@ $(function () {
         xAxis: {
             categories: xAxis_categories,
             crosshair: true,
-            plotBands: [{ // visualize the weekend
-                from: 4.5,
-                to: 6.5,
-                color: 'rgba(68, 170, 213, .1)'
-            }, { // visualize the weekend
-                from: 11.5,
-                to: 13.5,
-                color: 'rgba(68, 170, 213, .1)'
-            }, { // visualize the weekend
-                from: 18.5,
-                to: 20.5,
-                color: 'rgba(68, 170, 213, .1)'
-            }, { // visualize the weekend
-                from: 25.5,
-                to: 27.5,
-                color: 'rgba(68, 170, 213, .1)'
-            }, { // visualize the weekend
-                from: 32.5,
-                to: 34.5,
-                color: 'rgba(68, 170, 213, .1)'
-            }, { // visualize the weekend
-                from: 39.5,
-                to: 41.5,
-                color: 'rgba(68, 170, 213, .1)'
-            }]
+            // plotBands: [{ // visualize the weekend
+            //     from: 4.5,
+            //     to: 6.5,
+            //     color: 'rgba(68, 170, 213, .1)'
+            // }, { // visualize the weekend
+            //     from: 11.5,
+            //     to: 13.5,
+            //     color: 'rgba(68, 170, 213, .1)'
+            // }, { // visualize the weekend
+            //     from: 18.5,
+            //     to: 20.5,
+            //     color: 'rgba(68, 170, 213, .1)'
+            // }, { // visualize the weekend
+            //     from: 25.5,
+            //     to: 27.5,
+            //     color: 'rgba(68, 170, 213, .1)'
+            // }, { // visualize the weekend
+            //     from: 32.5,
+            //     to: 34.5,
+            //     color: 'rgba(68, 170, 213, .1)'
+            // }, { // visualize the weekend
+            //     from: 39.5,
+            //     to: 41.5,
+            //     color: 'rgba(68, 170, 213, .1)'
+            // }]
         },
         yAxis: [{ // Primary yAxis
             title: {
@@ -175,15 +182,17 @@ $(function () {
                   format: '{value}pts'
             }
 
-          }, { // Secondary yAxis
-            title: {
-              text: 'Temperature',
-            },
-            labels: {
-              format: '{value}°C'
-            },
-            opposite: true
-        }],
+          }
+          // , { // Secondary yAxis
+          //   title: {
+          //     text: 'Temperature',
+          //   },
+          //   labels: {
+          //     format: '{value}°C'
+          //   },
+          //   opposite: true
+        // }
+      ],
         tooltip: {
             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
             pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
@@ -217,17 +226,18 @@ $(function () {
             dataLabels : {
               enabled : true
             }
-        }, {
-            name: 'Temperature',
-            type: 'spline',
-            data: temperature_array,
-            dataLabels : {
-              enabled : true,
-              color : 'gray'
-            },
-            yAxis: 1,
-            color : 'gray'
         }
+        // , {
+        //     name: 'Temperature',
+        //     type: 'spline',
+        //     data: temperature_array,
+        //     dataLabels : {
+        //       enabled : true,
+        //       color : 'gray'
+        //     },
+        //     yAxis: 1,
+        //     color : 'gray'
+        // }
       ]
     });
   }
