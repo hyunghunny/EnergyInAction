@@ -1,6 +1,6 @@
-var DAY_FROM_MANUALLY = '2016-2-22';
+var DAY_FROM_MANUALLY = '2016-2-15';
 
-var TOTAL_WEIGHT = 0.9;
+var TOTAL_WEIGHT = 0.95;
 // var TOTAL_WEIGHT = 1.134323;
 // 1.172487 ==> 최근 1개월(2015-12-09 ~ 2016-1-10) vs 지난겨울(3개월 : 2014-12, 2015-1,2)
 // 1.134323 ==> 지난 달(1개월 : 2015-12) vs 지난겨울
