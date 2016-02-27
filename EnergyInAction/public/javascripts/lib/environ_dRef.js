@@ -1,5 +1,11 @@
 // 대시보드 포인트 초기화 기준 날짜
-var DAY_FROM_MANUALLY = '2016-2-22';
+var DAY_FROM_MANUALLY = '2016-2-1';
+
+// 포인트 보드 시작과 끝 일자 지정
+var DAY_FROM = '2016-2-1';
+var DAY_TO   = null;
+// var DAY_TO   = '2016-2-7';
+
 
 /////////////////////////////
 /// Dynamic Refs function ///

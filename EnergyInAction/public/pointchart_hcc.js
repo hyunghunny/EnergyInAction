@@ -1,19 +1,9 @@
 // import data file
-document.writeln("<script type='text/javascript' src='/javascripts/lib/environ.js'></script>");
+document.writeln("<script type='text/javascript' src='/javascripts/lib/environ_dRef.js'></script>");
 
 $(function () {
 
-  var DAY_FROM = '2016-2-1';
-  // var DAY_TO   = null;
-  var DAY_TO   = '2016-2-18';
-
-  var LAST_SEASON_WEEKDAY_COM   = 0;
-  var LAST_SEASON_WEEKDAY_LIGHT = 0;
-  // var LAST_SEASON_WEEKDAY_HVAC  = 0;
-
-  var LAST_SEASON_WEEKEND_COM   = 0;
-  var LAST_SEASON_WEEKEND_LIGHT = 0;
-  // var LAST_SEASON_WEEKEND_HVAC  = 0;
+  var LAB = "hcc";
 
   var points_com = 0;
   var points_light = 0;
@@ -26,41 +16,16 @@ $(function () {
   var points_total_array = new Array();
   // var temperature_array  = [-2.0, -3.8, -2.9, -3.5, -0.3, 1.7, 2.5, -4.7, -10.5, -9.0, -5.8, -5.8, -9.5, -12.6, -8.2, -2.8, -0.7, 0.2, 2.0, 0.6, -2.6, -4.9, -4.7, -2.7, 0, -1.7, -2.3, -2.9, 2.0, 1.2, 2.4, 8.5]
 
-  for(var index = 0; index < HCC_LAST_SEASON_WEEKDAY.length; index++){
-    LAST_SEASON_WEEKDAY_COM   += HCC_LAST_SEASON_WEEKDAY[index].computer;
-    LAST_SEASON_WEEKDAY_LIGHT += HCC_LAST_SEASON_WEEKDAY[index].light;
-    // LAST_SEASON_WEEKDAY_HVAC  += HCC_LAST_SEASON_WEEKDAY[index].hvac;
-  }
-
-  for(var index = 0; index < HCC_LAST_SEASON_WEEKEND.length; index++){
-    LAST_SEASON_WEEKEND_COM   += HCC_LAST_SEASON_WEEKEND[index].computer;
-    LAST_SEASON_WEEKEND_LIGHT += HCC_LAST_SEASON_WEEKEND[index].light;
-    // LAST_SEASON_WEEKEND_HVAC  += HCC_LAST_SEASON_WEEKEND[index].hvac;
-  }
-
   query_today = new Date();
   query_yesterday = shiftDate(query_today, -1)
 
   if(DAY_TO) {
-    thisWeek_query = 'api/labs/hcc/energy/daily.json?day_from=' + DAY_FROM + '&day_to=' + DAY_TO + '&offset=0';
+    thisWeek_query = 'api/labs/'+ LAB +'/energy/daily.json?day_from=' + DAY_FROM + '&day_to=' + DAY_TO + '&offset=0';
   } else {
-    thisWeek_query = 'api/labs/hcc/energy/daily.json?day_from=' + DAY_FROM + '&day_to=' + dateFormatter(new Date(query_yesterday)) + '&offset=0';
+    thisWeek_query = 'api/labs/'+ LAB +'/energy/daily.json?day_from=' + DAY_FROM + '&day_to=' + dateFormatter(new Date(query_yesterday)) + '&offset=0';
   }
 
-  invokeOpenAPI(thisWeek_query, thisWeekCB, errorCB);
-
-  function errorCB(response) {
-    // console.log(response);
-    // var monthPoints=$("<div>").css({"font-size": "20px", "display" : "inline", "color": "gray"}).text('절전 점수');
-    // var monthPoints2=$("<div>").css({"font-size": "100px", "font-weight" : "bold", "color": "gray", "display" : "inline"}).text("0");
-    // var monthPoints3=$("<div>").css({"font-size": "30px", "font-weight" : "bold", "color": "gray", "display" : "inline"}).text(' 점');
-
-    document.getElementById("coffeeImg").src="././images/coffeeCapsule.png";
-    document.getElementById("expectedPoints").innerHTML = '+'+30;
-    document.getElementById("expectedPoints").style.color="#3e721f";
-    document.getElementById("weekPoints").innerHTML = '- 0';
-    document.getElementById("weekPoints").style.color= 'gray';
-  }
+  invokeOpenAPI(thisWeek_query, thisWeekCB);
 
   function thisWeekCB(thisWeek_) {
     var thisWeek = thisWeek_;
@@ -79,18 +44,25 @@ $(function () {
       light = accumulator(thisWeek[index], 'light');
       // hvac = accumulator(thisWeek[index], 'hvac');
 
+      var targetDate = new Date(thisWeek[index].dateFrom);
       var day = new Date(thisWeek[index].dateFrom).getDay();
       var isWeekend = (day == 6) || (day == 0);
       var shortDate = (new Date(thisWeek[index].dateFrom).getMonth() + 1) + "/" + (new Date(thisWeek[index].dateFrom).getDate());
       console.log(shortDate);
 
-      // console.log("3 sisters", com, light, hvac, isWeekend);
+      //// Import approperate reference ///
+      var LAST_SEASON_WEEKDAY = getRef(targetDate, LAB, 1)
+      var LAST_SEASON_WEEKEND = getRef(targetDate, LAB, 0)
+
+      var LAST_SEASON_WEEKDAY_COM   = LAST_SEASON_WEEKDAY[95].computer;
+      var LAST_SEASON_WEEKDAY_LIGHT = LAST_SEASON_WEEKDAY[95].light;
+      var LAST_SEASON_WEEKDAY_HVAC  = LAST_SEASON_WEEKDAY[95].hvac;
+
+      var LAST_SEASON_WEEKEND_COM   = LAST_SEASON_WEEKEND[95].computer;
+      var LAST_SEASON_WEEKEND_LIGHT = LAST_SEASON_WEEKEND[95].light;
+      var LAST_SEASON_WEEKEND_HVAC  = LAST_SEASON_WEEKEND[95].hvac;
 
       if(isWeekend){
-        console.log("<<WeekEND>>");
-        console.log("## Ref:", LAST_SEASON_WEEKEND_COM, LAST_SEASON_WEEKEND_LIGHT);
-        console.log("# Usage:", com, light);
-
         points_com   += (LAST_SEASON_WEEKEND_COM   - com);
         points_light += (LAST_SEASON_WEEKEND_LIGHT - light);
         // points_hvac  += (LAST_SEASON_WEEKEND_HVAC  - hvac);
@@ -106,10 +78,6 @@ $(function () {
         points_total_array.push(Number(((LAST_SEASON_WEEKEND_COM-com)+(LAST_SEASON_WEEKEND_LIGHT-light)).toFixed(0)))
 
       } else {
-        console.log("<<WeekDAY>>");
-        console.log("## Ref:", LAST_SEASON_WEEKDAY_COM, LAST_SEASON_WEEKDAY_LIGHT);
-        console.log("# Usage:", com, light);
-
         points_com   += (LAST_SEASON_WEEKDAY_COM   - com);
         points_light += (LAST_SEASON_WEEKDAY_LIGHT - light);
         // points_hvac  += (LAST_SEASON_WEEKDAY_HVAC  - hvac);
@@ -117,7 +85,7 @@ $(function () {
                     "(", (LAST_SEASON_WEEKDAY_COM-com).toFixed(0), (LAST_SEASON_WEEKDAY_LIGHT-light).toFixed(0), ")"));
         // console.log(new Date(thisWeek[index].dateFrom).toLocaleString(), "(주중):", ((LAST_SEASON_WEEKDAY_COM-com)+(LAST_SEASON_WEEKDAY_LIGHT-light)\+(LAST_SEASON_WEEKDAY_HVAC-hvac)).toFixed(0),
         //             "(", (LAST_SEASON_WEEKDAY_COM-com), (LAST_SEASON_WEEKDAY_LIGHT-light), (LAST_SEASON_WEEKDAY_HVAC-hvac), ")");
-        console.log("2 point series", (LAST_SEASON_WEEKDAY_COM   - com), (LAST_SEASON_WEEKDAY_LIGHT - light));
+        console.log("point series", (LAST_SEASON_WEEKDAY_COM   - com), (LAST_SEASON_WEEKDAY_LIGHT - light));
         xAxis_categories.push(shortDate)
         points_com_array.push(LAST_SEASON_WEEKDAY_COM - com);
         points_light_array.push(LAST_SEASON_WEEKDAY_LIGHT - light);
@@ -126,7 +94,7 @@ $(function () {
       }
       console.log("Each cumulated points :               ", points_com.toFixed(0), points_light.toFixed(0));
     }
-      console.log(xAxis_categories);
+      // console.log(xAxis_categories);
       console.log(points_com_array);
       console.log(points_light_array);
       // console.log(points_hvac_array);
@@ -148,32 +116,7 @@ $(function () {
         // },
         xAxis: {
             categories: xAxis_categories,
-            crosshair: true,
-            // plotBands: [{ // visualize the weekend
-            //     from: 4.5,
-            //     to: 6.5,
-            //     color: 'rgba(68, 170, 213, .1)'
-            // }, { // visualize the weekend
-            //     from: 11.5,
-            //     to: 13.5,
-            //     color: 'rgba(68, 170, 213, .1)'
-            // }, { // visualize the weekend
-            //     from: 18.5,
-            //     to: 20.5,
-            //     color: 'rgba(68, 170, 213, .1)'
-            // }, { // visualize the weekend
-            //     from: 25.5,
-            //     to: 27.5,
-            //     color: 'rgba(68, 170, 213, .1)'
-            // }, { // visualize the weekend
-            //     from: 32.5,
-            //     to: 34.5,
-            //     color: 'rgba(68, 170, 213, .1)'
-            // }, { // visualize the weekend
-            //     from: 39.5,
-            //     to: 41.5,
-            //     color: 'rgba(68, 170, 213, .1)'
-            // }]
+            crosshair: true
         },
         yAxis: [{ // Primary yAxis
             title: {
