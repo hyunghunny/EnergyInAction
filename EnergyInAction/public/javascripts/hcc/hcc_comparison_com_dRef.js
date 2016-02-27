@@ -1,9 +1,10 @@
 // import data file
-document.writeln("<script type='text/javascript' src='/javascripts/lib/environ_for6.js'></script>");
+document.writeln("<script type='text/javascript' src='/javascripts/lib/environ_dRef.js'></script>");
 
 $(function () {
 
-    var today_hvac  = [];
+    var LAB = "hcc";
+
     var today_com   = [];
     var today_light = [];
 
@@ -15,30 +16,20 @@ $(function () {
     var fontSize_xAxis     = '15px';
     var fontSize_xSubTitle = '18px';
 
-    // 1. Last Season
-    if(weekDay_Indicator == 1){
-      TARGET = MARG_LAST_SEASON_WEEKDAY;
-      xAxis_categories = ["평소", "오늘"]
-    } else {
-      TARGET = MARG_LAST_SEASON_WEEKEND;
-      xAxis_categories = ["평소", "오늘"]
-    }
-
     // 2. Today
-    invokeOpenAPI('api/labs/marg/energy/quarters.json', todayCB);
+    invokeOpenAPI('api/labs/'+ LAB + '/energy/quarters.json', todayCB);
 
     function todayCB(today_) {
       today = today_;
 
       for(var index = 0; index < today.length; index++){
         // total = today[index].sum;
-        hvac = accumulator(today[index], 'hvac');
+        // hvac = accumulator(today[index], 'hvac');
         com  = accumulator(today[index], 'computer');
         light = accumulator(today[index], 'light');
         // etc = total - (hvac + com + light);
 
-        // today_total.push(Number(total.toFixed(2)));
-        today_hvac.push(Number(hvac.toFixed(2)));
+        // today_hvac.push(Number(hvac.toFixed(2)));
         today_com.push(Number(com.toFixed(2)));
         today_light.push(Number(light.toFixed(2)));
         // today_etc.push(Number(etc.toFixed(2)));
@@ -48,15 +39,22 @@ $(function () {
 
     // 3. draw chart
     function drawChart(){
-      todayLength = today_light.length;
+      // get Ref
+      TARGET = getRef(baseDay, LAB, weekDay_Indicator)
+
+      todayLength = today_com.length;
       // savingRateComparison = ((limitedArraySum(today_total,todayLength) / limitedArraySum(lastSeason_total,todayLength)));
 
-      var lastSeason_maxFeederValue = Math.max(TARGET[todayLength].computer, TARGET[todayLength].light, TARGET[todayLength].hvac);
-      var      today_maxFeederValue = Math.max(limitedArraySum(today_com, todayLength), limitedArraySum(today_light, todayLength), limitedArraySum(today_hvac, todayLength));
+      var lastSeason_maxFeederValue = Math.max(TARGET[todayLength].computer, TARGET[todayLength].light);
+      var      today_maxFeederValue = Math.max(limitedArraySum(today_com, todayLength), limitedArraySum(today_light, todayLength));
       var yMax = Math.max(lastSeason_maxFeederValue, today_maxFeederValue);
 
-      var lastRef = TARGET[todayLength].light;
-      var thisUse = limitedArraySum(today_light, todayLength);
+      // console.log("**Last Season Max:", lastSeason_maxFeederValue);
+      // console.log("**Today Max:", today_maxFeederValue);
+      // console.log("**Y Max:", yMax);
+
+      var lastRef = TARGET[todayLength].computer;
+      var thisUse = limitedArraySum(today_com, todayLength);
       var savingPoints = lastRef - thisUse;
       var signColorCode;
 
@@ -74,7 +72,7 @@ $(function () {
         signColorCode = "#a50a0a";
       }
 
-      $('#marg_comparison_light').highcharts({
+      $('#hcc_comparison_com').highcharts({
         chart: {
             type: 'column',
             marginTop: 43,
@@ -82,12 +80,12 @@ $(function () {
         },
         title: {
            useHTML: true,
-           text: sign+ savingPoints.toFixed(0) + '점',
+           text: sign + savingPoints.toFixed(0) + '점',
            style: {
              color: signColorCode,
              fontWeight: 'bold',
              fontSize : fontSize_mainTitle,
-            //  'background-color': '#F5F5F4',
+            //  'background-color': 'rgba(0, 0, 0, 0)',
              'border-radius': '6px',
             //  border: '4px solid #8E8989'
            }
@@ -104,12 +102,12 @@ $(function () {
         xAxis: {
           title: {
               enabled: true,
-              // text: '누적 사용량',
+              text: '',
               style: {
                 fontSize: fontSize_xSubTitle
               }
           },
-          categories: xAxis_categories,
+          categories: ["기준", "오늘"],
           labels: {
             style: {
               fontSize: fontSize_xAxis
@@ -152,11 +150,11 @@ $(function () {
         },
         series: [
           {
-              name: '전등',
-              data: [{y: lastRef, color: comparing_breakdownColors[1]}, {y: thisUse, color: today_breakdownColors[1]}]
-          }
-        ]
+              name: '컴퓨터',
+              data: [{y: lastRef, color: comparing_breakdownColors[0]}, {y: thisUse, color: today_breakdownColors[0]}] }
+        ],
     });
   }
-  $('#icon_light').append('<img src="./images/light2.png" width="60%"/>');
+
+  $('#icon_com').append('<img src="./images/computer2.png" width="60%"/>');
 });

@@ -1,11 +1,13 @@
 // import data file
-document.writeln("<script type='text/javascript' src='/javascripts/lib/environ_for6.js'></script>");
+document.writeln("<script type='text/javascript' src='/javascripts/lib/environ_dRef.js'></script>");
 
 $(function () {
 
-    var today_hvac  = [];
-    var today_com   = [];
-    var today_light = [];
+  var LAB = "marg";
+
+  var today_hvac  = [];
+  var today_com   = [];
+  var today_light = [];
 
     var comparing_breakdownColors = ['#C4D5ED', '#F5C493', '#F4B8B8', '#d3bdd1']; //com, light, hvac, etc
     var today_breakdownColors = ['#497ecb', '#e3801c', '#dc5b5b', '#a889a5'];
@@ -15,17 +17,8 @@ $(function () {
     var fontSize_xAxis     = '15px';
     var fontSize_xSubTitle = '18px';
 
-    // 1. Last Season
-    if(weekDay_Indicator == 1){
-      TARGET = MARG_LAST_SEASON_WEEKDAY;
-      xAxis_categories = ["평소", "오늘"]
-    } else {
-      TARGET = MARG_LAST_SEASON_WEEKEND;
-      xAxis_categories = ["평소", "오늘"]
-    }
-
     // 2. Today
-    invokeOpenAPI('api/labs/marg/energy/quarters.json', todayCB);
+    invokeOpenAPI('api/labs/'+ LAB + '/energy/quarters.json', todayCB);
 
     function todayCB(today_) {
       today = today_;
@@ -48,15 +41,17 @@ $(function () {
 
     // 3. draw chart
     function drawChart(){
-      todayLength = today_light.length;
-      // savingRateComparison = ((limitedArraySum(today_total,todayLength) / limitedArraySum(lastSeason_total,todayLength)));
+      // get Ref
+      TARGET = getRef(baseDay, LAB, weekDay_Indicator)
+
+      todayLength = today_hvac.length;
 
       var lastSeason_maxFeederValue = Math.max(TARGET[todayLength].computer, TARGET[todayLength].light, TARGET[todayLength].hvac);
       var      today_maxFeederValue = Math.max(limitedArraySum(today_com, todayLength), limitedArraySum(today_light, todayLength), limitedArraySum(today_hvac, todayLength));
       var yMax = Math.max(lastSeason_maxFeederValue, today_maxFeederValue);
 
-      var lastRef = TARGET[todayLength].light;
-      var thisUse = limitedArraySum(today_light, todayLength);
+      var lastRef = TARGET[todayLength].hvac;
+      var thisUse = limitedArraySum(today_hvac, todayLength);
       var savingPoints = lastRef - thisUse;
       var signColorCode;
 
@@ -74,7 +69,7 @@ $(function () {
         signColorCode = "#a50a0a";
       }
 
-      $('#marg_comparison_light').highcharts({
+      $('#marg_comparison_hvac').highcharts({
         chart: {
             type: 'column',
             marginTop: 43,
@@ -109,7 +104,7 @@ $(function () {
                 fontSize: fontSize_xSubTitle
               }
           },
-          categories: xAxis_categories,
+          categories: ["기준", "오늘"],
           labels: {
             style: {
               fontSize: fontSize_xAxis
@@ -152,11 +147,11 @@ $(function () {
         },
         series: [
           {
-              name: '전등',
-              data: [{y: lastRef, color: comparing_breakdownColors[1]}, {y: thisUse, color: today_breakdownColors[1]}]
+              name: '난방',
+              data: [{y: lastRef, color: comparing_breakdownColors[2]}, {y: thisUse, color: today_breakdownColors[2]}]
           }
-        ]
+        ],
     });
   }
-  $('#icon_light').append('<img src="./images/light2.png" width="60%"/>');
+  $('#icon_hvac').append('<img src="./images/hvac2.png" width="60%"/>');
 });

@@ -1,11 +1,13 @@
 // import data file
-document.writeln("<script type='text/javascript' src='/javascripts/lib/environ_for6.js'></script>");
+document.writeln("<script type='text/javascript' src='/javascripts/lib/environ_dRef.js'></script>");
 
 $(function () {
 
-    var today_hvac  = [];
-    var today_com   = [];
-    var today_light = [];
+  var LAB = "marg";
+
+  var today_hvac  = [];
+  var today_com   = [];
+  var today_light = [];
 
     var comparing_breakdownColors = ['#C4D5ED', '#F5C493', '#F4B8B8', '#d3bdd1']; //com, light, hvac, etc
     var today_breakdownColors = ['#497ecb', '#e3801c', '#dc5b5b', '#a889a5'];
@@ -15,17 +17,8 @@ $(function () {
     var fontSize_xAxis     = '15px';
     var fontSize_xSubTitle = '18px';
 
-    // 1. Last Season
-    if(weekDay_Indicator == 1){
-      TARGET = MARG_LAST_SEASON_WEEKDAY;
-      xAxis_categories = ["평소", "오늘"]
-    } else {
-      TARGET = MARG_LAST_SEASON_WEEKEND;
-      xAxis_categories = ["평소", "오늘"]
-    }
-
     // 2. Today
-    invokeOpenAPI('api/labs/marg/energy/quarters.json', todayCB);
+    invokeOpenAPI('api/labs/'+ LAB + '/energy/quarters.json', todayCB);
 
     function todayCB(today_) {
       today = today_;
@@ -48,6 +41,9 @@ $(function () {
 
     // 3. draw chart
     function drawChart(){
+      // get Ref
+      TARGET = getRef(baseDay, LAB, weekDay_Indicator)
+
       todayLength = today_light.length;
       // savingRateComparison = ((limitedArraySum(today_total,todayLength) / limitedArraySum(lastSeason_total,todayLength)));
 
@@ -109,7 +105,7 @@ $(function () {
                 fontSize: fontSize_xSubTitle
               }
           },
-          categories: xAxis_categories,
+          categories: ["기준", "오늘"],
           labels: {
             style: {
               fontSize: fontSize_xAxis

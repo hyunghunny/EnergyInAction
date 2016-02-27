@@ -23,13 +23,13 @@ if(baseDay.getDay() > 0 && baseDay.getDay() < 6){
   console.log("오늘은 평일");
   var weekDay_Indicator = 1; // 1: 평일, 0: 주말
   var weekDay_label = "평일";
-  console.log("baseDay: ",baseDay);
+  console.log("baseDay: ",baseDay, weekDay_Indicator);
 
 } else {
   console.log("오늘은 주말");
   var weekDay_Indicator = 0; // 1: 평일, 0: 주말
   var weekDay_label = "주말";
-  console.log("baseDay: ",baseDay);
+  console.log("baseDay: ",baseDay, weekDay_Indicator);
 }
 
 function getLastMonday(date){

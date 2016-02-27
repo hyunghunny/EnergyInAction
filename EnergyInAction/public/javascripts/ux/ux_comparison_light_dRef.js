@@ -1,9 +1,10 @@
 // import data file
-document.writeln("<script type='text/javascript' src='/javascripts/lib/environ_for6.js'></script>");
+document.writeln("<script type='text/javascript' src='/javascripts/lib/environ_dRef.js'></script>");
 
 $(function () {
 
-    var today_hvac  = [];
+    var LAB = "ux";
+
     var today_com   = [];
     var today_light = [];
 
@@ -15,30 +16,21 @@ $(function () {
     var fontSize_xAxis     = '15px';
     var fontSize_xSubTitle = '18px';
 
-    // 1. Last Season
-    if(weekDay_Indicator == 1){
-      TARGET = MARG_LAST_SEASON_WEEKDAY;
-      xAxis_categories = ["평소", "오늘"]
-    } else {
-      TARGET = MARG_LAST_SEASON_WEEKEND;
-      xAxis_categories = ["평소", "오늘"]
-    }
-
     // 2. Today
-    invokeOpenAPI('api/labs/marg/energy/quarters.json', todayCB);
+    invokeOpenAPI('api/labs/'+ LAB + '/energy/quarters.json', todayCB);
 
     function todayCB(today_) {
       today = today_;
 
       for(var index = 0; index < today.length; index++){
         // total = today[index].sum;
-        hvac = accumulator(today[index], 'hvac');
+        // hvac = accumulator(today[index], 'hvac');
         com  = accumulator(today[index], 'computer');
         light = accumulator(today[index], 'light');
         // etc = total - (hvac + com + light);
 
         // today_total.push(Number(total.toFixed(2)));
-        today_hvac.push(Number(hvac.toFixed(2)));
+        // today_hvac.push(Number(hvac.toFixed(2)));
         today_com.push(Number(com.toFixed(2)));
         today_light.push(Number(light.toFixed(2)));
         // today_etc.push(Number(etc.toFixed(2)));
@@ -48,11 +40,15 @@ $(function () {
 
     // 3. draw chart
     function drawChart(){
+      // get Ref
+      TARGET = getRef(baseDay, "ux", weekDay_Indicator)
+      // console.log("Plot Ref baseday and indicator: ",baseDay, weekDay_Indicator);
+
       todayLength = today_light.length;
       // savingRateComparison = ((limitedArraySum(today_total,todayLength) / limitedArraySum(lastSeason_total,todayLength)));
 
-      var lastSeason_maxFeederValue = Math.max(TARGET[todayLength].computer, TARGET[todayLength].light, TARGET[todayLength].hvac);
-      var      today_maxFeederValue = Math.max(limitedArraySum(today_com, todayLength), limitedArraySum(today_light, todayLength), limitedArraySum(today_hvac, todayLength));
+      var lastSeason_maxFeederValue = Math.max(TARGET[todayLength].computer, TARGET[todayLength].light);
+      var      today_maxFeederValue = Math.max(limitedArraySum(today_com, todayLength), limitedArraySum(today_light, todayLength));
       var yMax = Math.max(lastSeason_maxFeederValue, today_maxFeederValue);
 
       var lastRef = TARGET[todayLength].light;
@@ -74,7 +70,7 @@ $(function () {
         signColorCode = "#a50a0a";
       }
 
-      $('#marg_comparison_light').highcharts({
+      $('#ux_comparison_light').highcharts({
         chart: {
             type: 'column',
             marginTop: 43,
@@ -109,7 +105,7 @@ $(function () {
                 fontSize: fontSize_xSubTitle
               }
           },
-          categories: xAxis_categories,
+          categories: ["기준", "오늘"],
           labels: {
             style: {
               fontSize: fontSize_xAxis
