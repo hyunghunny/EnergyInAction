@@ -1,27 +1,3 @@
-//////////////////////////
-/// RealTime gauge Ref ///
-
-var TODAY = new Date();
-// console.log("# TODAY", TODAY);
-
-if ((new Date('2016-2-1 00:00:00')) <= TODAY && TODAY <= (new Date('2016-2-29 00:00:00'))){
-  console.log("## Realtime Ref for 2016-2-1 ~ 2016-2-29");
-  // ## 90th percentiles: Last Winter (2014.12 ~ 2015.2) X 110%
-  var MARG_REALTIME_MAX = 6.8;
-  var HCC_REALTIME_MAX = 5.0;
-  var UX_REALTIME_MAX = 2.4;
-
-} else if ((new Date('2016-3-1 00:00:00')) <= TODAY && TODAY <= (new Date('2016-3-31 00:00:00'))){
-  console.log("## Realtime Ref for 2016-3-1 ~ 2016-3-31");
-  // ## 90th percentiles : Last Spring (2015.3 ~ 2015.5) X 110%
-  var MARG_REALTIME_MAX = 4.2
-  var HCC_REALTIME_MAX = 2.9
-  var UX_REALTIME_MAX = 2.6
-
-} else {
-  console.log("## ERROR! Realtime Ref");
-}
-
 $(function () {
 
     var margTotal = 0;

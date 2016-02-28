@@ -3,17 +3,42 @@ var today4Ref     = new Date();
 today4Ref.setHours(0,0,0,0); // today 날짜만 깔끔히 잡도록 시간 초기화
 console.log("ref day:", today4Ref.getDay());
 
-if(today4Ref.getDay() == 1){ // next Monday
-  var DAY_FROM_MANUALLY = '2016-2-29';
-} else {
-  var DAY_FROM_MANUALLY = '2016-2-22';
-}
+var DAY_FROM_MANUALLY = '2016-2-29';
+
+// if(today4Ref.getDay() == 1){ // next Monday
+//   var DAY_FROM_MANUALLY = '2016-2-29';
+// } else {
+//   var DAY_FROM_MANUALLY = '2016-2-22';
+// }
 
 // 포인트 보드 시작과 끝 일자 지정
 var DAY_FROM = '2016-2-1';
 var DAY_TO   = null;
 // var DAY_TO   = '2016-2-7';
 
+//////////////////////////
+/// RealTime gauge Ref ///
+
+var TODAY = new Date();
+console.log("# TODAY", TODAY);
+
+if ((new Date('2016-2-1 00:00:00')) <= TODAY && TODAY < (new Date('2016-3-1 00:00:00'))){
+  // ## 90th percentiles: Last Winter (2014.12 ~ 2015.2) X 110%
+  var MARG_REALTIME_MAX = 6.8;
+  var HCC_REALTIME_MAX = 5.0;
+  var UX_REALTIME_MAX = 2.4;
+  console.log("## Realtime Ref for 2016-2-1 ~ 2016-2-29 (" + MARG_REALTIME_MAX + ", " + HCC_REALTIME_MAX + ", " + UX_REALTIME_MAX + ")");
+
+} else if ((new Date('2016-3-1 00:00:00')) <= TODAY && TODAY <= (new Date('2016-3-31 00:00:00'))){
+  // ## 90th percentiles : Last Spring (2015.3 ~ 2015.5) X 110%
+  var MARG_REALTIME_MAX = 4.2;
+  var HCC_REALTIME_MAX = 2.9;
+  var UX_REALTIME_MAX = 2.6;
+  console.log("## Realtime Ref for 2016-3-1 ~ 2016-3-31 (" + MARG_REALTIME_MAX + ", " + HCC_REALTIME_MAX + ", " + UX_REALTIME_MAX + ")");
+
+} else {
+  console.log("## ERROR! Realtime Ref");
+}
 
 /////////////////////////////
 /// Dynamic Refs function ///
