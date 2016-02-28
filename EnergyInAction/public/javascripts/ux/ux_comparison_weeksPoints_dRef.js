@@ -1,5 +1,5 @@
 // import data file
-document.writeln("<script type='text/javascript' src='/javascripts/lib/environ_dRef.js'></script>");
+// document.writeln("<script type='text/javascript' src='/javascripts/lib/environ_dRef.js'></script>");
 
 $(function () {
 

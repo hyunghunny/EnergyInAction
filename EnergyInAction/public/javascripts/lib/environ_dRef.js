@@ -1,7 +1,7 @@
 // 대시보드 포인트 초기화 기준 날짜
 var today4Ref     = new Date();
 today4Ref.setHours(0,0,0,0); // today 날짜만 깔끔히 잡도록 시간 초기화
-console.log("ref day:", today4Ref.getDay());
+// console.log("ref day:", today4Ref.getDay());
 
 var DAY_FROM_MANUALLY = '2016-2-29';
 
