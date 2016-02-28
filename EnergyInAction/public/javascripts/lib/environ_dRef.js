@@ -1,5 +1,13 @@
 // 대시보드 포인트 초기화 기준 날짜
-var DAY_FROM_MANUALLY = '2016-2-22';
+var today4Ref     = new Date();
+today4Ref.setHours(0,0,0,0); // today 날짜만 깔끔히 잡도록 시간 초기화
+console.log("ref day:", today4Ref.getDay());
+
+if(today4Ref.getDay() == 1){ // next Monday
+  var DAY_FROM_MANUALLY = '2016-2-29';
+} else {
+  var DAY_FROM_MANUALLY = '2016-2-22';
+}
 
 // 포인트 보드 시작과 끝 일자 지정
 var DAY_FROM = '2016-2-1';
