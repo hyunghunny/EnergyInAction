@@ -148,6 +148,7 @@ function getRef(targetDate, lab, weekDay_Indicator){
 
 
 
+
   } else if ((new Date('2016-3-7 00:00:00')) <= targetDate && targetDate < (new Date('2016-3-14 00:00:00'))){
   // } else if ((new Date('2016-2-22 00:00:00')) <= targetDate && targetDate <= (new Date('2016-2-23 00:00:00'))){
     console.log("## Ref: 3월 2주 -- Mean of last 12 weeks (2015-12-14 ~ 2016-3-6)/ Spline ref for MARG HVAC (2015-3-9기준)");
