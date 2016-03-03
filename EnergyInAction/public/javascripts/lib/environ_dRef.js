@@ -3,14 +3,17 @@ var today4Ref     = new Date();
 today4Ref.setHours(0,0,0,0); // today 날짜만 깔끔히 잡도록 시간 초기화
 // console.log("ref day:", today4Ref.getDay());
 
-var DAY_FROM_MANUALLY = '2016-2-29';
+// var DAY_FROM_MANUALLY = '2016-2-29';
 
 console.log("@@ today4Ref:", today4Ref);
 
 if(today4Ref.getDay() == 0){
   console.log("@@ to Monday:", shiftDate(today4Ref, -6));
+  var DAY_FROM_MANUALLY = dateFormatter(shiftDate(today4Ref, -6));
+
 } else {
   console.log("@@ to Monday:", shiftDate(today4Ref, -(today4Ref.getDay() - 1)));
+  DAY_FROM_MANUALLY = dateFormatter(shiftDate(today4Ref, -(today4Ref.getDay() - 1)));
 }
 
 function shiftDate(date, offset) {
@@ -19,6 +22,17 @@ function shiftDate(date, offset) {
 
   return shiftedDate;
 }
+
+function dateFormatter(input_date){ // for query input parameters
+  //console.log('format year', input_date.getFullYear());
+  //console.log('format month', input_date.getMonth()+1);
+  //console.log('format date', input_date.getDate());
+  // result = (input_date.getMonth()+1) + '/' + input_date.getDate();
+  result = input_date.getFullYear() + '-' + (input_date.getMonth()+1) + '-' + input_date.getDate();
+  //console.log(result);
+  return result;
+}
+
 
 // 포인트 보드 시작과 끝 일자 지정
 var DAY_FROM = '2016-2-1';
