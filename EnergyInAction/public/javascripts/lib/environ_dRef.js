@@ -28,27 +28,21 @@ var DAY_TO   = null;
 
 //////////////////////////
 /// RealTime gauge Ref ///
-var TODAY = new Date();
-console.log("# TODAY", TODAY);
 
-if ((new Date('2016-2-1 00:00:00')) <= TODAY && TODAY < (new Date('2016-3-1 00:00:00'))){
+if ((new Date('2016-2-1 00:00:00')) <= today4Ref && today4Ref < (new Date('2016-3-1 00:00:00'))){
   // ## 90th percentiles: Last Winter (2014.12 ~ 2015.2) X 110%
   var MARG_REALTIME_MAX = 6.8;
   var HCC_REALTIME_MAX = 5.0;
   var UX_REALTIME_MAX = 2.4;
   console.log("## Realtime Ref for 2016-2-1 ~ 2016-2-29 (" + MARG_REALTIME_MAX + ", " + HCC_REALTIME_MAX + ", " + UX_REALTIME_MAX + ")");
 
-} else if ((new Date('2016-3-1 00:00:00')) <= TODAY && TODAY <= (new Date('2016-3-31 00:00:00'))){
-  // ## 90th percentiles : Last Spring (2015.3 ~ 2015.5) X 110%
-  var MARG_REALTIME_MAX = 4.2;
-  var HCC_REALTIME_MAX = 2.9;
-  var UX_REALTIME_MAX = 2.6;
-  console.log("## Realtime Ref for 2016-3-1 ~ 2016-3-31 (" + MARG_REALTIME_MAX + ", " + HCC_REALTIME_MAX + ", " + UX_REALTIME_MAX + ")");
-
 } else {
-  console.log("## ERROR! Realtime Ref");
+  // ## 90th percentiles of Last 12 weeks X 110%
+  var MARG_REALTIME_MAX = 5.9;
+  var HCC_REALTIME_MAX = 3.0;
+  var UX_REALTIME_MAX = 2.7;
+  console.log("## Realtime Ref (" + MARG_REALTIME_MAX + ", " + HCC_REALTIME_MAX + ", " + UX_REALTIME_MAX + ")");
 }
-
 
 /////////////////////////////
 /// Dynamic Refs function ///
