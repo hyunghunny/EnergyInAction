@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Energy Saving Behavior Research</title>
+  <link rel="stylesheet" type="text/css" href="./stylesheets/style3.css">
+  <script src="javascripts/lib/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/lib/highcharts.js"></script>
+  <script src="javascripts/lib/highcharts-more.js"></script>
+  <script src="javascripts/lib/solid-gauge.js"></script>
+  <script type="text/javascript" src="javascripts/lib/socket.io.js"></script>
+  <script type="text/javascript" src="javascripts/lib/exporting.js"></script>
+  <script type="text/javascript" src="javascripts/lib/environ_dRef.js"></script>
+
+  <script type="text/javascript">
+      var myIp = '127.0.0.1';
+      var pageId = 'MARG';
+
+    $(document).ready(function () {
+        var socket = io.connect();
+        var now = new Date();
+        $.get("http://ipinfo.io", function (response) {
+            console.log(response.ip);
+            myIp = response.ip;
+            socket.emit('updated', { 'date': now, 'id': myIp + '/' + pageId, 'state': 'loaded' });
+        }, "jsonp");
+
+        socket.on('update', function (msg) {
+            location.reload();
+            var now = new Date();
+            socket.emit('updated', { 'date': now, 'id': myIp + '/' + pageId, 'state': 'updated' });
+        })
+    });
+  </script>
+</head>
+
+<!-- <body bgcolor="#333333"> -->
+<body background="./images/background.png">
+  <div id="marg_title" class="title_class"></div>
+  <div class="wrapper_class">
+    <div class="left">
+      <div class="wrapper">
+      <div class = "class_lefttop">
+        <h3 class="class_box_title"><span class="class_box_title_span">다음주 획득 캡슐</span></h3>
+        <!-- <div id="bottom_line"></div> -->
+        <!-- <div id ="acc_points" class ="class_acc_points"></div> -->
+        <!-- <div class="class_coffeeImg"><img id="coffeeImg"/></div> -->
+        <br><br>
+        <img id="coffeeImg" style="position:absolute;left:110px;top:260px"/>
+
+        <div style="position:absolute;left:290px;top:285px;">
+          <p id="expectedPoints" style="display:inline;font-size:100px;font-weight:bold"> </p><p id="measure_expectedPoints" style="display:inline;font-size:30px;font-weight:bold"> </p>
+        </div>
+        <div style="position:absolute;left:355px;top:400px;font-size:30px;color:gray">
+          <p style="display:inline">( 30<p style="display:inline"> </p><p id="weekPoints" style="display:inline;font-weight:bold"> </p><p id="text2" style="display:inline"> )</p>
+        </div>
+        <div style="position:absolute;left:355px;top:440px;font-size:13px;color:gray;text-align:left">
+          <p style="display:inline">기본 제공&nbsp&nbsp&nbsp&nbsp이번주 누적</p>
+        </div>
+          <div id="marg_wpoints" class="class_meter", style="position:absolute;left:355px;top:440px;font-size:13px;color:gray;text-align:left">
+        </div>
+
+
+
+
+      </div>
+    </div>
+      <div class="class_left_between"></div>
+      <div class="wrapper">
+      <div class = "class_leftbottom">
+        <h3 class="class_meter_title"><span class="class_box_title_span">실시간</span></h3>
+        <div id="marg_meter" class="class_meter"></div>
+      </div>
+      </div>
+    </div>
+
+    <div class="center">
+      <div class="wrapper">
+      <div class="traffic_container" >
+        <h3 class="class_box_title"><span class="class_box_title_span">오늘 누적</span></h3>
+        <div id="today_points" class = "class_today_points">
+          <div id="saving_points" class="saving_points_class"></div>
+        </div>
+        <div id="traffic_light" class="traffic_light_class">
+          <div id="marg_smile" class="class_smile"></div>
+          <div id="smiley" class="class_smiley"></div>
+        </div>
+        <div id="triangle" class = "class_triangle"></div>
+      </div>
+
+      <div class="nilm_container">
+        <div class="com_wrapper"><div id="icon_com" class="class_icon"></div><div id="marg_comparison_com" class="comparison_com"></div></div>
+        <div class="light_wrapper"><div id="icon_light" class="class_icon"></div><div id="marg_comparison_light" class="comparison_light"></div></div>
+        <div class="hvac_wrapper"><div id="icon_hvac" class="class_icon"></div><div id="marg_comparison_hvac" class="comparison_hvac"></div></div>
+        <div id="title_nowText" class="class_title_nowText"></div>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript" src="./javascripts/utiles.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_title3.js"></script>
+<!-- <script type="text/javascript" src="./javascripts/marg/marg_smile3.js"></script> -->
+<script type="text/javascript" src="./javascripts/marg/marg_comparison_com_dRef.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_comparison_light_dRef.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_comparison_hvac_dRef.js"></script>
+
+<!-- <script type="text/javascript" src="./javascripts/marg/marg_day_breakdown2.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_week_breakdown.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_month_breakdown.js"></script> -->
+
+<script type="text/javascript" src="./javascripts/marg/marg_meter_dRef.js"></script>
+<script type="text/javascript" src="./javascripts/marg/marg_comparison_todaysPoints_dRef.js"></script>
+<!-- <script type="text/javascript" src="./javascripts/lab_comparison_weeksRanking.js"></script> -->
+<script type="text/javascript" src="./javascripts/marg/marg_comparison_weeksPoints_dRef.js"></script>
+
+</body>
+
+</html>
