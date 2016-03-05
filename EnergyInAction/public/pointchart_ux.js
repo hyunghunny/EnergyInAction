@@ -51,8 +51,8 @@ $(function () {
       console.log(shortDate);
 
       //// Import approperate reference ///
-      var LAST_SEASON_WEEKDAY = getRef(targetDate, LAB, weekDay_Indicator)
-      var LAST_SEASON_WEEKEND = getRef(targetDate, LAB, weekDay_Indicator)
+      var LAST_SEASON_WEEKDAY = getRef(targetDate, LAB, 1)
+      var LAST_SEASON_WEEKEND = getRef(targetDate, LAB, 0)
 
       var LAST_SEASON_WEEKDAY_COM   = LAST_SEASON_WEEKDAY[95].computer;
       var LAST_SEASON_WEEKDAY_LIGHT = LAST_SEASON_WEEKDAY[95].light;
