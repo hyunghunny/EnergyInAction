@@ -116,7 +116,64 @@ $(function () {
         // },
         xAxis: {
             categories: xAxis_categories,
-            crosshair: true
+            crosshair: true,
+            plotBands: [{ // visualize the weekend
+                from: 4.5,
+                to: 6.5,
+                color: 'rgba(68, 170, 213, .1)'
+            }, { // visualize the weekend
+                from: 11.5,
+                to: 13.5,
+                color: 'rgba(68, 170, 213, .1)'
+            }, { // visualize the weekend
+                from: 18.5,
+                to: 20.5,
+                color: 'rgba(68, 170, 213, .1)'
+            }, { // visualize the weekend
+                from: 25.5,
+                to: 27.5,
+                color: 'rgba(68, 170, 213, .1)'
+            }, { // visualize the weekend
+                from: 32.5,
+                to: 34.5,
+                color: 'rgba(68, 170, 213, .1)'
+            }, { // visualize the weekend
+                from: 39.5,
+                to: 41.5,
+                color: 'rgba(68, 170, 213, .1)'
+            }, { // visualize the weekend
+                from: 46.5,
+                to: 48.5,
+                color: 'rgba(68, 170, 213, .1)'
+            }, { // visualize the weekend
+                from: 53.5,
+                to: 55.5,
+                color: 'rgba(68, 170, 213, .1)'
+            }, { // visualize the weekend
+                from: 60.5,
+                to: 62.5,
+                color: 'rgba(68, 170, 213, .1)'
+            }, { // visualize the weekend
+                from: 67.5,
+                to: 69.5,
+                color: 'rgba(68, 170, 213, .1)'
+            }, { // visualize the weekend
+                from: 74.5,
+                to: 76.5,
+                color: 'rgba(68, 170, 213, .1)'
+            }, { // visualize the weekend
+                from: 81.5,
+                to: 83.5,
+                color: 'rgba(68, 170, 213, .1)'
+            }, { // visualize the weekend
+                from: 88.5,
+                to: 90.5,
+                color: 'rgba(68, 170, 213, .1)'
+            }, { // visualize the weekend
+                from: 95.5,
+                to: 97.5,
+                color: 'rgba(68, 170, 213, .1)'
+            }]
         },
         yAxis: [{ // Primary yAxis
             title: {
