@@ -35,8 +35,8 @@ var EDMInfoFactory = function () {
     margEdm.addFeeder(new FeederInfo(6, "unclassified"));
     margEdm.addFeeder(new FeederInfo(7, 'computer'));
     margEdm.addFeeder(new FeederInfo(8, 'computer'));
-    margEdm.addFeeder(new FeederInfo(9, "unclassified"));
-    margEdm.addFeeder(new FeederInfo(10, "unclassified"));
+//    margEdm.addFeeder(new FeederInfo(9, "unclassified"));
+//    margEdm.addFeeder(new FeederInfo(10, "unclassified"));
     margEdm.addFeeder(new FeederInfo(11, "unclassified"));
     margEdm.addFeeder(new FeederInfo(12, "unclassified"));
     margEdm.addFeeder(new FeederInfo(13, "unclassified"));
