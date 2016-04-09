@@ -54,10 +54,9 @@ $(function () {
 
       var todayLength = today_com.length;
 
-      var points_Com   = (TARGET[todayLength].computer - limitedArraySum(today_com,   todayLength)).toFixed(0);
-      var points_light = (TARGET[todayLength].light    - limitedArraySum(today_light, todayLength)).toFixed(0);
-      // var points_hvac  = (TARGET[todayLength].hvac     - limitedArraySum(today_hvac,  todayLength)).toFixed(0);
-
+      var points_Com   = Math.floor(Number(TARGET[todayLength].computer - limitedArraySum(today_com,   todayLength)));
+      var points_light = Math.floor(Number(TARGET[todayLength].light    - limitedArraySum(today_light, todayLength)));
+      
       console.log(Number(points_Com), Number(points_light));
 
       // make the savingText

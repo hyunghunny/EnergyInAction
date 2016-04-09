@@ -53,7 +53,7 @@ $(function () {
 
       var lastRef = TARGET[todayLength].light;
       var thisUse = limitedArraySum(today_light, todayLength);
-      var savingPoints = lastRef - thisUse;
+      var savingPoints = Math.floor(Number(lastRef - thisUse));
       var signColorCode;
 
       // savingPoints sign & color

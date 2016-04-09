@@ -55,7 +55,7 @@ $(function () {
 
       var lastRef = TARGET[todayLength].computer;
       var thisUse = limitedArraySum(today_com, todayLength);
-      var savingPoints = lastRef - thisUse;
+      var savingPoints = Math.floor(Number(lastRef - thisUse));
       var signColorCode;
 
       // savingPoints sign & color

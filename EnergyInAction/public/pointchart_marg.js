@@ -8,6 +8,7 @@ $(function () {
   var points_com = 0;
   var points_light = 0;
   var points_hvac = 0;
+  var total_pts = 0;
 
   var xAxis_categories   = new Array();
   var points_com_array   = new Array();
@@ -63,36 +64,50 @@ $(function () {
       var LAST_SEASON_WEEKEND_HVAC  = LAST_SEASON_WEEKEND[95].hvac;
 
       if(isWeekend){
-        points_com   += (LAST_SEASON_WEEKEND_COM   - com);
-        points_light += (LAST_SEASON_WEEKEND_LIGHT - light);
-        points_hvac  += (LAST_SEASON_WEEKEND_HVAC  - hvac);
-        console.log(new Date(thisWeek[index].dateFrom).toLocaleString(), "(주말):", ((LAST_SEASON_WEEKEND_COM-com)+(LAST_SEASON_WEEKEND_LIGHT-light)+(LAST_SEASON_WEEKEND_HVAC-hvac)).toFixed(0),
-                    "(", (LAST_SEASON_WEEKEND_COM-com).toFixed(0), (LAST_SEASON_WEEKEND_LIGHT-light).toFixed(0), (LAST_SEASON_WEEKEND_HVAC-hvac).toFixed(0), ")");
-        // console.log(new Date(thisWeek[index].dateFrom).toLocaleString(), "(주말):", ((LAST_SEASON_WEEKEND_COM-com)+(LAST_SEASON_WEEKEND_LIGHT-light)+(LAST_SEASON_WEEKEND_HVAC-hvac)).toFixed(0),
-        //             "(", (LAST_SEASON_WEEKEND_COM-com), (LAST_SEASON_WEEKEND_LIGHT-light), (LAST_SEASON_WEEKEND_HVAC-hvac), ")");
-        console.log("3 point series", (LAST_SEASON_WEEKEND_COM   - com), (LAST_SEASON_WEEKEND_LIGHT - light), (LAST_SEASON_WEEKEND_HVAC  - hvac));
+
+        this_com   = Math.floor(Number((LAST_SEASON_WEEKEND_COM   - com)));
+        this_light = Math.floor(Number((LAST_SEASON_WEEKEND_LIGHT - light)));
+        this_hvac  = Math.floor(Number((LAST_SEASON_WEEKEND_HVAC  - hvac)));
+
+        this_point = this_com + this_light + this_hvac;
+
+        points_com   += this_com;
+        points_light += this_light;
+        points_hvac  += this_hvac;
+        total_pts    += this_point;
+
+        console.log(new Date(thisWeek[index].dateFrom).toLocaleString(), "(주말):",
+                  this_point, "(", this_com, this_light, this_hvac, ")");
+
         xAxis_categories.push(shortDate)
-        points_com_array.push(LAST_SEASON_WEEKEND_COM - com);
-        points_light_array.push(LAST_SEASON_WEEKEND_LIGHT - light);
-        points_hvac_array.push(LAST_SEASON_WEEKEND_HVAC - hvac);
-        points_total_array.push(Number(((LAST_SEASON_WEEKEND_COM-com)+(LAST_SEASON_WEEKEND_LIGHT-light)+(LAST_SEASON_WEEKEND_HVAC-hvac)).toFixed(0)))
+        points_com_array.push(this_com);
+        points_light_array.push(this_light);
+        points_hvac_array.push(this_hvac);
+        points_total_array.push(this_point);
 
       } else {
-        points_com   += (LAST_SEASON_WEEKDAY_COM   - com);
-        points_light += (LAST_SEASON_WEEKDAY_LIGHT - light);
-        points_hvac  += (LAST_SEASON_WEEKDAY_HVAC  - hvac);
-        console.log(new Date(thisWeek[index].dateFrom).toLocaleString(), "(주중):", ((LAST_SEASON_WEEKDAY_COM-com)+(LAST_SEASON_WEEKDAY_LIGHT-light)+(LAST_SEASON_WEEKDAY_HVAC-hvac)).toFixed(0),
-                    "(", (LAST_SEASON_WEEKDAY_COM-com).toFixed(0), (LAST_SEASON_WEEKDAY_LIGHT-light).toFixed(0), (LAST_SEASON_WEEKDAY_HVAC-hvac).toFixed(0), ")");
-        // console.log(new Date(thisWeek[index].dateFrom).toLocaleString(), "(주중):", ((LAST_SEASON_WEEKDAY_COM-com)+(LAST_SEASON_WEEKDAY_LIGHT-light)\+(LAST_SEASON_WEEKDAY_HVAC-hvac)).toFixed(0),
-        //             "(", (LAST_SEASON_WEEKDAY_COM-com), (LAST_SEASON_WEEKDAY_LIGHT-light), (LAST_SEASON_WEEKDAY_HVAC-hvac), ")");
-        console.log("3 point series", (LAST_SEASON_WEEKDAY_COM   - com), (LAST_SEASON_WEEKDAY_LIGHT - light), (LAST_SEASON_WEEKDAY_HVAC  - hvac));
+
+        this_com   = Math.floor(Number((LAST_SEASON_WEEKDAY_COM   - com)));
+        this_light = Math.floor(Number((LAST_SEASON_WEEKDAY_LIGHT - light)));
+        this_hvac  = Math.floor(Number((LAST_SEASON_WEEKDAY_HVAC  - hvac)));
+
+        this_point = this_com + this_light + this_hvac;
+
+        points_com   += this_com;
+        points_light += this_light;
+        points_hvac  += this_hvac;
+        total_pts    += this_point;
+
+        console.log(new Date(thisWeek[index].dateFrom).toLocaleString(), "(주중):",
+                  this_point, "(", this_com, this_light, this_hvac, ")");
+
         xAxis_categories.push(shortDate)
-        points_com_array.push(LAST_SEASON_WEEKDAY_COM - com);
-        points_light_array.push(LAST_SEASON_WEEKDAY_LIGHT - light);
-        points_hvac_array.push(LAST_SEASON_WEEKDAY_HVAC - hvac);
-        points_total_array.push(Number(((LAST_SEASON_WEEKDAY_COM-com)+(LAST_SEASON_WEEKDAY_LIGHT-light)+(LAST_SEASON_WEEKDAY_HVAC-hvac)).toFixed(0)))
+        points_com_array.push(this_com);
+        points_light_array.push(this_light);
+        points_hvac_array.push(this_hvac);
+        points_total_array.push(this_point);
       }
-      console.log("Each cumulated points :               ", points_com.toFixed(0), points_light.toFixed(0), points_hvac.toFixed(0));
+      console.log("Each cumulated points :               ", points_com, points_light, points_hvac);
     }
       console.log(xAxis_categories);
       console.log(points_com_array);

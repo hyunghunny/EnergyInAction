@@ -52,7 +52,7 @@ $(function () {
 
       var lastRef = TARGET[todayLength].hvac;
       var thisUse = limitedArraySum(today_hvac, todayLength);
-      var savingPoints = lastRef - thisUse;
+      var savingPoints = Math.floor(Number(lastRef - thisUse));
       var signColorCode;
 
       // savingPoints sign & color
