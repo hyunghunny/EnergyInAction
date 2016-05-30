@@ -2439,4 +2439,68 @@ router.get('/labs/:labId/energy/feeders/:feederId/total.json', function (req, re
     }
 });
 
+/////////////////////////////////////////////////////////////////////////////////////
+// CAUTION: Below features are provided temporarily for the specific research topic.
+/////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @api {post} api/labs/:labId/logs/calendars Posting the calendar logs
+ * @apiName Posting_calendar_log
+ * @apiGroup Logging
+ * @apiExample {js} Example usage:
+ *     POST /labs/ux/logs/calendars
+ *
+ *     { "logs" : [
+ *       {
+ *         "logId" : "ux0100",
+ *         "userId : "u0100",
+ *         "dateFrom": 1428591600000,
+ *         "description": "Meeting",
+ *         "durationMin" : 60,
+ *         }
+ *       ]
+ *     }
+ * @apiHeader {String} Content-Type application/json
+ * @apiSuccessExample Success-Response:
+ *  HTTP/1.1 202 Accepted
+ *
+ *
+ */
+router.post('/labs/:labId/logs/canlendars', function (req, res) {
+    try {
+        var labId = req.params.labId;
+        var ip = req.headers['x-forwarded-for'] || 
+            req.connection.remoteAddress || 
+            req.socket.remoteAddress ||
+            req.connection.socket.remoteAddress;
+        
+        console.log("client IP address:" + ip);
+        if (labId == "ux") {
+            throw new Error('404');
+        }        
+        
+        var logs = req.body.logs;
+        // TODO:preprocess the message body
+        
+
+        // TODO:validate logs        
+        if (logs == null || logs.lengh == 0) {
+            throw new Error('400');
+        }
+        
+        // TODO:check whether IP address is meaningful or not.
+        if (labObj.logMessages(ip, logs)) {
+            res.sendStatus('202');
+        } else {
+            res.sendStatus('500');
+        }
+
+    } catch (err) {
+        // return error code here
+        res.sendStatus(err.message);
+    }
+});
+
+
+
 module.exports = router;

@@ -273,6 +273,20 @@ LabEnergyManager.prototype.postMessage = function (type, messageObj) {
     return true;
 }
 
+// XXX: This is a temporary API to support new calendar app research.  
+LabEnergyManager.prototype.logMessages = function (ip, logsObj) {
+    
+    //TODO:IP can be single or multiple
+
+    // TODO:logs will be divided one by one.
+    var logObj = null;
+        
+    dbmgr.insert(config.collection.logs, logObj);
+    return true;
+}
+
+
+
 LabEnergyManager.prototype.getLatestMessage = function (type, cb) {
     var collection = config.collection.messages;
 
