@@ -2453,10 +2453,11 @@ router.get('/labs/:labId/energy/feeders/:feederId/total.json', function (req, re
  *     { "logs" : [
  *       {
  *         "logId" : "ux0100",
- *         "userId : "u0100",
+ *         "userId" : "u0100",
  *         "dateFrom": 1428591600000,
  *         "description": "Meeting",
  *         "durationMin" : 60,
+ *         "durationMax" : 90
  *         }
  *       ]
  *     }
@@ -2466,7 +2467,7 @@ router.get('/labs/:labId/energy/feeders/:feederId/total.json', function (req, re
  *
  *
  */
-router.post('/labs/:labId/logs/canlendars', function (req, res) {
+router.post('/labs/:labId/logs/calendars', function (req, res) {
     try {
         var labId = req.params.labId;
         var ip = req.headers['x-forwarded-for'] || 
@@ -2474,17 +2475,17 @@ router.post('/labs/:labId/logs/canlendars', function (req, res) {
             req.socket.remoteAddress ||
             req.connection.socket.remoteAddress;
         
-        console.log("client IP address:" + ip);
-        if (labId == "ux") {
+        console.log("client IP address: " + ip);
+        if (labId !== "ux") {
             throw new Error('404');
         }        
-        
+        var labObj = controller.labs.find(labId);
         var logs = req.body.logs;
         // TODO:preprocess the message body
         
-
+        console.log("body content: " + JSON.stringify(req.body));
         // TODO:validate logs        
-        if (logs == null || logs.lengh == 0) {
+        if (logs == null || logs.length == 0) {
             throw new Error('400');
         }
         

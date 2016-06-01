@@ -141,7 +141,6 @@
     <Compile Include="public\javascripts\marg_title.js" />
     <Compile Include="public\javascripts\marg_UI_header.js" />
     <Compile Include="public\javascripts\marg_week.js" />
-    <Compile Include="public\javascripts\marg_week_breakdown.js" />
     <Compile Include="public\javascripts\pattern-fill-v2.js" />
     <Compile Include="public\javascripts\UI_weather_widget.js" />
     <Compile Include="public\javascripts\utiles.js" />
@@ -189,8 +188,9 @@
     <Content Include="public\lib\proxy\asp\WeatherProxy.aspx.designer.cs" />
     <Content Include="public\lib\proxy\php\proxy.php" />
     <Content Include="public\marg_dashboard.html" />
-    <Content Include="public\notification.html" />
-    <Content Include="public\post.html" />
+    <Content Include="public\tests\callog.html" />
+    <Content Include="public\tests\notification.html" />
+    <Content Include="public\tests\post.html" />
     <Content Include="public\stylesheets\bootstrap.min.css" />
     <Content Include="public\stylesheets\marquee.css" />
     <Content Include="public\stylesheets\style.css" />
@@ -221,6 +221,7 @@
     <Folder Include="public\lib\proxy\" />
     <Folder Include="public\lib\proxy\asp\" />
     <Folder Include="public\lib\proxy\php\" />
+    <Folder Include="public\tests\" />
     <Folder Include="tests\" />
     <Folder Include="public\" />
     <Folder Include="public\fonts\" />

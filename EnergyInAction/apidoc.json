@@ -3,5 +3,5 @@
     "version": "0.1.0",
     "description": "API for Energy Usage Monitoring in GSCST SNU",
     "title": "API for Energy Usage Behavior Monitoring",
-    "url": "http://147.47.123.199:3000/"
+    "url": "http://adsl.snu.ac.kr:3300/"
 }

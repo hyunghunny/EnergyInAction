@@ -277,12 +277,24 @@ LabEnergyManager.prototype.postMessage = function (type, messageObj) {
 LabEnergyManager.prototype.logMessages = function (ip, logsObj) {
     
     //TODO:IP can be single or multiple
+    if (dbmgr.dbOpened == false) {
+        console.log('database is not opened');
+        return false;
+    } else {
+        // logs will be divided and inserted one by one.
+        for (var i = 0; i < logsObj.length; i++) {
+            var logObj = logsObj[i];
+            if (logObj.logId) {
+                logObj._id = logObj.logId;
+            } else {
+                console.log("[WARNING] No logId exists");
+            }
+            
+            dbmgr.upsert(config.collection.logs, logObj);
 
-    // TODO:logs will be divided one by one.
-    var logObj = null;
-        
-    dbmgr.insert(config.collection.logs, logObj);
-    return true;
+        }
+        return true;
+    }
 }
 
 
