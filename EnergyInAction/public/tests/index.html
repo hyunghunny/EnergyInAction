@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+<style>
+body{
+		padding:0px;
+		margin:0px;
+	
+}
+.ui-content{
+	padding-top:105px;
+	padding-left:10px;
+	
+}
+.back_click{
+	width:100%;
+	height:100%;
+	position:fixed;
+	z-index:1;
+}
+.ui-header{
+	position:fixed;
+	top:0px;
+	width:100%;
+	height:44px;
+	z-index:10000;
+}
+.navi{
+	width:100%;
+	height:60px;
+	margin-top:45px;
+	position:fixed;
+	z-index:10;
+	text-align:center;
+	background-color:#eee;
+	border-bottom:1px solid #eee;
+}
+
+
+	.time_t{
+		height:69px;	
+		border-bottom:1px solid #f0f0f0;
+		color:#898989;
+		z-index:10;
+		-ms-user-select: none;
+		-moz-user-select: -moz-none;
+		-khtml-user-select: none;
+		-webkit-user-select: none;
+		user-select: none;	
+	}
+	
+	.t_box{
+		display:block;
+		width:75%;
+		background-color:#8957a1;
+		height:70px;
+		position:absolute;
+		z-index:100;
+		top:0px;
+		right:10px;
+		-ms-user-select: none;
+		-moz-user-select: -moz-none;
+		-khtml-user-select: none;
+		-webkit-user-select: none;
+		user-select: none;
+	}
+	.t_box2{
+		display:block;
+		width:75%;
+		background-color:#c3aad2;
+		height:70px;
+		position:absolute;
+		z-index:90;
+		opacity:0.5;	
+		right:10px;
+		top:70px;
+		
+	}
+	.t_text{
+		padding-top:10px;	
+		padding-left:5px;
+		-ms-user-select: none;
+		-moz-user-select: -moz-none;
+		-khtml-user-select: none;
+		-webkit-user-select: none;
+		user-select: none;
+	}
+	.subject_box{
+		width:95%;
+		background: none;
+		color:#333333 
+		border:0;
+		opacity:1 !important;
+	}
+	
+	.tb_bt{
+		width:20px;
+		height:20px;
+		background-color:#fff;
+		position:absolute;
+		right:0;
+		top:0;
+		z-index:1000;
+		border-radius:10px
+	}
+	
+	.shadow_ef{
+		box-shadow:2px 2px 3px #626262;
+	}
+	.tb_bt1{
+		top:0;	
+	}
+	.tb_bt2{
+		top:50px;	
+			}
+	.tb_bt3{
+		top:120px;
+	}
+	.t_box_t{
+		position:absolute;
+		width:100%;
+		right:10px;
+	}
+	.subject_box{
+		padding:6px;	
+	}
+</style>
+
+<!-- XXX: below export.js required to export schedules -->
+<script src="export.js" ></script>
+<script>
+
+
+$(document).ready(function(e) {
+	var tempY,holdY;
+	var active_box;
+	var box_count=0;
+	var time_box = [[], [], [], [], [], [], []];
+	var schedule_box = [[], [], [], [], [], [], []]; // XXX: this variable MUST be required to save schedule.
+	var date_num=0;
+	$('.ui-btn').click(function(){
+		$('.ui-btn').removeClass("ui-btn-active");
+		$(this).addClass("ui-btn-active");
+		for(var i=0;i<time_box[date_num].length;i++) time_box[date_num][i].hide();
+		date_num = $(this).attr("date");
+		for (var i = 0; i < time_box[date_num].length; i++) time_box[date_num][i].show();
+
+
+	    // XXX:below code export your schedules
+		extractSchedules(schedule_box);
+		console.log(JSON.stringify(allSchedules)); // for debugging use
+
+		if (allSchedules.length > 0 && confirm("Export your schedule? ") == true) {
+            
+		    var userId = "testUser0010"; // XXX: this user ID MUST be changed appropriately.
+
+		    exportSchedules(userId, allSchedules);
+		}
+        // XXX:end of added code
+
+	});
+	
+	for(i=0;i<24;i++){
+		
+		$(".ui-content").append("<div class='time_t' num='t"+(i+1)+"'><div class='t_text'>"+(i+1)+":00</div></div>")
+			
+		
+	}
+	
+		
+		
+	$(this).on('vmousedown', function(e){
+   
+   		
+		if((event.pageY-105)%70>35) holdY = event.pageY-(event.pageY%70)+70-105;
+		if((event.pageY-105)%70<=35) holdY = event.pageY-(event.pageY%70)+70+70-105;
+		
+	});	
+		
+	$(".back_click").on('vmousedown',function(){
+		$(".tb_bt").hide();
+		$(".t_box_t").find(".t_box").off('vmousedown');
+		$(".t_box_t").find(".t_box2").off('vmousedown');
+		$(".t_box_t").find(".t_box").removeClass("shadow_ef");
+		$(".t_box_t").find(".t_box2").removeClass("shadow_ef");
+		
+		$(".t_box_t").on("taphold",function(e){
+			active_box = $(this).attr("count");
+			$(this).find(".tb_bt").show();
+			$(this).find(".t_box").on('vmousedown',tempbox_dw);
+			$(this).find(".t_box2").on('vmousedown',tempbox2_dw);	
+			$(this).find(".t_box").addClass("shadow_ef");
+			$(this).find(".t_box2").addClass("shadow_ef");
+	});	});
+	
+	
+	
+	
+	$(".back_click").on("taphold",function(eee){
+		box_count++;
+		active_box= box_count;
+		
+		var box_color_r = Math.floor(Math.random()*200);
+		var box_color_g = Math.floor(Math.random()*200);
+		var box_color_b = Math.floor(Math.random()*200);
+
+		
+		var tempbox_t = $("<div class='t_box_t' count='"+box_count+"'></div>");
+ 		var tempbox = $("<div class='t_box'><textarea name='subject' id='t_subject' class='subject_box'></textarea></div>");
+		var tempbox2 = $("<div class='t_box2'></div>");
+		 
+		
+		
+		$(".ui-content").prepend(tempbox_t);
+		tempbox_t.prepend(tempbox);
+		tempbox_t.append(tempbox2);
+		tempbox_t.time_u = 0;
+		tempbox_t.css("top",holdY);
+		tempbox.css("top","0");
+		tempbox2.css("top",Number(tempbox.css('top').slice(0,-2))+tempbox.height());
+		tempbox_t.attr("bt_updown","0");
+		
+		time_box[date_num].push(tempbox);
+		time_box[date_num].push(tempbox2);
+		
+		schedule_box[date_num].push(tempbox_t); // XXX: this code MUST be required to save the schedule for exporting. 
+
+		$(".t_box_t[count='"+box_count+"']").find(".t_box").css("background-color","rgb("+box_color_r+","+box_color_g+","+box_color_b+")");
+		$(".t_box_t[count='"+box_count+"']").find(".t_box2").css("background-color","rgb("+(box_color_r+30)+","+(box_color_g+40)+","+(box_color_b+40)+")");
+		
+		$(".t_box_t[count='"+box_count+"']").find(".t_box").addClass("shadow_ef");
+		$(".t_box_t[count='"+box_count+"']").find(".t_box2").addClass("shadow_ef");
+		//console.log($(".t_box_t[count='"+box_count+"']").css("background-color"));
+		tempbox_t.append("<div class='tb_bt tb_bt1'></div>");
+		tempbox_t.append("<div class='tb_bt tb_bt2'></div>");
+		tempbox_t.append("<div class='tb_bt tb_bt3'></div>");
+		
+		$(".t_box_t[count='"+box_count+"']").find(".tb_bt").css("border","1px solid "+"rgb("+box_color_r+","+box_color_g+","+box_color_b+")");
+		
+		tempbox.find("#t_subject").focus();
+		tempbox.find("#t_subject").focusout(function(e) {
+        	$(this).attr("disabled","yes");  
+		
+		
+		var mouseY_st;
+		//tempbox.draggable();	
+		tempbox_t.find(".tb_bt1").on('vmousedown',function(ev){
+				ev.stopPropagation();
+				mouseY_st= tempbox.height()+event.pageY;
+				var mouseY_st2=event.pageY;
+				var temp_box1_top = Number(tempbox.css("top").slice(0,-2));
+				var temp_box2_top = Number(tempbox2.css("top").slice(0,-2));
+				var temp_box1_ht = tempbox.height();
+				var temp_box2_ht = tempbox2.height();
+
+				
+				var temp_top= Number(tempbox.css('top').slice(0,-2)); 
+				if(!tempbox_t.time_ud){
+				$(document).bind('vmousemove',function(e){
+						e.preventDefault();
+						tempbox.css("top",temp_top-(mouseY_st2-event.pageY));
+						tempbox_t.find(".tb_bt1").css("top",temp_top-(mouseY_st2-event.pageY));
+						tempbox.css("height",mouseY_st-event.pageY);		
+				});
+				}else{
+					$(document).bind('vmousemove',function(e){
+						e.preventDefault();
+						if(event.pageY-mouseY_st2>0){
+								tempbox.css("top",temp_top-(mouseY_st2-event.pageY));
+								tempbox_t.find(".tb_bt1").css("top",temp_top-(mouseY_st2-event.pageY));	
+								tempbox.css("height",temp_box1_ht-(event.pageY-mouseY_st2));
+								tempbox2.css("height",temp_box2_ht+(event.pageY-mouseY_st2));
+						}else{
+							tempbox.css("top",temp_box1_top-(mouseY_st2-event.pageY));
+							tempbox.css("height",temp_box1_ht-(event.pageY-mouseY_st2));
+							tempbox_t.find(".tb_bt1").css("top",temp_top-(mouseY_st2-event.pageY));	
+							tempbox2.css("height",temp_box2_ht+(event.pageY-mouseY_st2));
+						}
+					});
+					
+				}
+			});
+			
+			tempbox_t.find(".tb_bt1").on('vmouseup',function(){
+									
+					$(document).unbind('vmousemove');
+			});
+        });
+		
+		
+		tempbox_t.find(".tb_bt2").on('vmousedown',function(ev){
+							ev.stopPropagation();
+				mouseY_st= event.pageY-tempbox.height();
+				var mouseY_st2= event.pageY;
+				var temp_bt2_top = Number(tempbox_t.find(".tb_bt2").css("top").slice(0,-2));
+				var temp_box1_top = Number(tempbox.css("top").slice(0,-2));
+				var temp_box2_top = Number(tempbox2.css("top").slice(0,-2));
+				var temp_box1_ht = tempbox.height();
+				var temp_box2_ht = tempbox2.height();
+				var temp_bt3_top = Number(tempbox_t.find(".tb_bt3").css("top").slice(0,-2));
+				if(!tempbox_t.time_ud){
+					
+				$(document).bind('vmousemove',function(e){
+						e.preventDefault();
+						tempbox.css("height",(event.pageY-mouseY_st));
+						tempbox_t.find(".tb_bt2").css("top",temp_bt2_top+(event.pageY-mouseY_st2));	
+						if(event.pageY-mouseY_st2>0){
+							//tempbox2.find(".tb_bt2").css("top",temp_bt2_top+(event.pageY-mouseY_st2));
+							tempbox2.css("top",temp_box2_top+(event.pageY-mouseY_st2));
+							tempbox2.css("top",temp_box2_top+(event.pageY-mouseY_st2));
+							tempbox2.css("height",temp_box2_ht-(event.pageY-mouseY_st2));
+							tempbox_t.find(".tb_bt3").css("top",temp_bt3_top);
+						}
+							else{
+							tempbox2.css("top",temp_box2_top+(event.pageY-mouseY_st2));
+							tempbox_t.find(".tb_bt3").css("top",temp_bt3_top+(event.pageY-mouseY_st2));
+						}
+				});
+				}else{					$(document).bind('vmousemove',function(e){
+						e.preventDefault();
+						tempbox.css("height",temp_box1_ht+(event.pageY-mouseY_st2));
+						tempbox_t.find(".tb_bt2").css("top",temp_bt2_top+(event.pageY-mouseY_st2));
+					});
+				}
+		});
+		
+		tempbox_t.find(".tb_bt2").on('vmouseup',function(){
+					$(document).unbind('vmousemove');	
+		});
+	
+		tempbox_t.find(".tb_bt3").on('vmousedown',function(ev){
+				ev.stopPropagation();
+				mouseY_st= tempbox2.height();
+				
+				var temp_bt2_top = Number(tempbox_t.find(".tb_bt2").css("top").slice(0,-2));
+				var temp_bt3_top = Number(tempbox_t.find(".tb_bt3").css("top").slice(0,-2));
+				var temp_box1_top = Number(tempbox.css("top").slice(0,-2));
+				var temp_box2_top = Number(tempbox2.css("top").slice(0,-2));
+				var temp_box1_ht = tempbox.height();
+				var temp_box2_ht = tempbox2.height();
+				var mouseY_st2= event.pageY;
+				if(!tempbox_t.time_ud){
+				$(document).bind('vmousemove',function(e){
+						e.preventDefault();
+						temp_bt3_top_m = Number(tempbox_t.find(".tb_bt3").css("top").slice(0,-2));
+						tempbox_t.find(".tb_bt3").css("top",temp_bt3_top+(event.pageY-mouseY_st2));	
+						if(mouseY_st+(event.pageY-mouseY_st2)>0){
+							tempbox_t.time_ud=0;
+							tempbox_t.attr("bt_updown","0");
+							
+							if((event.pageY-mouseY_st2)>(temp_bt2_top-temp_bt3_top)){
+								tempbox2.css("height",temp_bt3_top_m-temp_bt2_top);
+							tempbox2.css("top",temp_box2_top);
+							
+							}else{
+								
+								tempbox2.css("top",temp_bt3_top_m);
+								//alert("d");
+							}
+							tempbox_t.find(".tb_bt3").css("top",temp_bt3_top+(event.pageY-mouseY_st2));	
+							
+						}else{
+							tempbox2.css("height",(mouseY_st2-event.pageY)-tempbox.height()-temp_box2_ht+20);
+							tempbox2.css("top",(temp_box2_top+mouseY_st+(event.pageY-mouseY_st2))-20);	
+							tempbox_t.time_ud=1;
+							tempbox_t.attr("bt_updown","1");
+							//tempbox_t.find(".tb_bt3").css("top","0px");
+							//tempbox_t.find(".tb_bt3").css("top","0px");
+							//tempbox_t.find(".tb_bt2").css("top",tempbox.height()+tempbox2.height());	
+						}
+				});
+				}else{
+					$(document).bind('vmousemove',function(e){
+						e.preventDefault();
+						temp_bt3_top_m = Number(tempbox_t.find(".tb_bt3").css("top").slice(0,-2));
+						tempbox_t.find(".tb_bt3").css("top",temp_bt3_top+(event.pageY-mouseY_st2));
+						if(temp_box2_ht+(mouseY_st2-event.pageY)>0){
+							tempbox_t.time_ud=1;
+							tempbox_t.attr("bt_updown","1");
+							
+						//if(temp_bt2_top<temp_bt3_top_m){
+								tempbox2.css("height",temp_bt1_top-temp_bt3_top_m);
+								tempbox2.css("top",temp_box2_top+(event.pageY-mouseY_st2));
+							
+						//}else{
+								
+							//	tempbox2.css("top",temp_bt3_top_m);
+								//alert("d");
+							//}
+							tempbox_t.find(".tb_bt3").css("top",temp_bt3_top+(event.pageY-mouseY_st2));	
+							
+						}else{
+							tempbox_t.time_ud=0;
+							tempbox_t.attr("bt_updown","0");
+							
+							tempbox2.css("height",(event.pageY-mouseY_st2)-tempbox.height()-temp_box2_ht+20);
+							tempbox2.css("top",temp_box1_top+tempbox.height());	
+							
+							//tempbox_t.find(".tb_bt3").css("top","0px");
+							//tempbox_t.find(".tb_bt3").css("top","0px");
+							//tempbox_t.find(".tb_bt2").css("top",tempbox.height()+tempbox2.height());	
+						}
+					});
+				
+					
+				}
+			
+		});
+		tempbox_t.find(".tb_bt3").on('vmouseup',function(){
+					$(document).unbind('vmousemove');	
+		});
+		
+		tempbox.on('vmousedown',tempbox_dw);
+		
+		tempbox.on('vmouseup',function(){
+					$(document).unbind('vmousemove');	
+		});
+		
+		tempbox2.on('vmousedown',tempbox2_dw);
+		
+		tempbox2.on('vmouseup',function(){
+					$(document).unbind('vmousemove');	
+		});
+		
+		
+		
+});
+function tempbox_dw(){	
+				tempbox_t = $(".t_box_t[count='"+active_box+"']");
+				tempbox = $(".t_box_t[count='"+active_box+"']").find(".t_box");
+				tempbox2 = $(".t_box_t[count='"+active_box+"']").find(".t_box2");
+				mouseY_st= event.pageY;
+				temp_bt1_top = Number(tempbox_t.find(".tb_bt1").css("top").slice(0,-2));
+				temp_bt2_top = Number(tempbox_t.find(".tb_bt2").css("top").slice(0,-2));
+				temp_bt3_top = Number(tempbox_t.find(".tb_bt3").css("top").slice(0,-2));
+				temp_box_top = Number(tempbox.css("top").slice(0,-2));
+				temp_box2_top = Number(tempbox2.css("top").slice(0,-2));
+				
+			 	$(document).bind('vmousemove',function(e){
+						e.preventDefault();
+						tempbox.css("top",temp_box_top+(event.pageY-mouseY_st));
+						tempbox2.css("top",temp_box2_top+(event.pageY-mouseY_st));
+						tempbox_t.find(".tb_bt1").css("top",temp_bt1_top+(event.pageY-mouseY_st));
+						tempbox_t.find(".tb_bt2").css("top",temp_bt2_top+(event.pageY-mouseY_st));
+						tempbox_t.find(".tb_bt3").css("top",temp_bt3_top+(event.pageY-mouseY_st));	
+				});		
+				
+		}
+function tempbox2_dw(){	
+				tempbox_t = $(".t_box_t[count='"+active_box+"']");
+				tempbox = $(".t_box_t[count='"+active_box+"']").find(".t_box");
+				tempbox2 = $(".t_box_t[count='"+active_box+"']").find(".t_box2");
+				temp_bt1_top = Number(tempbox_t.find(".tb_bt").css("top").slice(0,-2));
+				temp_bt2_top = Number(tempbox_t.find(".tb_bt2").css("top").slice(0,-2));
+				temp_bt3_top = Number(tempbox_t.find(".tb_bt3").css("top").slice(0,-2));
+				mouseY_st= event.pageY;
+				temp_box_ht = tempbox.height();
+				temp_box2_ht = tempbox.height();
+				temp_box_top = Number(tempbox.css("top").slice(0,-2));
+				temp_box2_top = Number(tempbox2.css("top").slice(0,-2));
+			 	tempbox_t.time_ud = tempbox_t.attr("bt_updown");
+				 
+				$(document).bind('vmousemove',function(e){
+					
+						e.preventDefault();
+						if(tempbox_t.time_ud==0){
+							console.log("d");
+							tempbox.css("height",temp_box_ht+(event.pageY-mouseY_st));
+							tempbox2.css("top",Number(tempbox.css("top").slice(0,-2))+tempbox.height());	
+							tempbox_t.find(".tb_bt2").css("top",temp_bt2_top+(event.pageY-mouseY_st));
+							tempbox_t.find(".tb_bt3").css("top",temp_bt3_top+(event.pageY-mouseY_st));
+						}else{
+							
+							tempbox.css("height",temp_box_ht+(mouseY_st-event.pageY));
+							tempbox2.css("top",temp_box2_top+(event.pageY-mouseY_st));
+							tempbox.css("top",temp_box_top+(event.pageY-mouseY_st));
+							tempbox_t.find(".tb_bt1").css("top",temp_bt1_top+(event.pageY-mouseY_st));
+							tempbox_t.find(".tb_bt3").css("top",temp_bt3_top+(event.pageY-mouseY_st));
+						}
+							
+				});		
+				
+		};		
+
+
+});
+</script>
+<meta charset="UTF-8">
+</head>
+<body>
+<div class="back_click"></div>
+<div data-role="page" id="pageone">
+  <div data-role="header">
+    <h1>일정관리테스트</h1>
+  </div>
+  <div class="navi">
+  	<div data-role="controlgroup" data-type="horizontal">
+      <a href="#" class="ui-btn ui-btn-active" date="0">일</a>
+      <a href="#" class="ui-btn" date="1">월</a>
+      <a href="#" class="ui-btn" date="2">화</a>
+      <a href="#" class="ui-btn" date="3">수</a>
+      <a href="#" class="ui-btn" date="4">목</a>
+      <a href="#" class="ui-btn" date="5">금</a>
+      <a href="#" class="ui-btn" date="6">토</a>
+    </div>
+  </div>
+
+  <div data-role="main" class="ui-content">
+  
+  </div>
+
+  <div data-role="footer">
+    
+  </div>
+</div> 
+
+</body>
+</html>

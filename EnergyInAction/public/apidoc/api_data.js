@@ -626,7 +626,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Example usage:",
-        "content": "POST /labs/ux/logs/calendars\n\n{ \"logs\" : [\n  {\n    \"logId\" : \"ux0100\",\n    \"userId\" : \"u0100\",\n    \"dateFrom\": 1428591600000,\n    \"description\": \"Meeting\",\n    \"durationMin\" : 60,\n    \"durationMax\" : 90\n    }\n  ]\n}",
+        "content": "POST /labs/ux/logs/calendars\n\n{ \n  \"id\" : \"someone\",\n  \"schedules\" : [\n  {\n    \"weekday\" : \"Monday\",\n    \"top\" : 385,\n    \"height1\": 70,\n    \"height2\": 70\n    }\n  ]\n}",
         "type": "js"
       }
     ],

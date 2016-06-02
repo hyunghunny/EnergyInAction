@@ -2450,14 +2450,14 @@ router.get('/labs/:labId/energy/feeders/:feederId/total.json', function (req, re
  * @apiExample {js} Example usage:
  *     POST /labs/ux/logs/calendars
  *
- *     { "logs" : [
+ *     { 
+ *       "id" : "someone",
+ *       "schedules" : [
  *       {
- *         "logId" : "ux0100",
- *         "userId" : "u0100",
- *         "dateFrom": 1428591600000,
- *         "description": "Meeting",
- *         "durationMin" : 60,
- *         "durationMax" : 90
+ *         "weekday" : "Monday",
+ *         "top" : 385,
+ *         "height1": 70,
+ *         "height2": 70
  *         }
  *       ]
  *     }
@@ -2480,7 +2480,7 @@ router.post('/labs/:labId/logs/calendars', function (req, res) {
             throw new Error('404');
         }        
         var labObj = controller.labs.find(labId);
-        var logs = req.body.logs;
+        var logs = req.body.schedules;
         // TODO:preprocess the message body
         
         console.log("body content: " + JSON.stringify(req.body));
@@ -2490,7 +2490,7 @@ router.post('/labs/:labId/logs/calendars', function (req, res) {
         }
         
         // TODO:check whether IP address is meaningful or not.
-        if (labObj.logMessages(ip, logs)) {
+        if (labObj.logMessages(req.body.id, logs)) {
             res.sendStatus('202');
         } else {
             res.sendStatus('500');

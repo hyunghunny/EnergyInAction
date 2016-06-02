@@ -274,29 +274,53 @@ LabEnergyManager.prototype.postMessage = function (type, messageObj) {
 }
 
 // XXX: This is a temporary API to support new calendar app research.  
-LabEnergyManager.prototype.logMessages = function (ip, logsObj) {
-    
-    //TODO:IP can be single or multiple
+LabEnergyManager.prototype.logMessages = function (id, logsObj) {
+    var now = new Date();
     if (dbmgr.dbOpened == false) {
         console.log('database is not opened');
         return false;
     } else {
-        // logs will be divided and inserted one by one.
-        for (var i = 0; i < logsObj.length; i++) {
-            var logObj = logsObj[i];
-            if (logObj.logId) {
-                logObj._id = logObj.logId;
-            } else {
-                console.log("[WARNING] No logId exists");
-            }
-            
-            dbmgr.upsert(config.collection.logs, logObj);
+        var saveObj = {};
+        saveObj.id = id;
+        saveObj._id = parseInt(now.getTime());
+        saveObj.lastUpdated = new Date();
+        saveObj.calendar = logsObj;
+        
+        dbmgr.upsert(config.collection.logs, saveObj);
 
-        }
         return true;
     }
 }
 
+
+LabEnergyManager.prototype.getMessages = function (type, cb) {
+    var collection = config.collection.logs;
+    
+    var queries = {};
+   
+    // TODO: retrieving logs is not supported  
+/*
+    queries.labId = this.id;
+    queries.type = type;
+    
+    if (dbmgr.dbOpened == false) {
+        console.log('data base is not opened');
+        cb(null);
+    } else {
+        dbmgr.find(collection, queries, function (msgs) {
+            var size = msgs.length;
+            // TODO:Sort with datePublished ascending order and return the 1st element
+            var array = msgs;
+            array.sort(function (a, b) {
+                // Turn your strings into dates, and then subtract them
+                // to get a value that is either negative, positive, or zero.
+                return new Date(b.datePublished) - new Date(a.datePublished);
+            });
+            cb(array[0]);
+        });
+    }
+ */ 
+}
 
 
 LabEnergyManager.prototype.getLatestMessage = function (type, cb) {

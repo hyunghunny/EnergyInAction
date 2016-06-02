@@ -56,8 +56,19 @@
 
         // Test Code HERE
 
-        addSchedule("test01", (new Date("2016-6-1 10:30")).getTime(), "ICST presentation", 75, 90);
-        addSchedule("test02", (new Date("2016-6-3 10:30")).getTime(), "IDA lecture", 150, 200);
+        //addSchedule("test01", (new Date("2016-6-1 10:30")).getTime(), "ICST presentation", 75, 90);
+        //addSchedule("test02", (new Date("2016-6-3 10:30")).getTime(), "IDA lecture", 150, 200);
+        var allLogs = {
+            "id": "someone",
+            "schedules": [
+            {
+                "weekday": "Monday",
+                "top": 385,
+                "height1": 70,
+                "height2": 70
+            }
+            ]
+        };
 
         saveSchedules(allLogs, baseUrl);
 
