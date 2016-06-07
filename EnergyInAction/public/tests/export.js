@@ -1,7 +1,7 @@
 ﻿
 var allSchedules = [];
-var baseUrl = 'http://147.47.123.199:3300/';
-var baseUrl = '../'; // for testing only
+var baseUrl = 'http://adsl.snu.ac.kr:3300/';
+//var baseUrl = '../'; // for testing only
 
 function extractSchedules(timeBox) {
     allSchedules = []; // clean up
