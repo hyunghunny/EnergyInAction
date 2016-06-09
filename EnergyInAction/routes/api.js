@@ -2439,4 +2439,69 @@ router.get('/labs/:labId/energy/feeders/:feederId/total.json', function (req, re
     }
 });
 
+/////////////////////////////////////////////////////////////////////////////////////
+// CAUTION: Below features are provided temporarily for the specific research topic.
+/////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @api {post} api/labs/:labId/logs/calendars Posting the calendar logs
+ * @apiName Posting_calendar_log
+ * @apiGroup Logging
+ * @apiExample {js} Example usage:
+ *     POST /labs/ux/logs/calendars
+ *
+ *     { 
+ *       "id" : "someone",
+ *       "schedules" : [
+ *       {
+ *         "weekday" : "Monday",
+ *         "top" : 385,
+ *         "height1": 70,
+ *         "height2": 70
+ *         }
+ *       ]
+ *     }
+ * @apiHeader {String} Content-Type application/json
+ * @apiSuccessExample Success-Response:
+ *  HTTP/1.1 202 Accepted
+ *
+ *
+ */
+router.post('/labs/:labId/logs/calendars', function (req, res) {
+    try {
+        var labId = req.params.labId;
+        var ip = req.headers['x-forwarded-for'] || 
+            req.connection.remoteAddress || 
+            req.socket.remoteAddress ||
+            req.connection.socket.remoteAddress;
+        
+        console.log("client IP address: " + ip);
+        if (labId !== "ux") {
+            throw new Error('404');
+        }        
+        var labObj = controller.labs.find(labId);
+        var logs = req.body.schedules;
+        // TODO:preprocess the message body
+        
+        console.log("body content: " + JSON.stringify(req.body));
+        // TODO:validate logs        
+        if (logs == null || logs.length == 0) {
+            throw new Error('400');
+        }
+        
+        // TODO:check whether IP address is meaningful or not.
+        if (labObj.logMessages(req.body.id, logs)) {
+            res.sendStatus('202');
+        } else {
+            res.sendStatus('500');
+        }
+
+    } catch (err) {
+        // return error code here
+        res.sendStatus(err.message);
+    }
+});
+
+
+
 module.exports = router;

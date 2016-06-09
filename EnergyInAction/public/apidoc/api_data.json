@@ -43,6 +43,45 @@
     "type": "get",
     "url": "api/labs",
     "title": "Show all laboratories.",
+    "name": "Get_Current_Weather_Info",
+    "group": "Lab_Details",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "api/weather",
+        "type": "js"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>application/json</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\nTODO:JSON body will be updated.",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/api.js",
+    "groupTitle": "Lab_Details"
+  },
+  {
+    "type": "get",
+    "url": "api/labs",
+    "title": "Show all laboratories.",
     "name": "Listing_All_Labs",
     "group": "Lab_Details",
     "examples": [
@@ -579,6 +618,45 @@
     "groupTitle": "Lab_Energy_Usage"
   },
   {
+    "type": "post",
+    "url": "api/labs/:labId/logs/calendars",
+    "title": "Posting the calendar logs",
+    "name": "Posting_calendar_log",
+    "group": "Logging",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "POST /labs/ux/logs/calendars\n\n{ \n  \"id\" : \"someone\",\n  \"schedules\" : [\n  {\n    \"weekday\" : \"Monday\",\n    \"top\" : 385,\n    \"height1\": 70,\n    \"height2\": 70\n    }\n  ]\n}",
+        "type": "js"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>application/json</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 202 Accepted",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/api.js",
+    "groupTitle": "Logging"
+  },
+  {
     "type": "get",
     "url": "api/labs/:labId/actuators/notices/latest",
     "title": "retrieve the latest notice message",
@@ -608,7 +686,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n   { \"notice\" : \n     {\n       \"datePublished\": 1428591600000,\n       \"dateFrom\": 1428591600000,\n       \"message\": \"It is a good day to save energy!\"\n       }\n   }",
+          "content": "HTTP/1.1 200 OK\n   { \"notice\" :\n     {\n       \"datePublished\": 1428591600000,\n       \"dateFrom\": 1428591600000,\n       \"message\": \"It is a good day to save energy!\"\n       }\n   }",
           "type": "json"
         }
       ]
@@ -647,7 +725,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n   { \"tip\" : \n     {\n       \"datePublished\": 1428591600000,\n       \"dateFrom\": 1428591600000,\n       \"message\": \"Power off your computer when you leave!\"\n       }\n   }",
+          "content": "HTTP/1.1 200 OK\n   { \"tip\" :\n     {\n       \"datePublished\": 1428591600000,\n       \"dateFrom\": 1428591600000,\n       \"message\": \"Power off your computer when you leave!\"\n       }\n   }",
           "type": "json"
         }
       ]
@@ -665,7 +743,7 @@
     "examples": [
       {
         "title": "Example usage:",
-        "content": "POST /labs/marg/actuators/notices \n\n{ \"notice\" : \n  {\n    \"dateFrom\": 1428591600000,\n    \"message\": \"It is a good day to save energy!\"\n    }\n}",
+        "content": "POST /labs/marg/actuators/notices\n\n{ \"notice\" :\n  {\n    \"dateFrom\": 1428591600000,\n    \"message\": \"It is a good day to save energy!\"\n    }\n}",
         "type": "js"
       }
     ],
@@ -704,7 +782,7 @@
     "examples": [
       {
         "title": "Example usage:",
-        "content": "POST /labs/marg/actuators/tips \n\n{ \"tip\" : \n  {\n    \"dateFrom\": 1428591600000,\n    \"message\": \"Power off your computer when you leave!\"\n    }\n}",
+        "content": "POST /labs/marg/actuators/tips\n\n{ \"tip\" :\n  {\n    \"dateFrom\": 1428591600000,\n    \"message\": \"Power off your computer when you leave!\"\n    }\n}",
         "type": "js"
       }
     ],

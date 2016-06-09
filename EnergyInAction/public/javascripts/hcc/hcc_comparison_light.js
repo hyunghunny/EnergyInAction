@@ -31,10 +31,10 @@ $(function () {
     // 1. Last Season
     if(weekDay_Indicator == 1){
       TARGET = HCC_LAST_SEASON_WEEKDAY;
-      xAxis_categories = ["평소", "오늘"]
+      // xAxis_categories = ["기준", "오늘"]
     } else {
       TARGET = HCC_LAST_SEASON_WEEKEND;
-      xAxis_categories = ["평소", "오늘"]
+      // xAxis_categories = ["기준", "오늘"]
     }
 
     // console.log(TARGET[0]);
@@ -148,7 +148,7 @@ $(function () {
                 fontSize: fontSize_xSubTitle
               }
           },
-          categories: xAxis_categories,
+          categories: ["기준", "오늘"],
           labels: {
             style: {
               fontSize: fontSize_xAxis

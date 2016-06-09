@@ -115,7 +115,7 @@ $(function () {
       // console.log("03",points_hvac);
 
       }
-      // writeText();
+      writeText();
   }
 
   function writeText(){

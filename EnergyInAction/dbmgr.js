@@ -60,6 +60,34 @@ MongoDBManager.prototype.insert = function (collectionName, obj) {
     });
 }
 
+
+MongoDBManager.prototype.upsert = function (collectionName, obj) {
+    if (this.database === null) {
+        console.log('database is not opened: invoke open() before insert()');
+        return;
+    }
+    
+    this.database.collection(collectionName, function (err, collection) {
+        if (err) {
+            console.log(err);
+        } else {
+            collection.update({ _id: obj._id }, 
+                obj, { safe: true, upsert: true }, 
+                function (err, result) {
+                        if (err) {
+                            console.log(err);
+                        }
+
+                        console.log('upsert executed : ' + result);
+
+                    });
+        }
+    });
+    
+
+}
+
+
 MongoDBManager.prototype.aggregateFeeders = function (collectionName, labId, queries, callback) {
     
      

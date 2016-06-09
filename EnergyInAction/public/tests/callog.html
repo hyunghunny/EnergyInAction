@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Saving Feature Test for Calendar Logging App </title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        var userId = "testId";
+        var baseUrl = 'http://adsl.snu.ac.kr:3300/';
+        var baseUrl = '../';
+
+        // Add a schedule to the logs
+        // CAUTION: this function depends on the allLogs global varible
+        var allLogs = [];  // contains all the schedules 
+        function addSchedule(id, dateFrom, description, durationMin, durationMax) {
+            var scheduleObj = {
+                "userId" : userId
+            };
+
+            // simple sanity check - arguments availablity only
+            if (id != null && dateFrom != null && description != null && durationMin != null && durationMax != null) {
+                scheduleObj.logId = id;
+                scheduleObj.dateFrom = dateFrom;
+                scheduleObj.description = description;
+                scheduleObj.durationMin = durationMin;
+                scheduleObj.durationMax = durationMax;
+
+                allLogs.push(scheduleObj);
+
+            } else {
+                console.log('Invalid schedule log');
+            }
+        }
+
+        // Save all schedules by calling Web API
+        function saveSchedules(logs, url) {
+            var postUrl = baseUrl + 'api/labs/ux/logs/calendars';
+            var payload = {};
+            payload.logs = logs;
+            console.log(JSON.stringify(payload)); // show payload to debug
+            $.ajax({
+                'url': postUrl,
+                'type': 'post',
+                'contentType': "application/json",
+                'dataType': 'json',
+                'statusCode': {
+                    '202': function (data) {
+                        alert('The message is posted successfully');
+                        updateMessages();
+                    }
+                },
+                'data': JSON.stringify(payload)
+            });
+        }
+
+        // Test Code HERE
+
+        //addSchedule("test01", (new Date("2016-6-1 10:30")).getTime(), "ICST presentation", 75, 90);
+        //addSchedule("test02", (new Date("2016-6-3 10:30")).getTime(), "IDA lecture", 150, 200);
+        var allLogs = {
+            "id": "someone",
+            "schedules": [
+            {
+                "weekday": "Monday",
+                "top": 385,
+                "height1": 70,
+                "height2": 70
+            }
+            ]
+        };
+
+        saveSchedules(allLogs, baseUrl);
+
+    </script>
+</head>
+<body>
+    <p>Simple Test Code. See the log window.</p>
+</body>
+</html>
