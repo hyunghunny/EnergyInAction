@@ -1,4 +1,4 @@
-// import data file
+﻿// import data file
 // document.writeln("<script type='text/javascript' src='/javascripts/lib/environ_dRef.js'></script>");
 
 $(function () {
@@ -125,8 +125,11 @@ $(function () {
       signColorCode = "#a50a0a";
     }
 
-    if (document.getElementById("coffeeImg2")) {
-      document.getElementById("coffeeImg2").src="././images/coffeeCapsules2.png";
+    if (!document.getElementById("coffeeImg")) {
+      document.getElementById("weekPoints").innerHTML =sign + cumulatedSavingPoints;
+      document.getElementById("weekPoints").style.color=signColorCode;
+      document.getElementById("measure_expectedPoints").innerHTML = '점';
+      document.getElementById("measure_expectedPoints").style.color="#3e721f";
     } else {
       document.getElementById("coffeeImg").src="././images/coffeeCapsule.png";
 
