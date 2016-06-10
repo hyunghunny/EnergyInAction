@@ -105,10 +105,29 @@ $(function () {
       signColorCode = "#a50a0a";
     }
 
-    document.getElementById("weekPoints").innerHTML =sign + cumulatedSavingPoints;
-    document.getElementById("weekPoints").style.color=signColorCode;
+    if (document.getElementById("coffeeImg2")) {
+      document.getElementById("coffeeImg2").src="././images/coffeeCapsules2.png";
+    } else {
+      document.getElementById("coffeeImg").src="././images/coffeeCapsule.png";
 
-    document.getElementById("measure_expectedPoints").innerHTML = '점';
-    document.getElementById("measure_expectedPoints").style.color="#3e721f";
+      // document.getElementById("weekPoints").innerHTML =sign + cumulatedSavingPoints;
+      document.getElementById("weekPoints").innerHTML =sign + cumulatedSavingPoints;
+      document.getElementById("weekPoints").style.color=signColorCode;
+
+      expectedSavingPoints = 30 + Number(cumulatedSavingPoints);
+      expectedSavingPoints_color = "";
+
+      if(expectedSavingPoints > 0) {
+        expectedSavingPoints_color = "#3e721f";
+        document.getElementById("expectedPoints").innerHTML = '+'+expectedSavingPoints;
+        document.getElementById("expectedPoints").style.color=expectedSavingPoints_color;
+      } else {
+        expectedSavingPoints_color = "gray";
+        document.getElementById("expectedPoints").innerHTML = "0";
+        document.getElementById("expectedPoints").style.color=expectedSavingPoints_color;
+      }
+      document.getElementById("measure_expectedPoints").innerHTML = '개';
+      document.getElementById("measure_expectedPoints").style.color="#3e721f";
+    }
   }
 });
