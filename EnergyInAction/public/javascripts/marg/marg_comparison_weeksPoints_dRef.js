@@ -19,12 +19,20 @@ $(function () {
   function errorCB(response) {
     console.log(response);
 
-    document.getElementById("coffeeImg").src="././images/coffeeCapsule.png";
-    document.getElementById("expectedPoints").innerHTML = '+'+30;
-    document.getElementById("expectedPoints").style.color="#3e721f";
-    document.getElementById("weekPoints").innerHTML = '- 0';
-    document.getElementById("weekPoints").style.color= 'gray';
+    if(document.getElementById("coffeeImg")) {
+      document.getElementById("coffeeImg").src="././images/coffeeCapsule.png";
+      document.getElementById("expectedPoints").innerHTML = '+'+30;
+      document.getElementById("expectedPoints").style.color="#3e721f";
+      document.getElementById("weekPoints").innerHTML = '- 0';
+      document.getElementById("weekPoints").style.color= 'gray';
+    } else {
+      document.getElementById("weekPoints").innerHTML = '0';
+      document.getElementById("weekPoints").style.color= 'gray';
+      document.getElementById("measure_expectedPoints").innerHTML = '점';
+      document.getElementById("measure_expectedPoints").style.color='gray';
+    }
   }
+
 
   function thisWeekCB(thisWeek_) {
     var thisWeek = thisWeek_;
