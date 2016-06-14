@@ -136,8 +136,8 @@ $(function () {
     if (!document.getElementById("coffeeImg")) {
       document.getElementById("weekPoints").innerHTML =sign + cumulatedSavingPoints;
       document.getElementById("weekPoints").style.color=signColorCode;
-      document.getElementById("measure_expectedPoints").innerHTML = '점';
-      document.getElementById("measure_expectedPoints").style.color="#3e721f";
+      document.getElementById("measure_expectedPoints").innerHTML = ' 점';
+      document.getElementById("measure_expectedPoints").style.color=signColorCode;
     } else {
       document.getElementById("coffeeImg").src="././images/coffeeCapsule.png";
 
