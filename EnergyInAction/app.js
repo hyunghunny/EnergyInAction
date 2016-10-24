@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
+var timeout = require('connect-timeout');
 
 // add to response open API
 var apis = require('./routes/api');
@@ -64,6 +65,10 @@ var ux_realtime_breakdown = require('./routes/ux_realtime_breakdown');
 
 var app = express();
 
+
+app.use(timeout('10s')); // set timeout as 10 secs
+//app.use(haltOnTimeout);
+
 // to support CORS
 var allowCrossDomain = function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -97,6 +102,21 @@ app.use('/api', apis);
 //app.use('/daily', daily);
 //app.use('/daily_flow', daily_flow);
 //app.use('/beyond_extremes', beyond_extremes);
+
+
+function haltOnTimeout(req, res, next) {
+    console.log('halt on timeout: ' + req.timedout);
+    if (!req.timedout) {
+        next();
+    } else {
+        console.log('Timeout occurred. program will be terminated');
+        var err = new Error('504')
+        res.sendStatus(err.message);
+        
+        process.exit(1);
+    }
+} 
+
 
 /////////////
 // MARG set
@@ -184,6 +204,8 @@ var config = require('./config');
 var server = http.createServer(app).listen(config.server.port, function () {
     console.log("Express server listening on port " + config.server.port);
 });
+
+//server.timeout = 10000; // set timeout as 10 secs
 
 // attach realtime notifier
 var notifier = require('./notify.js');
