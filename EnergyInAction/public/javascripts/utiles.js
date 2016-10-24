@@ -32,6 +32,11 @@ if(baseDay.getDay() > 0 && baseDay.getDay() < 6){
   console.log("baseDay: ",baseDay, weekDay_Indicator);
 }
 
+// XXX: self refresh page (temporary bug patch)
+setInterval(function () {
+    location.reload() 
+}, 10 * 60000)
+
 function getLastMonday(date){
   var dayNumber = date.getDay();
   var offset = -7 - dayNumber + 1;

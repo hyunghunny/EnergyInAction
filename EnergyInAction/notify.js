@@ -40,8 +40,9 @@ exports.start = function (server) {
     socketServer = socketIo.listen(server);
 
     socketServer.sockets.on('connection', function (socket) {
-        //console.log('socket client connected');
+        console.log('socket client connected');
         // add updated event listener to broadcast
+        socketServer.sockets.emit('updated', 'socket is connected');
         socket.on('updated', function (obj) {
             // echoing to clients
             console.log('page updated: ' + obj);
