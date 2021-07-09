@@ -20,7 +20,7 @@
     "html5-marquee": "^0.1.2",
     "jade": "1.9.2",
     "mongodb": ">=3.1.13",
-    "morgan": "1.5.2",
+    "morgan": ">=1.9.1",
     "node-rest-client": "^1.5.1",
     "serve-favicon": "2.1.4",
     "socket.io": ">=2.4.0",
